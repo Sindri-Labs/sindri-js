@@ -1,0 +1,19 @@
+{
+  "name": "sindri",
+  "version": "0.0.1-alpha.0",
+  "description": "The Sindri Labs JavaScript SDK and CLI tool.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sindri-Labs/sindri-sdk.git"
+  },
+  "author": "Sindri Labs",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/Sindri-Labs/sindri-sdk/issues"
+  },
+  "homepage": "https://github.com/Sindri-Labs/sindri-sdk#readme"
+}
