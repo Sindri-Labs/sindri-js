@@ -293,10 +293,10 @@
   resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.4.1.tgz#8311b77e6cce322865ba12ada8c3779369610d18"
   integrity sha512-eAhItDX9yQtZVM3yvXS/VR3qPqcnXvnLyx1pLXl4JzyNMBNO3KC986t/iAg2zcMzpAp9JSvxB5VZGnBiNoA98w==
 
-"@tsconfig/node12@^12.1.0":
-  version "12.1.0"
-  resolved "https://registry.yarnpkg.com/@tsconfig/node12/-/node12-12.1.0.tgz#cec056d4fbcf4eab73e9ff06cad3755ea2f61178"
-  integrity sha512-kdeyUs2jy6iHVq8H27ymIE1a/ci7LjEw9VvXtvP8FKr0QptiEoM30oPy8XFfcWiPdcd2VzYdCGMYwow+K+guXA==
+"@tsconfig/node18@^18.2.2":
+  version "18.2.2"
+  resolved "https://registry.yarnpkg.com/@tsconfig/node18/-/node18-18.2.2.tgz#81fb16ecff0d400b1cbadbf76713b50f331029ce"
+  integrity sha512-d6McJeGsuoRlwWZmVIeE8CUA27lu6jLjvv1JzqmpsytOYYbVi1tHZEnwCNVOXnj4pyLvneZlFlpXUK+X9wBWyw==
 
 "@types/json-schema@^7.0.12":
   version "7.0.15"

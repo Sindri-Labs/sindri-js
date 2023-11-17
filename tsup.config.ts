@@ -33,6 +33,6 @@ export default defineConfig([
     minify: process.env.NODE_ENV === "production",
     outDir: "dist/cli",
     sourcemap: true,
-    target: "node12",
+    target: "node18",
   },
 ]);

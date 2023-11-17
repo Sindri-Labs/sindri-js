@@ -36,7 +36,7 @@
   "homepage": "https://github.com/Sindri-Labs/sindri-js#readme",
   "dependencies": {},
   "devDependencies": {
-    "@tsconfig/node12": "^12.1.0",
+    "@tsconfig/node18": "^18.2.2",
     "@types/node": "^20.9.1",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@typescript-eslint/parser": "^6.11.0",
