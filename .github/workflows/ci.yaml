@@ -1,4 +1,4 @@
-name: Lint Codebase
+name: Check Codebase
 
 on:
   push:
@@ -23,6 +23,12 @@ jobs:
         run: |
           yarn install --immutable
 
-      - name: Lint with Eslint
+      - name: Lint
+        if: success() || failure()
         run: |
           yarn lint
+
+      - name: Build
+        if: success() || failure()
+        run: |
+          yarn build
