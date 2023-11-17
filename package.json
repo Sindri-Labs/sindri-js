@@ -1,19 +1,52 @@
 {
   "name": "sindri",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.0",
   "description": "The Sindri Labs JavaScript SDK and CLI tool.",
-  "main": "index.js",
+  "files": [
+    "dist/",
+    "src/"
+  ],
+  "main": "dist/lib/index.js",
+  "module": "dist/lib/index.mjs",
+  "bin": {
+    "sindri": "dist/cli/index.js"
+  },
+  "browser": {
+    "./dist/lib/index.js": "./dist/lib/browser/index.js",
+    "./dist/lib/index.mjs": "./dist/lib/browser/index.mjs"
+  },
+  "exports": {
+    "import": "./dist/lib/index.mjs",
+    "require": "./dist/lib/index.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "NODE_ENV=production tsup",
+    "build:watch": "NODE_ENV=development tsup --watch",
+    "lint": "eslint '**/*.{js,ts}'",
+    "format": "prettier --write '**/*.{js,json,md,ts}'",
+    "type-check": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Sindri-Labs/sindri-sdk.git"
+    "url": "git+https://github.com/Sindri-Labs/sindri-js.git"
   },
   "author": "Sindri Labs",
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/Sindri-Labs/sindri-sdk/issues"
+    "url": "https://github.com/Sindri-Labs/sindri-js/issues"
   },
-  "homepage": "https://github.com/Sindri-Labs/sindri-sdk#readme"
+  "homepage": "https://github.com/Sindri-Labs/sindri-js#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@tsconfig/node18": "^18.2.2",
+    "@types/node": "^20.9.1",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
+    "eslint": "^8.53.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "prettier": "^3.1.0",
+    "tsup": "^7.3.0",
+    "typescript": "^5.2.2"
+  }
 }
