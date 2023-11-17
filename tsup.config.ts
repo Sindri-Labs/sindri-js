@@ -4,6 +4,7 @@ export default defineConfig([
   // SDK for NodeJS.
   {
     cjsInterop: true,
+    dts: true,
     entry: ["src/lib/index.ts"],
     format: ["cjs", "esm"],
     minify: process.env.NODE_ENV === "production",
@@ -16,6 +17,7 @@ export default defineConfig([
   },
   // SDK for Browser.
   {
+    dts: true,
     entry: ["src/lib/index.ts"],
     format: ["cjs", "esm"],
     minify: process.env.NODE_ENV === "production",
@@ -28,6 +30,7 @@ export default defineConfig([
   // CLI Tool.
   {
     bundle: true,
+    dts: true,
     entry: ["src/cli/index.ts"],
     format: ["cjs"],
     minify: process.env.NODE_ENV === "production",
