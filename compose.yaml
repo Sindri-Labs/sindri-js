@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  sindri-js:
+    container_name: sindri-js
+    image: sindri-js:latest
+    build:
+      args:
+        GID: "${GID:-1000}"
+        UID: "${UID:-1000}"
+    command: ["/bin/sh", "-c", "yarn install && yarn build:watch"]
+    init: true
+    restart: unless-stopped
+    volumes:
+      - ./:/sindri/
+      - yarn-cache:/home/node/.cache/yarn/
+
+volumes:
+  yarn-cache:
