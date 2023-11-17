@@ -22,7 +22,8 @@
   "scripts": {
     "build": "NODE_ENV=production tsup",
     "lint": "eslint '**/*.{js,ts}'",
-    "format": "prettier --write '**/*.{js,json,md,ts}'"
+    "format": "prettier --write '**/*.{js,json,md,ts}'",
+    "typecheck": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
