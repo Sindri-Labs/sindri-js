@@ -30,10 +30,10 @@ jobs:
         run: |
           yarn lint
 
-      - name: Typecheck
+      - name: Type Check
         if: success() || failure()
         run: |
-          yarn typecheck
+          yarn type-check
 
       - name: Build
         if: success() || failure()
