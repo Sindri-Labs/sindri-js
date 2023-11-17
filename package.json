@@ -21,6 +21,7 @@
   },
   "scripts": {
     "build": "NODE_ENV=production tsup",
+    "build:watch": "NODE_ENV=development tsup --watch",
     "lint": "eslint '**/*.{js,ts}'",
     "format": "prettier --write '**/*.{js,json,md,ts}'",
     "type-check": "tsc --noEmit"
