@@ -1,6 +1,6 @@
 {
   "name": "sindri",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.0",
   "description": "The Sindri Labs JavaScript SDK and CLI tool.",
   "files": [
     "dist/",
