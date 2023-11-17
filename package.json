@@ -2,18 +2,41 @@
   "name": "sindri",
   "version": "0.0.1-alpha.0",
   "description": "The Sindri Labs JavaScript SDK and CLI tool.",
-  "main": "index.js",
+  "files": [
+    "dist/",
+    "src/"
+  ],
+  "main": "dist/lib/index.js",
+  "module": "dist/lib/index.mjs",
+  "bin": {
+    "sindri": "dist/cli/index.js"
+  },
+  "browser": {
+    "./dist/lib/index.js": "./dist/lib/browser/index.js",
+    "./dist/lib/index.mjs": "./dist/lib/browser/index.mjs"
+  },
+  "exports": {
+    "import": "./dist/lib/index.mjs",
+    "require": "./dist/lib/index.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "NODE_ENV=production tsup"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Sindri-Labs/sindri-sdk.git"
+    "url": "git+https://github.com/Sindri-Labs/sindri-js.git"
   },
   "author": "Sindri Labs",
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/Sindri-Labs/sindri-sdk/issues"
+    "url": "https://github.com/Sindri-Labs/sindri-js/issues"
   },
-  "homepage": "https://github.com/Sindri-Labs/sindri-sdk#readme"
+  "homepage": "https://github.com/Sindri-Labs/sindri-js#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@tsconfig/node12": "^12.1.0",
+    "@types/node": "^20.9.1",
+    "tsup": "^7.3.0",
+    "typescript": "^5.2.2"
+  }
 }
