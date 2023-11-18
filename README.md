@@ -55,6 +55,14 @@ To perform a production build with minified outputs:
 yarn build
 ```
 
+### Updating the API Client
+
+This will fetch the latest OpenAPI schema for the Sindri API and autogenerate an updated API client in [`src/lib/api/`](src/lib/api/).
+
+```bash
+yarn generate-api
+```
+
 ### Linting
 
 To lint the project with Eslint and Prettier:
