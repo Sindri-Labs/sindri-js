@@ -22,6 +22,8 @@
   "scripts": {
     "build": "NODE_ENV=production tsup",
     "build:watch": "NODE_ENV=development tsup --watch",
+    "generate-api": "rm -rf src/lib/api/ && openapi --input https://forge.sindri.app/api/openapi.json --output src/lib/api/ && prettier --write src/lib/api/**/*",
+    "generate-api:dev": "rm -rf src/lib/api/ && openapi --input http://localhost/api/openapi.json --output src/lib/api/ && prettier --write src/lib/api/**/*",
     "lint": "eslint '**/*.{js,ts}'",
     "format": "prettier --write '**/*.{js,json,md,ts}'",
     "type-check": "tsc --noEmit"
@@ -45,6 +47,7 @@
     "eslint": "^8.53.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
+    "openapi-typescript-codegen": "^0.25.0",
     "prettier": "^3.1.0",
     "tsup": "^7.3.0",
     "typescript": "^5.2.2"
