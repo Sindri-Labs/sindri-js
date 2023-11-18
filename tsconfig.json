@@ -1,6 +1,8 @@
 {
   "extends": "@tsconfig/node18/tsconfig.json",
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "lib": ["dom"],
     "preserveConstEnums": true
   },
   "include": ["src/**/*"],
