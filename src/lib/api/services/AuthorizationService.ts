@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ActionResponse } from "../models/ActionResponse";
 import type { APIKeyResponse } from "../models/APIKeyResponse";
-import type { ForgeObtainApikeyInput } from "../models/ForgeObtainApikeyInput";
+import type { ObtainApikeyInput } from "../models/ObtainApikeyInput";
 
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
@@ -18,7 +19,7 @@ export class AuthorizationService {
    * @throws ApiError
    */
   public static apikeyGenerate(
-    requestBody: ForgeObtainApikeyInput,
+    requestBody: ObtainApikeyInput,
   ): CancelablePromise<APIKeyResponse> {
     return __request(OpenAPI, {
       method: "POST",
@@ -33,14 +34,59 @@ export class AuthorizationService {
 
   /**
    * Generate long-term API Key (requires prior authentication)
-   * Return a long-term API key for the user. This will replace the user's existing API key!
-   * @returns APIKeyResponse OK
+   * Return a long-term API key for the user's team.
+   * @param name
+   * @returns APIKeyResponse Created
    * @throws ApiError
    */
-  public static apikeyGenerateWithAuth(): CancelablePromise<APIKeyResponse> {
+  public static apikeyGenerateWithAuth(
+    name: string = "",
+  ): CancelablePromise<APIKeyResponse> {
     return __request(OpenAPI, {
       method: "POST",
       url: "/api/v1/apikey/generate",
+      query: {
+        name: name,
+      },
+    });
+  }
+
+  /**
+   * API Key List
+   * Return a list of API Keys for the team.
+   * @returns APIKeyResponse OK
+   * @throws ApiError
+   */
+  public static apikeyList(): CancelablePromise<Array<APIKeyResponse>> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/v1/apikey/list",
+      errors: {
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
+   * Delete API Key
+   * Mark the specified API Key as deleted.
+   * @param apikeyId
+   * @returns ActionResponse OK
+   * @throws ApiError
+   */
+  public static apikeyDelete(
+    apikeyId: string,
+  ): CancelablePromise<ActionResponse> {
+    return __request(OpenAPI, {
+      method: "DELETE",
+      url: "/api/v1/apikey/{apikey_id}/delete",
+      path: {
+        apikey_id: apikeyId,
+      },
+      errors: {
+        404: `Not Found`,
+        500: `Internal Server Error`,
+      },
     });
   }
 }

@@ -25,7 +25,7 @@ export type ProofInfoResponse = {
   proof?: Record<string, any>;
   prover_implementation?: Record<string, any>;
   public?: any;
-  system_info?: Record<string, any>;
+  worker_hardware?: Record<string, any>;
   verification_key?: Record<string, any>;
   error?: string;
 };

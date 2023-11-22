@@ -20,7 +20,7 @@ export class TokenService {
    * @returns TokenObtainPairOutputSchema OK
    * @throws ApiError
    */
-  public static c04Ee8ControllerObtainToken(
+  public static bf740E1AControllerObtainToken(
     requestBody: TokenObtainPairInputSchema,
   ): CancelablePromise<TokenObtainPairOutputSchema> {
     return __request(OpenAPI, {
@@ -37,7 +37,7 @@ export class TokenService {
    * @returns TokenRefreshOutputSchema OK
    * @throws ApiError
    */
-  public static e8136B3ControllerRefreshToken(
+  public static db93F15ControllerRefreshToken(
     requestBody: TokenRefreshInputSchema,
   ): CancelablePromise<TokenRefreshOutputSchema> {
     return __request(OpenAPI, {
@@ -54,7 +54,7 @@ export class TokenService {
    * @returns Schema OK
    * @throws ApiError
    */
-  public static ecdControllerVerifyToken(
+  public static abc17FbControllerVerifyToken(
     requestBody: TokenVerifyInputSchema,
   ): CancelablePromise<Schema> {
     return __request(OpenAPI, {

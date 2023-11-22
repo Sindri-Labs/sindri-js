@@ -18,7 +18,7 @@ export type Halo2CircuitInfoResponse = {
   compute_times?: any;
   file_sizes?: Record<string, any>;
   metadata?: Record<string, any>;
-  system_info?: Record<string, any>;
+  worker_hardware?: Record<string, any>;
   verification_key?: Record<string, any>;
   error?: string;
   circuit_type: Halo2CircuitType;

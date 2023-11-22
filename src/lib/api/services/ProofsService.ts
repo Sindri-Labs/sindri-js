@@ -11,7 +11,7 @@ import { request as __request } from "../core/request";
 export class ProofsService {
   /**
    * Proof List
-   * Return list of ProofInfoResponse for proofs related to user.
+   * Return list of ProofInfoResponse for proofs related to team.
    * @param includeProofInput
    * @param includeProof
    * @param includePublic

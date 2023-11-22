@@ -4,9 +4,8 @@
 /* eslint-disable */
 
 /**
- * Client input to obtain an API key.
+ * NoirType choices
  */
-export type ForgeObtainApikeyInput = {
-  username: string;
-  password: string;
-};
+export enum NoirCircuitType {
+  NOIR = "Noir",
+}

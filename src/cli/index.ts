@@ -1,3 +1,18 @@
 #! /usr/bin/env node
+import { argv } from "process";
 
-console.log("CLI");
+import { Command } from "@commander-js/extra-typings";
+
+import { loginCommand } from "cli/login";
+import { logoutCommand } from "cli/logout";
+import { whoamiCommand } from "cli/whoami";
+
+const program = new Command()
+  .name("sindri")
+  .description("The Sindri CLI client.")
+  .version(process.env.npm_package_version ?? "0.0.0")
+  .addCommand(loginCommand)
+  .addCommand(logoutCommand)
+  .addCommand(whoamiCommand);
+
+program.parse(argv);
