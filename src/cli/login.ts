@@ -1,8 +1,8 @@
 import os from "os";
 
 import axios from "axios";
-import { Command } from "@commander-js/extra-typings";
 import chalk from "chalk";
+import { Command } from "@commander-js/extra-typings";
 import { input, password as passwordInput, select } from "@inquirer/prompts";
 
 import { config } from "cli/config";
