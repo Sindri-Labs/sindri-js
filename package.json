@@ -39,13 +39,20 @@
   },
   "homepage": "https://github.com/Sindri-Labs/sindri-js#readme",
   "dependencies": {
+    "@inquirer/prompts": "^3.3.0",
     "axios": "^1.6.2",
+    "chalk": "^5.3.0",
     "commander": "^11.1.0",
-    "form-data": "^4.0.0"
+    "env-paths": "^2.2.1",
+    "form-data": "^4.0.0",
+    "lodash": "^4.17.21",
+    "rc": "^1.2.8",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@commander-js/extra-typings": "^11.1.0",
     "@tsconfig/node18": "^18.2.2",
+    "@types/lodash": "^4.14.202",
     "@types/node": "^20.9.1",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@typescript-eslint/parser": "^6.11.0",

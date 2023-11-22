@@ -2,7 +2,10 @@
   "extends": "@tsconfig/node18/tsconfig.json",
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
     "lib": ["dom"],
+    "module": "ESNext",
+    "moduleResolution": "node",
     "preserveConstEnums": true
   },
   "include": ["src/**/*"],
