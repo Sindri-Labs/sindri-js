@@ -1,13 +1,9 @@
 #! /usr/bin/env node
-import { Command } from "@commander-js/extra-typings";
 import process from "process";
 
-const loginCommand = new Command()
-  .name("login")
-  .description("Authorize the client.")
-  .action(() => {
-    console.log("hey");
-  });
+import { Command } from "@commander-js/extra-typings";
+
+import { loginCommand } from "cli/login";
 
 const program = new Command()
   .name("sindri")
