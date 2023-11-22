@@ -1,5 +1,5 @@
 #! /usr/bin/env node
-import process from "process";
+import { argv } from "process";
 
 import { Command } from "@commander-js/extra-typings";
 
@@ -9,8 +9,8 @@ import { whoamiCommand } from "cli/whoami";
 const program = new Command()
   .name("sindri")
   .description("The Sindri CLI client.")
-  .version("1.0.0") // TODO: Pull this in for real.
+  .version(process.env.npm_package_version ?? "0.0.0")
   .addCommand(loginCommand)
   .addCommand(whoamiCommand);
 
-program.parse(process.argv);
+program.parse(argv);

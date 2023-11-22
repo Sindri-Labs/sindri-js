@@ -63,6 +63,11 @@ jobs:
       - name: Update package.json Version
         run: npm version --no-git-tag-version $VERSION
 
+      - name: Build With Updated Version
+        if: success() || failure()
+        run: |
+          yarn build
+
       - name: Publish to NPM
         run: |
           npm publish
