@@ -10,4 +10,5 @@ export enum CircuitType {
   CIRCOM = "Circom",
   HALO2 = "Halo2",
   GNARK = "Gnark",
+  NOIR = "Noir",
 }

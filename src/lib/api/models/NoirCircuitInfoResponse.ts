@@ -4,12 +4,12 @@
 /* eslint-disable */
 
 import type { CircuitStatus } from "./CircuitStatus";
-import type { GnarkCircuitType } from "./GnarkCircuitType";
+import type { NoirCircuitType } from "./NoirCircuitType";
 
 /**
- * Response for getting Gnark circuit info.
+ * Response for getting Noir circuit info.
  */
-export type GnarkCircuitInfoResponse = {
+export type NoirCircuitInfoResponse = {
   circuit_id: string;
   circuit_name: string;
   date_created: string;
@@ -21,6 +21,8 @@ export type GnarkCircuitInfoResponse = {
   worker_hardware?: Record<string, any>;
   verification_key?: Record<string, any>;
   error?: string;
-  circuit_type: GnarkCircuitType;
-  curve?: string;
+  circuit_type: NoirCircuitType;
+  nargo_package_name?: string;
+  acir_opcodes?: number;
+  circuit_size?: number;
 };

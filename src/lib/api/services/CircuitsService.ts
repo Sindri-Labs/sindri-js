@@ -6,6 +6,7 @@ import type { ActionResponse } from "../models/ActionResponse";
 import type { CircomCircuitInfoResponse } from "../models/CircomCircuitInfoResponse";
 import type { GnarkCircuitInfoResponse } from "../models/GnarkCircuitInfoResponse";
 import type { Halo2CircuitInfoResponse } from "../models/Halo2CircuitInfoResponse";
+import type { NoirCircuitInfoResponse } from "../models/NoirCircuitInfoResponse";
 import type { ProofIdResponse } from "../models/ProofIdResponse";
 import type { ProofInfoResponse } from "../models/ProofInfoResponse";
 
@@ -28,6 +29,7 @@ export class CircuitsService {
       | CircomCircuitInfoResponse
       | Halo2CircuitInfoResponse
       | GnarkCircuitInfoResponse
+      | NoirCircuitInfoResponse
     >
   > {
     return __request(OpenAPI, {
@@ -54,11 +56,12 @@ export class CircuitsService {
     /**
      * CircuitType choices
      */
-    circuit_type: "Circom" | "Halo2" | "Gnark";
+    circuit_type: "Circom" | "Halo2" | "Gnark" | "Noir";
   }): CancelablePromise<
     | CircomCircuitInfoResponse
     | Halo2CircuitInfoResponse
     | GnarkCircuitInfoResponse
+    | NoirCircuitInfoResponse
   > {
     return __request(OpenAPI, {
       method: "POST",
@@ -88,6 +91,7 @@ export class CircuitsService {
     | CircomCircuitInfoResponse
     | Halo2CircuitInfoResponse
     | GnarkCircuitInfoResponse
+    | NoirCircuitInfoResponse
   > {
     return __request(OpenAPI, {
       method: "GET",
@@ -130,7 +134,7 @@ export class CircuitsService {
 
   /**
    * Circuit Proofs
-   * Return list of ProofInfoResponse for proofs of circuit_id related to user.
+   * Return list of ProofInfoResponse for proofs of circuit_id related to team.
    * @param circuitId
    * @param includeProofInput
    * @param includeProof
