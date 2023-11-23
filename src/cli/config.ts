@@ -10,7 +10,6 @@ const paths = envPaths("sindri", {
   suffix: "",
 });
 const configPath = path.join(paths.config, "sindri.conf.json");
-console.log(configPath);
 
 const ConfigSchema = z.object({
   auth: z
