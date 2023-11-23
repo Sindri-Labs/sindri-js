@@ -26,7 +26,7 @@ export const loginCommand = new Command()
     const password = await passwordInput({ mask: true, message: "Password:" });
     const name = await input({
       default: `${os.hostname()}-sdk`,
-      message: "Key Name:",
+      message: "New API Key Name:",
     });
 
     // Generate an API key for one of their teams.
