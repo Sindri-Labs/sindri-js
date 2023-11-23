@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 
+import chalk from "chalk";
 import envPaths from "env-paths";
 import { cloneDeep, merge } from "lodash";
 import { z } from "zod";
@@ -16,6 +17,7 @@ const ConfigSchema = z.object({
     .nullable(
       z.object({
         apiKey: z.string(),
+        baseUrl: z.string().url(),
         teamId: z.number(),
         teamSlug: z.string(),
       }),
@@ -29,10 +31,19 @@ const defaultConfig: ConfigSchema = ConfigSchema.parse({});
 
 const loadConfig = (): ConfigSchema => {
   if (fs.existsSync(configPath)) {
-    const configFileContents: string = fs.readFileSync(configPath, {
-      encoding: "utf-8",
-    });
-    return ConfigSchema.parse(JSON.parse(configFileContents));
+    try {
+      const configFileContents: string = fs.readFileSync(configPath, {
+        encoding: "utf-8",
+      });
+      return ConfigSchema.parse(JSON.parse(configFileContents));
+    } catch {
+      console.warn(
+        chalk.yellow(
+          `The config schema in "${configPath}" is invalid and will not be used.\n` +
+            `To remove it and start fresh, run:\n    rm ${configPath}`,
+        ),
+      );
+    }
   }
   return cloneDeep(defaultConfig);
 };

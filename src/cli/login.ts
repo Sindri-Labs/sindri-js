@@ -1,17 +1,26 @@
 import os from "os";
 
-import axios from "axios";
 import chalk from "chalk";
 import { Command } from "@commander-js/extra-typings";
 import { input, password as passwordInput, select } from "@inquirer/prompts";
 
 import { config } from "cli/config";
-import { AuthorizationService, InternalService, TokenService } from "lib/api";
+import {
+  AuthorizationService,
+  InternalService,
+  OpenAPI,
+  TokenService,
+} from "lib/api";
 
 export const loginCommand = new Command()
   .name("login")
   .description("Authorize the client.")
-  .action(async () => {
+  .option(
+    "-u, --base-url <URL>",
+    "The base URL for the Sindri API. Mainly useful for development.",
+    OpenAPI.BASE,
+  )
+  .action(async ({ baseUrl }) => {
     // Collect details for generating an API key.
     const username = await input({ message: "Username:" });
     const password = await passwordInput({ mask: true, message: "Password:" });
@@ -23,13 +32,12 @@ export const loginCommand = new Command()
     // Generate an API key for one of their teams.
     try {
       // Generate a JWT token to authenticate the user.
+      OpenAPI.BASE = baseUrl;
       const tokenResult = await TokenService.bf740E1AControllerObtainToken({
         username,
         password,
       });
-      axios.defaults.headers.common = {
-        Authorization: `Bearer ${tokenResult.access}`,
-      };
+      OpenAPI.TOKEN = tokenResult.access;
 
       // Fetch their teams and have the user select one.
       const userResult = await InternalService.userMeWithJwtAuth();
@@ -57,7 +65,7 @@ export const loginCommand = new Command()
       }
 
       // Store the new auth information.
-      config.update({ auth: { apiKey, teamId, teamSlug: team.slug } });
+      config.update({ auth: { apiKey, baseUrl, teamId, teamSlug: team.slug } });
       console.log(
         chalk.green(
           "You have successfully authorized the client with your Sindri account.",

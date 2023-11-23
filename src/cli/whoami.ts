@@ -1,4 +1,3 @@
-import axios from "axios";
 import chalk from "chalk";
 import { Command } from "@commander-js/extra-typings";
 
@@ -14,9 +13,6 @@ export const whoamiCommand = new Command()
       console.error(chalk.red("You must login first with `sindri login`."));
       return;
     }
-    axios.defaults.headers.common = {
-      Authorization: `Bearer ${auth.apiKey}`,
-    };
 
     // TODO: Use the new "team-me" endpoint to test authentication and fetch the current team.
     // This should be deployed soon, and we'll update this method then. For now, we just rely on
