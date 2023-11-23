@@ -2,7 +2,12 @@ import os from "os";
 
 import chalk from "chalk";
 import { Command } from "@commander-js/extra-typings";
-import { input, password as passwordInput, select } from "@inquirer/prompts";
+import {
+  confirm,
+  input,
+  password as passwordInput,
+  select,
+} from "@inquirer/prompts";
 
 import { config } from "cli/config";
 import {
@@ -21,6 +26,19 @@ export const loginCommand = new Command()
     OpenAPI.BASE,
   )
   .action(async ({ baseUrl }) => {
+    const auth = config.auth;
+    if (auth) {
+      const proceed = await confirm({
+        message:
+          `You are already logged in as ${auth.teamSlug} on ${auth.baseUrl}, ` +
+          "are you sure you want to proceed?",
+        default: false,
+      });
+      if (!proceed) {
+        console.log("Aborting.");
+        return;
+      }
+    }
     // Collect details for generating an API key.
     const username = await input({ message: "Username:" });
     const password = await passwordInput({ mask: true, message: "Password:" });
