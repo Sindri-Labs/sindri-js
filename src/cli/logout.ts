@@ -5,7 +5,7 @@ import { config } from "cli/config";
 
 export const logoutCommand = new Command()
   .name("logout")
-  .description("Display the currently authorized team name.")
+  .description("Remove the current client authorization credentials.")
   .action(async () => {
     // Authorize the API client.
     const auth = config.auth;
