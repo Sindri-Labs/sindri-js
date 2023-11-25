@@ -1,21 +1,14 @@
-import process from "process";
-
 import pino from "pino";
+import pretty from "pino-pretty";
 
-export const logger = pino(
-  {
-    transport: {
-      options: {
-        // Write all logs to stderr.
-        destination: 2,
-        // Write synchronously so logs appear before inquirer prompts.
-        sync: true,
-      },
-      // Pretty print instead of JSON logging.
-      target: "pino-pretty",
-    },
-  },
-  process.stdout,
-);
+const prettyStream = pretty({
+  colorize: true,
+  destination: 2,
+  ignore: "hostname,pid",
+  levelFirst: false,
+  sync: true,
+});
+
+export const logger = pino(prettyStream);
 
 export const print = console.log;
