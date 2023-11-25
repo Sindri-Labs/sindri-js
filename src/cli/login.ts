@@ -1,6 +1,6 @@
 import os from "os";
+import process from "process";
 
-import chalk from "chalk";
 import { Command } from "@commander-js/extra-typings";
 import {
   confirm,
@@ -9,7 +9,8 @@ import {
   select,
 } from "@inquirer/prompts";
 
-import { config } from "cli/config";
+import { Config } from "cli/config";
+import { logger } from "cli/logging";
 import {
   AuthorizationService,
   InternalService,
@@ -26,6 +27,7 @@ export const loginCommand = new Command()
     OpenAPI.BASE,
   )
   .action(async ({ baseUrl }) => {
+    const config = new Config();
     const auth = config.auth;
     if (auth) {
       const proceed = await confirm({
@@ -35,7 +37,7 @@ export const loginCommand = new Command()
         default: false,
       });
       if (!proceed) {
-        console.log("Aborting.");
+        logger.info("Aborting.");
         return;
       }
     }
@@ -84,13 +86,12 @@ export const loginCommand = new Command()
 
       // Store the new auth information.
       config.update({ auth: { apiKey, baseUrl, teamId, teamSlug: team.slug } });
-      console.log(
-        chalk.green(
-          "You have successfully authorized the client with your Sindri account.",
-        ),
+      logger.info(
+        "You have successfully authorized the client with your Sindri account.",
       );
     } catch (error) {
-      console.error(chalk.red("Something went wrong."));
-      console.error(error);
+      logger.fatal("An irrecoverable error occurred.");
+      logger.error(error);
+      process.exit(1);
     }
   });
