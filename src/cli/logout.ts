@@ -1,19 +1,20 @@
-import chalk from "chalk";
 import { Command } from "@commander-js/extra-typings";
 
-import { config } from "cli/config";
+import { Config } from "cli/config";
+import { logger } from "cli/logging";
 
 export const logoutCommand = new Command()
   .name("logout")
-  .description("Display the currently authorized team name.")
+  .description("Remove the current client authorization credentials.")
   .action(async () => {
     // Authorize the API client.
+    const config = new Config();
     const auth = config.auth;
     if (!auth) {
-      console.error(chalk.red("You must log in first with `sindri login`."));
+      logger.error("You must log in first with `sindri login`.");
       return;
     }
 
     config.update({ auth: null });
-    console.log(chalk.green("You have successfully logged out."));
+    logger.info("You have successfully logged out.");
   });

@@ -27,6 +27,17 @@ docker compose exec sindri-js bash
 
 From here, you can use the `sindri` command or run any of the Yarn invocations for linting, formatting, etc.
 
+#### Integrating With Local Development Server
+
+Inside of the Docker container, you can run
+
+```bash
+sindri -d login -u http://host.docker.internal login
+```
+
+to authenticate against a Sindri development backend running locally on port 80.
+Both your credentials and the local base URL for the server will be stored in `sindri.conf.json` and used in subsequent requests.
+
 ### Installing Dependencies
 
 To install the project dependencies:

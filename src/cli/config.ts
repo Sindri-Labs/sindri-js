@@ -5,17 +5,19 @@ import envPaths from "env-paths";
 import { cloneDeep, merge } from "lodash";
 import { z } from "zod";
 
+import { logger } from "cli/logging";
+
 const paths = envPaths("sindri", {
   suffix: "",
 });
 const configPath = path.join(paths.config, "sindri.conf.json");
-console.log(configPath);
 
 const ConfigSchema = z.object({
   auth: z
     .nullable(
       z.object({
         apiKey: z.string(),
+        baseUrl: z.string().url(),
         teamId: z.number(),
         teamSlug: z.string(),
       }),
@@ -29,19 +31,38 @@ const defaultConfig: ConfigSchema = ConfigSchema.parse({});
 
 const loadConfig = (): ConfigSchema => {
   if (fs.existsSync(configPath)) {
-    const configFileContents: string = fs.readFileSync(configPath, {
-      encoding: "utf-8",
-    });
-    return ConfigSchema.parse(JSON.parse(configFileContents));
+    logger.debug(`Loading config from "${configPath}".`);
+    try {
+      const configFileContents: string = fs.readFileSync(configPath, {
+        encoding: "utf-8",
+      });
+      const loadedConfig = ConfigSchema.parse(JSON.parse(configFileContents));
+      logger.debug("Config loaded successfully.");
+      return loadedConfig;
+    } catch (error) {
+      logger.warn(
+        `The config schema in "${configPath}" is invalid and will not be used.\n` +
+          `To remove it and start fresh, run:\n    rm ${configPath}`,
+      );
+      logger.debug(error);
+    }
   }
+  logger.debug(
+    `Config file "${configPath}" does not exist, initializing default config.`,
+  );
   return cloneDeep(defaultConfig);
 };
 
-class Config {
-  protected _config: ConfigSchema;
+export class Config {
+  protected _config!: ConfigSchema;
+  protected static instance: Config;
 
   constructor() {
-    this._config = loadConfig();
+    if (!Config.instance) {
+      this._config = loadConfig();
+      Config.instance = this;
+    }
+    return Config.instance;
   }
 
   get auth(): ConfigSchema["auth"] {
@@ -50,6 +71,8 @@ class Config {
 
   update(configData: Partial<ConfigSchema>) {
     // Merge and validate the configs.
+    logger.debug("Merging in config update:");
+    logger.debug(configData);
     const newConfig: ConfigSchema = cloneDeep(this._config);
     merge(newConfig, configData);
     this._config = ConfigSchema.parse(newConfig);
@@ -61,10 +84,9 @@ class Config {
     }
 
     // Write out the new config.
+    logger.debug(`Writing merged config to "${configPath}":`, this._config);
     fs.writeFileSync(configPath, JSON.stringify(this._config, null, 2), {
       encoding: "utf-8",
     });
   }
 }
-
-export const config = new Config();
