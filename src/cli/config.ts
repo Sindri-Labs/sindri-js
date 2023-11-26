@@ -7,6 +7,7 @@ import { cloneDeep, merge } from "lodash";
 import { z } from "zod";
 
 import { logger, print } from "cli/logging";
+import { OpenAPI } from "lib/api";
 
 const paths = envPaths("sindri", {
   suffix: "",
@@ -62,6 +63,11 @@ export class Config {
     if (!Config.instance) {
       this._config = loadConfig();
       Config.instance = this;
+      // Prepare API the client with the loaded credentials.
+      if (this._config.auth) {
+        OpenAPI.BASE = this._config.auth.baseUrl;
+        OpenAPI.TOKEN = this._config.auth.apiKey;
+      }
     }
     return Config.instance;
   }
