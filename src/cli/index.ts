@@ -3,7 +3,7 @@ import { argv, exit } from "process";
 
 import { Command } from "@commander-js/extra-typings";
 
-import { Config } from "cli/config";
+import { Config, configCommand } from "cli/config";
 import { logger } from "cli/logging";
 import { loginCommand } from "cli/login";
 import { logoutCommand } from "cli/logout";
@@ -19,6 +19,7 @@ const program = new Command()
     "Disable all logging aside from direct command outputs for programmatic consumption.",
     false,
   )
+  .addCommand(configCommand)
   .addCommand(loginCommand)
   .addCommand(logoutCommand)
   .addCommand(whoamiCommand)

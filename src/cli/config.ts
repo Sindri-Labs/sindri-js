@@ -1,11 +1,12 @@
 import fs from "fs";
 import path from "path";
 
+import { Command } from "@commander-js/extra-typings";
 import envPaths from "env-paths";
 import { cloneDeep, merge } from "lodash";
 import { z } from "zod";
 
-import { logger } from "cli/logging";
+import { logger, print } from "cli/logging";
 
 const paths = envPaths("sindri", {
   suffix: "",
@@ -69,6 +70,10 @@ export class Config {
     return cloneDeep(this._config.auth);
   }
 
+  get config(): ConfigSchema {
+    return cloneDeep(this._config);
+  }
+
   update(configData: Partial<ConfigSchema>) {
     // Merge and validate the configs.
     logger.debug("Merging in config update:");
@@ -90,3 +95,16 @@ export class Config {
     });
   }
 }
+
+export const configListCommand = new Command()
+  .name("list")
+  .description("Show the current config.")
+  .action(async () => {
+    const config = new Config();
+    print(config.config);
+  });
+
+export const configCommand = new Command()
+  .name("config")
+  .description("Commands related to configuration and config files.")
+  .addCommand(configListCommand);
