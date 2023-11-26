@@ -20,6 +20,8 @@ export const whoamiCommand = new Command()
 
     try {
       const response = await InternalService.teamMe();
+      logger.debug("/api/v1/team/me/ response:");
+      logger.debug(response);
       print(response.team.slug);
     } catch (error) {
       if (error instanceof ApiError && error.status === 401) {
@@ -27,7 +29,7 @@ export const whoamiCommand = new Command()
           "Your credentials are invalid. Please log in again with `sindri login`.",
         );
       } else {
-        logger.error("An unknown error occurred.");
+        logger.fatal("An unknown error occurred.");
         logger.error(error);
       }
     }

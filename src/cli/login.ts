@@ -34,7 +34,9 @@ export const loginCommand = new Command()
     if (auth) {
       let authenticated: boolean = false;
       try {
-        await InternalService.teamMe();
+        const teamMeResult = await InternalService.teamMe();
+        logger.debug("/api/v1/team/me/ response:");
+        logger.debug(teamMeResult);
         authenticated = true;
       } catch (error) {
         if (error instanceof ApiError && error.status === 401) {
@@ -78,10 +80,14 @@ export const loginCommand = new Command()
         username,
         password,
       });
+      logger.debug("/api/token/ response:");
+      logger.debug(tokenResult);
       OpenAPI.TOKEN = tokenResult.access;
 
       // Fetch their teams and have the user select one.
       const userResult = await InternalService.userMeWithJwtAuth();
+      logger.debug("/api/v1/user/me/ response:");
+      logger.debug(userResult);
       const teamId = await select({
         message: "Select a Team:",
         choices: userResult.teams.map(({ id, slug }) => ({
@@ -95,12 +101,14 @@ export const loginCommand = new Command()
       }
 
       // Generate an API key.
-      const result = await AuthorizationService.apikeyGenerate({
+      const apiKeyResult = await AuthorizationService.apikeyGenerate({
         username,
         password,
         name,
       });
-      const apiKey = result.api_key;
+      logger.debug("/api/apikey/generate/ response:");
+      logger.debug(apiKeyResult);
+      const apiKey = apiKeyResult.api_key;
       if (!apiKey) {
         throw new Error("Error generating API key.");
       }
