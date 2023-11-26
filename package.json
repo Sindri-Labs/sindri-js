@@ -16,6 +16,7 @@
     "./dist/lib/index.mjs": "./dist/lib/browser/index.mjs"
   },
   "exports": {
+    "./cli": "./dist/cli/index.js",
     "import": "./dist/lib/index.mjs",
     "require": "./dist/lib/index.js"
   },
