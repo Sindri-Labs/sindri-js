@@ -109,12 +109,23 @@ export const loginCommand = new Command()
       logger.debug("/api/apikey/generate/ response:");
       logger.debug(apiKeyResult);
       const apiKey = apiKeyResult.api_key;
-      if (!apiKey) {
+      const apiKeyId = apiKeyResult.id;
+      const apiKeyName = apiKeyResult.name;
+      if (!apiKey || !apiKeyId || !apiKeyName) {
         throw new Error("Error generating API key.");
       }
 
       // Store the new auth information.
-      config.update({ auth: { apiKey, baseUrl, teamId, teamSlug: team.slug } });
+      config.update({
+        auth: {
+          apiKey,
+          apiKeyId,
+          apiKeyName,
+          baseUrl,
+          teamId,
+          teamSlug: team.slug,
+        },
+      });
       logger.info(
         "You have successfully authorized the client with your Sindri account.",
       );

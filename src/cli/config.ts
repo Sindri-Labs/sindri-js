@@ -19,6 +19,8 @@ const ConfigSchema = z.object({
     .nullable(
       z.object({
         apiKey: z.string(),
+        apiKeyId: z.string(),
+        apiKeyName: z.string(),
         baseUrl: z.string().url(),
         teamId: z.number(),
         teamSlug: z.string(),
