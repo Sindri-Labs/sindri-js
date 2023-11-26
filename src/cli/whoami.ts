@@ -31,6 +31,7 @@ export const whoamiCommand = new Command()
       } else {
         logger.fatal("An unknown error occurred.");
         logger.error(error);
+        return process.exit(1);
       }
     }
   });

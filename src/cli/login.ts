@@ -46,7 +46,7 @@ export const loginCommand = new Command()
         } else {
           logger.fatal("An unknown error occurred.");
           logger.error(error);
-          return;
+          return process.exit(1);
         }
       }
 
