@@ -16,9 +16,11 @@
     "./dist/lib/index.mjs": "./dist/lib/browser/index.mjs"
   },
   "exports": {
-    "./cli": "./dist/cli/index.js",
-    "import": "./dist/lib/index.mjs",
-    "require": "./dist/lib/index.js"
+    ".": {
+      "import": "./dist/lib/index.mjs",
+      "require": "./dist/lib/index.js"
+    },
+    "./cli": "./dist/cli/index.js"
   },
   "scripts": {
     "build": "NODE_ENV=production tsup --env.NODE_ENV $NODE_ENV --env.npm_package_version $npm_package_version",
