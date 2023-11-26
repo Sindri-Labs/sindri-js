@@ -9,7 +9,7 @@ import { loginCommand } from "cli/login";
 import { logoutCommand } from "cli/logout";
 import { whoamiCommand } from "cli/whoami";
 
-const program = new Command()
+export const program = new Command()
   .name("sindri")
   .description("The Sindri CLI client.")
   .version(process.env.npm_package_version ?? "0.0.0")
