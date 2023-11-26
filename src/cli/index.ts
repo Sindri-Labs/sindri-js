@@ -46,4 +46,6 @@ export const program = new Command()
     new Config();
   });
 
-program.parse(argv);
+if (require.main === module) {
+  program.parse(argv);
+}
