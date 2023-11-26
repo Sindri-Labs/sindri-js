@@ -2,7 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ActionResponse } from "../models/ActionResponse";
 import type { CircomCircuitInfoResponse } from "../models/CircomCircuitInfoResponse";
 import type { GnarkCircuitInfoResponse } from "../models/GnarkCircuitInfoResponse";
 import type { Halo2CircuitInfoResponse } from "../models/Halo2CircuitInfoResponse";
@@ -52,11 +51,7 @@ export class CircuitsService {
    * @throws ApiError
    */
   public static circuitCreate(formData: {
-    circuit_name: string;
-    /**
-     * CircuitType choices
-     */
-    circuit_type: "Circom" | "Halo2" | "Gnark" | "Noir";
+    files: Array<Blob>;
   }): CancelablePromise<
     | CircomCircuitInfoResponse
     | Halo2CircuitInfoResponse
@@ -67,8 +62,9 @@ export class CircuitsService {
       method: "POST",
       url: "/api/v1/circuit/create",
       formData: formData,
-      mediaType: "application/x-www-form-urlencoded",
+      mediaType: "multipart/form-data",
       errors: {
+        412: `Precondition Failed`,
         422: `Unprocessable Entity`,
         500: `Internal Server Error`,
         501: `Not Implemented`,
@@ -105,29 +101,6 @@ export class CircuitsService {
       errors: {
         404: `Not Found`,
         500: `Internal Server Error`,
-      },
-    });
-  }
-
-  /**
-   * Compile Circuit
-   * Compile a circuit.
-   * @param circuitId
-   * @returns ActionResponse Created
-   * @throws ApiError
-   */
-  public static circuitCompile(
-    circuitId: string,
-  ): CancelablePromise<ActionResponse> {
-    return __request(OpenAPI, {
-      method: "POST",
-      url: "/api/v1/circuit/{circuit_id}/compile",
-      path: {
-        circuit_id: circuitId,
-      },
-      errors: {
-        404: `Not Found`,
-        501: `Not Implemented`,
       },
     });
   }
@@ -205,37 +178,6 @@ export class CircuitsService {
       errors: {
         404: `Not Found`,
         412: `Precondition Failed`,
-        501: `Not Implemented`,
-      },
-    });
-  }
-
-  /**
-   * Upload Files for Circuit
-   * Upload files for a circuit. We only allow 1 file for now, and it must be a Tarfile.
-   * @param circuitId
-   * @param formData
-   * @returns ActionResponse Created
-   * @throws ApiError
-   */
-  public static circuitUploadfiles(
-    circuitId: string,
-    formData: {
-      files: Array<Blob>;
-    },
-  ): CancelablePromise<ActionResponse> {
-    return __request(OpenAPI, {
-      method: "POST",
-      url: "/api/v1/circuit/{circuit_id}/uploadfiles",
-      path: {
-        circuit_id: circuitId,
-      },
-      formData: formData,
-      mediaType: "multipart/form-data",
-      errors: {
-        404: `Not Found`,
-        412: `Precondition Failed`,
-        500: `Internal Server Error`,
         501: `Not Implemented`,
       },
     });

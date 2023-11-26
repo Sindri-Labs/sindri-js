@@ -7,7 +7,6 @@
  * CircuitStatus choices
  */
 export enum CircuitStatus {
-  CREATED = "Created",
   QUEUED = "Queued",
   IN_PROGRESS = "In Progress",
   READY = "Ready",

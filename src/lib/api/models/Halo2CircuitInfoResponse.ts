@@ -4,13 +4,14 @@
 /* eslint-disable */
 
 import type { CircuitStatus } from "./CircuitStatus";
-import type { Halo2CircuitType } from "./Halo2CircuitType";
+import type { CircuitType } from "./CircuitType";
 
 /**
  * Response for getting Halo2 circuit info.
  */
 export type Halo2CircuitInfoResponse = {
   circuit_id: string;
+  circuit_type: CircuitType;
   circuit_name: string;
   date_created: string;
   status: CircuitStatus;
@@ -21,9 +22,11 @@ export type Halo2CircuitInfoResponse = {
   worker_hardware?: Record<string, any>;
   verification_key?: Record<string, any>;
   error?: string;
-  circuit_type: Halo2CircuitType;
-  curve?: string;
-  degree?: number;
+  class_name: string;
+  curve: string;
+  degree: number;
+  halo2_version: string;
+  package_name: string;
+  thread_builder?: string;
   trusted_setup_file?: string;
-  halo2_base_version?: string;
 };

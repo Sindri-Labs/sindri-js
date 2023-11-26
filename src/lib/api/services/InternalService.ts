@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { TeamMeResponse } from "../models/TeamMeResponse";
 import type { UserMeResponse } from "../models/UserMeResponse";
 
 import type { CancelablePromise } from "../core/CancelablePromise";
@@ -9,6 +10,19 @@ import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
 
 export class InternalService {
+  /**
+   * Obtain team details for the currently authenticated team
+   * Return details about the currently authenticated team.
+   * @returns TeamMeResponse OK
+   * @throws ApiError
+   */
+  public static teamMe(): CancelablePromise<TeamMeResponse> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/v1/team/me",
+    });
+  }
+
   /**
    * Obtain user details (requires JWT authentication)
    * Return details about the user and their teams.
