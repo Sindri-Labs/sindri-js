@@ -12,6 +12,7 @@ import {
 import { Config } from "cli/config";
 import { logger } from "cli/logging";
 import {
+  ApiError,
   AuthorizationService,
   InternalService,
   OpenAPI,
@@ -27,20 +28,40 @@ export const loginCommand = new Command()
     OpenAPI.BASE,
   )
   .action(async ({ baseUrl }) => {
+    // Check if they're already authenticated, and prompt for confirmation if so.
     const config = new Config();
     const auth = config.auth;
     if (auth) {
-      const proceed = await confirm({
-        message:
-          `You are already logged in as ${auth.teamSlug} on ${auth.baseUrl}, ` +
-          "are you sure you want to proceed?",
-        default: false,
-      });
-      if (!proceed) {
-        logger.info("Aborting.");
-        return;
+      let authenticated: boolean = false;
+      try {
+        await InternalService.teamMe();
+        authenticated = true;
+      } catch (error) {
+        if (error instanceof ApiError && error.status === 401) {
+          logger.warn(
+            "Existing credentials found, but invalid. Please continue logging in to update them.",
+          );
+        } else {
+          logger.fatal("An unknown error occurred.");
+          logger.error(error);
+          return;
+        }
+      }
+
+      if (authenticated) {
+        const proceed = await confirm({
+          message:
+            `You are already logged in as ${auth.teamSlug} on ${auth.baseUrl}, ` +
+            "are you sure you want to proceed?",
+          default: false,
+        });
+        if (!proceed) {
+          logger.info("Aborting.");
+          return;
+        }
       }
     }
+
     // Collect details for generating an API key.
     const username = await input({ message: "Username:" });
     const password = await passwordInput({ mask: true, message: "Password:" });
