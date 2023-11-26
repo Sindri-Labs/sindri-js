@@ -24,6 +24,7 @@
     "build:watch": "NODE_ENV=development tsup --watch --env.NODE_ENV $NODE_ENV --env.npm_package_version $npm_package_version",
     "generate-api": "rm -rf src/lib/api/ && openapi --client axios --input https://forge.sindri.app/api/openapi.json --output src/lib/api/ && prettier --write src/lib/api/**/*",
     "generate-api:dev": "rm -rf src/lib/api/ && openapi --client axios --input http://localhost/api/openapi.json --output src/lib/api/ && prettier --write src/lib/api/**/*",
+    "generate-api:docker": "rm -rf src/lib/api/ && openapi --client axios --input http://host.docker.internal/api/openapi.json --output src/lib/api/ && prettier --write src/lib/api/**/*",
     "lint": "eslint '**/*.{js,ts}'",
     "format": "prettier --write '**/*.{js,json,md,ts}'",
     "type-check": "tsc --noEmit"

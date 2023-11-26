@@ -74,6 +74,18 @@ This will fetch the latest OpenAPI schema for the Sindri API and autogenerate an
 yarn generate-api
 ```
 
+To develop against unreleased API features, you can use these variants to target a local development server:
+
+```bash
+# If you're not using Docker:
+yarn generate-api:dev
+
+# Or...
+
+# If you are using Docker:
+yarn denerate-api:docker
+```
+
 ### Linting
 
 To lint the project with Eslint and Prettier:

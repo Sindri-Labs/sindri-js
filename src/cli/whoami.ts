@@ -4,6 +4,7 @@ import { Command } from "@commander-js/extra-typings";
 
 import { Config } from "cli/config";
 import { logger, print } from "cli/logging";
+import { ApiError, InternalService } from "lib/api";
 
 export const whoamiCommand = new Command()
   .name("whoami")
@@ -17,8 +18,20 @@ export const whoamiCommand = new Command()
       return process.exit(1);
     }
 
-    // TODO: Use the new "team-me" endpoint to test authentication and fetch the current team.
-    // This should be deployed soon, and we'll update this method then. For now, we just rely on
-    // whatever the team slug was when we logged in last.
-    print(auth.teamSlug);
+    try {
+      const response = await InternalService.teamMe();
+      logger.debug("/api/v1/team/me/ response:");
+      logger.debug(response);
+      print(response.team.slug);
+    } catch (error) {
+      if (error instanceof ApiError && error.status === 401) {
+        logger.error(
+          "Your credentials are invalid. Please log in again with `sindri login`.",
+        );
+      } else {
+        logger.fatal("An unknown error occurred.");
+        logger.error(error);
+        return process.exit(1);
+      }
+    }
   });

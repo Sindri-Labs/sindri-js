@@ -1,11 +1,13 @@
 import fs from "fs";
 import path from "path";
 
+import { Command } from "@commander-js/extra-typings";
 import envPaths from "env-paths";
 import { cloneDeep, merge } from "lodash";
 import { z } from "zod";
 
-import { logger } from "cli/logging";
+import { logger, print } from "cli/logging";
+import { OpenAPI } from "lib/api";
 
 const paths = envPaths("sindri", {
   suffix: "",
@@ -17,6 +19,8 @@ const ConfigSchema = z.object({
     .nullable(
       z.object({
         apiKey: z.string(),
+        apiKeyId: z.string(),
+        apiKeyName: z.string(),
         baseUrl: z.string().url(),
         teamId: z.number(),
         teamSlug: z.string(),
@@ -61,12 +65,21 @@ export class Config {
     if (!Config.instance) {
       this._config = loadConfig();
       Config.instance = this;
+      // Prepare API the client with the loaded credentials.
+      if (this._config.auth) {
+        OpenAPI.BASE = this._config.auth.baseUrl;
+        OpenAPI.TOKEN = this._config.auth.apiKey;
+      }
     }
     return Config.instance;
   }
 
   get auth(): ConfigSchema["auth"] {
     return cloneDeep(this._config.auth);
+  }
+
+  get config(): ConfigSchema {
+    return cloneDeep(this._config);
   }
 
   update(configData: Partial<ConfigSchema>) {
@@ -90,3 +103,16 @@ export class Config {
     });
   }
 }
+
+export const configListCommand = new Command()
+  .name("list")
+  .description("Show the current config.")
+  .action(async () => {
+    const config = new Config();
+    print(config.config);
+  });
+
+export const configCommand = new Command()
+  .name("config")
+  .description("Commands related to configuration and config files.")
+  .addCommand(configListCommand);
