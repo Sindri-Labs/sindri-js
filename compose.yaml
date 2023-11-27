@@ -16,6 +16,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./:/sindri/
+      - ~/.gitconfig:/home/node/.gitconfig
       - yarn-cache:/home/node/.cache/yarn/
 
 volumes:
