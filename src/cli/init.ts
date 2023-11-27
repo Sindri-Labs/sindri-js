@@ -1,4 +1,4 @@
-import { existsSync, statSync, mkdirSync, readdirSync } from "fs";
+import { existsSync, mkdirSync, readdirSync, rmSync, statSync } from "fs";
 import path from "path";
 import process from "process";
 
@@ -112,4 +112,10 @@ export const initCommand = new Command()
     // Perform the scaffolding.
     await scaffoldDirectory("common", directoryPath, context);
     await scaffoldDirectory(circuitType, directoryPath, context);
+    // We use this in `common` right now to keep the directory tracked, we can remove this once we
+    // add files there.
+    const gitKeepFile = path.join(directoryPath, ".gitkeep");
+    if (existsSync(gitKeepFile)) {
+      rmSync(gitKeepFile);
+    }
   });
