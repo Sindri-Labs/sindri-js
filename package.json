@@ -4,7 +4,8 @@
   "description": "The Sindri Labs JavaScript SDK and CLI tool.",
   "files": [
     "dist/",
-    "src/"
+    "src/",
+    "templates/"
   ],
   "main": "dist/lib/index.js",
   "module": "dist/lib/index.mjs",
