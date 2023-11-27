@@ -6,6 +6,8 @@ import { fileURLToPath } from "url";
 import nunjucks from "nunjucks";
 import type { PackageJson } from "type-fest";
 
+import { logger } from "cli/logging";
+
 const currentFilePath = fileURLToPath(import.meta.url);
 const currentDirectoryPath = path.dirname(currentFilePath);
 
@@ -124,6 +126,7 @@ export async function scaffoldDirectory(
       // Ensure the output directory exists.
       if (!(await fileExists(outputPath))) {
         await mkdir(outputPath, { recursive: true });
+        logger.debug(`Created directory: "${outputPath}"`);
       }
       if (!(await stat(outputPath)).isDirectory()) {
         throw new Error(`"File ${outputPath} exists and is not a directory.`);
@@ -149,6 +152,7 @@ export async function scaffoldDirectory(
     const template = await readFile(inputPath, { encoding: "utf-8" });
     const renderedTemplate = nunjucks.renderString(template, context);
     await writeFile(outputPath, renderedTemplate, { encoding: "utf-8" });
+    logger.debug(`Rendered "${inputPath}" template to "${outputPath}".`);
   };
   await processPath(fullTemplateDirectory, fullOutputDirectory);
 }
