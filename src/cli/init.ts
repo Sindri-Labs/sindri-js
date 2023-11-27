@@ -112,7 +112,7 @@ export const initCommand = new Command()
 
     // Perform the scaffolding.
     logger.info(
-      `Proceeding to generated scaffolded project in "${directoryPath}".`,
+      `Proceeding to generate scaffolded project in "${directoryPath}".`,
     );
     await scaffoldDirectory("common", directoryPath, context);
     await scaffoldDirectory(circuitType, directoryPath, context);
