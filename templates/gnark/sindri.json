@@ -1,0 +1,7 @@
+{
+  "packageName": "compress",
+  "circuitName": "{{ circuitName }}",
+  "version": "0.9.0",
+  "curveName": " {{ curveName }}",
+  "provingScheme": "{{ provingScheme }}"
+}
