@@ -52,7 +52,7 @@ export const initCommand = new Command()
       default: directoryName,
     });
     const circuitType: "circom" | "gnark" | "halo2" | "noir" = await select({
-      message: "Select a Team:",
+      message: "Proving Framework:",
       default: "gnark",
       choices: [
         { name: "Circom", value: "circom" },
@@ -65,6 +65,10 @@ export const initCommand = new Command()
 
     // Handle individual circuit types.
     if (circuitType === "gnark") {
+      const packageName = await input({
+        message: "Go Package Name:",
+        default: circuitName,
+      });
       const provingScheme: "groth16" = await select({
         message: "Proving Scheme:",
         default: "groth16",
@@ -75,7 +79,7 @@ export const initCommand = new Command()
         default: "bn254",
         choices: [{ name: "BN254", value: "bn254" }],
       });
-      Object.assign(context, { curveName, provingScheme });
+      Object.assign(context, { curveName, packageName, provingScheme });
     } else {
       logger.fatal(`Sorry, ${circuitType} is not yet supported.`);
       return process.exit(1);
