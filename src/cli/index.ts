@@ -8,11 +8,12 @@ import { logger } from "cli/logging";
 import { loginCommand } from "cli/login";
 import { logoutCommand } from "cli/logout";
 import { whoamiCommand } from "cli/whoami";
+import { loadPackageJson } from "cli/utils";
 
 export const program = new Command()
   .name("sindri")
   .description("The Sindri CLI client.")
-  .version(process.env.npm_package_version ?? "0.0.0")
+  .version(loadPackageJson().version ?? "unknown")
   .option("-d, --debug", "Enable debug logging.", false)
   .option(
     "-q, --quiet",

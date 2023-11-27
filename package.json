@@ -23,8 +23,8 @@
     "./cli": "./dist/cli/index.js"
   },
   "scripts": {
-    "build": "NODE_ENV=production tsup --env.NODE_ENV $NODE_ENV --env.npm_package_version $npm_package_version",
-    "build:watch": "NODE_ENV=development tsup --watch --env.NODE_ENV $NODE_ENV --env.npm_package_version $npm_package_version",
+    "build": "NODE_ENV=production tsup --env.NODE_ENV $NODE_ENV",
+    "build:watch": "NODE_ENV=development tsup --watch --env.NODE_ENV $NODE_ENV",
     "generate-api": "rm -rf src/lib/api/ && openapi --client axios --input https://forge.sindri.app/api/openapi.json --output src/lib/api/ && prettier --write src/lib/api/**/*",
     "generate-api:dev": "rm -rf src/lib/api/ && openapi --client axios --input http://localhost/api/openapi.json --output src/lib/api/ && prettier --write src/lib/api/**/*",
     "generate-api:docker": "rm -rf src/lib/api/ && openapi --client axios --input http://host.docker.internal/api/openapi.json --output src/lib/api/ && prettier --write src/lib/api/**/*",
@@ -68,6 +68,7 @@
     "openapi-typescript-codegen": "^0.25.0",
     "prettier": "^3.1.0",
     "tsup": "^7.3.0",
+    "type-fest": "^4.8.2",
     "typescript": "^5.2.2"
   }
 }

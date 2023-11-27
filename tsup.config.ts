@@ -9,6 +9,7 @@ export default defineConfig([
     format: ["cjs", "esm"],
     minify: process.env.NODE_ENV === "production",
     outDir: "dist/lib",
+    shims: true,
     sourcemap: true,
     // CJS interop is broken without splitting, see:
     //   * https://github.com/egoist/tsup/issues/992#issuecomment-1763540165
@@ -22,6 +23,7 @@ export default defineConfig([
     format: ["cjs", "esm"],
     minify: process.env.NODE_ENV === "production",
     outDir: "dist/lib/browser",
+    shims: true,
     sourcemap: true,
     splitting: true,
     target: "esnext",
@@ -35,6 +37,7 @@ export default defineConfig([
     format: ["cjs"],
     minify: process.env.NODE_ENV === "production",
     outDir: "dist/cli",
+    shims: true,
     sourcemap: true,
     target: "node18",
   },
