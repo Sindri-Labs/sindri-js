@@ -49,7 +49,16 @@ export const initCommand = new Command()
     // Collect common fields.
     const circuitName = await input({
       message: "Circuit Name:",
-      default: directoryName,
+      default: directoryName.replace(/[^-a-zA-Z0-9_]/g, "-"),
+      validate: (input) => {
+        if (input.length === 0) {
+          return "You must specify a circuit name.";
+        }
+        if (!/^[-a-zA-Z0-9_]+$/.test(input)) {
+          return "Only alphanumeric characters, hyphens, and underscores are allowed.";
+        }
+        return true;
+      },
     });
     const circuitType: "circom" | "gnark" | "halo2" | "noir" = await select({
       message: "Proving Framework:",
@@ -64,10 +73,25 @@ export const initCommand = new Command()
     const context: object = { circuitName, circuitType };
 
     // Handle individual circuit types.
+    // Gnark.
     if (circuitType === "gnark") {
       const packageName = await input({
         message: "Go Package Name:",
-        default: circuitName,
+        default: circuitName
+          .replace(/[^a-zA-Z0-9]/g, "")
+          .replace(/^[^a-z]*/, ""),
+        validate: (input) => {
+          if (input.length === 0) {
+            return "You must specify a package.";
+          }
+          if (!/^[a-z][a-z0-9]*$/.test(input)) {
+            return (
+              "Package names must begin with a lowercase letter and only be followed by " +
+              "alphanumeric characters."
+            );
+          }
+          return true;
+        },
       });
       const provingScheme: "groth16" = await select({
         message: "Proving Scheme:",
