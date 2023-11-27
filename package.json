@@ -60,6 +60,7 @@
     "@tsconfig/node18": "^18.2.2",
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.9.1",
+    "@types/nunjucks": "^3.2.6",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@typescript-eslint/parser": "^6.11.0",
     "eslint": "^8.53.0",

@@ -461,6 +461,11 @@
   dependencies:
     undici-types "~5.26.4"
 
+"@types/nunjucks@^3.2.6":
+  version "3.2.6"
+  resolved "https://registry.yarnpkg.com/@types/nunjucks/-/nunjucks-3.2.6.tgz#6d6e0363719545df8b9a024279902edf68b2caa9"
+  integrity sha512-pHiGtf83na1nCzliuAdq8GowYiXvH5l931xZ0YEHaLMNFgynpEqx+IPStlu7UaDkehfvl01e4x/9Tpwhy7Ue3w==
+
 "@types/semver@^7.5.0":
   version "7.5.5"
   resolved "https://registry.yarnpkg.com/@types/semver/-/semver-7.5.5.tgz#deed5ab7019756c9c90ea86139106b0346223f35"
