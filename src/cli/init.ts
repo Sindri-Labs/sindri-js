@@ -1,3 +1,4 @@
+import { execSync } from "child_process";
 import { existsSync, mkdirSync, readdirSync, rmSync, statSync } from "fs";
 import path from "path";
 import process from "process";
@@ -110,6 +111,9 @@ export const initCommand = new Command()
     }
 
     // Perform the scaffolding.
+    logger.info(
+      `Proceeding to generated scaffolded project in "${directoryPath}".`,
+    );
     await scaffoldDirectory("common", directoryPath, context);
     await scaffoldDirectory(circuitType, directoryPath, context);
     // We use this in `common` right now to keep the directory tracked, we can remove this once we
@@ -117,5 +121,38 @@ export const initCommand = new Command()
     const gitKeepFile = path.join(directoryPath, ".gitkeep");
     if (existsSync(gitKeepFile)) {
       rmSync(gitKeepFile);
+    }
+    logger.info("Project scaffolding successful.");
+
+    // Optionally, initialize a git repository.
+    let gitInstalled: boolean = false;
+    try {
+      execSync("git --version");
+      gitInstalled = true;
+    } catch {}
+    const gitAlreadyInitialized = existsSync(path.join(directoryPath, ".git"));
+    if (gitInstalled && !gitAlreadyInitialized) {
+      const initializeGit = await confirm({
+        message: `Would you like to initialize a git repository in "${directoryPath}"?`,
+        default: true,
+      });
+      if (initializeGit) {
+        logger.info(`Initializing git repository in "${directoryPath}".`);
+        try {
+          execSync("git init .", { cwd: directoryPath });
+          execSync("git add .", { cwd: directoryPath });
+          execSync("git commit -m 'Initial commit.'", { cwd: directoryPath });
+          logger.info("Successfully initialized git repository.");
+        } catch (error) {
+          logger.error("Error occurred while initializing the git repository.");
+          // The output is a really long list of numbers because it's a buffer, so truncate it.
+          ["output", "stderr", "stdout"].forEach((key) => {
+            if (key in (error as any)) {
+              (error as any)[key] = "<truncated>";
+            }
+          });
+          logger.error(error);
+        }
+      }
     }
   });
