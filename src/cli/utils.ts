@@ -1,11 +1,28 @@
-import { readdirSync, readFileSync } from "fs";
+import { constants as fsConstants, readdirSync, readFileSync } from "fs";
+import { access, mkdir, readdir, readFile, stat, writeFile } from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 
+import nunjucks from "nunjucks";
 import type { PackageJson } from "type-fest";
 
 const currentFilePath = fileURLToPath(import.meta.url);
 const currentDirectoryPath = path.dirname(currentFilePath);
+
+/**
+ * Checks whether or not a file (including directories) exists.
+ *
+ * @param filePath - The path of the file to check.
+ * @returns A boolean value indicating whether the file path exists.
+ */
+export async function fileExists(filePath: string): Promise<boolean> {
+  try {
+    await access(filePath, fsConstants.F_OK);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 /**
  * Recursively searches for a file in the given directory and its parent directories.
@@ -65,4 +82,73 @@ export function locatePackageJson(): string {
     throw new Error("A `package.json` file was unexpectedly not found.");
   }
   return packageJsonPath;
+}
+
+/**
+ * Recursively copies and populates the contents of a template directory into an output directory.
+ *
+ * @param templateDirectory - The path to the template directory. Can be an absolute path or a
+ *     subdirectory of the `templates/` directory in the project root.
+ * @param outputDirectory - The path to the output directory where the populated templates will be
+ *     written.
+ * @param context - The nunjucks template context.
+ */
+export async function scaffoldDirectory(
+  templateDirectory: string,
+  outputDirectory: string,
+  context: object,
+): Promise<void> {
+  // Normalize the paths and create the output directory if necessary.
+  const fullOutputDirectory = path.resolve(outputDirectory);
+  if (!(await fileExists(fullOutputDirectory))) {
+    await mkdir(fullOutputDirectory, { recursive: true });
+  }
+  const rootTemplateDirectory = findFileUpwards("templates");
+  if (!rootTemplateDirectory) {
+    throw new Error("Root template directory not found.");
+  }
+  const fullTemplateDirectory = path.isAbsolute(templateDirectory)
+    ? templateDirectory
+    : path.resolve(rootTemplateDirectory, templateDirectory);
+  if (!(await fileExists(fullTemplateDirectory))) {
+    throw new Error(`The "${fullTemplateDirectory}" directory does not exist.`);
+  }
+
+  // Process the template directory recursively.
+  const processPath = async (
+    inputPath: string,
+    outputPath: string,
+  ): Promise<void> => {
+    // Handle directories.
+    if ((await stat(inputPath)).isDirectory()) {
+      // Ensure the output directory exists.
+      if (!(await fileExists(outputPath))) {
+        await mkdir(outputPath, { recursive: true });
+      }
+      if (!(await stat(outputPath)).isDirectory()) {
+        throw new Error(`"File ${outputPath} exists and is not a directory.`);
+      }
+
+      // Process all files in the directory.
+      const files = await readdir(inputPath);
+      await Promise.all(
+        files.map(async (file) => {
+          // Render the filename so that `outputPath` always corresponds to the true output path.
+          // This handles situations like `{{ circuitName }}.go` where there's a variable in the name.
+          const populatedFile = nunjucks.renderString(file, context);
+          await processPath(
+            path.join(inputPath, file),
+            path.join(outputPath, populatedFile),
+          );
+        }),
+      );
+      return;
+    }
+
+    // Handle files, rendering them and writing them out.
+    const template = await readFile(inputPath, { encoding: "utf-8" });
+    const renderedTemplate = nunjucks.renderString(template, context);
+    await writeFile(outputPath, renderedTemplate, { encoding: "utf-8" });
+  };
+  await processPath(fullTemplateDirectory, fullOutputDirectory);
 }
