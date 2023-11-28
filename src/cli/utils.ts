@@ -98,7 +98,7 @@ export function locatePackageJson(): string {
 export async function scaffoldDirectory(
   templateDirectory: string,
   outputDirectory: string,
-  context: { [key: string]: string },
+  context: object,
 ): Promise<void> {
   // Normalize the paths and create the output directory if necessary.
   const fullOutputDirectory = path.resolve(outputDirectory);
