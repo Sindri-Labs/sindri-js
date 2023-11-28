@@ -119,13 +119,11 @@ export async function scaffoldDirectory(
   // Render a template using two syntaxes:
   // * hacky `templateVARIABLENAME` syntax.
   // * `nunjucks` template syntax.
-  const render = (
-    content: string,
-    context: { [key: string]: string },
-  ): string => {
+  const render = (content: string, context: object): string => {
     let newContent = content;
     // Poor man's templating with `templateVARIABLENAME`:
     Object.entries(context).forEach(([key, value]) => {
+      if (typeof value !== "string") return;
       newContent = newContent.replace(
         new RegExp(`template${key.toUpperCase()}`, "gi"),
         value,
