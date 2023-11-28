@@ -1,4 +1,4 @@
-package {{ packageName }}
+package templatePackageName
 
 import (
 	"encoding/json"

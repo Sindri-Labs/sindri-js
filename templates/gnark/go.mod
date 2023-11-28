@@ -1,4 +1,4 @@
-module {{ packageName }}
+module templatePackageName
 
 go 1.19
 

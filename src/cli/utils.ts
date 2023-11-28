@@ -98,7 +98,7 @@ export function locatePackageJson(): string {
 export async function scaffoldDirectory(
   templateDirectory: string,
   outputDirectory: string,
-  context: object,
+  context: { [key: string]: string },
 ): Promise<void> {
   // Normalize the paths and create the output directory if necessary.
   const fullOutputDirectory = path.resolve(outputDirectory);
@@ -115,6 +115,25 @@ export async function scaffoldDirectory(
   if (!(await fileExists(fullTemplateDirectory))) {
     throw new Error(`The "${fullTemplateDirectory}" directory does not exist.`);
   }
+
+  // Render a template using two syntaxes:
+  // * hacky `templateVARIABLENAME` syntax.
+  // * `nunjucks` template syntax.
+  const render = (
+    content: string,
+    context: { [key: string]: string },
+  ): string => {
+    let newContent = content;
+    // Poor man's templating with `templateVARIABLENAME`:
+    Object.entries(context).forEach(([key, value]) => {
+      newContent = newContent.replace(
+        new RegExp(`template${key.toUpperCase()}`, "gi"),
+        value,
+      );
+    });
+    // Real templating:
+    return nunjucks.renderString(newContent, context);
+  };
 
   // Process the template directory recursively.
   const processPath = async (
@@ -138,7 +157,7 @@ export async function scaffoldDirectory(
         files.map(async (file) => {
           // Render the filename so that `outputPath` always corresponds to the true output path.
           // This handles situations like `{{ circuitName }}.go` where there's a variable in the name.
-          const populatedFile = nunjucks.renderString(file, context);
+          const populatedFile = render(file, context);
           await processPath(
             path.join(inputPath, file),
             path.join(outputPath, populatedFile),
@@ -150,7 +169,7 @@ export async function scaffoldDirectory(
 
     // Handle files, rendering them and writing them out.
     const template = await readFile(inputPath, { encoding: "utf-8" });
-    const renderedTemplate = nunjucks.renderString(template, context);
+    const renderedTemplate = render(template, context);
     await writeFile(outputPath, renderedTemplate, { encoding: "utf-8" });
     logger.debug(`Rendered "${inputPath}" template to "${outputPath}".`);
   };
