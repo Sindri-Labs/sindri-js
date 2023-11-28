@@ -51,7 +51,7 @@ export const initCommand = new Command()
     const circuitName = await input({
       message: "Circuit Name:",
       default: directoryName.replace(/[^-a-zA-Z0-9_]/g, "-"),
-      validate: (input) => {
+      validate: (input): boolean | string => {
         if (input.length === 0) {
           return "You must specify a circuit name.";
         }
@@ -81,9 +81,9 @@ export const initCommand = new Command()
         default: circuitName
           .replace(/[^a-zA-Z0-9]/g, "")
           .replace(/^[^a-z]*/, ""),
-        validate: (input) => {
+        validate: (input): boolean | string => {
           if (input.length === 0) {
-            return "You must specify a package.";
+            return "You must specify a package name.";
           }
           if (!/^[a-z][a-z0-9]*$/.test(input)) {
             return (
@@ -129,7 +129,11 @@ export const initCommand = new Command()
     try {
       execSync("git --version");
       gitInstalled = true;
-    } catch {}
+    } catch {
+      logger.debug(
+        "Git is not installed, skipping git initialization questions.",
+      );
+    }
     const gitAlreadyInitialized = existsSync(path.join(directoryPath, ".git"));
     if (gitInstalled && !gitAlreadyInitialized) {
       const initializeGit = await confirm({
@@ -144,14 +148,15 @@ export const initCommand = new Command()
           execSync("git commit -m 'Initial commit.'", { cwd: directoryPath });
           logger.info("Successfully initialized git repository.");
         } catch (error) {
+          const execError = error as NodeJS.ErrnoException;
           logger.error("Error occurred while initializing the git repository.");
           // The output is a really long list of numbers because it's a buffer, so truncate it.
           ["output", "stderr", "stdout"].forEach((key) => {
-            if (key in (error as any)) {
-              (error as any)[key] = "<truncated>";
+            if (key in execError) {
+              execError[key] = "<truncated>";
             }
           });
-          logger.error(error);
+          logger.error(execError);
         }
       }
     }
