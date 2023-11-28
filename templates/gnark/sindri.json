@@ -2,7 +2,7 @@
   "circuit_type": "gnark",
   "name": "{{ packageName }}",
   "package_name": "{{ packageName }}",
-  "circuit_struct_name": "{{ circuitName }}",
+  "circuit_struct_name": "Circuit",
   "gnark_version": "v0.9.0",
   "curve": "{{ curveName }}",
   "proving_scheme": "{{ provingScheme }}"
