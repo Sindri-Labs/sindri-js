@@ -44,7 +44,7 @@ export const initCommand = new Command()
       if (!proceed) {
         logger.info("Aborting.");
         return process.exit(1);
-      } else { 
+      } else {
         rmSync(directoryPath, { recursive: true, force: true });
       }
     }
@@ -114,7 +114,12 @@ export const initCommand = new Command()
         ],
       });
       const gnarkCurveName = curveName.toUpperCase().replace("-", "_");
-      Object.assign(context, { curveName, gnarkCurveName, packageName, provingScheme });
+      Object.assign(context, {
+        curveName,
+        gnarkCurveName,
+        packageName,
+        provingScheme,
+      });
     } else {
       logger.fatal(`Sorry, ${circuitType} is not yet supported.`);
       return process.exit(1);
