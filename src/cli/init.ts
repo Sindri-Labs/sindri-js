@@ -159,7 +159,12 @@ export const initCommand = new Command()
                 stdout: Buffer | string;
               };
           // The output is a really long list of numbers because it's a buffer, so truncate it.
-          ["output", "stderr", "stdout"].forEach((key) => {
+          const noisyKeys: Array<"output" | "stderr" | "stdout"> = [
+            "output",
+            "stderr",
+            "stdout",
+          ];
+          noisyKeys.forEach((key) => {
             if (key in execError) {
               execError[key] = "<truncated>";
             }
