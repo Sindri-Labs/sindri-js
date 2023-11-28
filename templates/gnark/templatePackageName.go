@@ -62,7 +62,7 @@ func FromJson(pathInput string) witness.Witness {
 		X: X,
 		Y: Y,
 	}
-	w, err := frontend.NewWitness(&assignment, ecc.BN254.ScalarField())
+	w, err := frontend.NewWitness(&assignment, ecc.templateGnarkCurveName.ScalarField())
 	if err != nil {
 		panic(err)
 	}

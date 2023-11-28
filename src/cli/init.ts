@@ -101,12 +101,20 @@ export const initCommand = new Command()
         default: "groth16",
         choices: [{ name: "Groth16", value: "groth16" }],
       });
-      const curveName: "bn254" = await select({
+      const curveName = await select({
         message: "Curve Name:",
         default: "bn254",
-        choices: [{ name: "BN254", value: "bn254" }],
+        choices: [
+          { name: "BN254", value: "bn254" },
+          { name: "BLS12_377", value: "bls12-377" },
+          { name: "BLS12_381", value: "bls12-381" },
+          { name: "BLS24_315", value: "bls24-315" },
+          { name: "BW6_633", value: "bw6-633" },
+          { name: "BW6_761", value: "bw6-761" },
+        ],
       });
-      Object.assign(context, { curveName, packageName, provingScheme });
+      const gnarkCurveName = curveName.toUpperCase().replace("-", "_");
+      Object.assign(context, { curveName, gnarkCurveName, packageName, provingScheme });
     } else {
       logger.fatal(`Sorry, ${circuitType} is not yet supported.`);
       return process.exit(1);
