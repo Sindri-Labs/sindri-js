@@ -148,8 +148,16 @@ export const initCommand = new Command()
           execSync("git commit -m 'Initial commit.'", { cwd: directoryPath });
           logger.info("Successfully initialized git repository.");
         } catch (error) {
-          const execError = error as NodeJS.ErrnoException;
           logger.error("Error occurred while initializing the git repository.");
+          // Node.js doesn't seem to have a typed version of this error, so we assert it as
+          // something that's at least in the right ballpark.
+          const execError = error as
+            | NodeJS.ErrnoException
+            | {
+                output: Buffer | string;
+                stderr: Buffer | string;
+                stdout: Buffer | string;
+              };
           // The output is a really long list of numbers because it's a buffer, so truncate it.
           ["output", "stderr", "stdout"].forEach((key) => {
             if (key in execError) {
