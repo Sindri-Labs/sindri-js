@@ -1,4 +1,5 @@
 {
+  "$schema": "https://forge.sindri.app/api/v1/sindri-manifest-schema.json",
   "packageName": "{{ packageName }}",
   "circuitName": "{{ circuitName }}",
   "version": "0.9.0",
