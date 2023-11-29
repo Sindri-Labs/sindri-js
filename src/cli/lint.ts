@@ -1,4 +1,4 @@
-import { existsSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import path from "path";
 import process from "process";
 
@@ -35,4 +35,23 @@ export const lintCommand = new Command()
     const rootDirectory = path.dirname(sindriJsonPath);
     logger.debug(`Changing current directory to "${rootDirectory}".`);
     process.chdir(directoryPath);
+
+    // Load `sindri.json`.
+    let sindriJson: object = {};
+    try {
+      const sindriJsonContent = readFileSync(sindriJsonPath, {
+        encoding: "utf-8",
+      });
+      sindriJson = JSON.parse(sindriJsonContent);
+      logger.debug(
+        `Successfully loaded "sindri.json" from "${sindriJsonPath}":`,
+      );
+      logger.debug(sindriJson);
+    } catch (error) {
+      logger.fatal(
+        `Error loading "${sindriJsonPath}", perhaps it is not valid JSON?`,
+      );
+      logger.error(error);
+      return process.exit(1);
+    }
   });
