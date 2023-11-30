@@ -1,5 +1,5 @@
 {
-  "$id": "http://localhost/api/v1/sindri-manifest-schema.json",
+  "$id": "https://forge.sindri.app/api/v1/sindri-manifest-schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "SindriManifest",
   "description": "Discriminated union type for `sindri.json` manifest files.\n\nThis is only used for serializing the JSON Schema currently, but it would be nice to use it more\nbroadly once we improve the typing on the union types. We should be able to use\n`SindriManifest.parse_obj()` instead of `get_validate_sindri_manifest()` and other\nsimplifications.",
@@ -27,37 +27,25 @@
     "SindriCircuitTypeOptions": {
       "title": "SindriCircuitTypeOptions",
       "description": "circuit_type options",
-      "enum": [
-        "circom",
-        "gnark",
-        "halo2",
-        "noir"
-      ],
+      "enum": ["circom", "gnark", "halo2", "noir"],
       "type": "string"
     },
     "CircomCurveOptions": {
       "title": "CircomCurveOptions",
       "description": "An enumeration.",
-      "enum": [
-        "bn254"
-      ],
+      "enum": ["bn254"],
       "type": "string"
     },
     "CircomProvingSchemeOptions": {
       "title": "CircomProvingSchemeOptions",
       "description": "An enumeration.",
-      "enum": [
-        "groth16"
-      ],
+      "enum": ["groth16"],
       "type": "string"
     },
     "CircomWitnessCompilerOptions": {
       "title": "CircomWitnessCompilerOptions",
       "description": "An enumeration.",
-      "enum": [
-        "c++",
-        "wasm"
-      ],
+      "enum": ["c++", "wasm"],
       "type": "string"
     },
     "CircomSindri": {
@@ -97,10 +85,7 @@
           ]
         }
       },
-      "required": [
-        "circuitType",
-        "name"
-      ],
+      "required": ["circuitType", "name"],
       "additionalProperties": false
     },
     "GnarkCurveOptions": {
@@ -119,18 +104,13 @@
     "GnarkVersionOptions": {
       "title": "GnarkVersionOptions",
       "description": "An enumeration.",
-      "enum": [
-        "v0.8.1",
-        "v0.9.0"
-      ],
+      "enum": ["v0.8.1", "v0.9.0"],
       "type": "string"
     },
     "GnarkProvingSchemeOptions": {
       "title": "GnarkProvingSchemeOptions",
       "description": "An enumeration.",
-      "enum": [
-        "groth16"
-      ],
+      "enum": ["groth16"],
       "type": "string"
     },
     "GnarkSindri": {
@@ -185,11 +165,7 @@
     "Halo2VersionOptions": {
       "title": "Halo2VersionOptions",
       "description": "An enumeration.",
-      "enum": [
-        "axiom-v0.2.2",
-        "axiom-v0.3.0",
-        "chiquito"
-      ],
+      "enum": ["axiom-v0.2.2", "axiom-v0.3.0", "chiquito"],
       "type": "string"
     },
     "Halo2AxiomV022Sindri": {
@@ -259,10 +235,7 @@
         },
         "threadBuilder": {
           "title": "Thread Builder",
-          "enum": [
-            "GateThreadBuilder",
-            "RlcThreadBuilder"
-          ],
+          "enum": ["GateThreadBuilder", "RlcThreadBuilder"],
           "type": "string"
         }
       },
@@ -318,9 +291,7 @@
     "NoirProvingSchemeOptions": {
       "title": "NoirProvingSchemeOptions",
       "description": "An enumeration.",
-      "enum": [
-        "barretenberg"
-      ],
+      "enum": ["barretenberg"],
       "type": "string"
     },
     "NoirSindri": {
@@ -344,10 +315,7 @@
           ]
         }
       },
-      "required": [
-        "circuitType",
-        "name"
-      ],
+      "required": ["circuitType", "name"],
       "additionalProperties": false
     }
   }
