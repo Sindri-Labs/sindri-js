@@ -104,11 +104,11 @@ export const initCommand = new Command()
         default: "bn254",
         choices: [
           { name: "BN254", value: "bn254" },
-          { name: "BLS12_377", value: "bls12-377" },
-          { name: "BLS12_381", value: "bls12-381" },
-          { name: "BLS24_315", value: "bls24-315" },
-          { name: "BW6_633", value: "bw6-633" },
-          { name: "BW6_761", value: "bw6-761" },
+          { name: "BLS12-377", value: "bls12-377" },
+          { name: "BLS12-381", value: "bls12-381" },
+          { name: "BLS24-315", value: "bls24-315" },
+          { name: "BW6-633", value: "bw6-633" },
+          { name: "BW6-761", value: "bw6-761" },
         ],
       });
       const gnarkCurveName = curveName.toUpperCase().replace("-", "_");
