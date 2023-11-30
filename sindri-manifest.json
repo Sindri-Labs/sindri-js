@@ -83,6 +83,14 @@
               "$ref": "#/definitions/CircomWitnessCompilerOptions"
             }
           ]
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": [
+            "https://forge.sindri.app/api/v1/sindri-manifest-schema.json"
+          ]
         }
       },
       "required": ["circuitType", "name"],
@@ -151,6 +159,14 @@
               "$ref": "#/definitions/GnarkProvingSchemeOptions"
             }
           ]
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": [
+            "https://forge.sindri.app/api/v1/sindri-manifest-schema.json"
+          ]
         }
       },
       "required": [
@@ -194,6 +210,14 @@
         "packageName": {
           "title": "Package Name",
           "type": "string"
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": [
+            "https://forge.sindri.app/api/v1/sindri-manifest-schema.json"
+          ]
         }
       },
       "required": [
@@ -237,6 +261,14 @@
           "title": "Thread Builder",
           "enum": ["GateThreadBuilder", "RlcThreadBuilder"],
           "type": "string"
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": [
+            "https://forge.sindri.app/api/v1/sindri-manifest-schema.json"
+          ]
         }
       },
       "required": [
@@ -276,6 +308,14 @@
         "packageName": {
           "title": "Package Name",
           "type": "string"
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": [
+            "https://forge.sindri.app/api/v1/sindri-manifest-schema.json"
+          ]
         }
       },
       "required": [
@@ -312,6 +352,14 @@
             {
               "$ref": "#/definitions/NoirProvingSchemeOptions"
             }
+          ]
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": [
+            "https://forge.sindri.app/api/v1/sindri-manifest-schema.json"
           ]
         }
       },
