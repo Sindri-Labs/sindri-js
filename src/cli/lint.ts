@@ -92,7 +92,9 @@ export const lintCommand = new Command()
           error.property
             .replace(/^instance/, "sindri.json")
             .replace(/\./g, ":") +
-          (error.schema.title ? `:${error.schema.title}` : "");
+          (typeof error.schema === "object" && error.schema.title
+            ? `:${error.schema.title}`
+            : "");
         logger.error(`${prefix} ${error.message}`);
         errorCount += 1;
       }
