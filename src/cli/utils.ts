@@ -62,6 +62,11 @@ export function loadPackageJson(): PackageJson {
  */
 export function loadSindriManifestJsonSchema(): Schema {
   const sindriManifestJsonPath = findFileUpwards("sindri-manifest.json");
+  if (!sindriManifestJsonPath) {
+    throw new Error(
+      "A `sindri-manifest.json` file was unexpectedly not found.",
+    );
+  }
   const sindriManifestJsonContent = readFileSync(sindriManifestJsonPath, {
     encoding: "utf-8",
   });
