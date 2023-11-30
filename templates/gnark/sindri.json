@@ -1,9 +1,10 @@
 {
   "$schema": "https://forge.sindri.app/api/v1/sindri-manifest-schema.json",
   "name": "{{ circuitName }}",
+  "circuitStructName": "Circuit",
+  "circuitType": "gnark",
+  "curve": "{{ curveName }}",
+  "gnarkVersion": "v0.9.0",
   "packageName": "{{ packageName }}",
-  "circuitStructName: "Circuit",
-  "gnarkVersion": "0.9.0",
-  "curve": " {{ curveName }}",
   "provingScheme": "{{ provingScheme }}"
 }
