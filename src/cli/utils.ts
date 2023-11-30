@@ -3,6 +3,7 @@ import { access, mkdir, readdir, readFile, stat, writeFile } from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 
+import type { Schema } from "jsonschema";
 import nunjucks from "nunjucks";
 import type { PackageJson } from "type-fest";
 
@@ -71,6 +72,25 @@ export function loadPackageJson(): PackageJson {
   });
   const packageJson: PackageJson = JSON.parse(packageJsonContent);
   return packageJson;
+}
+
+/**
+ * Loads the project's `sindri-manifest.json` file.
+ *
+ * @returns The contents of `sindri-manifest.json`.
+ */
+export function loadSindriManifestJsonSchema(): Schema {
+  const sindriManifestJsonPath = findFileUpwards("sindri-manifest.json");
+  if (!sindriManifestJsonPath) {
+    throw new Error(
+      "A `sindri-manifest.json` file was unexpectedly not found.",
+    );
+  }
+  const sindriManifestJsonContent = readFileSync(sindriManifestJsonPath, {
+    encoding: "utf-8",
+  });
+  const sindriManifestJson: Schema = JSON.parse(sindriManifestJsonContent);
+  return sindriManifestJson;
 }
 
 /**

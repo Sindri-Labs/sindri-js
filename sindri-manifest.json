@@ -1,0 +1,370 @@
+{
+  "$id": "https://forge.sindri.app/api/v1/sindri-manifest-schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SindriManifest",
+  "description": "Discriminated union type for `sindri.json` manifest files.\n\nThis is only used for serializing the JSON Schema currently, but it would be nice to use it more\nbroadly once we improve the typing on the union types. We should be able to use\n`SindriManifest.parse_obj()` instead of `get_validate_sindri_manifest()` and other\nsimplifications.",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/CircomSindri"
+    },
+    {
+      "$ref": "#/definitions/GnarkSindri"
+    },
+    {
+      "$ref": "#/definitions/Halo2AxiomV022Sindri"
+    },
+    {
+      "$ref": "#/definitions/Halo2AxiomV030Sindri"
+    },
+    {
+      "$ref": "#/definitions/Halo2ChiquitoSindri"
+    },
+    {
+      "$ref": "#/definitions/NoirSindri"
+    }
+  ],
+  "definitions": {
+    "SindriCircuitTypeOptions": {
+      "title": "SindriCircuitTypeOptions",
+      "description": "circuit_type options",
+      "enum": ["circom", "gnark", "halo2", "noir"],
+      "type": "string"
+    },
+    "CircomCurveOptions": {
+      "title": "CircomCurveOptions",
+      "description": "An enumeration.",
+      "enum": ["bn254"],
+      "type": "string"
+    },
+    "CircomProvingSchemeOptions": {
+      "title": "CircomProvingSchemeOptions",
+      "description": "An enumeration.",
+      "enum": ["groth16"],
+      "type": "string"
+    },
+    "CircomWitnessCompilerOptions": {
+      "title": "CircomWitnessCompilerOptions",
+      "description": "An enumeration.",
+      "enum": ["c++", "wasm"],
+      "type": "string"
+    },
+    "CircomSindri": {
+      "title": "CircomSindri",
+      "description": "Circom Sindri Manifest",
+      "type": "object",
+      "properties": {
+        "circuitType": {
+          "$ref": "#/definitions/SindriCircuitTypeOptions"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "curve": {
+          "default": "bn254",
+          "allOf": [
+            {
+              "$ref": "#/definitions/CircomCurveOptions"
+            }
+          ]
+        },
+        "provingScheme": {
+          "default": "groth16",
+          "allOf": [
+            {
+              "$ref": "#/definitions/CircomProvingSchemeOptions"
+            }
+          ]
+        },
+        "witnessCompiler": {
+          "default": "c++",
+          "allOf": [
+            {
+              "$ref": "#/definitions/CircomWitnessCompilerOptions"
+            }
+          ]
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": [
+            "https://forge.sindri.app/api/v1/sindri-manifest-schema.json"
+          ]
+        }
+      },
+      "required": ["circuitType", "name"],
+      "additionalProperties": false
+    },
+    "GnarkCurveOptions": {
+      "title": "GnarkCurveOptions",
+      "description": "An enumeration.",
+      "enum": [
+        "bls12-377",
+        "bls12-381",
+        "bls24-315",
+        "bn254",
+        "bw6-633",
+        "bw6-761"
+      ],
+      "type": "string"
+    },
+    "GnarkVersionOptions": {
+      "title": "GnarkVersionOptions",
+      "description": "An enumeration.",
+      "enum": ["v0.8.1", "v0.9.0"],
+      "type": "string"
+    },
+    "GnarkProvingSchemeOptions": {
+      "title": "GnarkProvingSchemeOptions",
+      "description": "An enumeration.",
+      "enum": ["groth16"],
+      "type": "string"
+    },
+    "GnarkSindri": {
+      "title": "GnarkSindri",
+      "description": "Gnark Sindri Manifest",
+      "type": "object",
+      "properties": {
+        "circuitType": {
+          "$ref": "#/definitions/SindriCircuitTypeOptions"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "circuitStructName": {
+          "title": "Circuit Struct Name",
+          "type": "string"
+        },
+        "curve": {
+          "default": "bn254",
+          "allOf": [
+            {
+              "$ref": "#/definitions/GnarkCurveOptions"
+            }
+          ]
+        },
+        "gnarkVersion": {
+          "$ref": "#/definitions/GnarkVersionOptions"
+        },
+        "packageName": {
+          "title": "Package Name",
+          "type": "string"
+        },
+        "provingScheme": {
+          "default": "groth16",
+          "allOf": [
+            {
+              "$ref": "#/definitions/GnarkProvingSchemeOptions"
+            }
+          ]
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": [
+            "https://forge.sindri.app/api/v1/sindri-manifest-schema.json"
+          ]
+        }
+      },
+      "required": [
+        "circuitType",
+        "name",
+        "circuitStructName",
+        "gnarkVersion",
+        "packageName"
+      ],
+      "additionalProperties": false
+    },
+    "Halo2VersionOptions": {
+      "title": "Halo2VersionOptions",
+      "description": "An enumeration.",
+      "enum": ["axiom-v0.2.2", "axiom-v0.3.0", "chiquito"],
+      "type": "string"
+    },
+    "Halo2AxiomV022Sindri": {
+      "title": "Halo2AxiomV022Sindri",
+      "description": "Halo2 Axiom V0.2.2 Sindri Manifest",
+      "type": "object",
+      "properties": {
+        "circuitType": {
+          "$ref": "#/definitions/SindriCircuitTypeOptions"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "className": {
+          "title": "Class Name",
+          "type": "string"
+        },
+        "degree": {
+          "title": "Degree",
+          "type": "integer"
+        },
+        "halo2Version": {
+          "$ref": "#/definitions/Halo2VersionOptions"
+        },
+        "packageName": {
+          "title": "Package Name",
+          "type": "string"
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": [
+            "https://forge.sindri.app/api/v1/sindri-manifest-schema.json"
+          ]
+        }
+      },
+      "required": [
+        "circuitType",
+        "name",
+        "className",
+        "degree",
+        "halo2Version",
+        "packageName"
+      ],
+      "additionalProperties": false
+    },
+    "Halo2AxiomV030Sindri": {
+      "title": "Halo2AxiomV030Sindri",
+      "description": "Halo2 Axiom V0.3.0 Sindri Manifest",
+      "type": "object",
+      "properties": {
+        "circuitType": {
+          "$ref": "#/definitions/SindriCircuitTypeOptions"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "className": {
+          "title": "Class Name",
+          "type": "string"
+        },
+        "degree": {
+          "title": "Degree",
+          "type": "integer"
+        },
+        "halo2Version": {
+          "$ref": "#/definitions/Halo2VersionOptions"
+        },
+        "packageName": {
+          "title": "Package Name",
+          "type": "string"
+        },
+        "threadBuilder": {
+          "title": "Thread Builder",
+          "enum": ["GateThreadBuilder", "RlcThreadBuilder"],
+          "type": "string"
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": [
+            "https://forge.sindri.app/api/v1/sindri-manifest-schema.json"
+          ]
+        }
+      },
+      "required": [
+        "circuitType",
+        "name",
+        "className",
+        "degree",
+        "halo2Version",
+        "packageName",
+        "threadBuilder"
+      ],
+      "additionalProperties": false
+    },
+    "Halo2ChiquitoSindri": {
+      "title": "Halo2ChiquitoSindri",
+      "description": "Halo2 Chiquito Sindri Manifest",
+      "type": "object",
+      "properties": {
+        "circuitType": {
+          "$ref": "#/definitions/SindriCircuitTypeOptions"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "className": {
+          "title": "Class Name",
+          "type": "string"
+        },
+        "degree": {
+          "title": "Degree",
+          "type": "integer"
+        },
+        "halo2Version": {
+          "$ref": "#/definitions/Halo2VersionOptions"
+        },
+        "packageName": {
+          "title": "Package Name",
+          "type": "string"
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": [
+            "https://forge.sindri.app/api/v1/sindri-manifest-schema.json"
+          ]
+        }
+      },
+      "required": [
+        "circuitType",
+        "name",
+        "className",
+        "degree",
+        "halo2Version",
+        "packageName"
+      ],
+      "additionalProperties": false
+    },
+    "NoirProvingSchemeOptions": {
+      "title": "NoirProvingSchemeOptions",
+      "description": "An enumeration.",
+      "enum": ["barretenberg"],
+      "type": "string"
+    },
+    "NoirSindri": {
+      "title": "NoirSindri",
+      "description": "Noir Sindri Manifest",
+      "type": "object",
+      "properties": {
+        "circuitType": {
+          "$ref": "#/definitions/SindriCircuitTypeOptions"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "provingScheme": {
+          "default": "barretenberg",
+          "allOf": [
+            {
+              "$ref": "#/definitions/NoirProvingSchemeOptions"
+            }
+          ]
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": [
+            "https://forge.sindri.app/api/v1/sindri-manifest-schema.json"
+          ]
+        }
+      },
+      "required": ["circuitType", "name"],
+      "additionalProperties": false
+    }
+  }
+}

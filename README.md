@@ -86,6 +86,27 @@ yarn generate-api:dev
 yarn denerate-api:docker
 ```
 
+### Updating Sindri Manifest JSON Schema
+
+The Sindri Manifest JSON Schema is stored in [`sindri-manifest.json`](sindri-manifest.json) and needs to be manually updated and committed when the schema changes.
+The file can be updated by running:
+
+```bash
+yarn download-sindri-manifest-schema
+```
+
+To develop against an unreleased version of the schema, you can use these variants to target a local development server:
+
+```bash
+# If you're not using Docker:
+yarn download-sindri-manifest-schema:dev
+
+# Or...
+
+# If you are using Docker:
+yarn download-sindri-manifest-schema:docker
+```
+
 ### Linting
 
 To lint the project with Eslint and Prettier:
