@@ -99,7 +99,13 @@ export const initCommand = new Command()
         default: "groth16",
         choices: [{ name: "Groth16", value: "groth16" }],
       });
-      const curveName = await select({
+      const curveName:
+        | "bn254"
+        | "bls12-277"
+        | "bls12-381"
+        | "bls24-315"
+        | "bw6-633"
+        | "b26-761" = await select({
         message: "Curve Name:",
         default: "bn254",
         choices: [
