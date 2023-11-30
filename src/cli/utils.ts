@@ -2,6 +2,7 @@ import { readdirSync, readFileSync } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
+import type { Schema } from "jsonschema";
 import type { PackageJson } from "type-fest";
 
 const currentFilePath = fileURLToPath(import.meta.url);
@@ -52,6 +53,25 @@ export function loadPackageJson(): PackageJson {
   });
   const packageJson: PackageJson = JSON.parse(packageJsonContent);
   return packageJson;
+}
+
+/**
+ * Loads the project's `sindri-manifest.json` file.
+ *
+ * @returns The contents of `sindri-manifest.json`.
+ */
+export function loadSindriManifestJsonSchema(): Schema {
+  const sindriManifestJsonPath = findFileUpwards("sindri-manifest.json");
+  if (!sindriManifestJsonPath) {
+    throw new Error(
+      "A `sindri-manifest.json` file was unexpectedly not found.",
+    );
+  }
+  const sindriManifestJsonContent = readFileSync(sindriManifestJsonPath, {
+    encoding: "utf-8",
+  });
+  const sindriManifestJson: Schema = JSON.parse(sindriManifestJsonContent);
+  return sindriManifestJson;
 }
 
 /**

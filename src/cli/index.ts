@@ -4,6 +4,7 @@ import { argv, exit } from "process";
 import { Command } from "@commander-js/extra-typings";
 
 import { Config, configCommand } from "cli/config";
+import { lintCommand } from "cli/lint";
 import { logger } from "cli/logging";
 import { loginCommand } from "cli/login";
 import { logoutCommand } from "cli/logout";
@@ -21,6 +22,7 @@ export const program = new Command()
     false,
   )
   .addCommand(configCommand)
+  .addCommand(lintCommand)
   .addCommand(loginCommand)
   .addCommand(logoutCommand)
   .addCommand(whoamiCommand)
