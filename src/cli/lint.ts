@@ -19,8 +19,8 @@ export const lintCommand = new Command()
   )
   .action(async (directory) => {
     // Track the error and warning counts as we go.
-    let lintErrorCount: number = 0;
-    let lintWarningCount: number = 0;
+    let errorCount: number = 0;
+    let warningCount: number = 0;
 
     // Load the Sindri Manifest JSON Schema.
     let sindriManifestJsonSchema: Schema | undefined;
@@ -94,13 +94,32 @@ export const lintCommand = new Command()
             .replace(/\./g, ":") +
           (error.schema.title ? `:${error.schema.title}` : "");
         logger.error(`${prefix} ${error.message}`);
-        lintErrorCount += 1;
+        errorCount += 1;
       }
     }
 
-    // Summarize the errors.
-    if (lintErrorCount > 0) {
-      logger.warn(`Linting failed, ${lintErrorCount} errors found.`);
-      return process.exit(1);
+    // Check for a project README.
+    const readmePath = path.join(rootDirectory, "README.md");
+    if (!existsSync(readmePath)) {
+      logger.warn(
+        `No project README was found at "${readmePath}", consider adding one.`,
+      );
+      warningCount += 1;
+    } else {
+      logger.debug(`README file found at "${readmePath}".`);
+    }
+
+    // Summarize the errors and warnings.
+    if (errorCount === 0 && warningCount === 0) {
+      logger.info("No issues found, good job!");
+    } else {
+      logger.warn(
+        `Found ${errorCount + warningCount} problems ` +
+          `(${errorCount} errors, ${warningCount} warnings).`,
+      );
+      if (errorCount > 0) {
+        logger.error(`Linting failed with ${errorCount} errors.`);
+        return process.exit(1);
+      }
     }
   });
