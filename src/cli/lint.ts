@@ -11,10 +11,10 @@ import { findFileUpwards, loadSindriManifestJsonSchema } from "cli/utils";
 
 export const lintCommand = new Command()
   .name("lint")
-  .description("Lint the current `sindri.json` project for potential issues.")
+  .description("Lint the current Sindri project for potential issues.")
   .argument(
     "[directory]",
-    "The directory where the new project should be initialized.",
+    "The directory, or subdirectory, of the project to lint.",
     ".",
   )
   .action(async (directory) => {
