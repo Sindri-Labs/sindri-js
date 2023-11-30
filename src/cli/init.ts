@@ -101,11 +101,11 @@ export const initCommand = new Command()
       });
       const curveName:
         | "bn254"
-        | "bls12-277"
+        | "bls12-377"
         | "bls12-381"
         | "bls24-315"
         | "bw6-633"
-        | "b26-761" = await select({
+        | "bw6-761" = await select({
         message: "Curve Name:",
         default: "bn254",
         choices: [
