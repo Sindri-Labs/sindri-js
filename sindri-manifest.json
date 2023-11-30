@@ -100,7 +100,8 @@
       "required": [
         "circuitType",
         "name"
-      ]
+      ],
+      "additionalProperties": false
     },
     "GnarkCurveOptions": {
       "title": "GnarkCurveOptions",
@@ -178,7 +179,8 @@
         "circuitStructName",
         "gnarkVersion",
         "packageName"
-      ]
+      ],
+      "additionalProperties": false
     },
     "Halo2VersionOptions": {
       "title": "Halo2VersionOptions",
@@ -225,7 +227,8 @@
         "degree",
         "halo2Version",
         "packageName"
-      ]
+      ],
+      "additionalProperties": false
     },
     "Halo2AxiomV030Sindri": {
       "title": "Halo2AxiomV030Sindri",
@@ -271,7 +274,8 @@
         "halo2Version",
         "packageName",
         "threadBuilder"
-      ]
+      ],
+      "additionalProperties": false
     },
     "Halo2ChiquitoSindri": {
       "title": "Halo2ChiquitoSindri",
@@ -308,7 +312,8 @@
         "degree",
         "halo2Version",
         "packageName"
-      ]
+      ],
+      "additionalProperties": false
     },
     "NoirProvingSchemeOptions": {
       "title": "NoirProvingSchemeOptions",
@@ -342,7 +347,8 @@
       "required": [
         "circuitType",
         "name"
-      ]
+      ],
+      "additionalProperties": false
     }
   }
 }
