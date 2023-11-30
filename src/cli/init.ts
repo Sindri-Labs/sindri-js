@@ -38,14 +38,12 @@ export const initCommand = new Command()
       const proceed = await confirm({
         message:
           `The "${directoryPath}" directory already exists and contains files. Continuing will ` +
-          "overwrite your files. Are you *SURE* you would like to proceed?",
+          "overwrite your existing files. Are you *SURE* you would like to proceed?",
         default: false,
       });
       if (!proceed) {
         logger.info("Aborting.");
         return process.exit(1);
-      } else {
-        rmSync(directoryPath, { recursive: true, force: true });
       }
     }
 
