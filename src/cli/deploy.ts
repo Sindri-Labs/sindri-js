@@ -70,15 +70,26 @@ export const deployCommand = new Command()
     }
 
     // Create a project tarball and prepare the form data for upload.
-    const files = walk.sync({
-      follow: true,
-      ignoreFiles: [".gitignore", ".sindriignore"],
-      path: ".",
-    });
+    const files = walk
+      .sync({
+        follow: true,
+        ignoreFiles: [".gitignore", ".sindriignore"],
+        path: ".",
+      })
+      .filter(
+        (file) =>
+          // Always exclude `.git` subdirectories.
+          !/(^|\/)\.git(\/|$)/.test(file),
+      );
+    // Alows include the `sindri.json` file.
+    const sindriJsonFilename = path.basename(sindriJsonPath);
+    if (!files.includes(sindriJsonFilename)) {
+      files.push(sindriJsonFilename);
+    }
     const formData = new FormData();
     const tarballFilename = `${circuitName}.tar.gz`;
     logger.info(
-      `Creating "${tarballFilename}" tarball with ${files.length} files.`,
+      `Creating "${tarballFilename}" package with ${files.length} files.`,
     );
     formData.append(
       "files",
