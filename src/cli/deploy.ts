@@ -82,7 +82,6 @@ export const deployCommand = new Command()
     );
     formData.append(
       "files",
-      // ts-expect-error - @types/tar doesn't handle the `sync` option correctly.
       tar
         .c(
           {
@@ -95,6 +94,7 @@ export const deployCommand = new Command()
           },
           files,
         )
+        // @ts-expect-error - @types/tar doesn't handle the `sync` option correctly.
         .read(),
       {
         filename: tarballFilename,
