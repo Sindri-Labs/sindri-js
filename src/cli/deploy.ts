@@ -165,7 +165,7 @@ export const deployCommand = new Command()
         } else if (response.status === CircuitStatus.QUEUED) {
           logger.debug("Circuit compilation is queued.");
         } else if (response.status === CircuitStatus.IN_PROGRESS) {
-          logger.debug("Circuit compilation is in progress");
+          logger.debug("Circuit compilation is in progress.");
         }
       } catch (error) {
         logger.fatal(
