@@ -119,6 +119,12 @@ export const getFormData = (
   options: ApiRequestOptions,
 ): FormData | undefined => {
   if (options.formData) {
+    // This is a manual edit to allow `FormData` to be passed in directly.
+    // DO NOT REMOVE THIS!
+    if (options.formData instanceof FormData) {
+      return options.formData;
+    }
+
     const formData = new FormData();
 
     const process = (key: string, value: any) => {
