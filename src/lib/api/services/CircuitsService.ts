@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type FormData from "form-data";
 import type { CircomCircuitInfoResponse } from "../models/CircomCircuitInfoResponse";
 import type { GnarkCircuitInfoResponse } from "../models/GnarkCircuitInfoResponse";
 import type { Halo2CircuitInfoResponse } from "../models/Halo2CircuitInfoResponse";
@@ -50,9 +51,13 @@ export class CircuitsService {
    * @returns any Created
    * @throws ApiError
    */
-  public static circuitCreate(formData: {
-    files: Array<Blob>;
-  }): CancelablePromise<
+  public static circuitCreate(
+    formData: // This is a manual edit to allow `FormData` to be passed in directly:
+    | FormData // DO NOT REMOVE THIS!
+      | {
+          files: Array<Blob>;
+        },
+  ): CancelablePromise<
     | CircomCircuitInfoResponse
     | Halo2CircuitInfoResponse
     | GnarkCircuitInfoResponse
