@@ -188,6 +188,24 @@ export const initCommand = new Command()
     }
     logger.info("Project scaffolding successful.");
 
+    // Install dependencies.
+    if (circuitType === "circom") {
+      let npmInstalled: boolean = false;
+      try {
+        execSync("npm --version");
+        npmInstalled = true;
+      } catch {
+        logger.warn(
+          "NPM is not installed, cannot install circomlib as a dependency. " +
+            "You will need to install NPM and run `npm install` yourself.",
+        );
+      }
+      if (npmInstalled) {
+        logger.info("Installing circomlib.");
+        execSync("npm install", { cwd: directoryPath });
+      }
+    }
+
     // Optionally, initialize a git repository.
     let gitInstalled: boolean = false;
     try {
