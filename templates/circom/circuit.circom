@@ -9,7 +9,7 @@ template templateTemplateName() {
     signal differenceInverse;
 
     // Put your circuit logic here.
-    difference <-- X - Y;
+    difference <== X - Y;
     differenceInverse <-- difference != 0 ? 1 / difference : 0;
     isEqual <== -difference * differenceInverse + 1;
     isEqual * difference === 0;
