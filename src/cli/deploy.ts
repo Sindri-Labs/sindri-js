@@ -73,7 +73,7 @@ export const deployCommand = new Command()
     const files = walk
       .sync({
         follow: true,
-        ignoreFiles: [".gitignore", ".sindriignore"],
+        ignoreFiles: [".sindriignore"],
         path: ".",
       })
       .filter(
