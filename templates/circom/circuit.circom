@@ -1,5 +1,6 @@
 pragma circom 2.0.8;
 
+// You can include files from `circomlib` like this.
 include "node_modules/circomlib/circuits/comparators.circom";
 
 template templateTemplateName() {
