@@ -2,6 +2,7 @@
   "name": "sindri",
   "version": "0.0.0",
   "description": "The Sindri Labs JavaScript SDK and CLI tool.",
+  "license": "BSD-2-Clause",
   "files": ["dist/", "sindri-manifest.json", "src/", "templates/"],
   "main": "dist/lib/index.js",
   "module": "dist/lib/index.mjs",
