@@ -5,6 +5,7 @@ ENV NODE_ENV=development
 ARG GID=1000
 ARG UID=1000
 RUN if [ "$GID" != "1000" ]; then \
+        if getent group $GID; then groupdel $(getent group $GID | cut -d: -f1); fi && \
         groupmod -g $GID node && \
         (find / -group 1000 -exec chgrp -h $GID {} \; || true) \
     ; fi
@@ -14,6 +15,7 @@ RUN if [ "$UID" != "1000" ]; then \
     ; fi
 
 RUN apt-get update
+RUN apt-get install --yes git
 
 USER node
 

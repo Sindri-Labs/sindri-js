@@ -115,6 +115,7 @@ export const deployCommand = new Command()
     // Upload the tarball.
     let circuitId: string | undefined;
     try {
+      logger.info("Circuit compilation initiated.");
       const response = await CircuitsService.circuitCreate(formData);
       circuitId = response.circuit_id;
       logger.debug("/api/v1/circuit/create/ response:");
