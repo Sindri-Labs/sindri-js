@@ -76,25 +76,6 @@ export const initCommand = new Command()
     // Handle individual circuit types.
     if (circuitType === "circom") {
       // Circom.
-      const templateName = await input({
-        message: "Circom Template Name:",
-        default: circuitName
-          .replace(/[^a-zA-Z0-9_]]+/g, "_")
-          .replace(/^[^a-zA-Z_]/g, "_")
-          .replace(/_+/g, "_"),
-        validate: (input): boolean | string => {
-          if (input.length === 0) {
-            return "You must specify a template name.";
-          }
-          if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(input)) {
-            return (
-              "Template names must begin with a letter or underscore and only be followed by " +
-              "alphanumeric characters or underscores."
-            );
-          }
-          return true;
-        },
-      });
       const provingScheme: "groth16" = await select({
         message: "Proving Scheme:",
         default: "groth16",
@@ -116,7 +97,6 @@ export const initCommand = new Command()
       Object.assign(context, {
         curveName,
         provingScheme,
-        templateName,
         witnessCompiler,
       });
     } else if (circuitType === "gnark") {

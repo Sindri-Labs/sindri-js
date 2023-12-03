@@ -3,7 +3,7 @@ pragma circom 2.0.8;
 // You can include files from `circomlib` like this.
 include "node_modules/circomlib/circuits/comparators.circom";
 
-template templateTemplateName() {
+template Main() {
     // Put your inputs here.
     signal input X;
     signal input Y;
@@ -20,4 +20,4 @@ template templateTemplateName() {
     isEqual <== isEqualValidator.out;
 }
 
-component main {public [Y]} = templateTemplateName();
+component main {public [Y]} = Main();
