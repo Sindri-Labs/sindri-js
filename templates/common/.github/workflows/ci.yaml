@@ -1,0 +1,65 @@
+name: CI Workflow
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        id: setup-node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Sindri CLI Tool
+        run: |
+          npm install -g sindri
+
+      {%- if circuitType == "circom" %}
+
+      - name: Install JavaScript Dependencies
+        run: |
+          npm ci
+      {%- endif %}
+
+      - name: Lint Circuit
+        run: |
+          sindri lint
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    needs: [lint]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        id: setup-node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Sindri CLI Tool
+        run: |
+          npm install -g sindri
+
+      {%- if circuitType == "circom" %}
+
+      - name: Install JavaScript Dependencies
+        run: |
+          npm ci
+      {%- endif %}
+
+      - name: Deploy circuit
+        run: |
+          sindri deploy
