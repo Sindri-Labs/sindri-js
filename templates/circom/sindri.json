@@ -1,0 +1,8 @@
+{
+  "$schema": "https://forge.sindri.app/api/v1/sindri-manifest-schema.json",
+  "name": "{{ circuitName }}",
+  "circuitType": "circom",
+  "curve": "{{ curveName }}",
+  "provingScheme": "{{ provingScheme }}",
+  "witnessCompiler": "{{ witnessCompiler }}"
+}

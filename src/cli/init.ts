@@ -63,7 +63,7 @@ export const initCommand = new Command()
     });
     const circuitType: "circom" | "gnark" | "halo2" | "noir" = await select({
       message: "Proving Framework:",
-      default: "gnark",
+      default: "circom",
       choices: [
         { name: "Circom", value: "circom" },
         { name: "Gnark", value: "gnark" },
@@ -74,13 +74,38 @@ export const initCommand = new Command()
     const context: object = { circuitName, circuitType };
 
     // Handle individual circuit types.
-    // Gnark.
-    if (circuitType === "gnark") {
+    if (circuitType === "circom") {
+      // Circom.
+      const provingScheme: "groth16" = await select({
+        message: "Proving Scheme:",
+        default: "groth16",
+        choices: [{ name: "Groth16", value: "groth16" }],
+      });
+      const curveName: "bn254" = await select({
+        message: "Curve Name:",
+        default: "bn254",
+        choices: [{ name: "BN254", value: "bn254" }],
+      });
+      const witnessCompiler: "c++" | "wasm" = await select({
+        message: "Witness Compiler:",
+        default: "c++",
+        choices: [
+          { name: "C++", value: "c++" },
+          { name: "Wasm", value: "wasm" },
+        ],
+      });
+      Object.assign(context, {
+        curveName,
+        provingScheme,
+        witnessCompiler,
+      });
+    } else if (circuitType === "gnark") {
+      // Gnark.
       const packageName = await input({
         message: "Go Package Name:",
         default: circuitName
           .replace(/[^a-zA-Z0-9]/g, "")
-          .replace(/^[^a-z]*/, ""),
+          .replace(/^[^a-z]*/g, ""),
         validate: (input): boolean | string => {
           if (input.length === 0) {
             return "You must specify a package name.";
@@ -142,6 +167,24 @@ export const initCommand = new Command()
       rmSync(gitKeepFile);
     }
     logger.info("Project scaffolding successful.");
+
+    // Install dependencies.
+    if (circuitType === "circom") {
+      let npmInstalled: boolean = false;
+      try {
+        execSync("npm --version");
+        npmInstalled = true;
+      } catch {
+        logger.warn(
+          "NPM is not installed, cannot install circomlib as a dependency. " +
+            "You will need to install NPM and run `npm install` yourself.",
+        );
+      }
+      if (npmInstalled) {
+        logger.info("Installing circomlib.");
+        execSync("npm install", { cwd: directoryPath });
+      }
+    }
 
     // Optionally, initialize a git repository.
     let gitInstalled: boolean = false;

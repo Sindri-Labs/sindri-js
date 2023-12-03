@@ -38,7 +38,6 @@
     "url": "git+https://github.com/Sindri-Labs/sindri-js.git"
   },
   "author": "Sindri Labs",
-  "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/Sindri-Labs/sindri-js/issues"
   },
