@@ -149,6 +149,15 @@ export const initCommand = new Command()
         packageName,
         provingScheme,
       });
+    } else if (circuitType === "noir") {
+      const provingScheme: "barretenberg" = await select({
+        message: "Proving Scheme:",
+        default: "barretenberg",
+        choices: [{ name: "Barretenberg", value: "barretenberg" }],
+      });
+      Object.assign(context, {
+        provingScheme,
+      });
     } else {
       logger.fatal(`Sorry, ${circuitType} is not yet supported.`);
       return process.exit(1);
