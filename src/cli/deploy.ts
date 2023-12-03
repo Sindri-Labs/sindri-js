@@ -35,7 +35,7 @@ export const deployCommand = new Command()
     logger.debug(`Found "sindri.json" at "${sindriJsonPath}".`);
     const rootDirectory = path.dirname(sindriJsonPath);
     logger.debug(`Changing current directory to "${rootDirectory}".`);
-    process.chdir(directoryPath);
+    process.chdir(rootDirectory);
 
     // Load `sindri.json`.
     let sindriJson: object = {};
@@ -73,7 +73,7 @@ export const deployCommand = new Command()
     const files = walk
       .sync({
         follow: true,
-        ignoreFiles: [".gitignore", ".sindriignore"],
+        ignoreFiles: [".sindriignore"],
         path: ".",
       })
       .filter(
