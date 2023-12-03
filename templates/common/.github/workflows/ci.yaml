@@ -63,3 +63,5 @@ jobs:
       - name: Deploy circuit
         run: |
           sindri deploy
+        env:
+          SINDRI_API_KEY: ${{ secrets.SINDRI_API_KEY }}
