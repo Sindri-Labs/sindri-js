@@ -1,5 +1,5 @@
 [package]
-name = "pagerank"
+name = "{{ packageName }}"
 type = "bin"
 authors = [""]
 compiler_version = "0.17.0"
