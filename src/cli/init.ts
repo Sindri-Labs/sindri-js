@@ -149,6 +149,36 @@ export const initCommand = new Command()
         packageName,
         provingScheme,
       });
+    } else if (circuitType === "noir") {
+      const packageName = await input({
+        message: "Noir Package Name:",
+        default: circuitName
+          .toLowerCase()
+          .replace(/^[^a-z0-9_]*/, "")
+          .replace(/-+/g, "-"),
+        validate: (input): boolean | string => {
+          if (input.length === 0) {
+            return "You must specify a package name.";
+          }
+          if (!/^[a-z0-9_]+(?:-[a-z0-9_]+)*$$/.test(input)) {
+            return (
+              "Package names must begin with a lowercase letter, number, or underscore, and only " +
+              "be followed by lowercase or numeric characters and underscores (optionally " +
+              "separated hyphens)."
+            );
+          }
+          return true;
+        },
+      });
+      const provingScheme: "barretenberg" = await select({
+        message: "Proving Scheme:",
+        default: "barretenberg",
+        choices: [{ name: "Barretenberg", value: "barretenberg" }],
+      });
+      Object.assign(context, {
+        packageName,
+        provingScheme,
+      });
     } else {
       logger.fatal(`Sorry, ${circuitType} is not yet supported.`);
       return process.exit(1);
