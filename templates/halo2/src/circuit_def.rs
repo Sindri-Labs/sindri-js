@@ -1,55 +1,49 @@
-use halo2_base::utils::{BigPrimeField, ScalarField};
+use std::fs::File;
+
 #[allow(unused_imports)]
 use halo2_base::{
-    gates::builder::{
-        GateThreadBuilder, MultiPhaseThreadBreakPoints, RangeCircuitBuilder,
-        RangeWithInstanceCircuitBuilder, RangeWithInstanceConfig,
+    Context,
+    gates::{
+        builder::{
+            GateThreadBuilder, MultiPhaseThreadBreakPoints, RangeCircuitBuilder,
+            RangeWithInstanceCircuitBuilder, RangeWithInstanceConfig,
+        },
+        GateChip, 
+        GateInstructions
     },
     halo2_proofs::{
         circuit::{Layouter, SimpleFloorPlanner},
         plonk::{Circuit, ConstraintSystem, Error},
     },
-    Context,
     QuantumCell::{Constant, Existing, Witness},
+    utils::ScalarField
 };
 
-use crate::gadgets::{FixedPointChip, FixedPointInstructions};
-use std::env::var;
-use std::fs::File;
-
 pub struct CircuitInput<F: ScalarField> {
-    pub x: f64,
-    pub y: f64,
-    _marker: std::marker::PhantomData<F>,
+    pub x: F, 
+    pub y: F,
 }
 
 //return default inputs
 impl<F: ScalarField> Default for CircuitInput<F> {
     fn default() -> Self {
         Self {
-            x: 1.0,
-            y: 1.0,
-            _marker: std::marker::PhantomData,
-        }
+            x: F::from(1),
+            y: F::from(1),
+        }        
     }
 }
 
-impl<F: ScalarField + std::convert::From<[u64; 4]>> CircuitInput<F>
-where
-    F: BigPrimeField,
-    [u64; 4]: std::convert::From<F>,
-{
+impl<F: ScalarField> CircuitInput<F> {
     //return inputs from json
     pub fn from_json(infile: &str) -> Self {
-        let witness: serde_json::Value =
-            serde_json::from_reader(File::open(infile).unwrap()).unwrap();
-        let xin: f64 = serde_json::from_value(witness["x"].clone()).unwrap();
-        let yin: f64 = serde_json::from_value(witness["y"].clone()).unwrap();
+        let witness: serde_json::Value = serde_json::from_reader(File::open(infile).unwrap()).unwrap();
+        let xin: u64 = serde_json::from_value(witness["X"].clone()).unwrap();
+        let yin: u64 = serde_json::from_value(witness["Y"].clone()).unwrap();
         Self {
-            x: xin,
-            y: yin,
-            _marker: std::marker::PhantomData,
-        }
+            x: F::from(xin),
+            y: F::from(yin),
+        }        
     }
 
     //From the witness input, this will return a circuit constructed from the various
@@ -59,59 +53,38 @@ where
         self,
         mut builder: GateThreadBuilder<F>,
         break_points: Option<MultiPhaseThreadBreakPoints>,
-    ) -> RadiusCircuitBuilder<F>
-    where
-        F: BigPrimeField,
-        [u64; 4]: std::convert::From<F>,
-    {
+    ) -> QuadraticCircuitBuilder<F> {
+
         //initialize instance
         let mut assigned_instances = vec![];
-
         //circuit definition via Axiom's halo2-lib
         let ctx = builder.main(0);
+        let c = F::from(72);
+        let gate = GateChip::<F>::default();
+        let x = ctx.load_witness(self.x); 
+        let _val_assigned = gate.mul_add(ctx, x, x, Constant(c));
 
-        // Need to add LOOKUP_BITS to config.json, as it is used to configure the lookup advice
-        let lookup_bits = var("LOOKUP_BITS")
-            .unwrap_or_else(|_| panic!("LOOKUP_BITS not set"))
-            .parse()
-            .unwrap();
-        const PRECISION_BITS: u32 = 32;
-        // using 32-bit fixed-point exp arithmetic
-        let fixed_point_chip = FixedPointChip::<F, PRECISION_BITS>::default(lookup_bits);
+        assigned_instances.push(x);
 
-        let x = fixed_point_chip.quantization(self.x);
-        let y = fixed_point_chip.quantization(self.y);
-
-        let x = ctx.load_witness(x);
-        let y = ctx.load_witness(y);
-
-        let x_magnitude_sq = fixed_point_chip.qmul(ctx, x, x);
-        let y_magnitude_sq = fixed_point_chip.qmul(ctx, y, y);
-
-        let radius_squared = fixed_point_chip.qadd(ctx, x_magnitude_sq, y_magnitude_sq);
-        let radius = fixed_point_chip.qsqrt(ctx, radius_squared);
-
-        assigned_instances.push(radius);
-
-        let k: usize = 13;
+        let k: usize = 9; 
         let minimum_rows: usize = 9;
         builder.config(k, Some(minimum_rows));
 
         let circuit = match builder.witness_gen_only() {
-            true => RangeCircuitBuilder::prover(builder, break_points.unwrap()),
+            true => RangeCircuitBuilder::prover( builder, break_points.unwrap()),
             false => RangeCircuitBuilder::keygen(builder),
         };
-
-        RadiusCircuitBuilder(RangeWithInstanceCircuitBuilder::new(
-            circuit,
-            assigned_instances,
-        ))
+        
+        QuadraticCircuitBuilder(RangeWithInstanceCircuitBuilder::new(circuit, assigned_instances))
     }
 }
 
-pub struct RadiusCircuitBuilder<F: ScalarField>(pub RangeWithInstanceCircuitBuilder<F>);
 
-impl<F: ScalarField> Circuit<F> for RadiusCircuitBuilder<F> {
+// BOILERPLATE METHOD INHERITANCE 
+// MINIMAL CHANGES REQUIRED BELOW THIS POINT
+pub struct QuadraticCircuitBuilder<F: ScalarField>(pub RangeWithInstanceCircuitBuilder<F>);
+
+impl<F: ScalarField> Circuit<F> for QuadraticCircuitBuilder<F> {
     type Config = RangeWithInstanceConfig<F>;
     type FloorPlanner = SimpleFloorPlanner;
 
@@ -128,8 +101,8 @@ impl<F: ScalarField> Circuit<F> for RadiusCircuitBuilder<F> {
     }
 }
 
-// returning features of the circuit to the prover
-impl<F: ScalarField> RadiusCircuitBuilder<F> {
+impl<F: ScalarField> QuadraticCircuitBuilder<F> {
+
     pub fn instance(&self) -> Vec<F> {
         self.0.instance()
     }
