@@ -155,8 +155,7 @@ export const initCommand = new Command()
         message: "Halo2 Package Name:",
         default: circuitName
           .toLowerCase()
-          .replace(/-+/g, "_")
-          .replace(/^[^a-z0-9_]*/, "")
+          .replace(/[^a-z0-9_]+/, "_")
           .replace(/_+/g, "_"),
         validate: (input): boolean | string => {
           if (input.length === 0) {
