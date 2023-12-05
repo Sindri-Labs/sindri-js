@@ -168,12 +168,11 @@ export const initCommand = new Command()
           return true;
         },
       });
-      const halo2Version: "axiom-v0.3.0" | "chiquito" = await select({
+      const halo2Version: "axiom-v0.3.0"  = await select({
         message: "Halo2 Base Version:",
         default: "axiom-v0.3.0",
         choices: [
           { name: "Axiom v0.3.0", value: "axiom-v0.3.0" },
-          { name: "Chiquito", value: "chiquito" },
         ],
       });
       const threadBuilder:
