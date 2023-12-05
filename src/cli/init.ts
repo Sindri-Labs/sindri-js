@@ -155,9 +155,9 @@ export const initCommand = new Command()
         message: "Halo2 Package Name:",
         default: circuitName
           .toLowerCase()
-          .replace(/-+/g, "_"),
+          .replace(/-+/g, "_")
           .replace(/^[^a-z0-9_]*/, "")
-          .replace(/_+/g, "-"),,
+          .replace(/_+/g, "-"),
         validate: (input): boolean | string => {
           if (input.length === 0) {
             return "You must specify a package name.";
@@ -168,12 +168,10 @@ export const initCommand = new Command()
           return true;
         },
       });
-      const halo2Version: "axiom-v0.3.0"  = await select({
+      const halo2Version: "axiom-v0.3.0" = await select({
         message: "Halo2 Base Version:",
         default: "axiom-v0.3.0",
-        choices: [
-          { name: "Axiom v0.3.0", value: "axiom-v0.3.0" },
-        ],
+        choices: [{ name: "Axiom v0.3.0", value: "axiom-v0.3.0" }],
       });
       const threadBuilder:
         | "GateThreadBuilder"
