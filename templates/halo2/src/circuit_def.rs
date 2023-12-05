@@ -66,7 +66,7 @@ impl<F: ScalarField> CircuitInput<F> {
 
         assigned_instances.push(_val_assigned);
 
-        let k: usize = 9; 
+        let k: usize = {{ degree }};
         let minimum_rows: usize = 9;
         builder.config(k, Some(minimum_rows));
 
