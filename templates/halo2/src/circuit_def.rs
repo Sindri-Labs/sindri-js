@@ -59,12 +59,12 @@ impl<F: ScalarField> CircuitInput<F> {
         let mut assigned_instances = vec![];
         //circuit definition via Axiom's halo2-lib
         let ctx = builder.main(0);
-        let c = F::from(72);
         let gate = GateChip::<F>::default();
         let x = ctx.load_witness(self.x); 
-        let _val_assigned = gate.mul_add(ctx, x, x, Constant(c));
+        let y = ctx.load_witness(self.y);
+        let _val_assigned = gate.is_equal(ctx, x, y);
 
-        assigned_instances.push(x);
+        assigned_instances.push(_val_assigned);
 
         let k: usize = 9; 
         let minimum_rows: usize = 9;
