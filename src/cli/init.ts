@@ -155,14 +155,19 @@ export const initCommand = new Command()
         message: "Halo2 Package Name:",
         default: circuitName
           .toLowerCase()
-          .replace(/[^a-z0-9_]+/, "_")
-          .replace(/_+/g, "_"),
+          .replace(/^[^a-z0-9_]+/, "_")
+          .replace(/_+/g, "_")
+          .replace(/-+/g, "-"),
         validate: (input): boolean | string => {
           if (input.length === 0) {
             return "You must specify a package name.";
           }
-          if (!/^[a-z0-9_]+$/.test(input)) {
-            return "Package names only contain lowercase letters, numbers, or underscores.";
+          if (!/^[a-z0-9_]+(?:-[a-z0-9_]+)*$/.test(input)) {
+            return (
+              "Package names must begin with a lowercase letter, number, or underscore, and only " +
+              "be followed by lowercase or numeric characters and underscores (optionally " +
+              "separated hyphens)."
+            );
           }
           return true;
         },
@@ -204,7 +209,15 @@ export const initCommand = new Command()
         10,
       );
 
+      // Replace hyphens with underscores in the package name.
+      const className = `${packageName.replace(
+        /-/g,
+        "_",
+      )}::circuit_def::CircuitInput`;
+
+      console.log("hello");
       Object.assign(context, {
+        className,
         halo2Version,
         degree,
         packageName,
