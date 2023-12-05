@@ -157,7 +157,7 @@ export const initCommand = new Command()
           .toLowerCase()
           .replace(/-+/g, "_")
           .replace(/^[^a-z0-9_]*/, "")
-          .replace(/_+/g, "-"),
+          .replace(/_+/g, "_"),
         validate: (input): boolean | string => {
           if (input.length === 0) {
             return "You must specify a package name.";
