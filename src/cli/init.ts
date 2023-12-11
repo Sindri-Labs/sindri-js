@@ -215,7 +215,6 @@ export const initCommand = new Command()
         "_",
       )}::circuit_def::CircuitInput`;
 
-      console.log("hello");
       Object.assign(context, {
         className,
         halo2Version,
