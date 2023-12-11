@@ -241,7 +241,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "halo2-circuit"
+name = "templatePackageName"
 version = "0.0.1"
 dependencies = [
  "halo2-base",
