@@ -47,7 +47,7 @@ impl<F: ScalarField> CircuitInput<F> {
     }
 
     //From the witness input, this will return a circuit constructed from the various
-    //modes of GateThreadBuilder - it returns the ScaffoldCircuitBuilder which implements
+    //modes of GateThreadBuilder - it returns the CircuitBuilder which implements
     //the final requirements of a circuit and has some handy instance methods
     pub fn create_circuit(
         self,
@@ -62,13 +62,14 @@ impl<F: ScalarField> CircuitInput<F> {
         let gate = GateChip::<F>::default();
         let x = ctx.load_witness(self.x); 
         let y = ctx.load_witness(self.y);
+        assigned_instances.push(y);
+
         let _val_assigned = gate.is_equal(ctx, x, y);
 
         assigned_instances.push(_val_assigned);
 
         let k: usize = {{ degree }};
-        let minimum_rows: usize = 9;
-        builder.config(k, Some(minimum_rows));
+        builder.config(k, None);
 
         let circuit = match builder.witness_gen_only() {
             true => RangeCircuitBuilder::prover( builder, break_points.unwrap()),
