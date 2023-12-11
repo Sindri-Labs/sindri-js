@@ -53,7 +53,7 @@ impl<F: ScalarField> CircuitInput<F> {
         self,
         mut builder: GateThreadBuilder<F>,
         break_points: Option<MultiPhaseThreadBreakPoints>,
-    ) -> QuadraticCircuitBuilder<F> {
+    ) -> CircuitBuilder<F> {
 
         //initialize instance
         let mut assigned_instances = vec![];
@@ -75,16 +75,16 @@ impl<F: ScalarField> CircuitInput<F> {
             false => RangeCircuitBuilder::keygen(builder),
         };
         
-        QuadraticCircuitBuilder(RangeWithInstanceCircuitBuilder::new(circuit, assigned_instances))
+        CircuitBuilder(RangeWithInstanceCircuitBuilder::new(circuit, assigned_instances))
     }
 }
 
 
 // BOILERPLATE METHOD INHERITANCE 
 // MINIMAL CHANGES REQUIRED BELOW THIS POINT
-pub struct QuadraticCircuitBuilder<F: ScalarField>(pub RangeWithInstanceCircuitBuilder<F>);
+pub struct CircuitBuilder<F: ScalarField>(pub RangeWithInstanceCircuitBuilder<F>);
 
-impl<F: ScalarField> Circuit<F> for QuadraticCircuitBuilder<F> {
+impl<F: ScalarField> Circuit<F> for CircuitBuilder<F> {
     type Config = RangeWithInstanceConfig<F>;
     type FloorPlanner = SimpleFloorPlanner;
 
@@ -101,7 +101,7 @@ impl<F: ScalarField> Circuit<F> for QuadraticCircuitBuilder<F> {
     }
 }
 
-impl<F: ScalarField> QuadraticCircuitBuilder<F> {
+impl<F: ScalarField> CircuitBuilder<F> {
 
     pub fn instance(&self) -> Vec<F> {
         self.0.instance()
