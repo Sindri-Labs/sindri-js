@@ -1,8 +1,5 @@
 use std::fs::File;
-
-#[allow(unused_imports)]
 use halo2_base::{
-    Context,
     gates::{
         builder::{
             GateThreadBuilder, MultiPhaseThreadBreakPoints, RangeCircuitBuilder,
@@ -15,7 +12,6 @@ use halo2_base::{
         circuit::{Layouter, SimpleFloorPlanner},
         plonk::{Circuit, ConstraintSystem, Error},
     },
-    QuantumCell::{Constant, Existing, Witness},
     utils::ScalarField
 };
 
@@ -55,24 +51,22 @@ impl<F: ScalarField> CircuitInput<F> {
         break_points: Option<MultiPhaseThreadBreakPoints>,
     ) -> CircuitBuilder<F> {
 
-        //initialize instance
+        //initialize public vec and circuit context builder
         let mut assigned_instances = vec![];
-        //circuit definition via Axiom's halo2-lib
         let ctx = builder.main(0);
         let gate = GateChip::<F>::default();
+
+        // The main circuit logic via halo2-lib's high level API
         let x = ctx.load_witness(self.x); 
         let y = ctx.load_witness(self.y);
         assigned_instances.push(y);
-
         let _val_assigned = gate.is_equal(ctx, x, y);
-
         assigned_instances.push(_val_assigned);
 
         let k: usize = {{ degree }};
         builder.config(k, None);
-
         let circuit = match builder.witness_gen_only() {
-            true => RangeCircuitBuilder::prover( builder, break_points.unwrap()),
+            true => RangeCircuitBuilder::prover(builder, break_points.unwrap()),
             false => RangeCircuitBuilder::keygen(builder),
         };
         
