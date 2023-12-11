@@ -1,0 +1,8 @@
+[package]
+name = "{{ packageName }}"
+version = "0.0.1"
+edition = "2021"
+
+[dependencies]
+serde_json = "1.0"
+halo2-base = { git = "https://github.com/axiom-crypto/halo2-lib", tag = "v0.3.0", default-features = false, features = ["halo2-axiom", "mimalloc"] }
