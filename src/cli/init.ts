@@ -177,10 +177,7 @@ export const initCommand = new Command()
         default: "axiom-v0.3.0",
         choices: [{ name: "Axiom v0.3.0", value: "axiom-v0.3.0" }],
       });
-      const threadBuilder:
-        | "GateThreadBuilder"
-        | "RlcThreadBuilder"
-        | undefined =
+      const threadBuilder: "GateThreadBuilder" | undefined =
         halo2Version !== "axiom-v0.3.0"
           ? undefined
           : await select({
@@ -188,7 +185,6 @@ export const initCommand = new Command()
               default: "GateThreadBuilder",
               choices: [
                 { name: "Gate Thread Builder", value: "GateThreadBuilder" },
-                { name: "RLC Thread Builder", value: "RlcThreadBuilder" },
               ],
             });
       // Collect `degree` as a positive integer.
