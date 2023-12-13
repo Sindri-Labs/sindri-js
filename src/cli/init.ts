@@ -224,18 +224,14 @@ export const initCommand = new Command()
         default: circuitName
           .toLowerCase()
           .replace(/[- ]/g, "_")
-          .replace(/^[^a-z]*/, "")
-          .replace(/[^a-z0-9_]*/, "")
+          .replace(/[^a-zA-Z0-9_]+/, "")
           .replace(/_+/g, "_"),
         validate: (input): boolean | string => {
           if (input.length === 0) {
             return "You must specify a package name.";
           }
-          if (!/^[a-z][a-z0-9_]*$/.test(input)) {
-            return (
-              "Package names must start with a lowercase letter and only be followed by " +
-              "lowercase letters, digits, and underscores."
-            );
+          if (!/^[a-zA-Z0-9_]+$/.test(input)) {
+            return "Package names must only contain alphanumeric characters and underscores.";
           }
           return true;
         },
