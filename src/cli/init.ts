@@ -223,17 +223,18 @@ export const initCommand = new Command()
         message: "Noir Package Name:",
         default: circuitName
           .toLowerCase()
-          .replace(/^[^a-z0-9_]*/, "")
-          .replace(/-+/g, "-"),
+          .replace(/[- ]/g, "_")
+          .replace(/^[^a-z]*/, "")
+          .replace(/[^a-z0-9_]*/, "")
+          .replace(/_+/g, "_"),
         validate: (input): boolean | string => {
           if (input.length === 0) {
             return "You must specify a package name.";
           }
-          if (!/^[a-z0-9_]+(?:-[a-z0-9_]+)*$$/.test(input)) {
+          if (!/^[a-z][a-z0-9_]*$/.test(input)) {
             return (
-              "Package names must begin with a lowercase letter, number, or underscore, and only " +
-              "be followed by lowercase or numeric characters and underscores (optionally " +
-              "separated hyphens)."
+              "Package names must start with a lowercase letter and only be followed by " +
+              "lowercase letters, digits, and underscores."
             );
           }
           return true;
