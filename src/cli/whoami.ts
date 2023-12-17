@@ -8,7 +8,7 @@ import { ApiError, InternalService } from "lib/api";
 
 export const whoamiCommand = new Command()
   .name("whoami")
-  .description("Display the currently authorized team name.")
+  .description("Display the currently authorized organization name.")
   .action(async () => {
     // Authorize the API client.
     const config = new Config();

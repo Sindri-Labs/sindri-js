@@ -89,7 +89,7 @@ export const loginCommand = new Command()
       logger.debug("/api/v1/user/me/ response:");
       logger.debug(userResult);
       const teamId = await select({
-        message: "Select a Team:",
+        message: "Select a Organization:",
         choices: userResult.teams.map(({ id, slug }) => ({
           name: slug,
           value: id,
@@ -97,7 +97,7 @@ export const loginCommand = new Command()
       });
       const team = userResult.teams.find((team) => team.id === teamId);
       if (!team) {
-        throw new Error("No team selected.");
+        throw new Error("No organization selected.");
       }
 
       // Generate an API key.
