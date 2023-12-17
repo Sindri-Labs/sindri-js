@@ -149,6 +149,102 @@ export const initCommand = new Command()
         packageName,
         provingScheme,
       });
+    } else if (circuitType === "halo2") {
+      // Halo2.
+      const packageName = await input({
+        message: "Halo2 Package Name:",
+        default: circuitName
+          .toLowerCase()
+          .replace(/^[^a-z0-9_]+/, "_")
+          .replace(/_+/g, "_")
+          .replace(/-+/g, "-"),
+        validate: (input): boolean | string => {
+          if (input.length === 0) {
+            return "You must specify a package name.";
+          }
+          if (!/^[a-z0-9_]+(?:-[a-z0-9_]+)*$/.test(input)) {
+            return (
+              "Package names must begin with a lowercase letter, number, or underscore, and only " +
+              "be followed by lowercase or numeric characters and underscores (optionally " +
+              "separated hyphens)."
+            );
+          }
+          return true;
+        },
+      });
+      const halo2Version: "axiom-v0.3.0" = await select({
+        message: "Halo2 Base Version:",
+        default: "axiom-v0.3.0",
+        choices: [{ name: "Axiom v0.3.0", value: "axiom-v0.3.0" }],
+      });
+      const threadBuilder: "GateThreadBuilder" | undefined =
+        halo2Version !== "axiom-v0.3.0"
+          ? undefined
+          : await select({
+              message: "Halo2 Base Version:",
+              default: "GateThreadBuilder",
+              choices: [
+                { name: "Gate Thread Builder", value: "GateThreadBuilder" },
+              ],
+            });
+      // Collect `degree` as a positive integer.
+      const degree: number = parseInt(
+        await input({
+          message: "Degree:",
+          default: "13",
+          validate: (input): boolean | string => {
+            if (input.length === 0) {
+              return "You must specify a degree.";
+            }
+            if (!/^[1-9]\d*$/.test(input)) {
+              return "Degree must be a positive integer.";
+            }
+            return true;
+          },
+        }),
+        10,
+      );
+
+      // Replace hyphens with underscores in the package name.
+      const className = `${packageName.replace(
+        /-/g,
+        "_",
+      )}::circuit_def::CircuitInput`;
+
+      Object.assign(context, {
+        className,
+        halo2Version,
+        degree,
+        packageName,
+        threadBuilder,
+      });
+    } else if (circuitType === "noir") {
+      const packageName = await input({
+        message: "Noir Package Name:",
+        default: circuitName
+          .toLowerCase()
+          .replace(/[- ]/g, "_")
+          .replace(/[^a-zA-Z0-9_]+/, "")
+          .replace(/_+/g, "_"),
+        validate: (input): boolean | string => {
+          if (input.length === 0) {
+            return "You must specify a package name.";
+          }
+          if (!/^[a-zA-Z0-9_]+$/.test(input)) {
+            return "Package names must only contain alphanumeric characters and underscores.";
+          }
+          return true;
+        },
+      });
+      const provingScheme: "barretenberg" = await select({
+        message: "Proving Scheme:",
+        default: "barretenberg",
+        choices: [{ name: "Barretenberg", value: "barretenberg" }],
+      });
+      Object.assign(context, {
+        packageName,
+        provingScheme,
+      });
     } else {
       logger.fatal(`Sorry, ${circuitType} is not yet supported.`);
       return process.exit(1);
