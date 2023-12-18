@@ -14,6 +14,12 @@
 For more information about the Sindri platform, please check out [sindri.app](https://sindri.app/).
 The best way to get started with the Sindri CLI is to begin with the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) and to then refer to the [Sindri CLI Reference Docs](https://sindri-labs.github.io/docs/reference/cli/) for more detailed information about the CLI commands and options.
 
+#### Why Should I Use Sindri?
+
+Sindri makes it easy to develop circuits in the framework of your choice, and to deploy them in a highly scalable and cost-effective way.
+You only pay for what you use, and you can scale up to thousands of GPUs in seconds.
+Our public circuit registry also makes it easy to share and reuse circuits, so you can build off of circuits that have already been audited and battle tested even if they're written in a different framework than the one you're using.
+
 ## Development
 
 ### Using Docker
