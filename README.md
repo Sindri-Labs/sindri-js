@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/npm/l/sindri?color=blue)](https://github.com/Sindri-Labs/sindri-js/blob/main/LICENSE.md)
 [![Version](https://img.shields.io/npm/v/sindri)](https://www.npmjs.com/package/sindri)
 
-<img src="./media/sindri-gradient-logo.webp" height="160" align="right"/>
+<img src="https://github.com/Sindri-Labs/sindri-js/blob/487fb8a7fd5e0e3147a46eafb72ca89a06fe7540/media/sindri-gradient-logo.webp" height="160" align="right"/>
 
 #### [Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) | [Reference Docs](https://sindri-labs.github.io/docs/reference/cli/) | [Development](#development)
 
