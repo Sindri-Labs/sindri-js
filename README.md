@@ -20,6 +20,16 @@ Sindri makes it easy to develop circuits in the framework of your choice, and to
 You only pay for what you use, and you can scale up to thousands of GPUs in seconds.
 Our public circuit registry also makes it easy to share and reuse circuits, so you can build off of circuits that have already been audited and battle tested even if they're written in a different framework than the one you're using.
 
+## Installation
+
+The Sindri CLI tool is available as an NPM package and can be installed with the following command:
+
+```bash
+npm install -g sindri@latest
+```
+
+See the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) for more information about installing and configuring the CLI tool.
+
 ## Development
 
 ### Using Docker
