@@ -20,7 +20,9 @@ Sindri makes it easy to develop circuits in the framework of your choice, and to
 You only pay for what you use, and you can scale up to thousands of GPUs in seconds.
 Our public circuit registry also makes it easy to share and reuse circuits, so you can build off of circuits that have already been audited and battle tested even if they're written in a different framework than the one you're using.
 
-## Installation
+## Using the Sindri CLI
+
+### Installation
 
 The Sindri CLI tool is available as an NPM package and can be installed with the following command:
 
@@ -30,7 +32,7 @@ npm install -g sindri@latest
 
 See the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) for more information about installing and configuring the CLI tool.
 
-## Authentication
+### Authentication
 
 To compile circuits on Sindri, you'll need to have an account and authenticate the CLI to use it.
 You can create an account at [sindri.app](https://sindri.app/).
@@ -41,7 +43,7 @@ sindri login
 
 See the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) for more details about authentication.
 
-## Circuit Project Creation
+### Circuit Project Creation
 
 The Sindri CLI provides a project scaffolding tool to help you get started with circuit development.
 The `sindri init` command will initialize a new circuit project for you with everything you need to get started.
@@ -52,7 +54,7 @@ sindri init my-circuit
 
 See the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) for more details about creating a new circuit project.
 
-## Linting Circuits
+### Linting Circuits
 
 You can run `sindri lint` from within your circuit project directory to perform local checks that your circuit is valid and ready to be compiled.
 This will not actually compile your circuit, but will perform basic checks to uncover issues that would prevent your circuit from compiling successfully.
@@ -63,7 +65,7 @@ sindri lint
 
 See the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) for more information about circuit linting.
 
-## Circuit Compilation
+### Circuit Compilation
 
 To compile your circuit on the Sindri platform, you can use the `sindri deploy` command to upload and compile it.
 Any compilation errors will be reported back to you and the command will exit with a non-zero exit code.
