@@ -8,7 +8,7 @@
 
 #### [Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) | [Reference Docs](https://sindri-labs.github.io/docs/reference/cli/) | [Development](#development)
 
-> Sindri is a platform that makes compiling Zero-Knowledge Proof circuits in any framework and generating proofs with full GPU acceleration as easy and scalable as AWS Lambda.
+> Sindri is a platform that makes compiling Zero-Knowledge Proof circuits in any framework and generating proofs with full GPU acceleration as easy and scalable as serverless platforms like AWS Lambda.
 > The CLI tool offers an easy and intuitive interface for circuit development and deployment that will feel very familiar to anyone who has used Docker, Git, Heroku, or NPM.
 
 For more information about the Sindri platform, please check out [sindri.app](https://sindri.app/).
@@ -56,7 +56,7 @@ See the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-start
 
 ### Linting Circuits
 
-You can run `sindri lint` from within your circuit project directory to perform local checks that your circuit is valid and ready to be compiled.
+You can run `sindri lint` from within your circuit project directory to perform local checks to ensure your circuit is valid and ready for compilation.
 This will not actually compile your circuit, but will perform basic checks to uncover issues that would prevent your circuit from compiling successfully.
 
 ```bash
@@ -68,7 +68,7 @@ See the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-start
 ### Circuit Compilation
 
 To compile your circuit on the Sindri platform, you can use the `sindri deploy` command to upload and compile it.
-Any compilation errors will be reported back to you and the command will exit with a non-zero exit code.
+If there are compilation errors, they will be reported, and the command will exit with a non-zero exit code.
 
 ```bash
 sindri deploy
