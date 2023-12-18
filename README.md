@@ -4,10 +4,15 @@
 [![License](https://img.shields.io/npm/l/sindri?color=blue)](https://github.com/Sindri-Labs/sindri-js/blob/main/LICENSE.md)
 [![Version](https://img.shields.io/npm/v/sindri)](https://www.npmjs.com/package/sindri)
 
-<img src="./media/sindri-gradient-logo.webp" height="200" align="right"/>
+<img src="./media/sindri-gradient-logo.webp" height="160" align="right"/>
 
-The Sindri JavaScript SDK.
-Please see [Sindri.app](https://sindri.app) for more details.
+#### [Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) | [Reference Docs](https://sindri-labs.github.io/docs/reference/cli/) | [Development](#development)
+
+> Sindri is a platform that makes compiling Zero-Knowledge Proof circuits in any framework and generating proofs with full GPU acceleration as easy and scalable as AWS Lambda.
+> The CLI tool offers an easy and intuitive interface for iterative circuit development and deployment that will feel very familiar to anyone who has used Docker, Git, Heroku, or NPM.
+
+For more information about the Sindri platform, please check out [sindri.app](https://sindri.app/).
+The best way to get started with the Sindri CLI is to begin with the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) and to then refer to the [Sindri CLI Reference Docs](https://sindri-labs.github.io/docs/reference/cli/) for more detailed information about the CLI commands and options.
 
 ## Development
 
