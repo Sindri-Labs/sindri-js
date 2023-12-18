@@ -1,5 +1,9 @@
 # Sindri SDK
 
+![Build](https://img.shields.io/github/actions/workflow/status/Sindri-Labs/sindri-js/ci.yaml)
+![License](https://img.shields.io/npm/l/sindri)
+![Version](https://img.shields.io/npm/v/sindri)
+
 The Sindri JavaScript SDK.
 Please see [Sindri.app](https://sindri.app) for more details.
 
