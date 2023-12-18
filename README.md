@@ -30,6 +30,50 @@ npm install -g sindri@latest
 
 See the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) for more information about installing and configuring the CLI tool.
 
+## Authentication
+
+To compile circuits on Sindri, you'll need to have an account and authenticate the CLI to use it.
+You can create an account at [sindri.app](https://sindri.app/).
+
+```bash
+sindri login
+```
+
+See the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) for more details about authentication.
+
+## Circuit Project Creation
+
+The Sindri CLI provides a project scaffolding tool to help you get started with circuit development.
+The `sindri init` command will initialize a new circuit project for you with everything you need to get started.
+
+```bash
+sindri init my-circuit
+```
+
+See the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) for more details about creating a new circuit project.
+
+## Linting Circuits
+
+You can run `sindri lint` from within your circuit project directory to perform local checks that your circuit is valid and ready to be compiled.
+This will not actually compile your circuit, but will perform basic checks to uncover issues that would prevent your circuit from compiling successfully.
+
+```bash
+sindri lint
+```
+
+See the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) for more information about circuit linting.
+
+## Circuit Compilation
+
+To compile your circuit on the Sindri platform, you can use the `sindri deploy` command to upload and compile it.
+Any compilation errors will be reported back to you and the command will exit with a non-zero exit code.
+
+```bash
+sindri deploy
+```
+
+See the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) for details about circuit compilation.
+
 ## Development
 
 ### Using Docker
