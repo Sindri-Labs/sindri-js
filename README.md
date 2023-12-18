@@ -1,8 +1,10 @@
-# Sindri SDK
+# Sindri CLI
 
 [![Build](https://img.shields.io/github/actions/workflow/status/Sindri-Labs/sindri-js/ci.yaml)](https://github.com/Sindri-Labs/sindri-js/actions)
 [![License](https://img.shields.io/npm/l/sindri?color=blue)](https://github.com/Sindri-Labs/sindri-js/blob/main/LICENSE.md)
 [![Version](https://img.shields.io/npm/v/sindri)](https://www.npmjs.com/package/sindri)
+
+<img src="./media/sindri-gradient-logo.webp" height="200" align="right"/>
 
 The Sindri JavaScript SDK.
 Please see [Sindri.app](https://sindri.app) for more details.
