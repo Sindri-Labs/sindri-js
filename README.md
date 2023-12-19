@@ -35,7 +35,7 @@ See the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-start
 ### Authentication
 
 To compile circuits on Sindri, you'll need to have an account and authenticate the CLI to use it.
-You can create an account at [sindri.app](https://sindri.app/).
+Visit [sindri.app](https://sindri.app/) to find more details about account creation.
 
 ```bash
 sindri login
