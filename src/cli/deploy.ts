@@ -112,7 +112,8 @@ export const deployCommand = new Command()
       },
     );
     // DELETE ME
-    formData.append("tags", JSON.stringify(["yo", "sup"]));
+    formData.append("tags", "yo");
+    formData.append("tags", "sup");
 
     // Upload the tarball.
     let circuitId: string | undefined;
