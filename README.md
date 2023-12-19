@@ -1,7 +1,73 @@
-# Sindri SDK
+# Sindri CLI
 
-The Sindri JavaScript SDK.
-Please see [Sindri.app](https://sindri.app) for more details.
+[![Build](https://img.shields.io/github/actions/workflow/status/Sindri-Labs/sindri-js/ci.yaml)](https://github.com/Sindri-Labs/sindri-js/actions)
+[![License](https://img.shields.io/npm/l/sindri?color=blue)](https://github.com/Sindri-Labs/sindri-js/blob/main/LICENSE.md)
+[![Version](https://img.shields.io/npm/v/sindri)](https://www.npmjs.com/package/sindri)
+
+<img src="https://github.com/Sindri-Labs/sindri-js/blob/487fb8a7fd5e0e3147a46eafb72ca89a06fe7540/media/sindri-gradient-logo.webp" height="160" align="right"/>
+
+#### [Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) | [Reference Docs](https://sindri-labs.github.io/docs/reference/cli/) | [Development](#development)
+
+> Sindri is a platform that makes compiling Zero-Knowledge Proof circuits in any framework and generating proofs with full GPU acceleration as easy and scalable as serverless platforms like AWS Lambda.
+> The CLI tool offers an easy and intuitive interface for circuit development and deployment that will feel very familiar to anyone who has used Docker, Git, Heroku, or NPM.
+
+For more information about the Sindri platform, please check out [sindri.app](https://sindri.app/).
+The best way to get started with the Sindri CLI is to begin with the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) and to then refer to the [Sindri CLI Reference Docs](https://sindri-labs.github.io/docs/reference/cli/) for more detailed information about the CLI commands and options.
+
+#### Why Should I Use Sindri?
+
+Sindri makes it easy to develop circuits in the framework of your choice, and to deploy them in a highly scalable and cost-effective way.
+You only pay for what you use, and you can scale up to thousands of GPUs in seconds.
+Our public circuit registry also makes it easy to share and reuse circuits, so you can build off of circuits that have already been audited and battle tested even if they're written in a different framework than the one you're using.
+
+## Using the Sindri CLI
+
+This section provides the essentials to get started with the CLI.
+The [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) goes into more detail on each of these steps and is the recommended way to get started.
+
+### Installation
+
+The Sindri CLI tool is available as an NPM package and can be installed with the following command:
+
+```bash
+npm install -g sindri@latest
+```
+
+### Authentication
+
+To compile circuits on Sindri, you'll need to have an account and authenticate the CLI to use it.
+Visit [sindri.app](https://sindri.app/) to find more details about account creation.
+
+```bash
+sindri login
+```
+
+### Circuit Project Creation
+
+The Sindri CLI provides a project scaffolding tool to help you get started with circuit development.
+The `sindri init` command will initialize a new circuit project for you with everything you need to get started.
+
+```bash
+sindri init my-circuit
+```
+
+### Linting Circuits
+
+You can run `sindri lint` from within your circuit project directory to perform local checks to ensure your circuit is valid and ready for compilation.
+This will not actually compile your circuit, but will perform basic checks to uncover issues that would prevent your circuit from compiling successfully.
+
+```bash
+sindri lint
+```
+
+### Circuit Compilation
+
+To compile your circuit on the Sindri platform, you can use the `sindri deploy` command to upload and compile it.
+If there are compilation errors, they will be reported, and the command will exit with a non-zero exit code.
+
+```bash
+sindri deploy
+```
 
 ## Development
 
