@@ -19,6 +19,7 @@ export type Halo2CircuitInfoResponse = {
   compute_times?: any;
   file_sizes?: Record<string, any>;
   metadata?: Record<string, any>;
+  uploaded_file_name: string;
   worker_hardware?: Record<string, any>;
   verification_key?: Record<string, any>;
   error?: string;
@@ -27,6 +28,6 @@ export type Halo2CircuitInfoResponse = {
   degree: number;
   halo2_version: string;
   package_name: string;
-  thread_builder?: string;
-  trusted_setup_file?: string;
+  thread_builder: string;
+  trusted_setup_file: string;
 };

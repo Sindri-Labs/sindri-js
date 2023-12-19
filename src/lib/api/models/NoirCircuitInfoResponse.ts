@@ -19,11 +19,12 @@ export type NoirCircuitInfoResponse = {
   compute_times?: any;
   file_sizes?: Record<string, any>;
   metadata?: Record<string, any>;
+  uploaded_file_name: string;
   worker_hardware?: Record<string, any>;
   verification_key?: Record<string, any>;
   error?: string;
   acir_opcodes?: number;
   circuit_size?: number;
-  nargo_package_name?: string;
+  nargo_package_name: string;
   proving_scheme: string;
 };

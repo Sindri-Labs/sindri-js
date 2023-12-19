@@ -11,6 +11,19 @@ import { request as __request } from "../core/request";
 
 export class InternalService {
   /**
+   * Return the JSON schema for `sindri.json` manifest files
+   * Return the JSON schema for `sindri.json` manifest files
+   * @returns any OK
+   * @throws ApiError
+   */
+  public static sindriManifestSchema(): CancelablePromise<Record<string, any>> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/v1/sindri-manifest-schema.json",
+    });
+  }
+
+  /**
    * Obtain team details for the currently authenticated team
    * Return details about the currently authenticated team.
    * @returns TeamMeResponse OK

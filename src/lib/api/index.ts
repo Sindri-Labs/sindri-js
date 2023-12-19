@@ -12,6 +12,7 @@ export type { APIKeyDoesNotExistResponse } from './models/APIKeyDoesNotExistResp
 export type { APIKeyErrorResponse } from './models/APIKeyErrorResponse';
 export type { APIKeyResponse } from './models/APIKeyResponse';
 export type { CircomCircuitInfoResponse } from './models/CircomCircuitInfoResponse';
+export type { CircuitCreateInput } from './models/CircuitCreateInput';
 export type { CircuitDoesNotExistResponse } from './models/CircuitDoesNotExistResponse';
 export { CircuitStatus } from './models/CircuitStatus';
 export { CircuitType } from './models/CircuitType';
@@ -24,7 +25,6 @@ export type { NoirCircuitInfoResponse } from './models/NoirCircuitInfoResponse';
 export type { ObtainApikeyInput } from './models/ObtainApikeyInput';
 export type { ProofCannotBeCreatedResponse } from './models/ProofCannotBeCreatedResponse';
 export type { ProofDoesNotExistResponse } from './models/ProofDoesNotExistResponse';
-export type { ProofIdResponse } from './models/ProofIdResponse';
 export type { ProofInfoResponse } from './models/ProofInfoResponse';
 export { ProofStatus } from './models/ProofStatus';
 export type { Schema } from './models/Schema';

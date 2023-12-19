@@ -2,12 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type FormData from "form-data";
 import type { CircomCircuitInfoResponse } from "../models/CircomCircuitInfoResponse";
+import type { CircuitCreateInput } from "../models/CircuitCreateInput";
 import type { GnarkCircuitInfoResponse } from "../models/GnarkCircuitInfoResponse";
 import type { Halo2CircuitInfoResponse } from "../models/Halo2CircuitInfoResponse";
 import type { NoirCircuitInfoResponse } from "../models/NoirCircuitInfoResponse";
-import type { ProofIdResponse } from "../models/ProofIdResponse";
 import type { ProofInfoResponse } from "../models/ProofInfoResponse";
 
 import type { CancelablePromise } from "../core/CancelablePromise";
@@ -15,6 +14,36 @@ import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
 
 export class CircuitsService {
+  /**
+   * Create Circuit
+   * Create a circuit.
+   * @param formData
+   * @returns any Created
+   * @throws ApiError
+   */
+  public static circuitCreate(formData: {
+    files: Array<Blob>;
+    payload?: CircuitCreateInput;
+  }): CancelablePromise<
+    | CircomCircuitInfoResponse
+    | Halo2CircuitInfoResponse
+    | GnarkCircuitInfoResponse
+    | NoirCircuitInfoResponse
+  > {
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/api/v1/circuit/create",
+      formData: formData,
+      mediaType: "multipart/form-data",
+      errors: {
+        412: `Precondition Failed`,
+        422: `Unprocessable Entity`,
+        500: `Internal Server Error`,
+        501: `Not Implemented`,
+      },
+    });
+  }
+
   /**
    * Circuit List
    * Return a list of CircuitInfoResponse for circuits related to user.
@@ -40,39 +69,6 @@ export class CircuitsService {
       },
       errors: {
         500: `Internal Server Error`,
-      },
-    });
-  }
-
-  /**
-   * Create Circuit
-   * Create a circuit.
-   * @param formData
-   * @returns any Created
-   * @throws ApiError
-   */
-  public static circuitCreate(
-    formData: // This is a manual edit to allow `FormData` to be passed in directly:
-    | FormData // DO NOT REMOVE THIS!
-      | {
-          files: Array<Blob>;
-        },
-  ): CancelablePromise<
-    | CircomCircuitInfoResponse
-    | Halo2CircuitInfoResponse
-    | GnarkCircuitInfoResponse
-    | NoirCircuitInfoResponse
-  > {
-    return __request(OpenAPI, {
-      method: "POST",
-      url: "/api/v1/circuit/create",
-      formData: formData,
-      mediaType: "multipart/form-data",
-      errors: {
-        412: `Precondition Failed`,
-        422: `Unprocessable Entity`,
-        500: `Internal Server Error`,
-        501: `Not Implemented`,
       },
     });
   }
@@ -152,7 +148,7 @@ export class CircuitsService {
    * Prove a circuit with specific inputs.
    * @param circuitId
    * @param formData
-   * @returns ProofIdResponse Created
+   * @returns ProofInfoResponse Created
    * @throws ApiError
    */
   public static proofCreate(
@@ -171,7 +167,7 @@ export class CircuitsService {
        */
       prover_implementation?: string;
     },
-  ): CancelablePromise<ProofIdResponse> {
+  ): CancelablePromise<ProofInfoResponse> {
     return __request(OpenAPI, {
       method: "POST",
       url: "/api/v1/circuit/{circuit_id}/prove",
