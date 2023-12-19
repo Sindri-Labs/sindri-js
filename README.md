@@ -22,6 +22,9 @@ Our public circuit registry also makes it easy to share and reuse circuits, so y
 
 ## Using the Sindri CLI
 
+This section provides the essentials to get started with the CLI.
+The [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) goes into more detail on each of these steps and is the recommended way to get started.
+
 ### Installation
 
 The Sindri CLI tool is available as an NPM package and can be installed with the following command:
@@ -29,8 +32,6 @@ The Sindri CLI tool is available as an NPM package and can be installed with the
 ```bash
 npm install -g sindri@latest
 ```
-
-See the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) for more information about installing and configuring the CLI tool.
 
 ### Authentication
 
@@ -41,8 +42,6 @@ Visit [sindri.app](https://sindri.app/) to find more details about account creat
 sindri login
 ```
 
-See the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) for more details about authentication.
-
 ### Circuit Project Creation
 
 The Sindri CLI provides a project scaffolding tool to help you get started with circuit development.
@@ -51,8 +50,6 @@ The `sindri init` command will initialize a new circuit project for you with eve
 ```bash
 sindri init my-circuit
 ```
-
-See the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) for more details about creating a new circuit project.
 
 ### Linting Circuits
 
@@ -63,8 +60,6 @@ This will not actually compile your circuit, but will perform basic checks to un
 sindri lint
 ```
 
-See the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) for more information about circuit linting.
-
 ### Circuit Compilation
 
 To compile your circuit on the Sindri platform, you can use the `sindri deploy` command to upload and compile it.
@@ -73,8 +68,6 @@ If there are compilation errors, they will be reported, and the command will exi
 ```bash
 sindri deploy
 ```
-
-See the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) for details about circuit compilation.
 
 ## Development
 
