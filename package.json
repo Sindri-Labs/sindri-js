@@ -11,11 +11,13 @@
     "zk-snark",
     "zkp",
     "zero-knowledge",
+    "zero-knowledge-proofs",
     "circuit",
     "groth16",
     "plonk",
     "off-chain",
-    "cryptography"
+    "cryptography",
+    "crypto"
   ],
   "files": ["dist/", "sindri-manifest.json", "src/", "templates/"],
   "main": "dist/lib/index.js",
