@@ -2,6 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import FormData from "form-data";
+
 import type { CircomCircuitInfoResponse } from "../models/CircomCircuitInfoResponse";
 import type { CircuitCreateInput } from "../models/CircuitCreateInput";
 import type { GnarkCircuitInfoResponse } from "../models/GnarkCircuitInfoResponse";
