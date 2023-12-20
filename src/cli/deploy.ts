@@ -17,7 +17,7 @@ export const deployCommand = new Command()
   .description("Deploy the current Sindri project.")
   .option("-t, --tag <tag...>", "Tag to apply to the circuit.", ["latest"])
   .argument("[directory]", "The location of the Sindri project to deploy.", ".")
-  .action(async (directory, { discard, tag: tags }) => {
+  .action(async (directory, { tag: tags }) => {
     // Validate the tags.
     for (const tag of tags) {
       if (!/^[-a-zA-Z0-9_]+$/.test(tag)) {
