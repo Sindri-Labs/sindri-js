@@ -15,8 +15,20 @@ import { ApiError, CircuitsService, CircuitStatus } from "lib/api";
 export const deployCommand = new Command()
   .name("deploy")
   .description("Deploy the current Sindri project.")
+  .option("-t, --tags <tags...>", "Tags to apply to the circuit.", ["latest"])
   .argument("[directory]", "The location of the Sindri project to deploy.", ".")
-  .action(async (directory) => {
+  .action(async (directory, { tags }) => {
+    // Validate the tags.
+    for (const tag of tags) {
+      if (!/^[-a-zA-Z0-9_]+$/.test(tag)) {
+        logger.error(
+          `"${tag}" is not a valid tag. Tags may only contain alphanumeric characters, ` +
+            "underscores, and hyphens.",
+        );
+        process.exit(1);
+      }
+    }
+
     // Find `sindri.json` and move into the root of the project directory.
     const directoryPath = path.resolve(directory);
     if (!existsSync(directoryPath)) {
@@ -111,9 +123,11 @@ export const deployCommand = new Command()
         filename: tarballFilename,
       },
     );
-    // DELETE ME
-    formData.append("tags", "yo");
-    formData.append("tags", "sup");
+
+    // Attach the tags to the form data.
+    for (const tag of tags) {
+      formData.append("tags", tag);
+    }
 
     // Upload the tarball.
     let circuitId: string | undefined;
