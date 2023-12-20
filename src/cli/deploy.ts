@@ -15,9 +15,9 @@ import { ApiError, CircuitsService, CircuitStatus } from "lib/api";
 export const deployCommand = new Command()
   .name("deploy")
   .description("Deploy the current Sindri project.")
-  .option("-t, --tags <tags...>", "Tags to apply to the circuit.", ["latest"])
+  .option("-t, --tag <tag...>", "Tag to apply to the circuit.", ["latest"])
   .argument("[directory]", "The location of the Sindri project to deploy.", ".")
-  .action(async (directory, { tags }) => {
+  .action(async (directory, { discard, tag: tags }) => {
     // Validate the tags.
     for (const tag of tags) {
       if (!/^[-a-zA-Z0-9_]+$/.test(tag)) {
@@ -25,7 +25,7 @@ export const deployCommand = new Command()
           `"${tag}" is not a valid tag. Tags may only contain alphanumeric characters, ` +
             "underscores, and hyphens.",
         );
-        process.exit(1);
+        return process.exit(1);
       }
     }
 
