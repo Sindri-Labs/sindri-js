@@ -15,17 +15,27 @@ import { ApiError, CircuitsService, CircuitStatus } from "lib/api";
 export const deployCommand = new Command()
   .name("deploy")
   .description("Deploy the current Sindri project.")
+  .option("-d, --discard", "Discard the current circuit after compiling.")
   .option("-t, --tag <tag...>", "Tag to apply to the circuit.", ["latest"])
   .argument("[directory]", "The location of the Sindri project to deploy.", ".")
-  .action(async (directory, { tag: tags }) => {
-    // Validate the tags.
-    for (const tag of tags) {
-      if (!/^[-a-zA-Z0-9_]+$/.test(tag)) {
+  .action(async (directory, { discard, tag: tags }) => {
+    // Validate the tags and "discard" option.
+    if (discard) {
+      if (tags.length !== 1 || tags[0] !== "latest") {
         logger.error(
-          `"${tag}" is not a valid tag. Tags may only contain alphanumeric characters, ` +
-            "underscores, and hyphens.",
+          "You cannot use both the `--discard` and `--tag` options together.",
         );
         return process.exit(1);
+      }
+    } else {
+      for (const tag of tags) {
+        if (!/^[-a-zA-Z0-9_]+$/.test(tag)) {
+          logger.error(
+            `"${tag}" is not a valid tag. Tags may only contain alphanumeric characters, ` +
+              "underscores, and hyphens.",
+          );
+          return process.exit(1);
+        }
       }
     }
 
@@ -125,8 +135,12 @@ export const deployCommand = new Command()
     );
 
     // Attach the tags to the form data.
-    for (const tag of tags) {
-      formData.append("tags", tag);
+    if (discard) {
+      formData.append("tags", "");
+    } else {
+      for (const tag of tags) {
+        formData.append("tags", tag);
+      }
     }
 
     // Upload the tarball.
