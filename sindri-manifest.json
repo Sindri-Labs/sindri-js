@@ -1,5 +1,5 @@
 {
-  "$id": "https://forge.sindri.app/api/v1/sindri-manifest-schema.json",
+  "$id": "https://sindri.app/api/v1/sindri-manifest-schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "SindriManifest",
   "description": "Discriminated union type for `sindri.json` manifest files.\n\nThis is only used for serializing the JSON Schema currently, but it would be nice to use it more\nbroadly once we improve the typing on the union types. We should be able to use\n`SindriManifest.parse_obj()` instead of `get_validate_sindri_manifest()` and other\nsimplifications.",
@@ -89,7 +89,7 @@
           "title": "Sindri Manifest JSON Schema URL",
           "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
           "examples": [
-            "https://forge.sindri.app/api/v1/sindri-manifest-schema.json"
+            "https://sindri.app/api/v1/sindri-manifest-schema.json"
           ]
         }
       },
@@ -165,7 +165,7 @@
           "title": "Sindri Manifest JSON Schema URL",
           "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
           "examples": [
-            "https://forge.sindri.app/api/v1/sindri-manifest-schema.json"
+            "https://sindri.app/api/v1/sindri-manifest-schema.json"
           ]
         }
       },
@@ -216,7 +216,7 @@
           "title": "Sindri Manifest JSON Schema URL",
           "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
           "examples": [
-            "https://forge.sindri.app/api/v1/sindri-manifest-schema.json"
+            "https://sindri.app/api/v1/sindri-manifest-schema.json"
           ]
         }
       },
@@ -267,7 +267,7 @@
           "title": "Sindri Manifest JSON Schema URL",
           "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
           "examples": [
-            "https://forge.sindri.app/api/v1/sindri-manifest-schema.json"
+            "https://sindri.app/api/v1/sindri-manifest-schema.json"
           ]
         }
       },
@@ -314,7 +314,7 @@
           "title": "Sindri Manifest JSON Schema URL",
           "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
           "examples": [
-            "https://forge.sindri.app/api/v1/sindri-manifest-schema.json"
+            "https://sindri.app/api/v1/sindri-manifest-schema.json"
           ]
         }
       },
@@ -359,7 +359,7 @@
           "title": "Sindri Manifest JSON Schema URL",
           "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
           "examples": [
-            "https://forge.sindri.app/api/v1/sindri-manifest-schema.json"
+            "https://sindri.app/api/v1/sindri-manifest-schema.json"
           ]
         }
       },
