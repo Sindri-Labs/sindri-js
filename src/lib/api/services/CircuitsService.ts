@@ -2,6 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+// DO NOT REMOVE THIS!
+import FormData from "form-data";
+
 import type { ActionResponse } from "../models/ActionResponse";
 import type { CircomCircuitInfoResponse } from "../models/CircomCircuitInfoResponse";
 import type { GnarkCircuitInfoResponse } from "../models/GnarkCircuitInfoResponse";
