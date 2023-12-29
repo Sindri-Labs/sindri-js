@@ -76,7 +76,7 @@ export const loginCommand = new Command()
     try {
       // Generate a JWT token to authenticate the user.
       OpenAPI.BASE = baseUrl;
-      const tokenResult = await TokenService.aa5976D9ControllerObtainToken(
+      const tokenResult = await TokenService.aa5976D9ControllerObtainToken({
         username,
         password,
       });
