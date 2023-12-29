@@ -15,15 +15,15 @@ import { ApiError, CircuitsService, CircuitStatus } from "lib/api";
 export const deployCommand = new Command()
   .name("deploy")
   .description("Deploy the current Sindri project.")
-  .option("-d, --discard", "Discard the current circuit after compiling.")
   .option("-t, --tag <tag...>", "Tag to apply to the circuit.", ["latest"])
+  .option("-u, --untagged", "Discard the current circuit after compiling.")
   .argument("[directory]", "The location of the Sindri project to deploy.", ".")
-  .action(async (directory, { discard, tag: tags }) => {
-    // Validate the tags and "discard" option.
-    if (discard) {
+  .action(async (directory, { untagged, tag: tags }) => {
+    // Validate the tags and "untagged" option.
+    if (untagged) {
       if (tags.length !== 1 || tags[0] !== "latest") {
         logger.error(
-          "You cannot use both the `--discard` and `--tag` options together.",
+          "You cannot use both the `--tag` and `--untagged` options together.",
         );
         return process.exit(1);
       }
@@ -135,7 +135,7 @@ export const deployCommand = new Command()
     );
 
     // Attach the tags to the form data.
-    if (discard) {
+    if (untagged) {
       formData.append("tags", "");
     } else {
       for (const tag of tags) {
