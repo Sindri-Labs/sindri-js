@@ -19,6 +19,7 @@ export type CircomCircuitInfoResponse = {
   compute_times?: any;
   file_sizes?: Record<string, any>;
   metadata?: Record<string, any>;
+  uploaded_file_name: string;
   worker_hardware?: Record<string, any>;
   verification_key?: Record<string, any>;
   error?: string;
@@ -30,6 +31,6 @@ export type CircomCircuitInfoResponse = {
   num_public_inputs?: number;
   num_wires?: number;
   proving_scheme: string;
-  trusted_setup_file?: string;
+  trusted_setup_file: string;
   witness_compiler: string;
 };

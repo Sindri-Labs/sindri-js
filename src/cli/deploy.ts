@@ -15,8 +15,30 @@ import { ApiError, CircuitsService, CircuitStatus } from "lib/api";
 export const deployCommand = new Command()
   .name("deploy")
   .description("Deploy the current Sindri project.")
+  .option("-t, --tag <tag...>", "Tag to apply to the circuit.", ["latest"])
+  .option("-u, --untagged", "Discard the current circuit after compiling.")
   .argument("[directory]", "The location of the Sindri project to deploy.", ".")
-  .action(async (directory) => {
+  .action(async (directory, { tag: tags, untagged }) => {
+    // Validate the tags and "untagged" option.
+    if (untagged) {
+      if (tags.length !== 1 || tags[0] !== "latest") {
+        logger.error(
+          "You cannot use both the `--tag` and `--untagged` options together.",
+        );
+        return process.exit(1);
+      }
+    } else {
+      for (const tag of tags) {
+        if (!/^[-a-zA-Z0-9_]+$/.test(tag)) {
+          logger.error(
+            `"${tag}" is not a valid tag. Tags may only contain alphanumeric characters, ` +
+              "underscores, and hyphens.",
+          );
+          return process.exit(1);
+        }
+      }
+    }
+
     // Find `sindri.json` and move into the root of the project directory.
     const directoryPath = path.resolve(directory);
     if (!existsSync(directoryPath)) {
@@ -111,6 +133,15 @@ export const deployCommand = new Command()
         filename: tarballFilename,
       },
     );
+
+    // Attach the tags to the form data.
+    if (untagged) {
+      formData.append("tags", "");
+    } else {
+      for (const tag of tags) {
+        formData.append("tags", tag);
+      }
+    }
 
     // Upload the tarball.
     let circuitId: string | undefined;
