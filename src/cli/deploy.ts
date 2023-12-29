@@ -18,7 +18,7 @@ export const deployCommand = new Command()
   .option("-t, --tag <tag...>", "Tag to apply to the circuit.", ["latest"])
   .option("-u, --untagged", "Discard the current circuit after compiling.")
   .argument("[directory]", "The location of the Sindri project to deploy.", ".")
-  .action(async (directory, { untagged, tag: tags }) => {
+  .action(async (directory, { tag: tags, untagged }) => {
     // Validate the tags and "untagged" option.
     if (untagged) {
       if (tags.length !== 1 || tags[0] !== "latest") {
