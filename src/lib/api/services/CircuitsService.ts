@@ -29,7 +29,10 @@ export class CircuitsService {
     | FormData // DO NOT REMOVE THIS!
       | {
           files: Array<Blob>;
-          payload?: CircuitCreateInput;
+          /**
+           * Tags for a circuit.
+           */
+          tags?: Array<string>;
         },
   ): CancelablePromise<
     | CircomCircuitInfoResponse
