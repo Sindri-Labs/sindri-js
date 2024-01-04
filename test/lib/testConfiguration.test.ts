@@ -1,5 +1,7 @@
 import test from "ava";
 
-test("foo", (t) => {
-  t.pass();
+import lib from "lib";
+
+test("testImport", (t) => {
+  t.is(lib, "tester");
 });

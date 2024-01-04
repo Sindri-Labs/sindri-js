@@ -47,7 +47,9 @@
     "generate-api:docker": "rm -rf src/lib/api/ && openapi --client axios --input http://host.docker.internal/api/openapi.json --output src/lib/api/ && prettier --write src/lib/api/**/*",
     "lint": "eslint '**/*.{js,ts}'",
     "format": "prettier --write '**/*.{js,json,md,ts}'",
-    "test:dev": "ava --config test/ava.config.dev.mjs",
+    "test:browser": "ava --config test/ava.config.browser.mjs",
+    "test:dev": "ava --config test/ava.config.base.mjs",
+    "test:node": "ava --config test/ava.config.node.mjs",
     "type-check": "tsc --noEmit"
   },
   "repository": {
