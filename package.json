@@ -75,6 +75,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@ava/typescript": "^4.1.0",
     "@commander-js/extra-typings": "^11.1.0",
     "@tsconfig/node18": "^18.2.2",
     "@types/ignore-walk": "^4.0.3",
@@ -92,6 +93,7 @@
     "openapi-typescript-codegen": "^0.25.0",
     "prettier": "^3.1.0",
     "tsup": "^7.3.0",
+    "tsx": "^4.7.0",
     "type-fest": "^4.8.2",
     "typescript": "^5.2.2",
     "wget-improved": "^3.4.0"
