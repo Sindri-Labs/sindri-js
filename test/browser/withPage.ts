@@ -26,7 +26,7 @@ const getSindriScriptPath = () => {
 };
 
 export default async (t: ExecutionContext, run: RunFunction) => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ headless: "new" });
   const page = await browser.newPage();
   try {
     await page.addScriptTag({
