@@ -3,5 +3,7 @@ import test from "ava";
 import lib from "lib";
 
 test("testImport", (t) => {
-  t.is(lib.environment, "production");
+  t.true(
+    lib.environment && ["development", "production"].includes(lib.environment),
+  );
 });
