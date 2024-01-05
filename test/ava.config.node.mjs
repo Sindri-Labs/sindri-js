@@ -11,4 +11,5 @@ process.env.TSX_TSCONFIG_PATH = path.join(__dirname, "tsconfig.node.json");
 
 export default {
   ...baseConfig,
+  files: ["test/lib/**/*.test.ts"],
 };
