@@ -43,6 +43,7 @@ jobs:
       - name: Test Node Build
         if: success() || failure()
         run: |
+          cat dist/lib/index.js
           yarn test:node
 
       - name: Install Chrome Dependencies
