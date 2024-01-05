@@ -1,3 +1,4 @@
+import esbuild from "esbuild";
 import { defineConfig } from "tsup";
 
 export default defineConfig([
@@ -27,6 +28,22 @@ export default defineConfig([
     sourcemap: true,
     splitting: true,
     target: "esnext",
+    // Produce an IIFE bundle for use with a <script> tag in a browser.
+    onSuccess: async () => {
+      await esbuild.build({
+        bundle: true,
+        entryPoints: ["dist/lib/browser/index.mjs"],
+        format: "iife",
+        footer: {
+          js: "var sindri = sindriExports.default;",
+        },
+        globalName: "sindriExports",
+        minify: true,
+        outfile: "dist/lib/browser/index.iife.js",
+        platform: "browser",
+        sourcemap: true,
+      });
+    },
     // Additional browser-specific configuration will go here (e.g. polyfills).
   },
   // CLI Tool.

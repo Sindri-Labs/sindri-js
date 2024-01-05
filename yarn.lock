@@ -1401,35 +1401,7 @@ env-paths@^2.2.1:
   resolved "https://registry.yarnpkg.com/env-paths/-/env-paths-2.2.1.tgz#420399d416ce1fbe9bc0a07c62fa68d67fd0f8f2"
   integrity sha512-+h1lkLKhZMTYjog1VEpJNG7NZJWcuc2DDk/qsqSTRRCOXiLjeQ1d1/udrUGhqMxUgAlwKNZ0cf2uqan5GLuS2A==
 
-esbuild@^0.19.2:
-  version "0.19.5"
-  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.19.5.tgz#53a0e19dfbf61ba6c827d51a80813cf071239a8c"
-  integrity sha512-bUxalY7b1g8vNhQKdB24QDmHeY4V4tw/s6Ak5z+jJX9laP5MoQseTOMemAr0gxssjNcH0MCViG8ONI2kksvfFQ==
-  optionalDependencies:
-    "@esbuild/android-arm" "0.19.5"
-    "@esbuild/android-arm64" "0.19.5"
-    "@esbuild/android-x64" "0.19.5"
-    "@esbuild/darwin-arm64" "0.19.5"
-    "@esbuild/darwin-x64" "0.19.5"
-    "@esbuild/freebsd-arm64" "0.19.5"
-    "@esbuild/freebsd-x64" "0.19.5"
-    "@esbuild/linux-arm" "0.19.5"
-    "@esbuild/linux-arm64" "0.19.5"
-    "@esbuild/linux-ia32" "0.19.5"
-    "@esbuild/linux-loong64" "0.19.5"
-    "@esbuild/linux-mips64el" "0.19.5"
-    "@esbuild/linux-ppc64" "0.19.5"
-    "@esbuild/linux-riscv64" "0.19.5"
-    "@esbuild/linux-s390x" "0.19.5"
-    "@esbuild/linux-x64" "0.19.5"
-    "@esbuild/netbsd-x64" "0.19.5"
-    "@esbuild/openbsd-x64" "0.19.5"
-    "@esbuild/sunos-x64" "0.19.5"
-    "@esbuild/win32-arm64" "0.19.5"
-    "@esbuild/win32-ia32" "0.19.5"
-    "@esbuild/win32-x64" "0.19.5"
-
-esbuild@~0.19.10:
+esbuild@^0.19.11, esbuild@~0.19.10:
   version "0.19.11"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.19.11.tgz#4a02dca031e768b5556606e1b468fe72e3325d96"
   integrity sha512-HJ96Hev2hX/6i5cDVwcqiJBBtuo9+FeIJOtZ9W1kA5M6AMJRHUZlpYZ1/SbEwtO0ioNAW8rUooVpC/WehY2SfA==
@@ -1457,6 +1429,34 @@ esbuild@~0.19.10:
     "@esbuild/win32-arm64" "0.19.11"
     "@esbuild/win32-ia32" "0.19.11"
     "@esbuild/win32-x64" "0.19.11"
+
+esbuild@^0.19.2:
+  version "0.19.5"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.19.5.tgz#53a0e19dfbf61ba6c827d51a80813cf071239a8c"
+  integrity sha512-bUxalY7b1g8vNhQKdB24QDmHeY4V4tw/s6Ak5z+jJX9laP5MoQseTOMemAr0gxssjNcH0MCViG8ONI2kksvfFQ==
+  optionalDependencies:
+    "@esbuild/android-arm" "0.19.5"
+    "@esbuild/android-arm64" "0.19.5"
+    "@esbuild/android-x64" "0.19.5"
+    "@esbuild/darwin-arm64" "0.19.5"
+    "@esbuild/darwin-x64" "0.19.5"
+    "@esbuild/freebsd-arm64" "0.19.5"
+    "@esbuild/freebsd-x64" "0.19.5"
+    "@esbuild/linux-arm" "0.19.5"
+    "@esbuild/linux-arm64" "0.19.5"
+    "@esbuild/linux-ia32" "0.19.5"
+    "@esbuild/linux-loong64" "0.19.5"
+    "@esbuild/linux-mips64el" "0.19.5"
+    "@esbuild/linux-ppc64" "0.19.5"
+    "@esbuild/linux-riscv64" "0.19.5"
+    "@esbuild/linux-s390x" "0.19.5"
+    "@esbuild/linux-x64" "0.19.5"
+    "@esbuild/netbsd-x64" "0.19.5"
+    "@esbuild/openbsd-x64" "0.19.5"
+    "@esbuild/sunos-x64" "0.19.5"
+    "@esbuild/win32-arm64" "0.19.5"
+    "@esbuild/win32-ia32" "0.19.5"
+    "@esbuild/win32-x64" "0.19.5"
 
 escalade@^3.1.1:
   version "3.1.1"
