@@ -29,6 +29,7 @@
     "./dist/lib/index.js": "./dist/lib/browser/index.js",
     "./dist/lib/index.mjs": "./dist/lib/browser/index.mjs"
   },
+  "jsdelivr": "./dist/lib/browser/sindri.iife.js",
   "exports": {
     ".": {
       "import": "./dist/lib/index.mjs",
@@ -37,8 +38,8 @@
     "./cli": "./dist/cli/index.js"
   },
   "scripts": {
-    "build": "NODE_ENV=production tsup --env.NODE_ENV $NODE_ENV",
-    "build:watch": "NODE_ENV=development tsup --watch --env.NODE_ENV $NODE_ENV",
+    "build": "rm -rf dist/* && NODE_ENV=production tsup",
+    "build:watch": "rm -rf dist/* && NODE_ENV=development tsup --watch",
     "download-sindri-manifest-schema": "nwget https://sindri.app/api/v1/sindri-manifest-schema.json -O sindri-manifest.json && prettier --write sindri-manifest.json",
     "download-sindri-manifest-schema:dev": "nwget http://localhost/api/v1/sindri-manifest-schema.json -O sindri-manifest.json && prettier --write sindri-manifest.json",
     "download-sindri-manifest-schema:docker": "nwget http://host.docker.internal/api/v1/sindri-manifest-schema.json -O sindri-manifest.json && prettier --write sindri-manifest.json",
@@ -47,6 +48,9 @@
     "generate-api:docker": "rm -rf src/lib/api/ && openapi --client axios --input http://host.docker.internal/api/openapi.json --output src/lib/api/ && prettier --write src/lib/api/**/*",
     "lint": "eslint '**/*.{js,ts}'",
     "format": "prettier --write '**/*.{js,json,md,ts}'",
+    "test:browser": "ava --config test/ava.config.browser.mjs",
+    "test:dev": "ava --config test/ava.config.dev.mjs",
+    "test:node": "ava --config test/ava.config.node.mjs",
     "type-check": "tsc --noEmit"
   },
   "repository": {
@@ -75,6 +79,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@ava/typescript": "^4.1.0",
     "@commander-js/extra-typings": "^11.1.0",
     "@tsconfig/node18": "^18.2.2",
     "@types/ignore-walk": "^4.0.3",
@@ -84,12 +89,17 @@
     "@types/tar": "^6.1.10",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@typescript-eslint/parser": "^6.11.0",
+    "ava": "^6.0.1",
+    "esbuild": "^0.19.11",
     "eslint": "^8.53.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
+    "jsdom": "^23.0.1",
     "openapi-typescript-codegen": "^0.25.0",
     "prettier": "^3.1.0",
+    "puppeteer": "^21.7.0",
     "tsup": "^7.3.0",
+    "tsx": "^4.7.0",
     "type-fest": "^4.8.2",
     "typescript": "^5.2.2",
     "wget-improved": "^3.4.0"

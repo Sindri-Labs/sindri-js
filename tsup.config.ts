@@ -1,4 +1,7 @@
+import esbuild from "esbuild";
 import { defineConfig } from "tsup";
+
+process.env.NODE_ENV = process.env.NODE_ENV || "production";
 
 export default defineConfig([
   // SDK for NodeJS.
@@ -6,6 +9,9 @@ export default defineConfig([
     cjsInterop: true,
     dts: true,
     entry: ["src/lib/index.ts"],
+    env: {
+      NODE_ENV: process.env.NODE_ENV,
+    },
     format: ["cjs", "esm"],
     minify: process.env.NODE_ENV === "production",
     outDir: "dist/lib",
@@ -20,6 +26,9 @@ export default defineConfig([
   {
     dts: true,
     entry: ["src/lib/index.ts"],
+    env: {
+      NODE_ENV: process.env.NODE_ENV,
+    },
     format: ["cjs", "esm"],
     minify: process.env.NODE_ENV === "production",
     outDir: "dist/lib/browser",
@@ -27,6 +36,22 @@ export default defineConfig([
     sourcemap: true,
     splitting: true,
     target: "esnext",
+    // Produce an IIFE bundle for use with a <script> tag in a browser.
+    onSuccess: async () => {
+      await esbuild.build({
+        bundle: true,
+        entryPoints: ["dist/lib/browser/index.mjs"],
+        format: "iife",
+        footer: {
+          js: "var sindri = sindriExports.default;",
+        },
+        globalName: "sindriExports",
+        minify: process.env.NODE_ENV === "production",
+        outfile: "dist/lib/browser/sindri.iife.js",
+        platform: "browser",
+        sourcemap: true,
+      });
+    },
     // Additional browser-specific configuration will go here (e.g. polyfills).
   },
   // CLI Tool.
@@ -34,6 +59,9 @@ export default defineConfig([
     bundle: true,
     dts: true,
     entry: ["src/cli/index.ts"],
+    env: {
+      NODE_ENV: process.env.NODE_ENV,
+    },
     format: ["cjs"],
     minify: process.env.NODE_ENV === "production",
     outDir: "dist/cli",

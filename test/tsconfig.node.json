@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "lib": ["../dist/lib"],
+      "lib/*": ["../dist/lib/*"]
+    }
+  }
+}
