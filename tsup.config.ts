@@ -1,6 +1,8 @@
 import esbuild from "esbuild";
 import { defineConfig } from "tsup";
 
+console.log("buildtime NODE_ENV:", process.env.NODE_ENV);
+
 export default defineConfig([
   // SDK for NodeJS.
   {

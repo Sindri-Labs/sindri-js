@@ -43,6 +43,7 @@ jobs:
       - name: Test Node Build
         if: success() || failure()
         run: |
+          echo "NODE_ENV: $NODE_ENV"
           cat dist/lib/index.js
           yarn test:node
 
