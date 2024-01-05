@@ -2,8 +2,6 @@ import path from "path";
 import process from "process";
 import { fileURLToPath } from "url";
 
-import moduleAlias from "module-alias";
-
 import baseConfig from "./ava.config.base.mjs";
 
 // Use the node tsconfig import paths.
