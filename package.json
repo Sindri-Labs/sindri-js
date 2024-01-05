@@ -49,7 +49,7 @@
     "lint": "eslint '**/*.{js,ts}'",
     "format": "prettier --write '**/*.{js,json,md,ts}'",
     "test:browser": "ava --config test/ava.config.browser.mjs",
-    "test:dev": "ava --config test/ava.config.base.mjs",
+    "test:dev": "ava --config test/ava.config.dev.mjs",
     "test:node": "ava --config test/ava.config.node.mjs",
     "type-check": "tsc --noEmit"
   },
