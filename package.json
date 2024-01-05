@@ -38,8 +38,8 @@
     "./cli": "./dist/cli/index.js"
   },
   "scripts": {
-    "build": "rm -rf dist/* && NODE_ENV=production tsup --env.NODE_ENV $NODE_ENV",
-    "build:watch": "rm -rf dist/* && NODE_ENV=development tsup --watch --env.NODE_ENV $NODE_ENV",
+    "build": "rm -rf dist/* && NODE_ENV=production tsup",
+    "build:watch": "rm -rf dist/* && NODE_ENV=development tsup --watch",
     "download-sindri-manifest-schema": "nwget https://sindri.app/api/v1/sindri-manifest-schema.json -O sindri-manifest.json && prettier --write sindri-manifest.json",
     "download-sindri-manifest-schema:dev": "nwget http://localhost/api/v1/sindri-manifest-schema.json -O sindri-manifest.json && prettier --write sindri-manifest.json",
     "download-sindri-manifest-schema:docker": "nwget http://host.docker.internal/api/v1/sindri-manifest-schema.json -O sindri-manifest.json && prettier --write sindri-manifest.json",

@@ -1,7 +1,7 @@
 import esbuild from "esbuild";
 import { defineConfig } from "tsup";
 
-console.log("buildtime NODE_ENV:", process.env.NODE_ENV);
+process.env.NODE_ENV = process.env.NODE_ENV || "production";
 
 export default defineConfig([
   // SDK for NodeJS.
@@ -9,6 +9,9 @@ export default defineConfig([
     cjsInterop: true,
     dts: true,
     entry: ["src/lib/index.ts"],
+    env: {
+      NODE_ENV: process.env.NODE_ENV,
+    },
     format: ["cjs", "esm"],
     minify: process.env.NODE_ENV === "production",
     outDir: "dist/lib",
@@ -23,6 +26,9 @@ export default defineConfig([
   {
     dts: true,
     entry: ["src/lib/index.ts"],
+    env: {
+      NODE_ENV: process.env.NODE_ENV,
+    },
     format: ["cjs", "esm"],
     minify: process.env.NODE_ENV === "production",
     outDir: "dist/lib/browser",
@@ -53,6 +59,9 @@ export default defineConfig([
     bundle: true,
     dts: true,
     entry: ["src/cli/index.ts"],
+    env: {
+      NODE_ENV: process.env.NODE_ENV,
+    },
     format: ["cjs"],
     minify: process.env.NODE_ENV === "production",
     outDir: "dist/cli",
