@@ -8,7 +8,7 @@ on:
   pull_request:
 
 jobs:
-  lint:
+  lint-and-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -21,7 +21,7 @@ jobs:
           node-version: 18.18.2
           cache: yarn
 
-      - name: Install Dependencies
+      - name: Install JavaScript Dependencies
         run: |
           yarn install --frozen-lockfile
 
@@ -40,10 +40,25 @@ jobs:
         run: |
           yarn build
 
+      - name: Test Node Build
+        if: success() || failure()
+        run: |
+          yarn test:node
+
+      - name: Install Chrome Dependencies
+        if: success() || failure()
+        run: |
+          sudo apt-get install -y libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libgbm1 libasound2 libpangocairo-1.0-0 libxss1 libgtk-3-0
+
+      - name: Test Browser Build
+        if: success() || failure()
+        run: |
+          yarn test:browser
+
   deploy:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
-    needs: [lint]
+    needs: [lint-and-test]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -57,7 +72,7 @@ jobs:
       - name: Extract Version from Tag
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
 
-      - name: Install Dependencies
+      - name: Install JavaScript Dependencies
         run: yarn install --frozen-lockfile
 
       - name: Update package.json Version
