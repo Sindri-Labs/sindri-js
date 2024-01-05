@@ -38,8 +38,8 @@ export default defineConfig([
           js: "var sindri = sindriExports.default;",
         },
         globalName: "sindriExports",
-        minify: true,
-        outfile: "dist/lib/browser/index.iife.js",
+        minify: process.env.NODE_ENV === "production",
+        outfile: "dist/lib/browser/sindri.iife.js",
         platform: "browser",
         sourcemap: true,
       });

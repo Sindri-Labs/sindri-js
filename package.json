@@ -29,6 +29,7 @@
     "./dist/lib/index.js": "./dist/lib/browser/index.js",
     "./dist/lib/index.mjs": "./dist/lib/browser/index.mjs"
   },
+  "jsdelivr": "./dist/lib/browser/sindri.iife.js",
   "exports": {
     ".": {
       "import": "./dist/lib/index.mjs",
