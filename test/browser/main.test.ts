@@ -1,5 +1,5 @@
 import test from "ava";
-import withPage from "./withPage.ts";
+import withPage from "./withPage";
 
 const url = "https://google.com";
 
