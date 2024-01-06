@@ -15,14 +15,14 @@ test("should get Sindri manifest schema JSON", async (t) => {
   t.true(schema?.title?.includes("Sindri"));
 });
 
-test("2 should get Sindri manifest schema JSON", async (t) => {
+test("should get Sindri manifest schema JSON (number 2)", async (t) => {
   const schema = await t.context.page.evaluate(async () =>
     sindri.getSindriManifestSchema(),
   );
   t.true(schema?.title?.includes("Sindri"));
 });
 
-test("3 should get Sindri manifest schema JSON", async (t) => {
+test("should get robots.txt", async (t) => {
   try {
     await t.context.page.goto("https://sindri.app/robots.txt", { timeout: 5 });
   } catch (error) {}
