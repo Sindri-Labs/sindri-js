@@ -19,11 +19,12 @@ const useNock = useNockWithWrongTypes as (
 ) => Promise<void>;
 
 // Add the context to the test function type.
-export const test = testWithoutContext as TestFn<{
+type Context = {
   browser: Browser;
   nockDone: () => void;
   page: Page;
-}>;
+};
+export const test = testWithoutContext as TestFn<Context>;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -49,7 +50,7 @@ export const usePage = async () => {
     throw new Error(`Expected IIFE build to exist at "${sindriScriptPath}".`);
   }
 
-  test.before(async (t: ExecutionContext) => {
+  test.before(async (t: ExecutionContext<Context>) => {
     // Launch the Puppeteer browser without any nock interference.
     nockBack.setMode("wild");
     nock.enableNetConnect();
@@ -64,7 +65,7 @@ export const usePage = async () => {
     t.context.nockDone = nockDone;
   });
 
-  test.beforeEach(async (t: ExecutionContext) => {
+  test.beforeEach(async (t: ExecutionContext<Context>) => {
     // Open a new browser tab for the test, inject the script tag, and route requests through nock.
     t.context.page = await t.context.browser.newPage();
     await t.context.page.addScriptTag({
@@ -73,14 +74,14 @@ export const usePage = async () => {
     useNock(t.context.page, ["https://sindri.app"]);
   });
 
-  test.afterEach.always(async (t: ExecutionContext) => {
+  test.afterEach.always(async (t: ExecutionContext<Context>) => {
     // Close the browser tab after each test.
     if (t.context.page) {
       await t.context.page.close();
     }
   });
 
-  test.after.always(async (t: ExecutionContext) => {
+  test.after.always(async (t: ExecutionContext<Context>) => {
     // Close the browser after all tests.
     if (t.context.browser) {
       await t.context.browser.close();
