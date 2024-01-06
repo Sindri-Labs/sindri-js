@@ -51,7 +51,9 @@
     "test:browser": "ava --config test/ava.config.browser.mjs",
     "test:browser:record": "NOCK_BACK_MODE=update ava --config test/ava.config.browser.mjs",
     "test:dev": "ava --config test/ava.config.dev.mjs",
+    "test:dev:record": "NODE_BACK_MODE=update ava --config test/ava.config.dev.mjs",
     "test:node": "ava --config test/ava.config.node.mjs",
+    "test:node:record": "NODE_BACK_MODE=update ava --config test/ava.config.node.mjs",
     "type-check": "tsc --noEmit"
   },
   "repository": {

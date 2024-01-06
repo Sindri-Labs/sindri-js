@@ -5,15 +5,15 @@ import { fileURLToPath } from "url";
 
 import testWithoutContext, { type ExecutionContext, type TestFn } from "ava";
 import nock, { back as nockBack, type BackMode } from "nock";
-import useNockWithWrongTypes from "nock-puppeteer";
+import useNockPuppeteerWithWrongTypes from "nock-puppeteer";
 import puppeteer, {
   type Browser,
   type Page,
   type ResourceType,
 } from "puppeteer";
 
-// Fix the types on `useNock`.
-const useNock = useNockWithWrongTypes as (
+// Fix the types on `useNockPuppeteer`.
+const useNockPuppeteer = useNockPuppeteerWithWrongTypes as (
   page: Page,
   allowedHosts: string[],
   supportedResourceTypes?: ResourceType[],
@@ -71,7 +71,7 @@ export const usePage = async () => {
     await t.context.page.addScriptTag({
       path: sindriScriptPath,
     });
-    useNock(t.context.page, ["https://sindri.app"]);
+    useNockPuppeteer(t.context.page, ["https://sindri.app"]);
   });
 
   test.afterEach.always(async (t: ExecutionContext<Context>) => {
