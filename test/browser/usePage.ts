@@ -4,7 +4,7 @@ import process from "process";
 import { fileURLToPath } from "url";
 
 import testWithoutContext, { type ExecutionContext, type TestFn } from "ava";
-import nock, { back as nockBack } from "nock";
+import nock, { back as nockBack, type BackMode } from "nock";
 import useNockWithWrongTypes from "nock-puppeteer";
 import puppeteer, {
   type Browser,
@@ -60,7 +60,7 @@ export const usePage = async () => {
     // Start recording, and only allow connections to `sindri.app`.
     nock.disableNetConnect();
     nock.enableNetConnect("sindri.app");
-    nockBack.setMode(process.env.NOCK_BACK_MODE ?? "lockdown");
+    nockBack.setMode((process.env.NOCK_BACK_MODE ?? "lockdown") as BackMode);
     const { nockDone } = await nockBack(fixtureFilename);
     t.context.nockDone = nockDone;
   });
