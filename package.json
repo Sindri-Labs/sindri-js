@@ -49,8 +49,11 @@
     "lint": "eslint '**/*.{js,ts}'",
     "format": "prettier --write '**/*.{js,json,md,ts}'",
     "test:browser": "ava --config test/ava.config.browser.mjs",
+    "test:browser:record": "NOCK_BACK_MODE=update ava --config test/ava.config.browser.mjs",
     "test:dev": "ava --config test/ava.config.dev.mjs",
+    "test:dev:record": "NODE_BACK_MODE=update ava --config test/ava.config.dev.mjs",
     "test:node": "ava --config test/ava.config.node.mjs",
+    "test:node:record": "NODE_BACK_MODE=update ava --config test/ava.config.node.mjs",
     "type-check": "tsc --noEmit"
   },
   "repository": {
@@ -94,7 +97,8 @@
     "eslint": "^8.53.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
-    "jsdom": "^23.0.1",
+    "nock": "^13.4.0",
+    "nock-puppeteer": "^14.4.1",
     "openapi-typescript-codegen": "^0.25.0",
     "prettier": "^3.1.0",
     "puppeteer": "^21.7.0",
