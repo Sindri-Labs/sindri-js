@@ -25,6 +25,8 @@ test("should get Sindri manifest schema JSON (number 2)", async (t) => {
 test("should get robots.txt", async (t) => {
   try {
     await t.context.page.goto("https://sindri.app/robots.txt", { timeout: 5 });
-  } catch (error) {}
+  } catch (error) {
+    /* ignore timeouts */
+  }
   t.true(true);
 });
