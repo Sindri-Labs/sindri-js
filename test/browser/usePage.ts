@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import process from "process";
 import { fileURLToPath } from "url";
 
 import testWithoutContext, { type ExecutionContext, type TestFn } from "ava";
@@ -59,7 +60,7 @@ export const usePage = async () => {
     // Start recording, and only allow connections to `sindri.app`.
     nock.disableNetConnect();
     nock.enableNetConnect("sindri.app");
-    nockBack.setMode("lockdown");
+    nockBack.setMode(process.env.NOCK_BACK_MODE ?? "lockdown");
     const { nockDone } = await nockBack(fixtureFilename);
     t.context.nockDone = nockDone;
   });
