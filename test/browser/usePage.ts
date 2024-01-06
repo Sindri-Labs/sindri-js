@@ -60,7 +60,6 @@ export const usePage = async () => {
     nock.disableNetConnect();
     nock.enableNetConnect("sindri.app");
     nockBack.setMode("lockdown");
-    console.log("Fixture location:", nockBack.fixtures, fixtureFilename);
     const { nockDone } = await nockBack(fixtureFilename);
     t.context.nockDone = nockDone;
   });
