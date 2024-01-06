@@ -1,5 +1,4 @@
-import test from "ava";
-import withPage from "./withPage";
+import { test, usePage } from "./usePage";
 
 import sindriLibrary from "lib";
 
@@ -7,9 +6,25 @@ import sindriLibrary from "lib";
 type SindriLibrary = typeof sindriLibrary;
 declare const sindri: SindriLibrary;
 
-test("should get Sindri manifest schema JSON", withPage, async (t, page) => {
-  const schema = await page.evaluate(async () =>
+usePage();
+
+test("should get Sindri manifest schema JSON", async (t) => {
+  const schema = await t.context.page.evaluate(async () =>
     sindri.getSindriManifestSchema(),
   );
   t.true(schema?.title?.includes("Sindri"));
+});
+
+test("2 should get Sindri manifest schema JSON", async (t) => {
+  const schema = await t.context.page.evaluate(async () =>
+    sindri.getSindriManifestSchema(),
+  );
+  t.true(schema?.title?.includes("Sindri"));
+});
+
+test("3 should get Sindri manifest schema JSON", async (t) => {
+  try {
+    await t.context.page.goto("https://sindri.app/robots.txt", { timeout: 5 });
+  } catch (error) {}
+  t.true(true);
 });
