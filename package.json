@@ -95,7 +95,6 @@
     "eslint": "^8.53.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
-    "jsdom": "^23.0.1",
     "nock": "^13.4.0",
     "nock-puppeteer": "^14.4.1",
     "openapi-typescript-codegen": "^0.25.0",
