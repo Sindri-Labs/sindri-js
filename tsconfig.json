@@ -6,6 +6,9 @@
     "lib": ["dom"],
     "module": "ESNext",
     "moduleResolution": "node",
+    "paths": {
+      "test/*": ["../test/*"]
+    },
     "preserveConstEnums": true
   },
   "include": ["src/**/*", "test/**/*"],

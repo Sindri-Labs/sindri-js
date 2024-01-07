@@ -40,20 +40,15 @@ jobs:
         run: |
           yarn build
 
-      - name: Test Node Build
-        if: success() || failure()
-        run: |
-          yarn test:node
-
       - name: Install Chrome Dependencies
         if: success() || failure()
         run: |
           sudo apt-get install -y libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libgbm1 libasound2 libpangocairo-1.0-0 libxss1 libgtk-3-0
 
-      - name: Test Browser Build
+      - name: Test
         if: success() || failure()
         run: |
-          yarn test:browser
+          yarn test:fast
 
   deploy:
     runs-on: ubuntu-latest
