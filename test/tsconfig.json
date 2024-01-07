@@ -3,7 +3,8 @@
   "compilerOptions": {
     "paths": {
       "lib": ["../dist/lib"],
-      "lib/*": ["../dist/lib/*"]
+      "lib/*": ["../dist/lib/*"],
+      "test/*": ["../test/*"]
     }
   }
 }

@@ -1,4 +1,11 @@
+import path from "path";
 import process from "process";
+import { fileURLToPath } from "url";
+
+// Use the node tsconfig import paths.
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+process.env.TSX_TSCONFIG_PATH = path.join(__dirname, "test", "tsconfig.json");
 
 export default {
   extensions: {

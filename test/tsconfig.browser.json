@@ -1,9 +1,0 @@
-{
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "paths": {
-      "lib": ["../dist/lib/browser"],
-      "lib/*": ["../dist/lib/browser/*"]
-    }
-  }
-}
