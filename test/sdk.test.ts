@@ -1,6 +1,6 @@
 import lib from "lib";
 
-import { test, useNock } from "./useNock";
+import { test, useNock } from "test/utils/useNock";
 
 useNock();
 

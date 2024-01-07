@@ -1,4 +1,4 @@
-import { test, usePage } from "./usePage";
+import { test, usePage } from "test/utils/usePage";
 
 import sindriLibrary from "lib";
 
