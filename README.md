@@ -132,6 +132,41 @@ To perform a production build with minified outputs:
 yarn build
 ```
 
+### Testing
+
+#### Test Production Builds
+
+The test suite can be run with:
+
+```bash
+yarn test
+```
+
+This will first build the project and then run the tests against the build outputs using pre-recorded fixtures for network requests.
+To skip the build step, you can use `yarn test:fast`.
+
+#### Test Watcher
+
+In development, you can use
+
+```bash
+yarn test:watch
+```
+
+to rebuild the project and rerun the tests whenever there are code changes.
+Additionally, this command will allow network requests without fixtures to go through, so this is useful when writing new tests.
+
+#### Recording Test Fixtures
+
+This command will build the project and record new fixtures for all network requests.
+
+```bash
+yarn test:record
+```
+
+You will need to have your environment authenticated with an API key for the "Sindri CLI/SDK Testing Team" organization on [Sindri](https://sindri.app) in order to make the necessary network requests for recording fixtures.
+The credentials stored by `sindri login` will be used automatically for the tests.
+
 ### Updating the API Client
 
 This will fetch the latest OpenAPI schema for the Sindri API and autogenerate an updated API client in [`src/lib/api/`](src/lib/api/).
