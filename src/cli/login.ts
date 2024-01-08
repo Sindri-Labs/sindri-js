@@ -101,6 +101,7 @@ export const loginCommand = new Command()
       }
 
       // Generate an API key.
+      OpenAPI.HEADERS = { "Sindri-Team-Id": `${teamId}` };
       const apiKeyResult = await AuthorizationService.apikeyGenerate({
         username,
         password,
