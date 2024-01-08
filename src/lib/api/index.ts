@@ -12,7 +12,6 @@ export type { APIKeyDoesNotExistResponse } from './models/APIKeyDoesNotExistResp
 export type { APIKeyErrorResponse } from './models/APIKeyErrorResponse';
 export type { APIKeyResponse } from './models/APIKeyResponse';
 export type { CircomCircuitInfoResponse } from './models/CircomCircuitInfoResponse';
-export type { CircuitCreateInput } from './models/CircuitCreateInput';
 export type { CircuitDoesNotExistResponse } from './models/CircuitDoesNotExistResponse';
 export { CircuitStatus } from './models/CircuitStatus';
 export { CircuitType } from './models/CircuitType';

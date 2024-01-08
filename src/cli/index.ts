@@ -10,6 +10,7 @@ import { lintCommand } from "cli/lint";
 import { logger } from "cli/logging";
 import { loginCommand } from "cli/login";
 import { logoutCommand } from "cli/logout";
+import { proofCommand } from "cli/proof";
 import { whoamiCommand } from "cli/whoami";
 import { loadPackageJson } from "cli/utils";
 
@@ -29,6 +30,7 @@ export const program = new Command()
   .addCommand(lintCommand)
   .addCommand(loginCommand)
   .addCommand(logoutCommand)
+  .addCommand(proofCommand)
   .addCommand(whoamiCommand)
   // Parse the base command options and respond to them before invoking the subcommand.
   .hook("preAction", async (command) => {

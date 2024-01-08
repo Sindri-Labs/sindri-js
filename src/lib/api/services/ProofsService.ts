@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ActionResponse } from "../models/ActionResponse";
 import type { ProofInfoResponse } from "../models/ProofInfoResponse";
 
 import type { CancelablePromise } from "../core/CancelablePromise";
@@ -69,6 +70,29 @@ export class ProofsService {
         include_proof: includeProof,
         include_public: includePublic,
         include_verification_key: includeVerificationKey,
+      },
+      errors: {
+        404: `Not Found`,
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
+   * Delete Proof
+   * Mark the specified proof as deleted.
+   * @param proofId
+   * @returns ActionResponse OK
+   * @throws ApiError
+   */
+  public static proofDelete(
+    proofId: string,
+  ): CancelablePromise<ActionResponse> {
+    return __request(OpenAPI, {
+      method: "DELETE",
+      url: "/api/v1/proof/{proof_id}/delete",
+      path: {
+        proof_id: proofId,
       },
       errors: {
         404: `Not Found`,

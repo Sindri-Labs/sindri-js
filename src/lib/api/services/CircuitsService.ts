@@ -2,10 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+// DO NOT REMOVE THIS!
 import FormData from "form-data";
 
+import type { ActionResponse } from "../models/ActionResponse";
 import type { CircomCircuitInfoResponse } from "../models/CircomCircuitInfoResponse";
-import type { CircuitCreateInput } from "../models/CircuitCreateInput";
 import type { GnarkCircuitInfoResponse } from "../models/GnarkCircuitInfoResponse";
 import type { Halo2CircuitInfoResponse } from "../models/Halo2CircuitInfoResponse";
 import type { NoirCircuitInfoResponse } from "../models/NoirCircuitInfoResponse";
@@ -28,7 +29,10 @@ export class CircuitsService {
     | FormData // DO NOT REMOVE THIS!
       | {
           files: Array<Blob>;
-          payload?: CircuitCreateInput;
+          /**
+           * Tags for a circuit.
+           */
+          tags?: Array<string>;
         },
   ): CancelablePromise<
     | CircomCircuitInfoResponse
@@ -104,6 +108,29 @@ export class CircuitsService {
       },
       query: {
         include_verification_key: includeVerificationKey,
+      },
+      errors: {
+        404: `Not Found`,
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
+   * Delete Circuit
+   * Mark the specified circuit and any related proofs as deleted.
+   * @param circuitId
+   * @returns ActionResponse OK
+   * @throws ApiError
+   */
+  public static circuitDelete(
+    circuitId: string,
+  ): CancelablePromise<ActionResponse> {
+    return __request(OpenAPI, {
+      method: "DELETE",
+      url: "/api/v1/circuit/{circuit_id}/delete",
+      path: {
+        circuit_id: circuitId,
       },
       errors: {
         404: `Not Found`,
