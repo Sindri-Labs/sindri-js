@@ -7,7 +7,7 @@ import {
   type NoirCircuitInfoResponse,
 } from "lib/api";
 import { loadConfig } from "lib/config";
-import { logger } from "lib/logging";
+import { logger, LogLevel } from "lib/logging";
 
 // Re-export types from the API.
 export type {
@@ -63,6 +63,21 @@ export class Client {
    */
   get baseUrl(): string {
     return OpenAPI.BASE;
+  }
+
+  /**
+   * The current value of the client's log level.
+   */
+  get logLevel(): LogLevel {
+    // We don't specify any custom log levels, so we can narrow the type to exclude strings.
+    return logger.level as LogLevel;
+  }
+
+  /**
+   * Set the client's log level.
+   */
+  set logLevel(level: LogLevel) {
+    logger.level = level;
   }
 
   authorize(authOptions: AuthOptions): boolean {

@@ -1,6 +1,18 @@
 import pino from "pino";
 import pretty from "pino-pretty";
 
+/**
+ * The minimum log level to print.
+ */
+export type LogLevel =
+  | "silent"
+  | "fatal"
+  | "error"
+  | "warn"
+  | "info"
+  | "debug"
+  | "trace";
+
 export const logger = pino(
   process.env.BROWSER_BUILD
     ? {
