@@ -7,7 +7,7 @@ import type { Schema } from "jsonschema";
 import nunjucks from "nunjucks";
 import type { PackageJson } from "type-fest";
 
-import { logger } from "cli/logging";
+import { logger } from "lib/logging";
 
 const currentFilePath = fileURLToPath(import.meta.url);
 const currentDirectoryPath = path.dirname(currentFilePath);

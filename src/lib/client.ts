@@ -7,6 +7,7 @@ import {
   type NoirCircuitInfoResponse,
 } from "lib/api";
 import { loadConfig } from "lib/config";
+import { logger } from "lib/logging";
 
 // Re-export types from the API.
 export type {
@@ -86,6 +87,7 @@ export class Client {
   }
 
   async listCircuits(): Promise<CircuitInfoResponse> {
+    logger.debug("Requesting `/api/v1/circuit/list`.");
     return await CircuitsService.circuitList();
   }
 }

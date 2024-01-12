@@ -5,8 +5,8 @@ import envPaths from "env-paths";
 import { cloneDeep, merge } from "lodash";
 import { z } from "zod";
 
-import { logger } from "cli/logging";
 import { OpenAPI } from "lib/api";
+import { logger } from "lib/logging";
 
 const getConfigPath = (): string => {
   const paths = envPaths("sindri", {

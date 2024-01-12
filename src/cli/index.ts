@@ -1,5 +1,4 @@
 #! /usr/bin/env node
-import assert from "assert";
 import { argv, exit } from "process";
 
 import { Command } from "@commander-js/extra-typings";
@@ -8,12 +7,12 @@ import { configCommand } from "cli/config";
 import { initCommand } from "cli/init";
 import { deployCommand } from "cli/deploy";
 import { lintCommand } from "cli/lint";
-import { logger } from "cli/logging";
 import { loginCommand } from "cli/login";
 import { logoutCommand } from "cli/logout";
 import { whoamiCommand } from "cli/whoami";
 import { loadPackageJson } from "cli/utils";
 import { Config } from "lib/config";
+import { logger } from "lib/logging";
 
 export const program = new Command()
   .name("sindri")
@@ -42,7 +41,6 @@ export const program = new Command()
       );
       return exit(1);
     }
-    assert("level" in logger);
     if (debug) {
       logger.level = "trace";
     } else if (quiet) {

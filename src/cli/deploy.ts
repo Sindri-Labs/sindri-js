@@ -7,10 +7,10 @@ import FormData from "form-data";
 import walk from "ignore-walk";
 import tar from "tar";
 
-import { logger } from "cli/logging";
 import { findFileUpwards } from "cli/utils";
 import { ApiError, CircuitsService, CircuitStatus } from "lib/api";
 import { Config } from "lib/config";
+import { logger } from "lib/logging";
 
 export const deployCommand = new Command()
   .name("deploy")

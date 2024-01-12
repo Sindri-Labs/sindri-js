@@ -6,8 +6,8 @@ import process from "process";
 import { Command } from "@commander-js/extra-typings";
 import { confirm, input, select } from "@inquirer/prompts";
 
-import { logger } from "cli/logging";
 import { scaffoldDirectory } from "cli/utils";
+import { logger } from "lib/logging";
 
 export const initCommand = new Command()
   .name("init")

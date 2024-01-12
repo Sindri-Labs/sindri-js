@@ -1,7 +1,7 @@
 import { Command } from "@commander-js/extra-typings";
 
-import { print } from "cli/logging";
 import { Config } from "lib/config";
+import { print } from "lib/logging";
 
 export const configListCommand = new Command()
   .name("list")
