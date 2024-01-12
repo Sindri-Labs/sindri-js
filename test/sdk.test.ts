@@ -8,4 +8,5 @@ test("list circuits", async (t) => {
   const circuits = await sindri.listCircuits();
   t.true(Array.isArray(circuits));
   t.true(circuits.length > 0);
+  t.truthy(circuits[0]?.circuit_id);
 });

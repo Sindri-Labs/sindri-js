@@ -23,6 +23,7 @@ test("list circuits", async (t) => {
   );
   t.true(Array.isArray(circuits));
   t.true(circuits.length > 0);
+  t.truthy(circuits[0]?.circuit_id);
 });
 
 test("fetch robots.txt", async (t) => {
