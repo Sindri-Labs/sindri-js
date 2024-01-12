@@ -13,7 +13,7 @@ test("library is injected and authorized", async (t) => {
     apiKey: sindri.apiKey,
     baseUrl: sindri.baseUrl,
   }));
-  t.truthy(apiKey);
+  t.deepEqual(apiKey, sindriLibrary.apiKey);
   t.truthy(baseUrl);
 });
 
