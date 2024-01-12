@@ -27,6 +27,7 @@ export default defineConfig([
     dts: true,
     entry: ["src/lib/index.ts"],
     env: {
+      BROWSER_BUILD: "true",
       NODE_ENV: process.env.NODE_ENV,
     },
     format: ["cjs", "esm"],
