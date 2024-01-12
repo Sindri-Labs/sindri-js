@@ -3,7 +3,7 @@ import { argv, exit } from "process";
 
 import { Command } from "@commander-js/extra-typings";
 
-import { Config, configCommand } from "cli/config";
+import { configCommand } from "cli/config";
 import { initCommand } from "cli/init";
 import { deployCommand } from "cli/deploy";
 import { lintCommand } from "cli/lint";
@@ -12,6 +12,7 @@ import { loginCommand } from "cli/login";
 import { logoutCommand } from "cli/logout";
 import { whoamiCommand } from "cli/whoami";
 import { loadPackageJson } from "cli/utils";
+import { Config } from "lib/config";
 
 export const program = new Command()
   .name("sindri")

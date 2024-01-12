@@ -1,7 +1,5 @@
-import { InternalService } from "lib/api";
+import { Client } from "./client";
 
-export default {
-  environment: process.env.NODE_ENV,
-  getSindriManifestSchema: async () =>
-    await InternalService.sindriManifestSchema(),
-};
+export default new Client();
+
+export * from "./client";

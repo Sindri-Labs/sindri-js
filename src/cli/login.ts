@@ -9,7 +9,6 @@ import {
   select,
 } from "@inquirer/prompts";
 
-import { Config } from "cli/config";
 import { logger } from "cli/logging";
 import {
   ApiError,
@@ -18,6 +17,7 @@ import {
   OpenAPI,
   TokenService,
 } from "lib/api";
+import { Config } from "lib/config";
 
 export const loginCommand = new Command()
   .name("login")

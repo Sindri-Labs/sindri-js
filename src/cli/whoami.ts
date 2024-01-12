@@ -2,9 +2,9 @@ import process from "process";
 
 import { Command } from "@commander-js/extra-typings";
 
-import { Config } from "cli/config";
 import { logger, print } from "cli/logging";
 import { ApiError, InternalService } from "lib/api";
+import { Config } from "lib/config";
 
 export const whoamiCommand = new Command()
   .name("whoami")
