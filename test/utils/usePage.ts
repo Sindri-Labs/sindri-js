@@ -12,6 +12,12 @@ import puppeteer, {
   type ResourceType,
 } from "puppeteer";
 
+import sindriLibrary from "lib";
+
+// The `sindri` library is injected in `withPage.ts`, but this tells TypeScript what the type is.
+type SindriLibrary = typeof sindriLibrary;
+declare const sindri: SindriLibrary;
+
 // Fix the types on `useNockPuppeteer`.
 const useNockPuppeteer = useNockPuppeteerWithWrongTypes as (
   page: Page,
@@ -71,6 +77,13 @@ export const usePage = async () => {
     await t.context.page.addScriptTag({
       path: sindriScriptPath,
     });
+    await t.context.page.evaluate(
+      (apiKey, baseUrl) => {
+        sindri.authorize({ apiKey, baseUrl });
+      },
+      sindriLibrary.apiKey ?? undefined,
+      sindriLibrary.baseUrl,
+    );
     useNockPuppeteer(t.context.page, ["https://sindri.app"]);
   });
 
