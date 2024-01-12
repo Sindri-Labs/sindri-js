@@ -37,6 +37,7 @@ export default defineConfig([
     sourcemap: true,
     splitting: true,
     target: "esnext",
+    treeshake: "smallest",
     // Produce an IIFE bundle for use with a <script> tag in a browser.
     onSuccess: async () => {
       await esbuild.build({
