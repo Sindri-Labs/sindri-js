@@ -8,18 +8,21 @@ declare const sindri: SindriLibrary;
 
 usePage();
 
-test("fetch Sindri manifest schema JSON", async (t) => {
-  const schema = await t.context.page.evaluate(async () =>
-    sindri.getSindriManifestSchema(),
-  );
-  t.true(schema?.title?.includes("Sindri"));
+test("library is injected and authorized", async (t) => {
+  const { apiKey, baseUrl } = await t.context.page.evaluate(() => ({
+    apiKey: sindri.apiKey,
+    baseUrl: sindri.baseUrl,
+  }));
+  t.truthy(apiKey);
+  t.truthy(baseUrl);
 });
 
-test("fetch Sindri manifest schema JSON in a second tab", async (t) => {
-  const schema = await t.context.page.evaluate(async () =>
-    sindri.getSindriManifestSchema(),
+test("list circuits", async (t) => {
+  const circuits = await t.context.page.evaluate(async () =>
+    sindri.listCircuits(),
   );
-  t.true(schema?.title?.includes("Sindri"));
+  t.true(Array.isArray(circuits));
+  t.true(circuits.length > 0);
 });
 
 test("fetch robots.txt", async (t) => {
