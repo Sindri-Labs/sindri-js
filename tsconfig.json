@@ -6,6 +6,7 @@
     "lib": ["dom"],
     "module": "ESNext",
     "moduleResolution": "node",
+    "noUncheckedIndexedAccess": true,
     "paths": {
       "test/*": ["../test/*"]
     },
