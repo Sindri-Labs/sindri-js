@@ -1,16 +1,14 @@
 import fs from "fs";
+import http from "http";
 import path from "path";
 import process from "process";
 import { fileURLToPath } from "url";
 
 import testWithoutContext, { type ExecutionContext, type TestFn } from "ava";
+import getPort from "get-port";
 import nock, { back as nockBack, type BackMode } from "nock";
-import useNockPuppeteerWithWrongTypes from "nock-puppeteer";
-import puppeteer, {
-  type Browser,
-  type Page,
-  type ResourceType,
-} from "puppeteer";
+import { createProxy } from "proxy";
+import puppeteer, { type Browser, type Page } from "puppeteer";
 
 import sindriLibrary from "lib";
 
@@ -18,18 +16,12 @@ import sindriLibrary from "lib";
 type SindriLibrary = typeof sindriLibrary;
 declare const sindri: SindriLibrary;
 
-// Fix the types on `useNockPuppeteer`.
-const useNockPuppeteer = useNockPuppeteerWithWrongTypes as (
-  page: Page,
-  allowedHosts: string[],
-  supportedResourceTypes?: ResourceType[],
-) => Promise<void>;
-
 // Add the context to the test function type.
 type Context = {
   browser: Browser;
   nockDone: () => void;
   page: Page;
+  proxy: http.Server;
 };
 export const test = testWithoutContext as TestFn<Context>;
 
@@ -58,10 +50,18 @@ export const usePage = async () => {
   }
 
   test.before(async (t: ExecutionContext<Context>) => {
-    // Launch the Puppeteer browser without any nock interference.
+    // Disable nock interference until after we have the browser launched and connected.
     nockBack.setMode("wild");
     nock.enableNetConnect();
-    t.context.browser = await puppeteer.launch({ headless: "new" });
+
+    // Start a proxy server and launch a browser with Puppeteer that uses it.
+    const proxyPort = await getPort();
+    t.context.proxy = createProxy(http.createServer());
+    await new Promise((resolve) => t.context.proxy.listen(proxyPort, resolve));
+    t.context.browser = await puppeteer.launch({
+      headless: "new",
+      args: [`--proxy-server=http://localhost:${proxyPort}`],
+    });
 
     // Start recording, and only allow connections to `sindri.app`.
     nock.disableNetConnect();
@@ -84,12 +84,6 @@ export const usePage = async () => {
       sindriLibrary.apiKey ?? undefined,
       sindriLibrary.baseUrl,
     );
-    useNockPuppeteer(t.context.page, [
-      "https://sindri.app",
-      "https://stage.sindri.app",
-      "http://host.docker.internal",
-      "http://localhost",
-    ]);
   });
 
   test.afterEach.always(async (t: ExecutionContext<Context>) => {
@@ -103,6 +97,11 @@ export const usePage = async () => {
     // Close the browser after all tests.
     if (t.context.browser) {
       await t.context.browser.close();
+    }
+
+    // Shut down the proxy server.
+    if (t.context.proxy) {
+      t.context.proxy.close();
     }
 
     // Stop recording and re-enable all network connections.
