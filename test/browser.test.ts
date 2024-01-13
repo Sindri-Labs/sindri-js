@@ -1,6 +1,9 @@
-import { test, usePage } from "test/utils/usePage";
+import fs from "fs/promises";
+import path from "path";
 
 import sindriLibrary from "lib";
+import { test, usePage } from "test/utils/usePage";
+import { dataDirectory } from "test/utils";
 
 // The `sindri` library is injected in `withPage.ts`, but this tells TypeScript what the type is.
 type SindriLibrary = typeof sindriLibrary;
@@ -15,6 +18,29 @@ test("library is injected and authorized", async (t) => {
   }));
   t.deepEqual(apiKey, sindriLibrary.apiKey);
   t.truthy(baseUrl);
+});
+
+test("create circuit from file array", async (t) => {
+  const circuitDirectory = path.join(dataDirectory, "circom-multiplier2");
+  const fileNames = await fs.readdir(circuitDirectory);
+  const fileData = await Promise.all(
+    fileNames.map(async (fileName) => ({
+      content: await fs.readFile(
+        path.join(circuitDirectory, fileName),
+        "utf-8",
+      ),
+      fileName,
+    })),
+  );
+
+  await t.context.page.evaluate(async (fileData) => {
+    const files = fileData.map(
+      ({ content, fileName }) => new File([content], fileName),
+    );
+    await sindri.createCircuit(files, ["from-browser-file-array"]);
+  }, fileData);
+
+  t.true(true);
 });
 
 test("list circuits", async (t) => {

@@ -84,7 +84,12 @@ export const usePage = async () => {
       sindriLibrary.apiKey ?? undefined,
       sindriLibrary.baseUrl,
     );
-    useNockPuppeteer(t.context.page, ["https://sindri.app"]);
+    useNockPuppeteer(t.context.page, [
+      "https://sindri.app",
+      "https://stage.sindri.app",
+      "http://host.docker.internal",
+      "http://localhost",
+    ]);
   });
 
   test.afterEach.always(async (t: ExecutionContext<Context>) => {

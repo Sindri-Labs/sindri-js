@@ -16,7 +16,6 @@ export const useNock = async () => {
   nockBack.fixtures = path.join(path.dirname(testPath), "fixtures");
   const testFilenamePrefix = path.basename(testPath);
   const fixtureFilename = `${testFilenamePrefix}.json`;
-  console.log("fixtures:", nockBack.fixtures, fixtureFilename);
 
   test.before(async (t: ExecutionContext<Context>) => {
     // Start recording, and only allow connections to `sindri.app`.
