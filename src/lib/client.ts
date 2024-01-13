@@ -1,19 +1,19 @@
-import {
-  CircuitsService,
-  OpenAPI,
-  type CircomCircuitInfoResponse,
-  type Halo2CircuitInfoResponse,
-  type GnarkCircuitInfoResponse,
-  type NoirCircuitInfoResponse,
+import { CircuitsService, CircuitStatus, CircuitType, OpenAPI } from "lib/api";
+import type {
+  CircomCircuitInfoResponse,
+  Halo2CircuitInfoResponse,
+  GnarkCircuitInfoResponse,
+  NoirCircuitInfoResponse,
 } from "lib/api";
 import { loadConfig } from "lib/config";
 import { logger, LogLevel } from "lib/logging";
 
 // Re-export types from the API.
+export { CircuitStatus, CircuitType };
 export type {
   CircomCircuitInfoResponse,
-  Halo2CircuitInfoResponse,
   GnarkCircuitInfoResponse,
+  Halo2CircuitInfoResponse,
   NoirCircuitInfoResponse,
 };
 export type CircuitInfoResponse = (
