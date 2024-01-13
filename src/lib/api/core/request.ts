@@ -9,7 +9,7 @@ import type {
   AxiosResponse,
   AxiosInstance,
 } from "axios";
-import FormData from "form-data";
+import { FormData } from "formdata-node";
 
 import { ApiError } from "./ApiError";
 import type { ApiRequestOptions } from "./ApiRequestOptions";

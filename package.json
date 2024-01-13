@@ -68,7 +68,7 @@
     "axios": "^1.6.2",
     "commander": "^11.1.0",
     "env-paths": "^2.2.1",
-    "form-data": "^4.0.0",
+    "formdata-node": "^6.0.3",
     "gzip-js": "^0.3.2",
     "ignore-walk": "^6.0.4",
     "jsonschema": "^1.4.1",

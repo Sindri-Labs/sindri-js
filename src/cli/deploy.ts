@@ -1,9 +1,10 @@
+import { Blob } from "buffer";
 import { existsSync, readFileSync } from "fs";
 import path from "path";
 import process from "process";
 
 import { Command } from "@commander-js/extra-typings";
-import FormData from "form-data";
+import { FormData } from "formdata-node";
 import walk from "ignore-walk";
 import tar from "tar";
 
@@ -103,7 +104,7 @@ export const deployCommand = new Command()
           // Always exclude `.git` subdirectories.
           !/(^|\/)\.git(\/|$)/.test(file),
       );
-    // Alows include the `sindri.json` file.
+    // Always include the `sindri.json` file.
     const sindriJsonFilename = path.basename(sindriJsonPath);
     if (!files.includes(sindriJsonFilename)) {
       files.push(sindriJsonFilename);
@@ -115,23 +116,23 @@ export const deployCommand = new Command()
     );
     formData.append(
       "files",
-      tar
-        .c(
-          {
-            gzip: true,
-            onwarn: (code: string, message: string) => {
-              logger.warn(`While creating tarball: ${code} - ${message}`);
+      new Blob([
+        tar
+          .c(
+            {
+              gzip: true,
+              onwarn: (code: string, message: string) => {
+                logger.warn(`While creating tarball: ${code} - ${message}`);
+              },
+              prefix: `${circuitName}/`,
+              sync: true,
             },
-            prefix: `${circuitName}/`,
-            sync: true,
-          },
-          files,
-        )
-        // @ts-expect-error - @types/tar doesn't handle the `sync` option correctly.
-        .read(),
-      {
-        filename: tarballFilename,
-      },
+            files,
+          )
+          // @ts-expect-error - @types/tar doesn't handle the `sync` option correctly.
+          .read(),
+      ]),
+      tarballFilename,
     );
 
     // Attach the tags to the form data.
