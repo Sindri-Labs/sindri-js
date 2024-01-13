@@ -698,6 +698,13 @@
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-1.0.5.tgz#a6ce3e556e00fd9895dd872dd172ad0d4bd687f4"
   integrity sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==
 
+"@types/gzip-js@^0.3.5":
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/@types/gzip-js/-/gzip-js-0.3.5.tgz#d530d27773ed7ab1436c36237561375c9e8cecab"
+  integrity sha512-mrkNfjP5i2qdwosyrfTwJzWwHm7Kk/bZLPMpStfyJEkZ3oCw/IFGp8iZ0RARI9qBa+0soLLYwkK4zZ6UMABdKw==
+  dependencies:
+    "@types/node" "*"
+
 "@types/ignore-walk@^4.0.3":
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/@types/ignore-walk/-/ignore-walk-4.0.3.tgz#15839e8aa30275bb65a4db2ad159d87351a63787"
@@ -738,6 +745,11 @@
   version "7.5.5"
   resolved "https://registry.yarnpkg.com/@types/semver/-/semver-7.5.5.tgz#deed5ab7019756c9c90ea86139106b0346223f35"
   integrity sha512-+d+WYC1BxJ6yVOgUgzK8gWvp5qF8ssV5r4nsDcZWKRWcDQLQ619tvWAxJQYGgBrO1MnLJC7a5GtiYsAoQ47dJg==
+
+"@types/tar-js@^0.3.5":
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/@types/tar-js/-/tar-js-0.3.5.tgz#c2f20f2577f0381179a3a2daf0412853e92ff79d"
+  integrity sha512-resGa1LAQLXI1tKDWnggDn7+o6fL4dZo7a8FcQKctBzC937UYp9iogiQonLElYduhzBarUUsMe/ntx/++xYgAA==
 
 "@types/tar@^6.1.10":
   version "6.1.10"
@@ -1445,6 +1457,11 @@ cosmiconfig@8.3.6:
     parse-json "^5.2.0"
     path-type "^4.0.0"
 
+"crc32@>= 0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/crc32/-/crc32-0.2.2.tgz#7ad220d6ffdcd119f9fc127a7772cacea390a4ba"
+  integrity sha512-PFZEGbDUeoNbL2GHIEpJRQGheXReDody/9axKTxhXtQqIL443wnNigtVZO9iuCIMPApKZRv7k2xr8euXHqNxQQ==
+
 cross-fetch@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-4.0.0.tgz#f037aef1580bb3a1a35164ea2a848ba81b445983"
@@ -1524,6 +1541,11 @@ define-lazy-prop@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/define-lazy-prop/-/define-lazy-prop-3.0.0.tgz#dbb19adfb746d7fc6d734a06b72f4a00d021255f"
   integrity sha512-N+MeXYoqr3pOgn8xfyRPREN7gHakLYjhsHhWGT3fWAiL4IkAt0iDw14QiiEm2bE30c5XX5q0FtAA3CK5f9/BUg==
+
+"deflate-js@>= 0.2.2":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/deflate-js/-/deflate-js-0.2.3.tgz#f85abb58ebc5151a306147473d57c3e4f7e4426b"
+  integrity sha512-r5KgHJ/yTiWQs23nVeQz5dSL/kmW0MBszsssNyEqDCjjFDj4XG/c6QUN/I0JtY3ZHwwcaNBtGE8s+oV33acTfQ==
 
 degenerator@^5.0.0:
   version "5.0.1"
@@ -2185,6 +2207,14 @@ graphemer@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/graphemer/-/graphemer-1.4.0.tgz#fb2f1d55e0e3a1849aeffc90c4fa0dd53a0e66c6"
   integrity sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==
+
+gzip-js@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/gzip-js/-/gzip-js-0.3.2.tgz#23117efeeb28cf385248deff0dffad894836d96b"
+  integrity sha512-BFTiwtEN12koJsnhVo77SzW+u6VANzhaK0HEtdwFwgFzFOq1WQJ8eSPEyGAueUfs1C/WqdgtuYnUwCRuRm1A5Q==
+  dependencies:
+    crc32 ">= 0.2.2"
+    deflate-js ">= 0.2.2"
 
 handlebars@^4.7.7:
   version "4.7.8"
@@ -3660,6 +3690,11 @@ tar-fs@3.0.4:
     mkdirp-classic "^0.5.2"
     pump "^3.0.0"
     tar-stream "^3.1.5"
+
+tar-js@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/tar-js/-/tar-js-0.3.0.tgz#6949aabfb0ba18bb1562ae51a439fd0f30183a17"
+  integrity sha512-9uqP2hJUZNKRkwPDe5nXxXdzo6w+BFBPq9x/tyi5/U/DneuSesO/HMb0y5TeWpfcv49YDJTs7SrrZeeu8ZHWDA==
 
 tar-stream@^3.1.5:
   version "3.1.6"
