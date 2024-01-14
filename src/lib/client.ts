@@ -120,7 +120,7 @@ export class Client {
   }
 
   async createCircuit(
-    project: string | File[],
+    project: string | Array<BrowserFile | NodeFile>,
     tags: string | string[] | null = ["latest"],
   ): Promise<CircuitInfoResponse> {
     const formData = new FormData();

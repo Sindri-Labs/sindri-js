@@ -9,7 +9,7 @@ import type {
   AxiosResponse,
   AxiosInstance,
 } from "axios";
-import { FormData } from "formdata-node";
+import { FormData } from "lib/isomorphic"; // DO NOT REMOVE OR CHANGE THIS, MANUAL EDIT!!!
 
 import { ApiError } from "./ApiError";
 import type { ApiRequestOptions } from "./ApiRequestOptions";
@@ -172,7 +172,10 @@ export const getHeaders = async (
   const password = await resolve(options, config.PASSWORD);
   const additionalHeaders = await resolve(options, config.HEADERS);
   const formHeaders =
-    (typeof formData?.getHeaders === "function" && formData?.getHeaders()) ||
+    (formData &&
+      "getHeaders" in formData &&
+      typeof formData?.getHeaders === "function" &&
+      formData?.getHeaders()) ||
     {};
 
   const headers = Object.entries({
