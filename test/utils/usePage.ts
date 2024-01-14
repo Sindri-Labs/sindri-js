@@ -4,11 +4,13 @@ import process from "process";
 import { fileURLToPath } from "url";
 
 import testWithoutContext, { type ExecutionContext, type TestFn } from "ava";
+import getPort from "get-port";
 import nock, {
   back as nockBack,
   type BackMode,
   type Definition as NockDefinition,
 } from "nock";
+import { Proxy } from "http-mitm-proxy";
 import puppeteer, { type Browser, type Page } from "puppeteer";
 
 import sindriLibrary from "lib";
@@ -22,11 +24,34 @@ type Context = {
   browser: Browser;
   nockDone: () => void;
   page: Page;
+  proxy: Proxy;
 };
 export const test = testWithoutContext as TestFn<Context>;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+function createProxy(): Proxy {
+  const proxy = new Proxy();
+  proxy.use(Proxy.wildcard);
+
+  // The library uses `console.debug()` a lot and it's noisy.
+  console.debug = () => {};
+
+  // Squash the sslv3 alerts from Chrome by monkey patching the error handler.
+  const originalOnError = proxy._onError;
+  proxy._onError = function (kind, ctx, err) {
+    if (
+      kind === "HTTPS_CLIENT_ERROR" &&
+      // @ts-expect-error - The error in question will have `code` but this isn't typed.
+      err.code === "ERR_SSL_SSLV3_ALERT_CERTIFICATE_UNKNOWN"
+    ) {
+      return;
+    }
+    return originalOnError.call(this, kind, ctx, err);
+  };
+  return proxy;
+}
 
 function patchFormBoundaries(scope: NockDefinition) {
   const boundaryRegex = /------WebKitFormBoundary................/g;
@@ -92,9 +117,20 @@ export const usePage = async ({
     nockBack.setMode("wild");
     nock.enableNetConnect();
 
+    // Start a proxy server and launch a browser with Puppeteer that uses it.
+    t.context.proxy = createProxy();
+    const proxyPort = await getPort();
+    await new Promise<void>((resolve, reject) =>
+      t.context.proxy.listen({ port: proxyPort }, (error) =>
+        error ? reject(error) : resolve(),
+      ),
+    );
     t.context.browser = await puppeteer.launch({
       headless: "new",
+      // Ignore certificate errors because the proxy uses a self-signed certificate.
+      ignoreHTTPSErrors: true,
       args: [
+        `--proxy-server=http://localhost:${proxyPort}`,
         // Disable CORS because they don't play back correctly with Nock and the proxy.
         "--disable-web-security",
       ],
@@ -175,6 +211,11 @@ export const usePage = async ({
     // Close the browser after all tests.
     if (t.context.browser) {
       await t.context.browser.close();
+    }
+
+    // Shut down the proxy server.
+    if (t.context.proxy) {
+      t.context.proxy.close();
     }
 
     // Stop recording and re-enable all network connections.
