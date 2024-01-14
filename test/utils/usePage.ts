@@ -1,13 +1,14 @@
 import fs from "fs";
-import http from "http";
 import path from "path";
 import process from "process";
-import { fileURLToPath, URL } from "url";
+import { fileURLToPath } from "url";
 
 import testWithoutContext, { type ExecutionContext, type TestFn } from "ava";
-import getPort from "get-port";
-import nock, { back as nockBack, type BackMode } from "nock";
-import { Proxy } from "http-mitm-proxy";
+import nock, {
+  back as nockBack,
+  type BackMode,
+  type Definition as NockDefinition,
+} from "nock";
 import puppeteer, { type Browser, type Page } from "puppeteer";
 
 import sindriLibrary from "lib";
@@ -21,162 +22,45 @@ type Context = {
   browser: Browser;
   nockDone: () => void;
   page: Page;
-  proxy: Proxy;
 };
 export const test = testWithoutContext as TestFn<Context>;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-import { Transform } from "stream";
-
-class FormBoundaryStream extends Transform {
-  private buffer: Buffer;
-
-  constructor() {
-    super();
-    this.buffer = Buffer.alloc(0);
-  }
-
-  _transform(chunk: Buffer, encoding: string, callback: Function) {
-    // Append the incoming chunk to the buffer
-    this.buffer = Buffer.concat([this.buffer, chunk]);
-    callback();
-  }
-
-  _flush(callback: Function) {
-    // Modify the buffer here
-    let modifiedData = this.modifyData(this.buffer);
-
-    // Push the modified data to be read
-    this.push(modifiedData);
-    callback();
-  }
-
-  modifyData(data: Buffer): Buffer {
-    // Perform your data modification here
-    // This is a placeholder for your logic
-    return data;
-  }
-}
-
-const createProxy = (): Proxy => {
-  const proxy = new Proxy();
-  proxy.use(Proxy.wildcard);
-
-  console.debug = () => {};
-  // Squash the sslv3 alerts from Chrome by monkey patching the error handler.
-  const originalOnError = proxy._onError;
-  proxy._onError = function (kind, ctx, err) {
-    if (
-      kind === "HTTPS_CLIENT_ERROR" &&
-      // @ts-expect-error - The error in question will have `code` but this isn't typed.
-      err.code === "ERR_SSL_SSLV3_ALERT_CERTIFICATE_UNKNOWN"
-    ) {
-      return;
+function patchFormBoundaries(scope: NockDefinition) {
+  const boundaryRegex = /------WebKitFormBoundary................/g;
+  // @ts-expect-error - Types are wrong.
+  scope.filteringRequestBody = (
+    body: string | null,
+    recordedBody: string | null,
+  ) => {
+    if (typeof body !== "string" || typeof recordedBody !== "string") {
+      return body;
     }
-    return originalOnError.call(this, kind, ctx, err);
-  };
 
-  proxy.onRequest(function (ctx, callback) {
-    //ctx.addRequestFilter(FormBoundaryStream);
-    // ctx.clientToProxyRequest;
-    // Accumulate the request chunks as they come in.
-    const requestChunks: Buffer[] = [];
-    ctx.onRequestData(function (ctx, chunk, callback) {
-      requestChunks.push(chunk);
-      return callback(null, chunk);
-    });
+    if (
+      body.replace(boundaryRegex, "") ===
+      recordedBody.replace(boundaryRegex, "")
+    ) {
+      return recordedBody;
+    }
 
-    // Proceed with the request.
-    return callback();
-  });
-
-  return proxy;
-};
-
-export const createProxyServer = () =>
-  http.createServer((req, res) => {
-    const requestChunks: Buffer[] = [];
-
-    req.on("data", (chunk) => {
-      requestChunks.push(chunk);
-    });
-
-    req.on("end", () => {
-      // Combine chunks into a single buffer
-      let dataBuffer = Buffer.concat(requestChunks);
-
-      if (req.headers["content-type"]?.startsWith("multipart/form-data")) {
-        const oldBoundary = (/boundary=(.*)$/.exec(
-          (req.headers ?? {})["content-type"] ?? "",
-        ) ?? [])[1];
-        const newBoundary =
-          "sindri-test-boundary-agkhdgfkjh234234234hksgfkgsdljhbcxc";
-
-        if (oldBoundary) {
-          // Convert your boundary strings to buffers
-          const oldBoundaryBuffer = Buffer.from(`--${oldBoundary}`, "utf-8");
-          const newBoundaryBuffer = Buffer.from(`--${newBoundary}`, "utf-8");
-
-          // Find and replace the old boundary with the new boundary in the buffer
-          let index,
-            offset = 0;
-          while (
-            (index = dataBuffer.indexOf(oldBoundaryBuffer, offset)) !== -1
-          ) {
-            dataBuffer = Buffer.concat([
-              dataBuffer.subarray(0, index),
-              newBoundaryBuffer,
-              dataBuffer.subarray(index + oldBoundaryBuffer.length),
-            ]);
-            offset = index + newBoundaryBuffer.length;
-          }
-
-          req.headers["content-type"] =
-            `multipart/form-data; boundary=${newBoundary}`;
-          req.headers["content-length"] =
-            Buffer.byteLength(dataBuffer).toString();
-        }
+    try {
+      const text = Buffer.from(body, "hex").toString("utf-8");
+      const recordedText = Buffer.from(recordedBody, "hex").toString("utf-8");
+      if (
+        text.replace(boundaryRegex, "") ===
+        recordedText.replace(boundaryRegex, "")
+      ) {
+        return recordedBody;
       }
-
-      // Construct the destination URL
-      const protocol = req.headers["x-forwarded-proto"] || "http";
-      const host = req.headers.host;
-      const destinationUrl = new URL(
-        req.url as string,
-        `${protocol}://${host}`,
-      );
-
-      // Forward the request
-      const options = {
-        agent: http.globalAgent,
-        headers: req.headers,
-        hostname: destinationUrl.hostname,
-        method: req.method,
-        path: destinationUrl.pathname + destinationUrl.search,
-        port: destinationUrl.port || (protocol === "https" ? 443 : 80),
-      };
-
-      const proxyReq = http.request(options, (proxyRes) => {
-        const responseChunks: Buffer[] = [];
-        proxyRes.on("data", (chunk) => {
-          responseChunks.push(chunk);
-        });
-
-        proxyRes.on("end", () => {
-          const responseBody = Buffer.concat(responseChunks);
-          proxyRes.headers["content-length"] =
-            Buffer.byteLength(responseBody).toString();
-          res.writeHead(proxyRes.statusCode ?? 200, proxyRes.headers);
-          res.end(responseBody);
-        });
-      });
-
-      proxyReq.write(dataBuffer);
-      proxyReq.end();
-    });
-  });
+    } catch {
+      /* Means it wasn't hex, no problem. */
+    }
+    return body;
+  };
+}
 
 export const usePage = async ({
   mockDate,
@@ -208,25 +92,9 @@ export const usePage = async ({
     nockBack.setMode("wild");
     nock.enableNetConnect();
 
-    // Start a proxy server and launch a browser with Puppeteer that uses it.
-    // t.context.proxy = createProxyServer();
-    //
-    t.context.proxy = createProxy();
-    const proxyPort = await getPort();
-    //await new Promise<void>((resolve) =>
-    // t.context.proxy.listen(proxyPort, resolve),
-    //);
-    await new Promise<void>((resolve, reject) =>
-      t.context.proxy.listen({ port: proxyPort }, (error) =>
-        error ? reject(error) : resolve(),
-      ),
-    );
     t.context.browser = await puppeteer.launch({
       headless: "new",
-      // Ignore certificate errors because the proxy uses a self-signed certificate.
-      ignoreHTTPSErrors: true,
       args: [
-        // `--proxy-server=http://localhost:${proxyPort}`,
         // Disable CORS because they don't play back correctly with Nock and the proxy.
         "--disable-web-security",
       ],
@@ -305,11 +173,6 @@ export const usePage = async ({
     // Close the browser after all tests.
     if (t.context.browser) {
       await t.context.browser.close();
-    }
-
-    // Shut down the proxy server.
-    if (t.context.proxy) {
-      t.context.proxy.close();
     }
 
     // Stop recording and re-enable all network connections.
