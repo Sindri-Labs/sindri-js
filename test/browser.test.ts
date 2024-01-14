@@ -1,6 +1,8 @@
 import fs from "fs/promises";
 import path from "path";
 
+import mockDateLibrary from "mockdate";
+
 import sindriLibrary from "lib";
 import { test, usePage } from "test/utils/usePage";
 import { dataDirectory } from "test/utils";
@@ -9,7 +11,14 @@ import { dataDirectory } from "test/utils";
 type SindriLibrary = typeof sindriLibrary;
 declare const sindri: SindriLibrary;
 
-usePage();
+// The `mockdate` library is injected in `withPage.ts`, but this tells TypeScript what the type is.
+type MockDateLibrary = typeof mockDateLibrary;
+declare const MockDate: MockDateLibrary;
+
+usePage({
+  // We need to lock the date because it's used as the modified time of tarballs.
+  mockDate: () => MockDate.set("2024-01-01T00:00:00.000Z"),
+});
 
 test("library is injected and authorized", async (t) => {
   const { apiKey, baseUrl } = await t.context.page.evaluate(() => ({
