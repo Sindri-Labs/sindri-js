@@ -57,6 +57,12 @@ export interface AuthOptions {
  */
 export class Client {
   /**
+   * The amount of time in milliseconds to wait between requests when polling and endpoint for
+   * changes in status.
+   */
+  public pollingInterval: number = 1000;
+
+  /**
    * Create a new API client.
    */
   constructor(authOptions: AuthOptions = {}) {
@@ -291,7 +297,7 @@ export class Client {
         "multipart/form-data; boundary=sindri-boundary-nej0g349v70WMJiIQ0qh-JiiC",
     };
     const createResponsePromise = CircuitsService.circuitCreate(
-      formData as any,
+      formData as NodeFormData,
     );
     const createResponse = await createResponsePromise;
     OpenAPI.HEADERS = oldHeaders;
@@ -308,7 +314,7 @@ export class Client {
         break;
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, this.pollingInterval));
     }
     return response;
   }

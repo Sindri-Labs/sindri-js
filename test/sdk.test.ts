@@ -14,6 +14,8 @@ useNock();
 // We need to lock the date because it's used as the modified time of tarballs.
 test.before(() => {
   MockDate.set("2024-01-01T00:00:00.000Z");
+  sindri.pollingInterval =
+    (process.env.NOCK_BACK_MODE ?? "lockdown") === "lockdown" ? 0 : 1000;
 });
 test.after.always(() => {
   MockDate.reset();

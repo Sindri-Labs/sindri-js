@@ -117,11 +117,13 @@ export const usePage = async ({
       path: sindriScriptPath,
     });
     await t.context.page.evaluate(
-      (apiKey, baseUrl) => {
+      (apiKey, baseUrl, pollingInterval) => {
         sindri.authorize({ apiKey, baseUrl });
+        sindri.pollingInterval = pollingInterval;
       },
       sindriLibrary.apiKey ?? undefined,
       sindriLibrary.baseUrl,
+      (process.env.NOCK_BACK_MODE ?? "lockdown") === "lockdown" ? 0 : 1000,
     );
     if (mockDate) {
       const mockDatePath = path.join(
