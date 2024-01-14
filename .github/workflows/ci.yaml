@@ -9,11 +9,7 @@ on:
 
 jobs:
   lint-and-test:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [18, 20]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -22,7 +18,7 @@ jobs:
         id: setup-node
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 18.18.2
           cache: yarn
 
       - name: Install JavaScript Dependencies
