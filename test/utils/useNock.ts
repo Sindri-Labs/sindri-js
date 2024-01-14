@@ -4,6 +4,8 @@ import process from "process";
 import testWithoutContext, { type ExecutionContext, type TestFn } from "ava";
 import nock, { back as nockBack, type BackMode } from "nock";
 
+import { patchFormBoundaries } from "test/utils/patchFormBoundaries";
+
 // Add the context to the test function type.
 type Context = {
   nockDone: () => void;
@@ -22,7 +24,9 @@ export const useNock = async () => {
     nock.disableNetConnect();
     nock.enableNetConnect("sindri.app");
     nockBack.setMode((process.env.NOCK_BACK_MODE ?? "lockdown") as BackMode);
-    const { nockDone } = await nockBack(fixtureFilename);
+    const { nockDone } = await nockBack(fixtureFilename, {
+      before: patchFormBoundaries,
+    });
     t.context.nockDone = nockDone;
   });
 

@@ -290,11 +290,13 @@ export class Client {
     }
 
     // We need to shuffle in a hard-coded form boundary for tests to be deterministic.
+    // Note that it's import the boundary matches the Chrome format because the test runner checks
+    // payloads for this format in order to compare non-deterministic gzips.
     // TODO: These header changes are global, we need to make them local to this request.
     const oldHeaders = OpenAPI.HEADERS;
     OpenAPI.HEADERS = {
       "Content-Type":
-        "multipart/form-data; boundary=sindri-boundary-nej0g349v70WMJiIQ0qh-JiiC",
+        "multipart/form-data; boundary=----WebKitFormBoundary0buQ8d6EhWcs9X9d",
     };
     const createResponsePromise = CircuitsService.circuitCreate(
       formData as NodeFormData,

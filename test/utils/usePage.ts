@@ -5,15 +5,12 @@ import { fileURLToPath } from "url";
 
 import testWithoutContext, { type ExecutionContext, type TestFn } from "ava";
 import getPort from "get-port";
-import nock, {
-  back as nockBack,
-  type BackMode,
-  type Definition as NockDefinition,
-} from "nock";
+import nock, { back as nockBack, type BackMode } from "nock";
 import { Proxy } from "http-mitm-proxy";
 import puppeteer, { type Browser, type Page } from "puppeteer";
 
 import sindriLibrary from "lib";
+import { patchFormBoundaries } from "test/utils/patchFormBoundaries";
 
 // The `sindri` library is injected in `withPage.ts`, but this tells TypeScript what the type is.
 type SindriLibrary = typeof sindriLibrary;
@@ -57,49 +54,6 @@ function createProxy(): Proxy {
     callback();
   });
   return proxy;
-}
-
-function patchFormBoundaries(scope: NockDefinition) {
-  const boundaryRegex = /------WebKitFormBoundary................/g;
-  // @ts-expect-error - Types are wrong.
-  scope.filteringRequestBody = (
-    body: string | null,
-    recordedBody: string | null,
-  ) => {
-    if (typeof body !== "string" || typeof recordedBody !== "string") {
-      return body;
-    }
-
-    if (
-      body.replace(boundaryRegex, "") ===
-      recordedBody.replace(boundaryRegex, "")
-    ) {
-      return recordedBody;
-    }
-
-    try {
-      const text = Buffer.from(body, "hex")
-        .toString("utf-8")
-        .replace(boundaryRegex, "---bound---");
-      const recordedText = Buffer.from(recordedBody, "hex")
-        .toString("utf-8")
-        .replace(boundaryRegex, "---bound---");
-      console.log("1 --- Comparing ------ ", text === recordedText);
-      console.log(text);
-      console.log("2 --- Comparing ------ ", text === recordedText);
-      console.log(recordedText);
-      console.log("3 --- Comparing ------ ", text === recordedText);
-      if (
-        text.replace(boundaryRegex, "") ===
-        recordedText.replace(boundaryRegex, "")
-      ) {
-        return recordedBody;
-      }
-    } catch {
-      /* Means it wasn't hex, no problem. */
-    }
-    return body;
-  };
 }
 
 export const usePage = async ({
