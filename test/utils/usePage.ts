@@ -50,6 +50,12 @@ function createProxy(): Proxy {
     }
     return originalOnError.call(this, kind, ctx, err);
   };
+
+  proxy.onResponse((ctx, callback) => {
+    // Removes the Content-Length header because there's a mismatch.
+    ctx.responseContentPotentiallyModified = true;
+    callback();
+  });
   return proxy;
 }
 
@@ -200,7 +206,6 @@ export const usePage = async ({
   });
 
   test.afterEach.always(async (t: ExecutionContext<Context>) => {
-    // await new Promise((resolve) => setTimeout(resolve, 30000));
     // Close the browser tab after each test.
     if (t.context.page) {
       await t.context.page.close();
