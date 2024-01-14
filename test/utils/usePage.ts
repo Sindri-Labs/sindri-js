@@ -222,6 +222,13 @@ export const usePage = async ({
   });
 
   test.after.always(async (t: ExecutionContext<Context>) => {
+    // Stop recording and re-enable all network connections.
+    if (t.context.nockDone) {
+      t.context.nockDone();
+    }
+    nock.enableNetConnect();
+    nockBack.setMode("wild");
+
     // Close the browser after all tests.
     if (t.context.browser) {
       await t.context.browser.close();
@@ -231,12 +238,5 @@ export const usePage = async ({
     if (t.context.proxy) {
       t.context.proxy.close();
     }
-
-    // Stop recording and re-enable all network connections.
-    if (t.context.nockDone) {
-      t.context.nockDone();
-    }
-    nock.enableNetConnect();
-    nockBack.setMode("wild");
   });
 };
