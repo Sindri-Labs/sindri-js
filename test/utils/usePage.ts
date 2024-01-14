@@ -10,7 +10,7 @@ import { Proxy } from "http-mitm-proxy";
 import puppeteer, { type Browser, type Page } from "puppeteer";
 
 import sindriLibrary from "lib";
-import { patchFormBoundaries } from "test/utils/patchFormBoundaries";
+import { matchFormPayloads } from "test/utils/matchFormPayloads";
 
 // The `sindri` library is injected in `withPage.ts`, but this tells TypeScript what the type is.
 type SindriLibrary = typeof sindriLibrary;
@@ -110,7 +110,7 @@ export const usePage = async ({
     nock.enableNetConnect("sindri.app");
     nockBack.setMode((process.env.NOCK_BACK_MODE ?? "lockdown") as BackMode);
     const { nockDone } = await nockBack(fixtureFilename, {
-      before: patchFormBoundaries,
+      before: matchFormPayloads,
     });
     t.context.nockDone = nockDone;
   });
