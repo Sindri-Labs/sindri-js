@@ -62,10 +62,11 @@ test("list circuits", async (t) => {
 });
 
 test("fetch robots.txt", async (t) => {
-  try {
-    await t.context.page.goto("https://sindri.app/robots.txt", { timeout: 5 });
-  } catch (error) {
-    /* ignore timeouts */
-  }
-  t.true(true);
+  await t.context.page.goto("https://sindri.app/robots.txt", {
+    timeout: 20000,
+  });
+  const content = await t.context.page.evaluate(
+    () => (document.getElementsByTagName("pre") || [])[0]?.innerHTML,
+  );
+  t.true(content?.includes("sitemap"));
 });
