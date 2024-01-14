@@ -7,6 +7,7 @@ import { fileURLToPath, URL } from "url";
 import testWithoutContext, { type ExecutionContext, type TestFn } from "ava";
 import getPort from "get-port";
 import nock, { back as nockBack, type BackMode } from "nock";
+import { Proxy } from "http-mitm-proxy";
 import puppeteer, { type Browser, type Page } from "puppeteer";
 
 import sindriLibrary from "lib";
@@ -20,14 +21,81 @@ type Context = {
   browser: Browser;
   nockDone: () => void;
   page: Page;
-  proxy: http.Server;
+  proxy: Proxy;
 };
 export const test = testWithoutContext as TestFn<Context>;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const createProxyServer = () =>
+import { Transform } from "stream";
+
+class FormBoundaryStream extends Transform {
+  private buffer: Buffer;
+
+  constructor() {
+    super();
+    this.buffer = Buffer.alloc(0);
+  }
+
+  _transform(chunk: Buffer, encoding: string, callback: Function) {
+    // Append the incoming chunk to the buffer
+    this.buffer = Buffer.concat([this.buffer, chunk]);
+    callback();
+  }
+
+  _flush(callback: Function) {
+    // Modify the buffer here
+    let modifiedData = this.modifyData(this.buffer);
+
+    // Push the modified data to be read
+    this.push(modifiedData);
+    callback();
+  }
+
+  modifyData(data: Buffer): Buffer {
+    // Perform your data modification here
+    // This is a placeholder for your logic
+    return data;
+  }
+}
+
+const createProxy = (): Proxy => {
+  const proxy = new Proxy();
+  proxy.use(Proxy.wildcard);
+
+  console.debug = () => {};
+  // Squash the sslv3 alerts from Chrome by monkey patching the error handler.
+  const originalOnError = proxy._onError;
+  proxy._onError = function (kind, ctx, err) {
+    if (
+      kind === "HTTPS_CLIENT_ERROR" &&
+      // @ts-expect-error - The error in question will have `code` but this isn't typed.
+      err.code === "ERR_SSL_SSLV3_ALERT_CERTIFICATE_UNKNOWN"
+    ) {
+      return;
+    }
+    return originalOnError.call(this, kind, ctx, err);
+  };
+
+  proxy.onRequest(function (ctx, callback) {
+    //ctx.addRequestFilter(FormBoundaryStream);
+    // ctx.clientToProxyRequest;
+    // Accumulate the request chunks as they come in.
+    const requestChunks: Buffer[] = [];
+    ctx.onRequestData(function (ctx, chunk, callback) {
+      requestChunks.push(chunk);
+      return callback(null, chunk);
+    });
+
+    // Proceed with the request.
+    return callback();
+  });
+
+  return proxy;
+};
+
+export const createProxyServer = () =>
   http.createServer((req, res) => {
     const requestChunks: Buffer[] = [];
 
@@ -141,15 +209,25 @@ export const usePage = async ({
     nock.enableNetConnect();
 
     // Start a proxy server and launch a browser with Puppeteer that uses it.
-    t.context.proxy = createProxyServer();
+    // t.context.proxy = createProxyServer();
+    //
+    t.context.proxy = createProxy();
     const proxyPort = await getPort();
-    await new Promise<void>((resolve) =>
-      t.context.proxy.listen(proxyPort, resolve),
+    //await new Promise<void>((resolve) =>
+    // t.context.proxy.listen(proxyPort, resolve),
+    //);
+    await new Promise<void>((resolve, reject) =>
+      t.context.proxy.listen({ port: proxyPort }, (error) =>
+        error ? reject(error) : resolve(),
+      ),
     );
     t.context.browser = await puppeteer.launch({
       headless: "new",
+      // Ignore certificate errors because the proxy uses a self-signed certificate.
+      ignoreHTTPSErrors: true,
       args: [
-        `--proxy-server=http://localhost:${proxyPort}`,
+        // `--proxy-server=http://localhost:${proxyPort}`,
+        // Disable CORS because they don't play back correctly with Nock and the proxy.
         "--disable-web-security",
       ],
     });
@@ -158,7 +236,9 @@ export const usePage = async ({
     nock.disableNetConnect();
     nock.enableNetConnect("sindri.app");
     nockBack.setMode((process.env.NOCK_BACK_MODE ?? "lockdown") as BackMode);
-    const { nockDone } = await nockBack(fixtureFilename);
+    const { nockDone } = await nockBack(fixtureFilename, {
+      before: patchFormBoundaries,
+    });
     t.context.nockDone = nockDone;
   });
 
@@ -198,19 +278,23 @@ export const usePage = async ({
           `BROWSER - ${message.type().toUpperCase()} - ${message.text()}`,
         ),
       )
-      .on("pageerror", ({ message }) => console.log(message))
-      .on("response", (response) =>
-        console.log(`${response.status()} ${response.url()}`),
+      .on("pageerror", ({ message }) =>
+        console.log(`BOWSER ERROR - ${message}`),
       )
       .on("requestfailed", (request) => {
         const requestFailure = request?.failure();
         if (requestFailure) {
-          console.log(`${requestFailure.errorText} ${request.url()}`);
+          console.log(
+            `BROWSER REQUEST FAILED - ${
+              requestFailure.errorText
+            } ${request.url()}`,
+          );
         }
       });
   });
 
   test.afterEach.always(async (t: ExecutionContext<Context>) => {
+    // await new Promise((resolve) => setTimeout(resolve, 30000));
     // Close the browser tab after each test.
     if (t.context.page) {
       await t.context.page.close();
