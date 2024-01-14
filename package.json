@@ -52,7 +52,9 @@
     "test:fast": "ava",
     "test:record": "NOCK_BACK_MODE=update yarn test",
     "test:watch": "NODE_ENV=development NOCK_BACK_MODE=dryrun nodemon --watch src/ --watch test/ --ext js,cjs,mjs,ts,cts,mts --exec 'tsup --silent && ava'",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "/***** Hooks *****/": "",
+    "postinstall": "patch-package"
   },
   "repository": {
     "type": "git",
@@ -74,8 +76,10 @@
     "jsonschema": "^1.4.1",
     "lodash": "^4.17.21",
     "nunjucks": "^3.2.4",
+    "patch-package": "^8.0.0",
     "pino": "^8.16.2",
     "pino-pretty": "^10.2.3",
+    "postinstall-postinstall": "^2.1.0",
     "rc": "^1.2.8",
     "tar": "^6.2.0",
     "tar-js": "^0.3.0",
@@ -102,6 +106,7 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
     "get-port": "^7.0.0",
+    "http-mitm-proxy": "^1.1.0",
     "mockdate": "^3.0.5",
     "nock": "^13.4.0",
     "nodemon": "^3.0.2",

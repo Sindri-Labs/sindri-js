@@ -1,3 +1,4 @@
 .npmrc
+.http-mitm-proxy/
 /dist/
 /node_modules/
