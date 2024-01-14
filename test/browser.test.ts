@@ -62,11 +62,9 @@ test("list circuits", async (t) => {
 });
 
 test("fetch robots.txt", async (t) => {
-  await t.context.page.goto("https://sindri.app/robots.txt", {
-    timeout: 20000,
+  const content = await t.context.page.evaluate(async () => {
+    const response = await fetch("https://sindri.app/robots.txt");
+    return await response.text();
   });
-  const content = await t.context.page.evaluate(
-    () => (document.getElementsByTagName("pre") || [])[0]?.innerHTML,
-  );
   t.true(content?.includes("sitemap"));
 });
