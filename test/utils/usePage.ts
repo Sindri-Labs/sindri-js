@@ -78,8 +78,17 @@ function patchFormBoundaries(scope: NockDefinition) {
     }
 
     try {
-      const text = Buffer.from(body, "hex").toString("utf-8");
-      const recordedText = Buffer.from(recordedBody, "hex").toString("utf-8");
+      const text = Buffer.from(body, "hex")
+        .toString("utf-8")
+        .replace(boundaryRegex, "---bound---");
+      const recordedText = Buffer.from(recordedBody, "hex")
+        .toString("utf-8")
+        .replace(boundaryRegex, "---bound---");
+      console.log("1 --- Comparing ------ ", text === recordedText);
+      console.log(text);
+      console.log("2 --- Comparing ------ ", text === recordedText);
+      console.log(recordedText);
+      console.log("3 --- Comparing ------ ", text === recordedText);
       if (
         text.replace(boundaryRegex, "") ===
         recordedText.replace(boundaryRegex, "")
