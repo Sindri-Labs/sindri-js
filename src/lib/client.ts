@@ -306,7 +306,6 @@ export class Client {
     let response: CircuitInfoResponse;
     while (true) {
       response = await CircuitsService.circuitDetail(circuitId, false);
-      console.log(circuitId, response.status);
       if (
         response.status === CircuitStatus.READY ||
         response.status === CircuitStatus.FAILED
