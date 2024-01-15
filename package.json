@@ -72,6 +72,7 @@
   },
   "homepage": "https://github.com/Sindri-Labs/sindri-js#readme",
   "dependencies": {
+    "@commander-js/extra-typings": "^11.1.0",
     "@inquirer/prompts": "^3.3.0",
     "axios": "^1.6.2",
     "commander": "^11.1.0",
@@ -103,7 +104,6 @@
   },
   "devDependencies": {
     "@ava/typescript": "^4.1.0",
-    "@commander-js/extra-typings": "^11.1.0",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@typescript-eslint/parser": "^6.11.0",
     "ava": "^6.0.1",
