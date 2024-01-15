@@ -329,6 +329,13 @@ export class Client {
   }
 
   /**
+   * Get all proofs associated with a circuit.
+   */
+  async getAllCircuitProofs(circuitId: string): Promise<ProofInfoResponse[]> {
+    return await CircuitsService.circuitProofs(circuitId);
+  }
+
+  /**
    * Get all circuits associated with the team.
    */
   async getAllCircuits(): Promise<CircuitInfoResponse[]> {
@@ -342,6 +349,9 @@ export class Client {
     return await ProofsService.proofList();
   }
 
+  /**
+   * Generate a proof for a circuit.
+   */
   async proveCircuit(
     circuitId: string,
     proofInput: string,

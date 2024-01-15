@@ -59,6 +59,32 @@ test("get all circuits", async (t) => {
   t.truthy(circuits[0]?.circuit_id);
 });
 
+test("get all circuit proofs", async (t) => {
+  // Compile a circuit.
+  const circuitTarballDirectory = path.join(
+    dataDirectory,
+    "circom-multiplier2.tgz",
+  );
+  const circuit = await sindri.createCircuit(circuitTarballDirectory, [
+    "from-tarball-for-prove-circuit",
+  ]);
+  t.truthy(circuit?.circuit_id);
+
+  // Create a proof.
+  const proof = await sindri.proveCircuit(
+    circuit.circuit_id,
+    '{"a":"5","b":"4"}',
+  );
+  t.truthy(proof?.proof_id);
+
+  // Get all circuit proofs.
+  const proofs = await sindri.getAllCircuitProofs(circuit.circuit_id);
+  t.truthy(proofs);
+  t.deepEqual(proofs.length, 1);
+  t.deepEqual(proofs[0]?.circuit_id, circuit?.circuit_id);
+  t.truthy(proofs[0]?.circuit_id);
+});
+
 test("get all proofs", async (t) => {
   const proofs = await sindri.getAllProofs();
   t.true(Array.isArray(proofs));
