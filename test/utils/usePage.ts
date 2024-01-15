@@ -193,4 +193,8 @@ export const usePage = async ({
       t.context.proxy.close();
     }
   });
+
+  // Ugly... but the process often hangs otherwise. This is only for the child process, AVA still
+  // knows whether the tests passed or failed. It prints out an ugly error, but it does work.
+  process.exit(0);
 };
