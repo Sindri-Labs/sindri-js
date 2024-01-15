@@ -23,7 +23,8 @@
     "dist/",
     "sindri-manifest.json",
     "src/",
-    "templates/"
+    "templates/",
+    "tsconfig.json"
   ],
   "main": "dist/lib/index.js",
   "module": "dist/lib/index.mjs",
