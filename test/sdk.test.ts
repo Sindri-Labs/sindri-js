@@ -59,7 +59,7 @@ test("get all circuit proofs", async (t) => {
     "circom-multiplier2.tgz",
   );
   const circuit = await sindri.createCircuit(circuitTarballDirectory, [
-    "from-tarball-for-prove-circuit",
+    "from-tarball-for-all-circuit-proofs",
   ]);
   t.truthy(circuit?.circuit_id);
 
@@ -92,7 +92,7 @@ test("get circuit", async (t) => {
     "circom-multiplier2.tgz",
   );
   const circuit = await sindri.createCircuit(circuitTarballDirectory, [
-    "from-tarball-for-prove-circuit",
+    "from-tarball-for-get-circuit",
   ]);
   t.truthy(circuit?.circuit_id);
 

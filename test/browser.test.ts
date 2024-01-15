@@ -78,7 +78,7 @@ test("get all circuit proofs", async (t) => {
       ({ content, fileName }) => new File([content], fileName),
     );
     return await sindri.createCircuit(files, [
-      "from-browser-file-array-for-prove-circuit",
+      "from-browser-file-array-for-get-all-circuit-proofs",
     ]);
   }, fileData);
 
@@ -134,7 +134,7 @@ test("get circuit", async (t) => {
       ({ content, fileName }) => new File([content], fileName),
     );
     return await sindri.createCircuit(files, [
-      "from-browser-file-array-for-prove-circuit",
+      "from-browser-file-array-for-get-circuit",
     ]);
   }, fileData);
 
