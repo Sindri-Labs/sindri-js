@@ -1,9 +1,9 @@
 import { Command } from "@commander-js/extra-typings";
 import { confirm } from "@inquirer/prompts";
 
-import { Config } from "cli/config";
-import { logger } from "cli/logging";
 import { AuthorizationService } from "lib/api";
+import { Config } from "lib/config";
+import { logger } from "lib/logging";
 
 export const logoutCommand = new Command()
   .name("logout")

@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import FormData from "form-data";
+import { FormData } from "formdata-node";
 
 import type { CircomCircuitInfoResponse } from "../models/CircomCircuitInfoResponse";
 import type { CircuitCreateInput } from "../models/CircuitCreateInput";

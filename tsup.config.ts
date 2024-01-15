@@ -27,6 +27,7 @@ export default defineConfig([
     dts: true,
     entry: ["src/lib/index.ts"],
     env: {
+      BROWSER_BUILD: "true",
       NODE_ENV: process.env.NODE_ENV,
     },
     format: ["cjs", "esm"],
@@ -36,6 +37,7 @@ export default defineConfig([
     sourcemap: true,
     splitting: true,
     target: "esnext",
+    treeshake: "smallest",
     // Produce an IIFE bundle for use with a <script> tag in a browser.
     onSuccess: async () => {
       await esbuild.build({

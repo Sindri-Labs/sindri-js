@@ -1,0 +1,13 @@
+diff --git a/node_modules/http-mitm-proxy/dist/lib/proxy.js b/node_modules/http-mitm-proxy/dist/lib/proxy.js
+index e896595..8623f9f 100644
+--- a/node_modules/http-mitm-proxy/dist/lib/proxy.js
++++ b/node_modules/http-mitm-proxy/dist/lib/proxy.js
+@@ -361,7 +361,7 @@ class Proxy {
+         function makeConnection(port) {
+             const conn = net_1.default.connect({
+                 port,
+-                host: "0.0.0.0",
++                host: "localhost",
+                 allowHalfOpen: true,
+             }, () => {
+                 const connectKey = `${conn.localPort}:${conn.remotePort}`;
