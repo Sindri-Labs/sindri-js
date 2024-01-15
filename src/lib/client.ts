@@ -350,6 +350,13 @@ export class Client {
   }
 
   /**
+   * Get a specific circuit by circuit ID.
+   */
+  async getCircuit(circuitId: string): Promise<CircuitInfoResponse> {
+    return await CircuitsService.circuitDetail(circuitId);
+  }
+
+  /**
    * Generate a proof for a circuit.
    */
   async proveCircuit(
