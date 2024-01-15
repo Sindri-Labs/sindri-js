@@ -341,4 +341,13 @@ export class Client {
   async getAllProofs(): Promise<ProofInfoResponse[]> {
     return await ProofsService.proofList();
   }
+
+  async proveCircuit(
+    circuitId: string,
+    proofInput: string,
+  ): Promise<ProofInfoResponse> {
+    return await CircuitsService.proofCreate(circuitId, {
+      proof_input: proofInput,
+    });
+  }
 }

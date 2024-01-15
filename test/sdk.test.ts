@@ -44,8 +44,11 @@ test("create circuit from file array", async (t) => {
 });
 
 test("create circuit from tarball", async (t) => {
-  const circuitDirectory = path.join(dataDirectory, "circom-multiplier2.tgz");
-  await sindri.createCircuit(circuitDirectory, ["from-tarball"]);
+  const circuitTarballDirectory = path.join(
+    dataDirectory,
+    "circom-multiplier2.tgz",
+  );
+  await sindri.createCircuit(circuitTarballDirectory, ["from-tarball"]);
   t.true(true);
 });
 
@@ -61,4 +64,22 @@ test("get all proofs", async (t) => {
   t.true(Array.isArray(proofs));
   t.true(proofs.length > 0);
   t.truthy(proofs[0]?.proof_id);
+});
+
+test("prove circuit", async (t) => {
+  // Compile a circuit.
+  const circuitTarballDirectory = path.join(
+    dataDirectory,
+    "circom-multiplier2.tgz",
+  );
+  const circuit = await sindri.createCircuit(circuitTarballDirectory, [
+    "from-tarball-for-prove-circuit",
+  ]);
+
+  // Create a proof.
+  const proof = await sindri.proveCircuit(
+    circuit.circuit_id,
+    '{"a":"5","b":"4"}',
+  );
+  t.truthy(proof?.proof_id);
 });

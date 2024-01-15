@@ -77,3 +77,32 @@ test("get all proofs", async (t) => {
   t.true(proofs.length > 0);
   t.truthy(proofs[0]?.proof_id);
 });
+
+test("prove circuit", async (t) => {
+  // Compile a circuit.
+  const circuitDirectory = path.join(dataDirectory, "circom-multiplier2");
+  const fileNames = await fs.readdir(circuitDirectory);
+  const fileData = await Promise.all(
+    fileNames.map(async (fileName) => ({
+      content: await fs.readFile(
+        path.join(circuitDirectory, fileName),
+        "utf-8",
+      ),
+      fileName,
+    })),
+  );
+  const circuit = await t.context.page.evaluate(async (fileData) => {
+    const files = fileData.map(
+      ({ content, fileName }) => new File([content], fileName),
+    );
+    return await sindri.createCircuit(files, [
+      "from-browser-file-array-for-prove-circuit",
+    ]);
+  }, fileData);
+
+  // Create a proof.
+  const proof = await t.context.page.evaluate(async (circuit) => {
+    return await sindri.proveCircuit(circuit.circuit_id, '{"a":"5","b":"4"}');
+  }, circuit);
+  t.truthy(proof?.proof_id);
+});
