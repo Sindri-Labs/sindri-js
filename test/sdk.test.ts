@@ -49,9 +49,16 @@ test("create circuit from tarball", async (t) => {
   t.true(true);
 });
 
-test("get all proofs", async (t) => {
+test("get all circuits", async (t) => {
   const circuits = await sindri.getAllCircuits();
   t.true(Array.isArray(circuits));
   t.true(circuits.length > 0);
   t.truthy(circuits[0]?.circuit_id);
+});
+
+test("get all proofs", async (t) => {
+  const proofs = await sindri.getAllProofs();
+  t.true(Array.isArray(proofs));
+  t.true(proofs.length > 0);
+  t.truthy(proofs[0]?.proof_id);
 });

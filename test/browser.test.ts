@@ -68,3 +68,12 @@ test("get all circuits", async (t) => {
   t.true(circuits.length > 0);
   t.truthy(circuits[0]?.circuit_id);
 });
+
+test("get all proofs", async (t) => {
+  const proofs = await t.context.page.evaluate(async () =>
+    sindri.getAllProofs(),
+  );
+  t.true(Array.isArray(proofs));
+  t.true(proofs.length > 0);
+  t.truthy(proofs[0]?.proof_id);
+});

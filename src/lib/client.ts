@@ -7,12 +7,19 @@ import walk from "ignore-walk";
 import tar from "tar";
 import Tar from "tar-js";
 
-import { CircuitsService, CircuitStatus, CircuitType, OpenAPI } from "lib/api";
+import {
+  CircuitsService,
+  CircuitStatus,
+  CircuitType,
+  OpenAPI,
+  ProofsService,
+} from "lib/api";
 import type {
   CircomCircuitInfoResponse,
   Halo2CircuitInfoResponse,
   GnarkCircuitInfoResponse,
   NoirCircuitInfoResponse,
+  ProofInfoResponse,
 } from "lib/api";
 import { loadConfig } from "lib/config";
 import { logger, LogLevel } from "lib/logging";
@@ -31,6 +38,7 @@ export type {
   GnarkCircuitInfoResponse,
   Halo2CircuitInfoResponse,
   NoirCircuitInfoResponse,
+  ProofInfoResponse,
 };
 export type CircuitInfoResponse =
   | CircomCircuitInfoResponse
@@ -320,7 +328,17 @@ export class Client {
     return response;
   }
 
+  /**
+   * Get all circuits associated with the team.
+   */
   async getAllCircuits(): Promise<CircuitInfoResponse[]> {
     return await CircuitsService.circuitList();
+  }
+
+  /**
+   * Get all proofs associated with the team.
+   */
+  async getAllProofs(): Promise<ProofInfoResponse[]> {
+    return await ProofsService.proofList();
   }
 }
