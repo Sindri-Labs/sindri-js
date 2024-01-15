@@ -49,8 +49,8 @@ test("create circuit from tarball", async (t) => {
   t.true(true);
 });
 
-test("list circuits", async (t) => {
-  const circuits = await sindri.listCircuits();
+test("get all proofs", async (t) => {
+  const circuits = await sindri.getAllCircuits();
   t.true(Array.isArray(circuits));
   t.true(circuits.length > 0);
   t.truthy(circuits[0]?.circuit_id);

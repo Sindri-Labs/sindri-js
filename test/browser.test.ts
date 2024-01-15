@@ -52,19 +52,19 @@ test("create circuit from file array", async (t) => {
   t.true(true);
 });
 
-test("list circuits", async (t) => {
-  const circuits = await t.context.page.evaluate(async () =>
-    sindri.listCircuits(),
-  );
-  t.true(Array.isArray(circuits));
-  t.true(circuits.length > 0);
-  t.truthy(circuits[0]?.circuit_id);
-});
-
 test("fetch robots.txt", async (t) => {
   const content = await t.context.page.evaluate(async () => {
     const response = await fetch("https://sindri.app/robots.txt");
     return await response.text();
   });
   t.true(content?.includes("sitemap"));
+});
+
+test("get all circuits", async (t) => {
+  const circuits = await t.context.page.evaluate(async () =>
+    sindri.getAllCircuits(),
+  );
+  t.true(Array.isArray(circuits));
+  t.true(circuits.length > 0);
+  t.truthy(circuits[0]?.circuit_id);
 });

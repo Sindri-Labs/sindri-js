@@ -320,8 +320,7 @@ export class Client {
     return response;
   }
 
-  async listCircuits(): Promise<CircuitInfoResponse[]> {
-    logger.debug("Requesting `/api/v1/circuit/list`.");
+  async getAllCircuits(): Promise<CircuitInfoResponse[]> {
     return await CircuitsService.circuitList();
   }
 }
