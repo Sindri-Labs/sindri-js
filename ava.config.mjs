@@ -18,7 +18,7 @@ export default {
     process.env.NOCK_BACK_MODE ?? "lockdown",
   )
     ? "240s"
-    : "30s",
+    : "60s",
   // Use child processes instead of threads because notch isn't thread safe.
   workerThreads: false,
 };
