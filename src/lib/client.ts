@@ -357,6 +357,13 @@ export class Client {
   }
 
   /**
+   * Get a specific proof by proof ID.
+   */
+  async getProof(proofId: string): Promise<ProofInfoResponse> {
+    return await ProofsService.proofDetail(proofId);
+  }
+
+  /**
    * Generate a proof for a circuit.
    */
   async proveCircuit(

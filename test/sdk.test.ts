@@ -109,6 +109,19 @@ test("get all proofs", async (t) => {
   t.truthy(proofs[0]?.proof_id);
 });
 
+test("get proof", async (t) => {
+  // Get a proof from the full selection.
+  const proofs = await sindri.getAllProofs();
+  t.true(Array.isArray(proofs));
+  t.true(proofs.length > 0);
+  t.truthy(proofs[0]);
+  const proof = proofs[0];
+
+  const retrievedProof = await sindri.getProof(proof!.proof_id);
+  t.truthy(retrievedProof?.proof_id);
+  t.deepEqual(proof?.proof_id, retrievedProof.proof_id);
+});
+
 test("prove circuit", async (t) => {
   // Compile a circuit.
   const circuitTarballDirectory = path.join(

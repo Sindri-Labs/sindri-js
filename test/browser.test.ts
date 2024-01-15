@@ -116,6 +116,22 @@ test("get all proofs", async (t) => {
   t.truthy(proofs[0]?.proof_id);
 });
 
+test("get proof", async (t) => {
+  const proofs = await t.context.page.evaluate(async () =>
+    sindri.getAllProofs(),
+  );
+  t.true(Array.isArray(proofs));
+  t.true(proofs.length > 0);
+  const proof = proofs[0];
+
+  const retrievedProof = await t.context.page.evaluate(
+    async (proofId) => sindri.getProof(proofId),
+    proof!.proof_id,
+  );
+  t.truthy(retrievedProof?.proof_id);
+  t.deepEqual(proof?.proof_id, retrievedProof.proof_id);
+});
+
 test("get circuit", async (t) => {
   // Compile a circuit.
   const circuitDirectory = path.join(dataDirectory, "circom-multiplier2");
