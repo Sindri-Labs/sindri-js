@@ -13,6 +13,7 @@ import {
   CircuitType,
   OpenAPI,
   ProofsService,
+  ProofStatus,
 } from "lib/api";
 import type {
   CircomCircuitInfoResponse,
@@ -32,7 +33,7 @@ import type {
 } from "lib/isomorphic";
 
 // Re-export types from the API.
-export { CircuitStatus, CircuitType };
+export { CircuitStatus, CircuitType, ProofStatus };
 export type {
   CircomCircuitInfoResponse,
   GnarkCircuitInfoResponse,
@@ -573,7 +574,8 @@ export class Client {
    * Generates a proof for a specified circuit.  This method is critical for creating a new proof
    * based on a given circuit, identified by `circuitId`, and the provided `proofInput`. It's
    * primarily used to validate or verify certain conditions or properties of the circuit without
-   * revealing underlying data or specifics.
+   * revealing underlying data or specifics. The method continuously polls the service to track the
+   * compilation status until the process either completes successfully or fails.
    *
    * The `circuitId` parameter specifies the unique identifier of the circuit for which the proof is
    * to be generated.  The `proofInput` is a string that represents the necessary input data or
@@ -592,8 +594,21 @@ export class Client {
     circuitId: string,
     proofInput: string,
   ): Promise<ProofInfoResponse> {
-    return await CircuitsService.proofCreate(circuitId, {
+    const createResponse = await CircuitsService.proofCreate(circuitId, {
       proof_input: proofInput,
     });
+    let response: ProofInfoResponse;
+    while (true) {
+      response = await ProofsService.proofDetail(createResponse.proof_id);
+      if (
+        response.status === ProofStatus.READY ||
+        response.status === ProofStatus.FAILED
+      ) {
+        break;
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, this.pollingInterval));
+    }
+    return response;
   }
 }
