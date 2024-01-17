@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  lint:
+  lint-and-compile:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -34,10 +34,17 @@ jobs:
         run: |
           sindri lint
 
+      - name: Compile circuit
+        run: |
+          sindri deploy --untagged
+        env:
+          SINDRI_API_KEY: ${{ secrets.SINDRI_API_KEY }}
+
   deploy:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
-    needs: [lint]
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    needs: [lint-and-compile]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
