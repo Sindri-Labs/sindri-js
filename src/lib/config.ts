@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 
 import envPaths from "env-paths";
-import { cloneDeep, merge } from "lodash";
+import _ from "lodash";
 import { z } from "zod";
 
 import { OpenAPI } from "lib/api";
@@ -56,7 +56,7 @@ export const loadConfig = (): ConfigSchema => {
   logger.debug(
     `Config file "${configPath}" does not exist, initializing default config.`,
   );
-  return cloneDeep(defaultConfig);
+  return _.cloneDeep(defaultConfig);
 };
 
 export class Config {
@@ -77,19 +77,19 @@ export class Config {
   }
 
   get auth(): ConfigSchema["auth"] {
-    return cloneDeep(this._config.auth);
+    return _.cloneDeep(this._config.auth);
   }
 
   get config(): ConfigSchema {
-    return cloneDeep(this._config);
+    return _.cloneDeep(this._config);
   }
 
   update(configData: Partial<ConfigSchema>) {
     // Merge and validate the configs.
     logger.debug("Merging in config update:");
     logger.debug(configData);
-    const newConfig: ConfigSchema = cloneDeep(this._config);
-    merge(newConfig, configData);
+    const newConfig: ConfigSchema = _.cloneDeep(this._config);
+    _.merge(newConfig, configData);
     this._config = ConfigSchema.parse(newConfig);
 
     // Create the directory if it doesn't exist.
