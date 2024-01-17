@@ -1,4 +1,4 @@
-FROM node:hydrogen-slim as development
+FROM node:18.18.2-slim as development
 ENV NODE_ENV=development
 
 # Optionally convert the user to another UID/GUID to match host user file permissions.
@@ -15,9 +15,26 @@ RUN if [ "$UID" != "1000" ]; then \
     ; fi
 
 RUN apt-get update
-RUN apt-get install --yes git
+RUN apt-get install --yes git \
+    `# Chromium installation dependencies` \
+    curl unzip \
+    `# Chromium runtime dependencies` \
+    libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libgbm1 libasound2 libpangocairo-1.0-0 libxss1 libgtk-3-0
 
 USER node
+
+# Conditionally install an arm64 build of Chromium for Puppeteer if we're on an arm64 host.
+# This prevents us from having to emulate x86_64 on arm Macs during development to run browser tests.
+# See: https://github.com/puppeteer/puppeteer/issues/7740#issuecomment-1875162960
+RUN if [ "$(uname -m)" = "aarch64" ]; then \
+      cd /home/node/ && \
+      curl 'https://playwright.azureedge.net/builds/chromium/1088/chromium-linux-arm64.zip' > chromium.zip && \
+      unzip chromium.zip && \
+      rm -f chromium.zip && \
+      echo 'export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true' >> ~/.bashrc && \
+      echo 'export CHROME_PATH=/home/node/chrome-linux/chrome' >> ~/.bashrc && \
+      echo 'export PUPPETEER_EXECUTABLE_PATH=/home/node/chrome-linux/chrome' >> ~/.bashrc; \
+    fi
 
 # Skip installing any node dependencies because we're going to bind mount over `node_modules` anyway.
 # We'll also do a volume mount to persist the yarn cache.

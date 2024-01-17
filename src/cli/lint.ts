@@ -6,8 +6,8 @@ import { Command } from "@commander-js/extra-typings";
 import type { Schema } from "jsonschema";
 import { Validator as JsonValidator } from "jsonschema";
 
-import { logger } from "cli/logging";
 import { findFileUpwards, loadSindriManifestJsonSchema } from "cli/utils";
+import { logger } from "lib/logging";
 
 export const lintCommand = new Command()
   .name("lint")

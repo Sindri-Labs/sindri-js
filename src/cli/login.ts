@@ -9,8 +9,6 @@ import {
   select,
 } from "@inquirer/prompts";
 
-import { Config } from "cli/config";
-import { logger } from "cli/logging";
 import {
   ApiError,
   AuthorizationService,
@@ -18,6 +16,8 @@ import {
   OpenAPI,
   TokenService,
 } from "lib/api";
+import { Config } from "lib/config";
+import { logger } from "lib/logging";
 
 export const loginCommand = new Command()
   .name("login")
@@ -101,6 +101,7 @@ export const loginCommand = new Command()
       }
 
       // Generate an API key.
+      OpenAPI.HEADERS = { "Sindri-Team-Id": `${teamId}` };
       const apiKeyResult = await AuthorizationService.apikeyGenerate({
         username,
         password,

@@ -4,8 +4,8 @@
 /* eslint-disable */
 
 /**
- * Response containing a proof ID.
+ * Client input when creating a circuit.
  */
-export type ProofIdResponse = {
-  proof_id: string;
+export type CircuitCreateInput = {
+  tags: Array<string>;
 };

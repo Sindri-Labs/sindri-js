@@ -20,7 +20,7 @@ export type OpenAPIConfig = {
 };
 
 export const OpenAPI: OpenAPIConfig = {
-  BASE: "https://forge.sindri.app",
+  BASE: "https://sindri.app",
   VERSION: "1.5.10",
   WITH_CREDENTIALS: false,
   CREDENTIALS: "include",

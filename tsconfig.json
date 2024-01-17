@@ -6,8 +6,12 @@
     "lib": ["dom"],
     "module": "ESNext",
     "moduleResolution": "node",
+    "noUncheckedIndexedAccess": true,
+    "paths": {
+      "test/*": ["../test/*"]
+    },
     "preserveConstEnums": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "test/**/*"],
   "exclude": ["dist/**/*", "node_modules/**/*"]
 }

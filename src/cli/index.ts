@@ -1,17 +1,19 @@
 #! /usr/bin/env node
+import assert from "assert";
 import { argv, exit } from "process";
 
 import { Command } from "@commander-js/extra-typings";
 
-import { Config, configCommand } from "cli/config";
+import { configCommand } from "cli/config";
 import { initCommand } from "cli/init";
 import { deployCommand } from "cli/deploy";
 import { lintCommand } from "cli/lint";
-import { logger } from "cli/logging";
 import { loginCommand } from "cli/login";
 import { logoutCommand } from "cli/logout";
 import { whoamiCommand } from "cli/whoami";
 import { loadPackageJson } from "cli/utils";
+import sindri from "lib";
+import { logger } from "lib/logging";
 
 export const program = new Command()
   .name("sindri")
@@ -49,8 +51,9 @@ export const program = new Command()
     }
     logger.debug(`Set log level to "${logger.level}".`);
 
-    // Force the loading of the config before subcommands.
-    new Config();
+    // Make sure the client is loaded and initialized before any subcommands run.
+    // Note that this also initializes the config.
+    assert(sindri);
   });
 
 if (require.main === module) {

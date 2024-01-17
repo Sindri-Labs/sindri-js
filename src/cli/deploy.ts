@@ -1,22 +1,44 @@
+import { Blob } from "buffer";
 import { existsSync, readFileSync } from "fs";
 import path from "path";
 import process from "process";
 
 import { Command } from "@commander-js/extra-typings";
-import FormData from "form-data";
+import { FormData } from "formdata-node";
 import walk from "ignore-walk";
 import tar from "tar";
 
-import { Config } from "cli/config";
-import { logger } from "cli/logging";
 import { findFileUpwards } from "cli/utils";
-import { ApiError, CircuitsService, CircuitStatus } from "lib/api";
+import { ApiError, CircuitsService, CircuitStatus, OpenAPI } from "lib/api";
+import { logger } from "lib/logging";
 
 export const deployCommand = new Command()
   .name("deploy")
   .description("Deploy the current Sindri project.")
+  .option("-t, --tag <tag...>", "Tag to apply to the circuit.", ["latest"])
+  .option("-u, --untagged", "Discard the current circuit after compiling.")
   .argument("[directory]", "The location of the Sindri project to deploy.", ".")
-  .action(async (directory) => {
+  .action(async (directory, { tag: tags, untagged }) => {
+    // Validate the tags and "untagged" option.
+    if (untagged) {
+      if (tags.length !== 1 || tags[0] !== "latest") {
+        logger.error(
+          "You cannot use both the `--tag` and `--untagged` options together.",
+        );
+        return process.exit(1);
+      }
+    } else {
+      for (const tag of tags) {
+        if (!/^[-a-zA-Z0-9_]+$/.test(tag)) {
+          logger.error(
+            `"${tag}" is not a valid tag. Tags may only contain alphanumeric characters, ` +
+              "underscores, and hyphens.",
+          );
+          return process.exit(1);
+        }
+      }
+    }
+
     // Find `sindri.json` and move into the root of the project directory.
     const directoryPath = path.resolve(directory);
     if (!existsSync(directoryPath)) {
@@ -61,10 +83,8 @@ export const deployCommand = new Command()
     }
     const circuitName = sindriJson.name;
 
-    // Authorize the API client.
-    const config = new Config();
-    const auth = config.auth;
-    if (!auth) {
+    // Check that the API client is authorized.
+    if (!OpenAPI.TOKEN || !OpenAPI.BASE) {
       logger.warn("You must login first with `sindri login`.");
       return process.exit(1);
     }
@@ -81,7 +101,7 @@ export const deployCommand = new Command()
           // Always exclude `.git` subdirectories.
           !/(^|\/)\.git(\/|$)/.test(file),
       );
-    // Alows include the `sindri.json` file.
+    // Always include the `sindri.json` file.
     const sindriJsonFilename = path.basename(sindriJsonPath);
     if (!files.includes(sindriJsonFilename)) {
       files.push(sindriJsonFilename);
@@ -93,24 +113,33 @@ export const deployCommand = new Command()
     );
     formData.append(
       "files",
-      tar
-        .c(
-          {
-            gzip: true,
-            onwarn: (code: string, message: string) => {
-              logger.warn(`While creating tarball: ${code} - ${message}`);
+      new Blob([
+        tar
+          .c(
+            {
+              gzip: true,
+              onwarn: (code: string, message: string) => {
+                logger.warn(`While creating tarball: ${code} - ${message}`);
+              },
+              prefix: `${circuitName}/`,
+              sync: true,
             },
-            prefix: `${circuitName}/`,
-            sync: true,
-          },
-          files,
-        )
-        // @ts-expect-error - @types/tar doesn't handle the `sync` option correctly.
-        .read(),
-      {
-        filename: tarballFilename,
-      },
+            files,
+          )
+          // @ts-expect-error - @types/tar doesn't handle the `sync` option correctly.
+          .read(),
+      ]),
+      tarballFilename,
     );
+
+    // Attach the tags to the form data.
+    if (untagged) {
+      formData.append("tags", "");
+    } else {
+      for (const tag of tags) {
+        formData.append("tags", tag);
+      }
+    }
 
     // Upload the tarball.
     let circuitId: string | undefined;
