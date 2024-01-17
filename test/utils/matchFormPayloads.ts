@@ -1,4 +1,4 @@
-import { isEqual } from "lodash";
+import _ from "lodash";
 import makeSynchronous from "make-synchronous";
 import { type Definition as NockDefinition } from "nock";
 import * as multipart from "parse-multipart-data";
@@ -114,7 +114,7 @@ export function matchFormPayloads(scope: NockDefinition) {
       ) {
         const tarball = parseTarball(part.data);
         const recordedTarball = parseTarball(part.data);
-        if (!isEqual(tarball, recordedTarball)) {
+        if (!_.isEqual(tarball, recordedTarball)) {
           return body;
         }
       } else {
