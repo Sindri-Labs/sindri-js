@@ -2,18 +2,15 @@ import process from "process";
 
 import { Command } from "@commander-js/extra-typings";
 
-import { ApiError, InternalService } from "lib/api";
-import { Config } from "lib/config";
+import { ApiError, InternalService, OpenAPI } from "lib/api";
 import { logger, print } from "lib/logging";
 
 export const whoamiCommand = new Command()
   .name("whoami")
   .description("Display the currently authorized organization name.")
   .action(async () => {
-    // Authorize the API client.
-    const config = new Config();
-    const auth = config.auth;
-    if (!auth) {
+    // Check that the API client is authorized.
+    if (!OpenAPI.TOKEN || !OpenAPI.BASE) {
       logger.warn("You must login first with `sindri login`.");
       return process.exit(1);
     }

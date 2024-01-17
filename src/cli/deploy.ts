@@ -9,8 +9,7 @@ import walk from "ignore-walk";
 import tar from "tar";
 
 import { findFileUpwards } from "cli/utils";
-import { ApiError, CircuitsService, CircuitStatus } from "lib/api";
-import { Config } from "lib/config";
+import { ApiError, CircuitsService, CircuitStatus, OpenAPI } from "lib/api";
 import { logger } from "lib/logging";
 
 export const deployCommand = new Command()
@@ -84,10 +83,8 @@ export const deployCommand = new Command()
     }
     const circuitName = sindriJson.name;
 
-    // Authorize the API client.
-    const config = new Config();
-    const auth = config.auth;
-    if (!auth) {
+    // Check that the API client is authorized.
+    if (!OpenAPI.TOKEN || !OpenAPI.BASE) {
       logger.warn("You must login first with `sindri login`.");
       return process.exit(1);
     }
