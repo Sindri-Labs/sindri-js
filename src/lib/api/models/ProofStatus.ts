@@ -6,9 +6,4 @@
 /**
  * ProofStatus choices
  */
-export enum ProofStatus {
-  QUEUED = "Queued",
-  IN_PROGRESS = "In Progress",
-  READY = "Ready",
-  FAILED = "Failed",
-}
+export type ProofStatus = "Queued" | "In Progress" | "Ready" | "Failed";

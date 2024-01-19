@@ -181,20 +181,20 @@ export const deployCommand = new Command()
         }
 
         const elapsedSeconds = ((Date.now() - startTime) / 1000).toFixed(1);
-        if (response.status === CircuitStatus.READY) {
+        if (response.status === "Ready") {
           logger.info(
             `Circuit compiled successfully after ${elapsedSeconds} seconds.`,
           );
           break;
-        } else if (response.status === CircuitStatus.FAILED) {
+        } else if (response.status === "Failed") {
           logger.error(
             `Circuit compilation failed after ${elapsedSeconds} seconds: ` +
               (response.error ?? "Unknown error."),
           );
           return process.exit(1);
-        } else if (response.status === CircuitStatus.QUEUED) {
+        } else if (response.status === "Queued") {
           logger.debug("Circuit compilation is queued.");
-        } else if (response.status === CircuitStatus.IN_PROGRESS) {
+        } else if (response.status === "In Progress") {
           logger.debug("Circuit compilation is in progress.");
         }
       } catch (error) {
