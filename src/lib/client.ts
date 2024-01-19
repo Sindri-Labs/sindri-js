@@ -66,7 +66,7 @@ export interface AuthOptions {
  * as the central entry point for the SDK, facilitating various operations such as compiling ZKP
  * circuits and generating proofs.
  *
- * The {@link Client} class encapsulates all the necessary methods and properties required to
+ * The {@link SindriClient} class encapsulates all the necessary methods and properties required to
  * communicate effectively with the Sindri ZKP service, handling tasks like authentication, request
  * management, and response processing.
  *
@@ -74,12 +74,12 @@ export interface AuthOptions {
  * and then utilizing its methods to interact with the service.
  *
  * @example
- * // Create an instance of the `Client` class.
- * const client = new Client({ apiKey: 'your-api-key' });
+ * // Create an instance of the `SindriClient` class.
+ * const client = new SindriClient({ apiKey: 'your-api-key' });
  *
  * // Use the client to interact with the Sindri ZKP service...
  */
-export class Client {
+export class SindriClient {
   /**
    * Represents the polling interval in milliseconds used for querying the status of an endpoint.
    * This value determines the frequency at which the SDK polls an endpoint to check for any changes
@@ -102,21 +102,21 @@ export class Client {
   public pollingInterval: number = 1000;
 
   /**
-   * Constructs a new instance of the {@link Client} class for interacting with the Sindri ZKP
+   * Constructs a new instance of the {@link SindriClient} class for interacting with the Sindri ZKP
    * service.  This constructor initializes the client with the necessary authentication options.
    *
    * The provided `authOptions` parameter allows for specifying authentication credentials and
    * configurations required for the client to communicate securely with the service.  See
-   * {@link Client.authorize} for more details about how authentication credentials are sourced.
+   * {@link SindriClient.authorize} for more details about how authentication credentials are sourced.
    *
    * @param authOptions - The authentication options for the client, including
    * credentials like API keys or tokens. Defaults to an empty object if not provided.
    *
    * @example
-   * // Instantiating the Client with authentication options
-   * const client = new Client({ apiKey: 'sindri-...-fskd' });
+   * // Instantiating the SindriClient with authentication options
+   * const client = new SindriClient({ apiKey: 'sindri-...-fskd' });
    *
-   * @see {@link Client.authorize} for information on retrieving this value.
+   * @see {@link SindriClient.authorize} for information on retrieving this value.
    */
   constructor(authOptions: AuthOptions = {}) {
     this.authorize(authOptions);
