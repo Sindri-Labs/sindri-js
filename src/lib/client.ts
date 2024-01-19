@@ -458,10 +458,7 @@ export class Client {
     let response: CircuitInfoResponse;
     while (true) {
       response = await CircuitsService.circuitDetail(circuitId, false);
-      if (
-        response.status === CircuitStatus.READY ||
-        response.status === CircuitStatus.FAILED
-      ) {
+      if (response.status === "Ready" || response.status === "Failed") {
         break;
       }
 
@@ -600,10 +597,7 @@ export class Client {
     let response: ProofInfoResponse;
     while (true) {
       response = await ProofsService.proofDetail(createResponse.proof_id);
-      if (
-        response.status === ProofStatus.READY ||
-        response.status === ProofStatus.FAILED
-      ) {
+      if (response.status === "Ready" || response.status === "Failed") {
         break;
       }
 

@@ -171,6 +171,7 @@ export const getHeaders = async (
   const username = await resolve(options, config.USERNAME);
   const password = await resolve(options, config.PASSWORD);
   const additionalHeaders = await resolve(options, config.HEADERS);
+  // DO NOT REMOVE THIS, MANUAL EDIT!
   const formHeaders =
     (formData &&
       "getHeaders" in formData &&

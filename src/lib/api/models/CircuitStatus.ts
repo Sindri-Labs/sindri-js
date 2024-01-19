@@ -6,9 +6,4 @@
 /**
  * CircuitStatus choices
  */
-export enum CircuitStatus {
-  QUEUED = "Queued",
-  IN_PROGRESS = "In Progress",
-  READY = "Ready",
-  FAILED = "Failed",
-}
+export type CircuitStatus = "Queued" | "In Progress" | "Ready" | "Failed";

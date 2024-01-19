@@ -11,9 +11,10 @@ import type { CircuitType } from "./CircuitType";
  */
 export type CircomCircuitInfoResponse = {
   circuit_id: string;
-  circuit_type: CircuitType;
   circuit_name: string;
+  circuit_type: CircuitType;
   date_created: string;
+  proving_scheme: string;
   status: CircuitStatus;
   compute_time?: number;
   compute_times?: any;
@@ -30,7 +31,6 @@ export type CircomCircuitInfoResponse = {
   num_private_inputs?: number;
   num_public_inputs?: number;
   num_wires?: number;
-  proving_scheme: string;
   trusted_setup_file: string;
   witness_compiler: string;
 };

@@ -11,9 +11,10 @@ import type { CircuitType } from "./CircuitType";
  */
 export type GnarkCircuitInfoResponse = {
   circuit_id: string;
-  circuit_type: CircuitType;
   circuit_name: string;
+  circuit_type: CircuitType;
   date_created: string;
+  proving_scheme: string;
   status: CircuitStatus;
   compute_time?: number;
   compute_times?: any;
@@ -27,5 +28,4 @@ export type GnarkCircuitInfoResponse = {
   curve: string;
   gnark_version: string;
   package_name: string;
-  proving_scheme: string;
 };

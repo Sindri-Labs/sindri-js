@@ -6,9 +6,4 @@
 /**
  * CircuitType choices
  */
-export enum CircuitType {
-  CIRCOM = "circom",
-  GNARK = "gnark",
-  HALO2 = "halo2",
-  NOIR = "noir",
-}
+export type CircuitType = "circom" | "gnark" | "halo2" | "noir";

@@ -11,9 +11,10 @@ import type { CircuitType } from "./CircuitType";
  */
 export type NoirCircuitInfoResponse = {
   circuit_id: string;
-  circuit_type: CircuitType;
   circuit_name: string;
+  circuit_type: CircuitType;
   date_created: string;
+  proving_scheme: string;
   status: CircuitStatus;
   compute_time?: number;
   compute_times?: any;
@@ -26,5 +27,4 @@ export type NoirCircuitInfoResponse = {
   acir_opcodes?: number;
   circuit_size?: number;
   nargo_package_name: string;
-  proving_scheme: string;
 };
