@@ -3,20 +3,20 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { CircuitStatus } from "./CircuitStatus";
 import type { CircuitType } from "./CircuitType";
-import type { ProofStatus } from "./ProofStatus";
 
 /**
- * Response for getting proof info.
+ * Common fields for circuit info across circuit types.
  */
-export type ProofInfoResponse = {
-  proof_id: string;
-  circuit_name: string;
+export type CommonCircuitInfoResponse = {
   circuit_id: string;
+  circuit_name: string;
   circuit_type: CircuitType;
   date_created: string;
-  perform_verify: boolean;
-  status: ProofStatus;
+  num_proofs: number;
+  proving_scheme: string;
+  status: CircuitStatus;
   team: string;
   /**
    * Total compute time in ISO8601 format. This does not include the Queued time.
@@ -31,9 +31,7 @@ export type ProofInfoResponse = {
    * Total size of stored file(s) in bytes.
    */
   file_size?: number;
-  proof_input?: Record<string, any>;
-  proof?: Record<string, any>;
-  public?: any;
+  uploaded_file_name: string;
   verification_key?: Record<string, any>;
   error?: string;
 };

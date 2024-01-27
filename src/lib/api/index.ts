@@ -16,6 +16,7 @@ export type { CircuitDoesNotExistResponse } from './models/CircuitDoesNotExistRe
 export type { CircuitStatus } from './models/CircuitStatus';
 export type { CircuitType } from './models/CircuitType';
 export type { ComingSoonResponse } from './models/ComingSoonResponse';
+export type { CommonCircuitInfoResponse } from './models/CommonCircuitInfoResponse';
 export type { ForgeInternalErrorResponse } from './models/ForgeInternalErrorResponse';
 export type { ForgeInvalidUploadResponse } from './models/ForgeInvalidUploadResponse';
 export type { GnarkCircuitInfoResponse } from './models/GnarkCircuitInfoResponse';
