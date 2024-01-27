@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ActionResponse } from "../models/ActionResponse";
 import type { TeamMeResponse } from "../models/TeamMeResponse";
 import type { UserMeResponse } from "../models/UserMeResponse";
 
@@ -10,6 +11,40 @@ import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
 
 export class InternalService {
+  /**
+   * Change user password (requires JWT authentication)
+   * Change password for a user.
+   *
+   * This endpoint requires JWT authentication in order
+   * to know which user is making the request. It expects to receive
+   * an authenticated user in `request.auth`.
+   *
+   * We subsequently verify the old password and then update the user's password.
+   * @param formData
+   * @returns ActionResponse OK
+   * @throws ApiError
+   */
+  public static passwordChangeWithJwtAuth(formData: {
+    /**
+     * Old password.
+     */
+    old_password: string;
+    /**
+     * New password.
+     */
+    new_password: string;
+  }): CancelablePromise<ActionResponse> {
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/api/v1/password/change",
+      formData: formData,
+      mediaType: "application/x-www-form-urlencoded",
+      errors: {
+        422: `Unprocessable Entity`,
+      },
+    });
+  }
+
   /**
    * Return the JSON schema for `sindri.json` manifest files
    * Return the JSON schema for `sindri.json` manifest files
@@ -48,7 +83,7 @@ export class InternalService {
    */
   public static userMeWithJwtAuth(): CancelablePromise<UserMeResponse> {
     return __request(OpenAPI, {
-      method: "POST",
+      method: "GET",
       url: "/api/v1/user/me",
     });
   }

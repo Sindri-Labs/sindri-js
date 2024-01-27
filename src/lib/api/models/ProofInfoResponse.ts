@@ -17,15 +17,23 @@ export type ProofInfoResponse = {
   date_created: string;
   perform_verify: boolean;
   status: ProofStatus;
+  team: string;
+  /**
+   * Total compute time in ISO8601 format. This does not include the Queued time.
+   */
   compute_time?: number;
+  /**
+   * Total compute time in seconds. This does not include the Queued time.
+   */
+  compute_time_sec?: number;
   compute_times?: any;
-  file_sizes?: Record<string, any>;
-  metadata?: Record<string, any>;
+  /**
+   * Total size of stored file(s) in bytes.
+   */
+  file_size?: number;
   proof_input?: Record<string, any>;
   proof?: Record<string, any>;
-  prover_implementation?: Record<string, any>;
   public?: any;
-  worker_hardware?: Record<string, any>;
   verification_key?: Record<string, any>;
   error?: string;
 };
