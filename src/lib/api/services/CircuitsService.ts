@@ -6,7 +6,6 @@ import { FormData } from "lib/isomorphic"; // DO NOT REMOVE OR CHANGE THIS, MANU
 
 import type { ActionResponse } from "../models/ActionResponse";
 import type { CircomCircuitInfoResponse } from "../models/CircomCircuitInfoResponse";
-import type { CommonCircuitInfoResponse } from "../models/CommonCircuitInfoResponse";
 import type { GnarkCircuitInfoResponse } from "../models/GnarkCircuitInfoResponse";
 import type { Halo2CircuitInfoResponse } from "../models/Halo2CircuitInfoResponse";
 import type { NoirCircuitInfoResponse } from "../models/NoirCircuitInfoResponse";
@@ -35,7 +34,6 @@ export class CircuitsService {
           tags?: Array<string>;
         },
   ): CancelablePromise<
-    | CommonCircuitInfoResponse
     | CircomCircuitInfoResponse
     | Halo2CircuitInfoResponse
     | GnarkCircuitInfoResponse
@@ -66,7 +64,6 @@ export class CircuitsService {
     includeVerificationKey: boolean = false,
   ): CancelablePromise<
     Array<
-      | CommonCircuitInfoResponse
       | CircomCircuitInfoResponse
       | Halo2CircuitInfoResponse
       | GnarkCircuitInfoResponse
@@ -97,7 +94,6 @@ export class CircuitsService {
     circuitId: string,
     includeVerificationKey: boolean = true,
   ): CancelablePromise<
-    | CommonCircuitInfoResponse
     | CircomCircuitInfoResponse
     | Halo2CircuitInfoResponse
     | GnarkCircuitInfoResponse
