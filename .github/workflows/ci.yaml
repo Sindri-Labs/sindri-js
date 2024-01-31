@@ -9,6 +9,9 @@ on:
 
 jobs:
   lint-and-test:
+    strategy:
+      matrix:
+        version: [18.18.2, 18, 19, 20, 21, 22, 23, 24]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -18,7 +21,7 @@ jobs:
         id: setup-node
         uses: actions/setup-node@v3
         with:
-          node-version: 18.18.2
+          node-version: ${{ matrix.version }}
           cache: yarn
 
       - name: Install JavaScript Dependencies
