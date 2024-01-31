@@ -1,7 +1,7 @@
 import { Command } from "@commander-js/extra-typings";
 import { confirm } from "@inquirer/prompts";
 
-import { AuthorizationService } from "lib/api";
+import sindri from "lib";
 import { Config } from "lib/config";
 import { logger } from "lib/logging";
 
@@ -24,7 +24,9 @@ export const logoutCommand = new Command()
     });
     if (revokeKey) {
       try {
-        const response = await AuthorizationService.apikeyDelete(auth.apiKeyId);
+        const response = await sindri._client.authorization.apikeyDelete(
+          auth.apiKeyId,
+        );
         logger.info(`Successfully revoked "${auth.apiKeyName}" key.`);
         logger.debug(`/api/v1/apikey/${auth.apiKeyId}/delete/ response:`);
         logger.debug(response);
