@@ -7,14 +7,7 @@ import walk from "ignore-walk";
 import tar from "tar";
 import Tar from "tar-js";
 
-import {
-  CircuitsService,
-  CircuitStatus,
-  CircuitType,
-  OpenAPI,
-  ProofsService,
-  ProofStatus,
-} from "lib/api";
+import { ApiClient, CircuitType, JobStatus, OpenAPIConfig } from "lib/api";
 import type {
   CircomCircuitInfoResponse,
   Halo2CircuitInfoResponse,
@@ -33,11 +26,12 @@ import type {
 } from "lib/isomorphic";
 
 // Re-export types from the API.
-export { CircuitStatus, CircuitType, ProofStatus };
 export type {
   CircomCircuitInfoResponse,
+  CircuitType,
   GnarkCircuitInfoResponse,
   Halo2CircuitInfoResponse,
+  JobStatus,
   NoirCircuitInfoResponse,
   ProofInfoResponse,
 };
@@ -80,6 +74,11 @@ export interface AuthOptions {
  * // Use the client to interact with the Sindri ZKP service...
  */
 export class SindriClient {
+  /** @hidden */
+  readonly _client: ApiClient;
+  /** @hidden */
+  readonly _clientConfig: OpenAPIConfig;
+
   /**
    * Represents the polling interval in milliseconds used for querying the status of an endpoint.
    * This value determines the frequency at which the SDK polls an endpoint to check for any changes
@@ -119,6 +118,8 @@ export class SindriClient {
    * @see {@link SindriClient.authorize} for information on retrieving this value.
    */
   constructor(authOptions: AuthOptions = {}) {
+    this._client = new ApiClient();
+    this._clientConfig = this._client.request.config;
     this.authorize(authOptions);
   }
 
@@ -142,10 +143,13 @@ export class SindriClient {
    * }
    */
   get apiKey(): string | null {
-    if (OpenAPI.TOKEN && typeof OpenAPI.TOKEN !== "string") {
+    if (
+      this._clientConfig.TOKEN &&
+      typeof this._clientConfig.TOKEN !== "string"
+    ) {
       return null;
     }
-    return OpenAPI.TOKEN || null;
+    return this._clientConfig.TOKEN || null;
   }
 
   /**
@@ -160,7 +164,7 @@ export class SindriClient {
    * console.log(`Current base URL: ${client.baseUrl}`);
    */
   get baseUrl(): string {
-    return OpenAPI.BASE;
+    return this._clientConfig.BASE;
   }
 
   /** Retrieves the current log level of the client. The log level determines the verbosity of logs
@@ -218,20 +222,20 @@ export class SindriClient {
    */
   authorize(authOptions: AuthOptions): boolean {
     if (process.env.BROWSER_BUILD) {
-      OpenAPI.BASE = authOptions.baseUrl || "https://sindri.app";
-      OpenAPI.TOKEN = authOptions.apiKey;
+      this._clientConfig.BASE = authOptions.baseUrl || "https://sindri.app";
+      this._clientConfig.TOKEN = authOptions.apiKey;
     } else {
       const config = loadConfig();
-      OpenAPI.BASE =
+      this._clientConfig.BASE =
         authOptions.baseUrl ||
         process.env.SINDRI_BASE_URL ||
         config.auth?.baseUrl ||
-        OpenAPI.BASE ||
+        this._clientConfig.BASE ||
         "https://sindri.app";
-      OpenAPI.TOKEN =
+      this._clientConfig.TOKEN =
         authOptions.apiKey || process.env.SINDRI_API_KEY || config.auth?.apiKey;
     }
-    return !!(OpenAPI.BASE && OpenAPI.TOKEN);
+    return !!(this._clientConfig.BASE && this._clientConfig.TOKEN);
   }
 
   // }[tags=["latest"]]
@@ -443,21 +447,21 @@ export class SindriClient {
     // Note that it's import the boundary matches the Chrome format because the test runner checks
     // payloads for this format in order to compare non-deterministic gzips.
     // TODO: These header changes are global, we need to make them local to this request.
-    const oldHeaders = OpenAPI.HEADERS;
-    OpenAPI.HEADERS = {
+    const oldHeaders = this._clientConfig.HEADERS;
+    this._clientConfig.HEADERS = {
       "Content-Type":
         "multipart/form-data; boundary=----WebKitFormBoundary0buQ8d6EhWcs9X9d",
     };
-    const createResponsePromise = CircuitsService.circuitCreate(
+    const createResponsePromise = this._client.circuits.circuitCreate(
       formData as NodeFormData,
     );
     const createResponse = await createResponsePromise;
-    OpenAPI.HEADERS = oldHeaders;
+    this._clientConfig.HEADERS = oldHeaders;
     const circuitId = createResponse.circuit_id;
 
     let response: CircuitInfoResponse;
     while (true) {
-      response = await CircuitsService.circuitDetail(circuitId, false);
+      response = await this._client.circuits.circuitDetail(circuitId, false);
       if (response.status === "Ready" || response.status === "Failed") {
         break;
       }
@@ -488,7 +492,7 @@ export class SindriClient {
    * console.log("Proofs:', proofs);
    */
   async getAllCircuitProofs(circuitId: string): Promise<ProofInfoResponse[]> {
-    return await CircuitsService.circuitProofs(circuitId);
+    return await this._client.circuits.circuitProofs(circuitId);
   }
 
   /**
@@ -504,7 +508,7 @@ export class SindriClient {
    * console.log("Circuits:", circuits);
    */
   async getAllCircuits(): Promise<CircuitInfoResponse[]> {
-    return await CircuitsService.circuitList();
+    return await this._client.circuits.circuitList();
   }
 
   /**
@@ -524,7 +528,7 @@ export class SindriClient {
    * console.log("How many proofs?", proofs.length);
    */
   async getAllProofs(): Promise<ProofInfoResponse[]> {
-    return await ProofsService.proofList();
+    return await this._client.proofs.proofList();
   }
 
   /**
@@ -544,7 +548,7 @@ export class SindriClient {
    * console.log('Circuit details:', circuit);
    */
   async getCircuit(circuitId: string): Promise<CircuitInfoResponse> {
-    return await CircuitsService.circuitDetail(circuitId);
+    return await this._client.circuits.circuitDetail(circuitId);
   }
 
   /**
@@ -564,7 +568,7 @@ export class SindriClient {
    * console.log("Proof details:", proof);
    */
   async getProof(proofId: string): Promise<ProofInfoResponse> {
-    return await ProofsService.proofDetail(proofId);
+    return await this._client.proofs.proofDetail(proofId);
   }
 
   /**
@@ -591,12 +595,12 @@ export class SindriClient {
     circuitId: string,
     proofInput: string,
   ): Promise<ProofInfoResponse> {
-    const createResponse = await CircuitsService.proofCreate(circuitId, {
+    const createResponse = await this._client.circuits.proofCreate(circuitId, {
       proof_input: proofInput,
     });
     let response: ProofInfoResponse;
     while (true) {
-      response = await ProofsService.proofDetail(createResponse.proof_id);
+      response = await this._client.proofs.proofDetail(createResponse.proof_id);
       if (response.status === "Ready" || response.status === "Failed") {
         break;
       }
