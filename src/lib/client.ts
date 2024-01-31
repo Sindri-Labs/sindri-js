@@ -15,7 +15,7 @@ import type {
   NoirCircuitInfoResponse,
   ProofInfoResponse,
 } from "lib/api";
-import { loadConfig } from "lib/config";
+import { Config } from "lib/config";
 import { logger, LogLevel } from "lib/logging";
 import { File, FormData } from "lib/isomorphic";
 import type {
@@ -225,7 +225,7 @@ export class SindriClient {
       this._clientConfig.BASE = authOptions.baseUrl || "https://sindri.app";
       this._clientConfig.TOKEN = authOptions.apiKey;
     } else {
-      const config = loadConfig();
+      const config = new Config();
       this._clientConfig.BASE =
         authOptions.baseUrl ||
         process.env.SINDRI_BASE_URL ||
