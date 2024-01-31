@@ -9,7 +9,8 @@ import walk from "ignore-walk";
 import tar from "tar";
 
 import { findFileUpwards } from "cli/utils";
-import { ApiError, CircuitsService, CircuitStatus, OpenAPI } from "lib/api";
+import sindri from "lib";
+import { ApiError, JobStatus } from "lib/api";
 import { logger } from "lib/logging";
 
 export const deployCommand = new Command()
@@ -84,7 +85,7 @@ export const deployCommand = new Command()
     const circuitName = sindriJson.name;
 
     // Check that the API client is authorized.
-    if (!OpenAPI.TOKEN || !OpenAPI.BASE) {
+    if (!sindri.apiKey || !sindri.baseUrl) {
       logger.warn("You must login first with `sindri login`.");
       return process.exit(1);
     }
@@ -145,7 +146,7 @@ export const deployCommand = new Command()
     let circuitId: string | undefined;
     try {
       logger.info("Circuit compilation initiated.");
-      const response = await CircuitsService.circuitCreate(formData);
+      const response = await sindri._client.circuits.circuitCreate(formData);
       circuitId = response.circuit_id;
       logger.debug("/api/v1/circuit/create/ response:");
       logger.debug(response);
@@ -167,11 +168,14 @@ export const deployCommand = new Command()
 
     // Poll for circuit compilation to complete.
     const startTime = Date.now();
-    let previousStatus: CircuitStatus | undefined;
+    let previousStatus: JobStatus | undefined;
     while (true) {
       try {
         logger.debug("Polling for circuit compilation status.");
-        const response = await CircuitsService.circuitDetail(circuitId, false);
+        const response = await sindri._client.circuits.circuitDetail(
+          circuitId,
+          false,
+        );
 
         // Only log this when the status changes because it's noisy.
         if (previousStatus !== response.status) {
