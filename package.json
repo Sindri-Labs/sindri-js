@@ -26,6 +26,9 @@
     "templates/",
     "tsconfig.json"
   ],
+  "engines": {
+    "node": ">=18.13.0"
+  },
   "main": "dist/lib/index.js",
   "module": "dist/lib/index.mjs",
   "bin": {
