@@ -1,4 +1,4 @@
-FROM node:18.18.2-slim as development
+FROM node:18.19.0-slim as development
 ENV NODE_ENV=development
 
 # Optionally convert the user to another UID/GUID to match host user file permissions.

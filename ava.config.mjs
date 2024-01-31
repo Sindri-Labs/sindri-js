@@ -12,7 +12,7 @@ export default {
     ts: "module",
   },
   files: ["test/**/*.test.ts"],
-  nodeArguments: ["--loader=tsx"],
+  nodeArguments: ["--import=tsx"],
   // Increase the timeout if we expect to make live API calls.
   timeout: ["dryrun", "record", "update", "wild"].includes(
     process.env.NOCK_BACK_MODE ?? "lockdown",

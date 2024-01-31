@@ -11,7 +11,7 @@ jobs:
   lint-and-test:
     strategy:
       matrix:
-        version: [18.18.2, 18, 19, 20, 21]
+        version: [18, 19, 20, 21]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -64,7 +64,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18.18.2
+          node-version: 18.19.0
           registry-url: "https://registry.npmjs.org"
 
       - name: Extract Version from Tag
