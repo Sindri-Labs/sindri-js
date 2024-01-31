@@ -1,4 +1,4 @@
-FROM node:18.18.2-slim as development
+FROM node:18.19.0-slim as development
 ENV NODE_ENV=development
 
 # Optionally convert the user to another UID/GUID to match host user file permissions.
@@ -50,10 +50,16 @@ WORKDIR /sindri/
 # Link the `sindri-js` project.
 # We need at least `package.json` and a stub for the CLI to create the symlinks,
 # then we'll bind mount over this with the real project at runtime with docker compose.
+# Running `npm link` requires `patch-package` to be in the PATH as a `postinstall` script,
+# so we create a small stub script to satisfy this requirement and then delete it.
 COPY ./package.json /sindri/package.json
 RUN mkdir -p dist/cli/ && \
     touch dist/cli/index.js && \
     chmod u+x dist/cli/index.js && \
-    npm link
+    echo "#! /bin/sh" > patch-package && \
+    chmod u+x patch-package && \
+    export PATH="./:$PATH" && \
+    npm link && \
+    rm patch-package
 
 CMD ["/bin/sh", "-c", "yarn install && yarn build:watch"]
