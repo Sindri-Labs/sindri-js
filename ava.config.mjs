@@ -16,8 +16,8 @@ export default {
   files: ["test/**/*.test.ts"],
   nodeArguments: [
     semver.satisfies(process.version, ">=18.19||>=20")
-      ? "--loader=tsx"
-      : "--import=tsx",
+      ? "--import=tsx"
+      : "--loader=tsx",
   ],
   // Increase the timeout if we expect to make live API calls.
   timeout: ["dryrun", "record", "update", "wild"].includes(
