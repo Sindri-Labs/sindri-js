@@ -2,6 +2,8 @@ import path from "path";
 import process from "process";
 import { fileURLToPath } from "url";
 
+import semver from "semver";
+
 // Use the test tsconfig import paths.
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -12,7 +14,11 @@ export default {
     ts: "module",
   },
   files: ["test/**/*.test.ts"],
-  nodeArguments: ["--import=tsx"],
+  nodeArguments: [
+    semver.satisfies(process.version, ">=18.19||>=20")
+      ? "--loader=tsx"
+      : "--import=tsx",
+  ],
   // Increase the timeout if we expect to make live API calls.
   timeout: ["dryrun", "record", "update", "wild"].includes(
     process.env.NOCK_BACK_MODE ?? "lockdown",
