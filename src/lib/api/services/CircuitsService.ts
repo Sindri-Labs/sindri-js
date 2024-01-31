@@ -2,28 +2,26 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import { FormData } from "lib/isomorphic"; // DO NOT REMOVE OR CHANGE THIS, MANUAL EDIT!!!
+import type { FormData } from "lib/isomorphic"; // DO NOT REMOVE OR CHANGE THIS, MANUAL EDIT!!!
 
 import type { ActionResponse } from "../models/ActionResponse";
-import type { CircomCircuitInfoResponse } from "../models/CircomCircuitInfoResponse";
-import type { GnarkCircuitInfoResponse } from "../models/GnarkCircuitInfoResponse";
-import type { Halo2CircuitInfoResponse } from "../models/Halo2CircuitInfoResponse";
-import type { NoirCircuitInfoResponse } from "../models/NoirCircuitInfoResponse";
+import type { CircuitInfoResponse } from "../models/CircuitInfoResponse";
 import type { ProofInfoResponse } from "../models/ProofInfoResponse";
 
 import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+import type { BaseHttpRequest } from "../core/BaseHttpRequest";
 
 export class CircuitsService {
+  constructor(public readonly httpRequest: BaseHttpRequest) {}
+
   /**
    * Create Circuit
    * Create a circuit.
    * @param formData
-   * @returns any Created
+   * @returns CircuitInfoResponse Created
    * @throws ApiError
    */
-  public static circuitCreate(
+  public circuitCreate(
     formData: // This is a manual edit to allow `FormData` to be passed in directly:
     | FormData // DO NOT REMOVE THIS!
       | {
@@ -33,13 +31,8 @@ export class CircuitsService {
            */
           tags?: Array<string>;
         },
-  ): CancelablePromise<
-    | CircomCircuitInfoResponse
-    | Halo2CircuitInfoResponse
-    | GnarkCircuitInfoResponse
-    | NoirCircuitInfoResponse
-  > {
-    return __request(OpenAPI, {
+  ): CancelablePromise<CircuitInfoResponse> {
+    return this.httpRequest.request({
       method: "POST",
       url: "/api/v1/circuit/create",
       formData: formData,
@@ -57,20 +50,13 @@ export class CircuitsService {
    * Circuit List
    * Return a list of CircuitInfoResponse for circuits related to user.
    * @param includeVerificationKey
-   * @returns any OK
+   * @returns CircuitInfoResponse OK
    * @throws ApiError
    */
-  public static circuitList(
+  public circuitList(
     includeVerificationKey: boolean = false,
-  ): CancelablePromise<
-    Array<
-      | CircomCircuitInfoResponse
-      | Halo2CircuitInfoResponse
-      | GnarkCircuitInfoResponse
-      | NoirCircuitInfoResponse
-    >
-  > {
-    return __request(OpenAPI, {
+  ): CancelablePromise<Array<CircuitInfoResponse>> {
+    return this.httpRequest.request({
       method: "GET",
       url: "/api/v1/circuit/list",
       query: {
@@ -87,19 +73,14 @@ export class CircuitsService {
    * Get info for existing circuit
    * @param circuitId
    * @param includeVerificationKey
-   * @returns any OK
+   * @returns CircuitInfoResponse OK
    * @throws ApiError
    */
-  public static circuitDetail(
+  public circuitDetail(
     circuitId: string,
     includeVerificationKey: boolean = true,
-  ): CancelablePromise<
-    | CircomCircuitInfoResponse
-    | Halo2CircuitInfoResponse
-    | GnarkCircuitInfoResponse
-    | NoirCircuitInfoResponse
-  > {
-    return __request(OpenAPI, {
+  ): CancelablePromise<CircuitInfoResponse> {
+    return this.httpRequest.request({
       method: "GET",
       url: "/api/v1/circuit/{circuit_id}/detail",
       path: {
@@ -122,10 +103,8 @@ export class CircuitsService {
    * @returns ActionResponse OK
    * @throws ApiError
    */
-  public static circuitDelete(
-    circuitId: string,
-  ): CancelablePromise<ActionResponse> {
-    return __request(OpenAPI, {
+  public circuitDelete(circuitId: string): CancelablePromise<ActionResponse> {
+    return this.httpRequest.request({
       method: "DELETE",
       url: "/api/v1/circuit/{circuit_id}/delete",
       path: {
@@ -149,14 +128,14 @@ export class CircuitsService {
    * @returns ProofInfoResponse OK
    * @throws ApiError
    */
-  public static circuitProofs(
+  public circuitProofs(
     circuitId: string,
     includeProofInput: boolean = false,
     includeProof: boolean = false,
     includePublic: boolean = false,
     includeVerificationKey: boolean = false,
   ): CancelablePromise<Array<ProofInfoResponse>> {
-    return __request(OpenAPI, {
+    return this.httpRequest.request({
       method: "GET",
       url: "/api/v1/circuit/{circuit_id}/proofs",
       path: {
@@ -183,7 +162,7 @@ export class CircuitsService {
    * @returns ProofInfoResponse Created
    * @throws ApiError
    */
-  public static proofCreate(
+  public proofCreate(
     circuitId: string,
     formData: {
       /**
@@ -200,7 +179,7 @@ export class CircuitsService {
       prover_implementation?: string;
     },
   ): CancelablePromise<ProofInfoResponse> {
-    return __request(OpenAPI, {
+    return this.httpRequest.request({
       method: "POST",
       url: "/api/v1/circuit/{circuit_id}/prove",
       path: {

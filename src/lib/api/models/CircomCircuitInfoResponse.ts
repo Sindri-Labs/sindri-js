@@ -3,8 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { CircuitStatus } from "./CircuitStatus";
-import type { CircuitType } from "./CircuitType";
+import type { JobStatus } from "./JobStatus";
 
 /**
  * Response for getting Circom circuit info.
@@ -12,11 +11,11 @@ import type { CircuitType } from "./CircuitType";
 export type CircomCircuitInfoResponse = {
   circuit_id: string;
   circuit_name: string;
-  circuit_type: CircuitType;
+  circuit_type: "circom";
   date_created: string;
   num_proofs: number;
   proving_scheme: string;
-  status: CircuitStatus;
+  status: JobStatus;
   team: string;
   /**
    * Total compute time in ISO8601 format. This does not include the Queued time.
