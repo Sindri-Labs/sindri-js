@@ -43,10 +43,17 @@ jobs:
         run: |
           yarn build
 
+      # We only run the browser tests for the development version of node because the browser environment
+      # is independent of the node version, so all that matters is the build we deploy works in the browser.
       - name: Install Chrome Dependencies
-        if: success() || failure()
+        if: (success() || failure()) && matrix.version == 18
         run: |
           sudo apt-get install -y libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libgbm1 libasound2 libpangocairo-1.0-0 libxss1 libgtk-3-0
+
+      - name: Remove Browser Tests
+        if: (success() || failure()) && matrix.version != 18
+        run: |
+          rm test/browser.test.ts
 
       - name: Test
         if: success() || failure()
