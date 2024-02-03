@@ -16,7 +16,7 @@ import type {
   ProofInfoResponse,
 } from "lib/api";
 import { Config } from "lib/config";
-import { logger, LogLevel } from "lib/logging";
+import { createLogger, type Logger, type LogLevel } from "lib/logging";
 import { File, FormData } from "lib/isomorphic";
 import type {
   BrowserFile,
@@ -40,6 +40,9 @@ export type CircuitInfoResponse =
   | Halo2CircuitInfoResponse
   | GnarkCircuitInfoResponse
   | NoirCircuitInfoResponse;
+
+// Re-export other internal types.
+export type { Logger, LogLevel };
 
 /**
  * The options for authenticating with the API.
@@ -78,6 +81,8 @@ export class SindriClient {
   readonly _client: ApiClient;
   /** @hidden */
   readonly _clientConfig: OpenAPIConfig;
+
+  readonly log: Logger;
 
   /**
    * Represents the polling interval in milliseconds used for querying the status of an endpoint.
@@ -120,6 +125,7 @@ export class SindriClient {
   constructor(authOptions: AuthOptions = {}) {
     this._client = new ApiClient();
     this._clientConfig = this._client.request.config;
+    this.log = createLogger();
     this.authorize(authOptions);
   }
 
@@ -178,7 +184,7 @@ export class SindriClient {
    */
   get logLevel(): LogLevel {
     // We don't specify any custom log levels, so we can narrow the type to exclude strings.
-    return logger.level as LogLevel;
+    return this.log.level as LogLevel;
   }
 
   /**
@@ -192,7 +198,7 @@ export class SindriClient {
    * client.logLevel = "debug";
    */
   set logLevel(level: LogLevel) {
-    logger.level = level;
+    this.log.level = level;
   }
 
   /**
@@ -375,7 +381,7 @@ export class SindriClient {
             cwd: project,
             gzip: true,
             onwarn: (code: string, message: string) => {
-              logger.warn(`While creating tarball: ${code} - ${message}`);
+              this.log.warn(`While creating tarball: ${code} - ${message}`);
             },
             prefix: `${circuitName}/`,
             sync: true,
