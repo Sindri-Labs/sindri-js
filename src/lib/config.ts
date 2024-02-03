@@ -5,7 +5,6 @@ import envPaths from "env-paths";
 import _ from "lodash";
 import { z } from "zod";
 
-import { OpenAPI } from "lib/api";
 import { logger } from "lib/logging";
 
 const getConfigPath = (): string => {
