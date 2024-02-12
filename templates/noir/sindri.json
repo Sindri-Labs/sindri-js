@@ -2,5 +2,6 @@
   "$schema": "https://sindri.app/api/v1/sindri-manifest-schema.json",
   "name": "{{ circuitName }}",
   "circuitType": "noir",
-  "provingScheme": "{{ provingScheme }}"
+  "provingScheme": "{{ provingScheme }}",
+  "noirVersion": "{{ noirVersion }}"
 }

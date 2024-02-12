@@ -236,6 +236,18 @@ export const initCommand = new Command()
           return true;
         },
       });
+      const noirVersion: "0.17.0" | "0.18.0" | "0.19.4" | "0.22.0" | "0.23.0" =
+        await select({
+          message: "Noir Version:",
+          default: "0.23.0",
+          choices: [
+            { name: "0.17.0", value: "0.17.0" },
+            { name: "0.18.0", value: "0.18.0" },
+            { name: "0.19.4", value: "0.19.4" },
+            { name: "0.22.0", value: "0.22.0" },
+            { name: "0.23.0", value: "0.23.0" },
+          ],
+        });
       const provingScheme: "barretenberg" = await select({
         message: "Proving Scheme:",
         default: "barretenberg",
@@ -243,6 +255,7 @@ export const initCommand = new Command()
       });
       Object.assign(context, {
         packageName,
+        noirVersion,
         provingScheme,
       });
     } else {
