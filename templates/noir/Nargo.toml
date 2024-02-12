@@ -2,6 +2,6 @@
 name = "{{ packageName }}"
 type = "bin"
 authors = [""]
-compiler_version = "0.19.3"
+compiler_version = "{{ noirVersion }}"
 
 [dependencies]
