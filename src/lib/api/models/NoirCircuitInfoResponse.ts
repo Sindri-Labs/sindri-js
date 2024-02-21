@@ -36,4 +36,5 @@ export type NoirCircuitInfoResponse = {
   acir_opcodes?: number;
   circuit_size?: number;
   nargo_package_name: string;
+  noir_version: string;
 };
