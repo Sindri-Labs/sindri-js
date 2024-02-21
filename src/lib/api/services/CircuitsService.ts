@@ -2,7 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { FormData } from "lib/isomorphic"; // DO NOT REMOVE OR CHANGE THIS, MANUAL EDIT!!!
 
 import type { ActionResponse } from "../models/ActionResponse";
 import type { CircuitInfoResponse } from "../models/CircuitInfoResponse";
