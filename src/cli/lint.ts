@@ -221,6 +221,8 @@ export const lintCommand = new Command()
               },
             );
           } catch (error) {
+            // It's expected that circomspect will return a non-zero exit code if it finds issues,
+            // so we silently squash those errors and only throw if it's something else.
             if (
               !(error instanceof Error) ||
               !("status" in error) ||
