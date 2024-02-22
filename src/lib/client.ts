@@ -253,7 +253,26 @@ export class SindriClient {
     return !!(this._clientConfig.BASE && this._clientConfig.TOKEN);
   }
 
-  // }[tags=["latest"]]
+  /**
+   * Creates a new {@link SindriClient} client instance. The class itself is not exported, so use
+   * this method on the exported (or any other) client instance to create a new instance. The new
+   * instance can be configured and used completely independently from any other instances. For
+   * example it can use different credentials or a different log level.
+   *
+   * @param authOptions - The authentication options for the client, including
+   * credentials like API keys or tokens. Defaults to an empty object if not provided.
+   *
+   * @example
+   * import sindri from 'sindri';
+   *
+   * // Equivalent to: const myClient = new SindriClient({ ... });
+   * const myClient = sindri.create({ apiKey: 'sindri-mykey-1234'});
+   *
+   * @returns The new client instance.
+   */
+  create(authOptions: AuthOptions | undefined): SindriClient {
+    return new SindriClient(authOptions);
+  }
 
   /**
    * Asynchronously creates and deploys a new circuit, initiating its compilation process.  This
