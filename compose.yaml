@@ -9,6 +9,10 @@ services:
         GID: "${GID:-1000}"
         UID: "${UID:-1000}"
     command: ["/bin/sh", "-c", "yarn install && yarn build:watch"]
+    depends_on:
+      - socat-docker-bridge
+    environment:
+      - DOCKER_HOST=tcp://localhost:2375
     init: true
     network_mode: host
     extra_hosts:
@@ -17,7 +21,18 @@ services:
     volumes:
       - ./:/sindri/
       - ~/.gitconfig:/home/node/.gitconfig
+      - /var/run/docker.sock:/var/run/docker.sock
       - yarn-cache:/home/node/.cache/yarn/
+
+  # Expose the host's `/var/run/docker.sock` socket as TCP port 2375 using socat as the bridge.
+  # This allows the `sindri-js` container to access the host's docker daemon without root.
+  socat-docker-bridge:
+    image: alpine/socat
+    command: tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
+    user: root
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    network_mode: host
 
 volumes:
   yarn-cache:
