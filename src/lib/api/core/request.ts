@@ -2,6 +2,7 @@
  * it is no longer regenerated. The key changes:
  *
  *   * Support pre-constructed `FormData` instances, and make `FormData` isomorphic.
+ *   * Add request/response logging for all API requests in `request()`.
  */
 
 /* istanbul ignore file */
