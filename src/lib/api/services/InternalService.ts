@@ -7,10 +7,11 @@ import type { TeamMeResponse } from "../models/TeamMeResponse";
 import type { UserMeResponse } from "../models/UserMeResponse";
 
 import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+import type { BaseHttpRequest } from "../core/BaseHttpRequest";
 
 export class InternalService {
+  constructor(public readonly httpRequest: BaseHttpRequest) {}
+
   /**
    * Change user password (requires JWT authentication)
    * Change password for a user.
@@ -24,7 +25,7 @@ export class InternalService {
    * @returns ActionResponse OK
    * @throws ApiError
    */
-  public static passwordChangeWithJwtAuth(formData: {
+  public passwordChangeWithJwtAuth(formData: {
     /**
      * Old password.
      */
@@ -34,7 +35,7 @@ export class InternalService {
      */
     new_password: string;
   }): CancelablePromise<ActionResponse> {
-    return __request(OpenAPI, {
+    return this.httpRequest.request({
       method: "POST",
       url: "/api/v1/password/change",
       formData: formData,
@@ -51,8 +52,8 @@ export class InternalService {
    * @returns any OK
    * @throws ApiError
    */
-  public static sindriManifestSchema(): CancelablePromise<Record<string, any>> {
-    return __request(OpenAPI, {
+  public sindriManifestSchema(): CancelablePromise<Record<string, any>> {
+    return this.httpRequest.request({
       method: "GET",
       url: "/api/v1/sindri-manifest-schema.json",
     });
@@ -64,8 +65,8 @@ export class InternalService {
    * @returns TeamMeResponse OK
    * @throws ApiError
    */
-  public static teamMe(): CancelablePromise<TeamMeResponse> {
-    return __request(OpenAPI, {
+  public teamMe(): CancelablePromise<TeamMeResponse> {
+    return this.httpRequest.request({
       method: "GET",
       url: "/api/v1/team/me",
     });
@@ -81,8 +82,8 @@ export class InternalService {
    * @returns UserMeResponse OK
    * @throws ApiError
    */
-  public static userMeWithJwtAuth(): CancelablePromise<UserMeResponse> {
-    return __request(OpenAPI, {
+  public userMeWithJwtAuth(): CancelablePromise<UserMeResponse> {
+    return this.httpRequest.request({
       method: "GET",
       url: "/api/v1/user/me",
     });

@@ -4,6 +4,9 @@
 /* eslint-disable */
 
 /**
- * ProofStatus choices
+ * Response for ForgeValueError
  */
-export type ProofStatus = "Queued" | "In Progress" | "Ready" | "Failed";
+export type ForgeValueErrorResponse = {
+  error: string;
+  message?: string;
+};

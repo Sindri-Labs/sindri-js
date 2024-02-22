@@ -4,6 +4,6 @@
 /* eslint-disable */
 
 /**
- * CircuitStatus choices
+ * JobStatus choices
  */
-export type CircuitStatus = "Queued" | "In Progress" | "Ready" | "Failed";
+export type JobStatus = "Queued" | "In Progress" | "Ready" | "Failed";

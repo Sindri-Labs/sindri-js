@@ -4,7 +4,7 @@
 /* eslint-disable */
 
 import type { CircuitType } from "./CircuitType";
-import type { ProofStatus } from "./ProofStatus";
+import type { JobStatus } from "./JobStatus";
 
 /**
  * Response for getting proof info.
@@ -16,7 +16,7 @@ export type ProofInfoResponse = {
   circuit_type: CircuitType;
   date_created: string;
   perform_verify: boolean;
-  status: ProofStatus;
+  status: JobStatus;
   team: string;
   /**
    * Total compute time in ISO8601 format. This does not include the Queued time.
