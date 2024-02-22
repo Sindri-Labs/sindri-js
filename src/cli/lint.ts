@@ -1,11 +1,15 @@
 import assert from "assert";
-import { existsSync, readFileSync } from "fs";
+import { execSync } from "child_process";
+import { randomUUID } from "crypto";
+import { existsSync, readFileSync, unlinkSync } from "fs";
+import os from "os";
 import path from "path";
 import process from "process";
 
 import { Command } from "@commander-js/extra-typings";
 import type { Schema } from "jsonschema";
 import { Validator as JsonValidator } from "jsonschema";
+import type { Log as SarifLog, Result as SarifResult } from "sarif";
 
 import { findFileUpwards, loadSindriManifestJsonSchema } from "cli/utils";
 import sindri from "lib";
@@ -129,6 +133,7 @@ export const lintCommand = new Command()
           "skipped and the manifest linting output will be very noisy. Please correct " +
           '"circuiType" in "sindri.json" and rerun "sindri lint" to get better linting.',
       );
+      warningCount += 1;
     }
     const circuitType: "circom" | "gnark" | "halo2" | "noir" | null =
       "circuitType" in sindriJson &&
@@ -177,6 +182,148 @@ export const lintCommand = new Command()
       warningCount += 1;
     } else {
       sindri.logger.debug(`README file found at "${readmePath}".`);
+    }
+
+    // Run Circomspect for Circom circuits.
+    if (circuitType === "circom") {
+      let circomspectInstalled: boolean = false;
+      try {
+        execSync("circomspect --help");
+        circomspectInstalled = true;
+      } catch {
+        sindri.logger.warn(
+          "Circomspect is not installed, skipping circomspect static analysis.\n" +
+            "Please install circomspect by following the directions at: " +
+            "https://github.com/trailofbits/circomspect#installing-circomspect",
+        );
+        warningCount += 1;
+      }
+      if (circomspectInstalled) {
+        // Run Circomspect and parse the results.
+        sindri.logger.info(
+          "Running static analysis with Circomspect by Trail of Bits...",
+        );
+        const sarifFile = path.join(
+          os.tmpdir(),
+          `sindri-circomspect-${randomUUID()}.sarif`,
+        );
+        let sarif: SarifLog | undefined;
+        try {
+          const circuitPath =
+            "circuitPath" in sindriJson && sindriJson.circuitPath
+              ? sindriJson.circuitPath
+              : "circuit.circom";
+          try {
+            execSync(
+              `circomspect --level INFO --sarif-file ${sarifFile} ${circuitPath}`,
+              {
+                cwd: rootDirectory,
+              },
+            );
+          } catch (error) {
+            // It's expected that circomspect will return a non-zero exit code if it finds issues,
+            // so we silently squash those errors and only throw if it's something else.
+            if (
+              !(error instanceof Error) ||
+              !("status" in error) ||
+              !error.status
+            ) {
+              throw error;
+            }
+          }
+          const sarifContent = readFileSync(sarifFile, {
+            encoding: "utf-8",
+          });
+          sarif = JSON.parse(sarifContent);
+        } catch (error) {
+          sindri.logger.fatal(
+            `Error running Circomspect in "${rootDirectory}".`,
+          );
+          sindri.logger.error(error);
+          errorCount += 1;
+        } finally {
+          try {
+            unlinkSync(sarifFile);
+          } catch {
+            // The file might not have been created successfully, so this is probably fine.
+            sindri.logger.debug(
+              `Failed to delete temporary SARIF file "${sarifFile}".`,
+            );
+          }
+        }
+
+        if (sarif) {
+          // Sort the results by file, line, and column; the order we want to display them in.
+          const results: SarifResult[] = sarif.runs[0]?.results ?? [];
+          results.sort((a: SarifResult, b: SarifResult) => {
+            if (
+              !a?.locations?.length ||
+              !b?.locations?.length ||
+              !a.locations[0]?.physicalLocation?.artifactLocation?.uri ||
+              !b.locations[0]?.physicalLocation?.artifactLocation?.uri ||
+              a.locations[0]?.physicalLocation?.region?.startLine == null ||
+              b.locations[0]?.physicalLocation?.region?.startLine == null ||
+              a.locations[0]?.physicalLocation?.region?.startColumn == null ||
+              b.locations[0]?.physicalLocation?.region?.startColumn == null
+            ) {
+              return 0;
+            }
+            const uriComparison =
+              a.locations[0].physicalLocation.artifactLocation.uri.localeCompare(
+                b.locations[0].physicalLocation.artifactLocation.uri,
+              );
+            if (uriComparison !== 0) return uriComparison;
+            const lineComparision =
+              a.locations[0].physicalLocation.region.startLine -
+              b.locations[0].physicalLocation.region.startLine;
+            if (lineComparision !== 0) return lineComparision;
+            const columnComparision =
+              a.locations[0].physicalLocation.region.startColumn -
+              b.locations[0].physicalLocation.region.startColumn;
+            return columnComparision;
+          });
+
+          // Log out the circomspect results.
+          results.forEach((result: SarifResult) => {
+            if (
+              !result?.locations?.length ||
+              !result.locations[0]?.physicalLocation?.artifactLocation?.uri ||
+              result.locations[0]?.physicalLocation?.region?.startLine ==
+                null ||
+              result.locations[0]?.physicalLocation?.region?.startColumn ==
+                null ||
+              !result?.message?.text
+            ) {
+              sindri.logger.warn(
+                "Circomspect result is missing required fields, skipping.",
+              );
+              sindri.logger.debug(result, "Missing Circomspect result fields:");
+              return;
+            }
+            const filePath = path.relative(
+              rootDirectory,
+              result.locations[0].physicalLocation.artifactLocation.uri.replace(
+                /^file:\/\//,
+                "",
+              ),
+            );
+            const { startColumn, startLine } =
+              result.locations[0].physicalLocation.region;
+            const logMessage =
+              `${filePath}:${startLine}:${startColumn} ` +
+              `${result.message.text} [Circomspect: ${result.ruleId}]`;
+            if (result.level === "error") {
+              sindri.logger.error(logMessage);
+              errorCount += 1;
+            } else if (result.level === "warning") {
+              sindri.logger.warn(logMessage);
+              warningCount += 1;
+            } else {
+              sindri.logger.debug(logMessage);
+            }
+          });
+        }
+      }
     }
 
     // Summarize the errors and warnings.
