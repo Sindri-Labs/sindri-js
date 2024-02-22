@@ -129,6 +129,7 @@ export const lintCommand = new Command()
           "skipped and the manifest linting output will be very noisy. Please correct " +
           '"circuiType" in "sindri.json" and rerun "sindri lint" to get better linting.',
       );
+      warningCount += 1;
     }
     const circuitType: "circom" | "gnark" | "halo2" | "noir" | null =
       "circuitType" in sindriJson &&
