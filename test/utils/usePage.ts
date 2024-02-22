@@ -95,7 +95,7 @@ export const usePage = async ({
       ),
     );
     t.context.browser = await puppeteer.launch({
-      headless: "new",
+      headless: true,
       // Ignore certificate errors because the proxy uses a self-signed certificate.
       ignoreHTTPSErrors: true,
       args: [
