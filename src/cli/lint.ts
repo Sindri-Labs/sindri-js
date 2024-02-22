@@ -1,3 +1,4 @@
+import assert from "assert";
 import { existsSync, readFileSync } from "fs";
 import path from "path";
 import process from "process";
@@ -74,6 +75,71 @@ export const lintCommand = new Command()
       );
       sindri.logger.error(error);
       return process.exit(1);
+    }
+
+    // Determine the circuit type and manually discriminate the subschema type to narrow down the
+    // schema so that the user gets more relevant validation errors.
+    assert(Array.isArray(sindriManifestJsonSchema.anyOf));
+    let subSchema: Schema | undefined;
+    if (!("circuitType" in sindriJson) || !sindriJson.circuitType) {
+      subSchema = undefined;
+    } else if (sindriJson.circuitType === "circom") {
+      subSchema = sindriManifestJsonSchema.anyOf.find((option: Schema) =>
+        /circom/i.test(option["$ref"] ?? ""),
+      );
+    } else if (sindriJson.circuitType === "gnark") {
+      subSchema = sindriManifestJsonSchema.anyOf.find((option: Schema) =>
+        /gnark/i.test(option["$ref"] ?? ""),
+      );
+    } else if (sindriJson.circuitType === "halo2") {
+      if (
+        "halo2Version" in sindriJson &&
+        sindriJson.halo2Version === "axiom-v0.2.2"
+      ) {
+        subSchema = sindriManifestJsonSchema.anyOf.find((option: Schema) =>
+          /halo2axiomv022/i.test(option["$ref"] ?? ""),
+        );
+      } else if (
+        "halo2Version" in sindriJson &&
+        sindriJson.halo2Version === "axiom-v0.3.0"
+      ) {
+        subSchema = sindriManifestJsonSchema.anyOf.find((option: Schema) =>
+          /halo2axiomv022/i.test(option["$ref"] ?? ""),
+        );
+      } else {
+        // We can't discriminate the different halo2 manifests if there's not a valid `halo2Version`
+        // so we'll just filter down the `anyOf` to the halo2 manifests instead of picking one.
+        subSchema = {
+          anyOf: sindriManifestJsonSchema.anyOf.filter((option: Schema) =>
+            /halo2/i.test(option["$ref"] ?? ""),
+          ),
+        };
+      }
+    } else if (sindriJson.circuitType === "noir") {
+      subSchema = sindriManifestJsonSchema.anyOf.find((option: Schema) =>
+        /noir/i.test(option["$ref"] ?? ""),
+      );
+    }
+    if (subSchema) {
+      delete sindriManifestJsonSchema.anyOf;
+      sindriManifestJsonSchema = { ...sindriManifestJsonSchema, ...subSchema };
+    } else {
+      sindri.logger.warn(
+        `Circuit type is not configured in "${sindriJsonPath}" so some linting steps will be ` +
+          "skipped and the manifest linting output will be very noisy. Please correct " +
+          '"circuiType" in "sindri.json" and rerun "sindri lint" to get better linting.',
+      );
+    }
+    const circuitType: "circom" | "gnark" | "halo2" | "noir" | null =
+      "circuitType" in sindriJson &&
+      typeof sindriJson.circuitType === "string" &&
+      ["circom", "gnark", "halo2", "noir"].includes(sindriJson.circuitType)
+        ? (sindriJson.circuitType as "circom" | "gnark" | "halo2" | "noir")
+        : null;
+    if (circuitType) {
+      sindri.logger.debug(`Detected circuit type "${circuitType}".`);
+    } else {
+      sindri.logger.debug("No circuit type detected!");
     }
 
     // Validate `sindri.json`.
