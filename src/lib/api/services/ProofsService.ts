@@ -6,10 +6,11 @@ import type { ActionResponse } from "../models/ActionResponse";
 import type { ProofInfoResponse } from "../models/ProofInfoResponse";
 
 import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+import type { BaseHttpRequest } from "../core/BaseHttpRequest";
 
 export class ProofsService {
+  constructor(public readonly httpRequest: BaseHttpRequest) {}
+
   /**
    * Proof List
    * Return list of ProofInfoResponse for proofs related to team.
@@ -20,13 +21,13 @@ export class ProofsService {
    * @returns ProofInfoResponse OK
    * @throws ApiError
    */
-  public static proofList(
+  public proofList(
     includeProofInput: boolean = false,
     includeProof: boolean = false,
     includePublic: boolean = false,
     includeVerificationKey: boolean = false,
   ): CancelablePromise<Array<ProofInfoResponse>> {
-    return __request(OpenAPI, {
+    return this.httpRequest.request({
       method: "GET",
       url: "/api/v1/proof/list",
       query: {
@@ -52,14 +53,14 @@ export class ProofsService {
    * @returns ProofInfoResponse OK
    * @throws ApiError
    */
-  public static proofDetail(
+  public proofDetail(
     proofId: string,
     includeProofInput: boolean = true,
     includeProof: boolean = true,
     includePublic: boolean = true,
     includeVerificationKey: boolean = true,
   ): CancelablePromise<ProofInfoResponse> {
-    return __request(OpenAPI, {
+    return this.httpRequest.request({
       method: "GET",
       url: "/api/v1/proof/{proof_id}/detail",
       path: {
@@ -85,10 +86,8 @@ export class ProofsService {
    * @returns ActionResponse OK
    * @throws ApiError
    */
-  public static proofDelete(
-    proofId: string,
-  ): CancelablePromise<ActionResponse> {
-    return __request(OpenAPI, {
+  public proofDelete(proofId: string): CancelablePromise<ActionResponse> {
+    return this.httpRequest.request({
       method: "DELETE",
       url: "/api/v1/proof/{proof_id}/delete",
       path: {

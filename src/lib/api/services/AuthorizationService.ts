@@ -7,10 +7,11 @@ import type { APIKeyResponse } from "../models/APIKeyResponse";
 import type { ObtainApikeyInput } from "../models/ObtainApikeyInput";
 
 import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+import type { BaseHttpRequest } from "../core/BaseHttpRequest";
 
 export class AuthorizationService {
+  constructor(public readonly httpRequest: BaseHttpRequest) {}
+
   /**
    * Generate API Key
    * Generates a long-term API Key from your account's username and password.
@@ -18,16 +19,17 @@ export class AuthorizationService {
    * @returns APIKeyResponse OK
    * @throws ApiError
    */
-  public static apikeyGenerate(
+  public apikeyGenerate(
     requestBody: ObtainApikeyInput,
   ): CancelablePromise<APIKeyResponse> {
-    return __request(OpenAPI, {
+    return this.httpRequest.request({
       method: "POST",
       url: "/api/apikey/generate",
       body: requestBody,
       mediaType: "application/json",
       errors: {
         401: `Unauthorized`,
+        412: `Precondition Failed`,
       },
     });
   }
@@ -39,14 +41,17 @@ export class AuthorizationService {
    * @returns APIKeyResponse Created
    * @throws ApiError
    */
-  public static apikeyGenerateWithAuth(
+  public apikeyGenerateWithAuth(
     name: string = "",
   ): CancelablePromise<APIKeyResponse> {
-    return __request(OpenAPI, {
+    return this.httpRequest.request({
       method: "POST",
       url: "/api/v1/apikey/generate",
       query: {
         name: name,
+      },
+      errors: {
+        412: `Precondition Failed`,
       },
     });
   }
@@ -57,8 +62,8 @@ export class AuthorizationService {
    * @returns APIKeyResponse OK
    * @throws ApiError
    */
-  public static apikeyList(): CancelablePromise<Array<APIKeyResponse>> {
-    return __request(OpenAPI, {
+  public apikeyList(): CancelablePromise<Array<APIKeyResponse>> {
+    return this.httpRequest.request({
       method: "GET",
       url: "/api/v1/apikey/list",
       errors: {
@@ -74,10 +79,8 @@ export class AuthorizationService {
    * @returns ActionResponse OK
    * @throws ApiError
    */
-  public static apikeyDelete(
-    apikeyId: string,
-  ): CancelablePromise<ActionResponse> {
-    return __request(OpenAPI, {
+  public apikeyDelete(apikeyId: string): CancelablePromise<ActionResponse> {
+    return this.httpRequest.request({
       method: "DELETE",
       url: "/api/v1/apikey/{apikey_id}/delete",
       path: {
