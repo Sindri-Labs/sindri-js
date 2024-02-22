@@ -43,11 +43,11 @@ export const program = new Command()
       return exit(1);
     }
     if (debug) {
-      sindri.logger.level = "trace";
+      sindri.logLevel = "trace";
     } else if (quiet) {
-      sindri.logger.level = "silent";
+      sindri.logLevel = "silent";
     } else {
-      sindri.logger.level = "info";
+      sindri.logLevel = "info";
     }
   });
 

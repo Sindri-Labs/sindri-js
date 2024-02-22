@@ -81,6 +81,8 @@ export class SindriClient {
   readonly _client: ApiClient;
   /** @hidden */
   readonly _clientConfig: OpenAPIConfig;
+  /** @hidden */
+  readonly _config: Config | undefined;
 
   readonly logger: Logger;
 
@@ -126,6 +128,9 @@ export class SindriClient {
     this._client = new ApiClient();
     this._clientConfig = this._client.request.config;
     this.logger = createLogger();
+    if (!process.env.BROWSER_BUILD) {
+      this._config = new Config(this.logger);
+    }
     this._clientConfig.logger = this.logger;
     this.authorize(authOptions);
   }
@@ -233,15 +238,17 @@ export class SindriClient {
       this._clientConfig.BASE = authOptions.baseUrl || "https://sindri.app";
       this._clientConfig.TOKEN = authOptions.apiKey;
     } else {
-      const config = new Config();
+      this._config!.reload();
       this._clientConfig.BASE =
         authOptions.baseUrl ||
         process.env.SINDRI_BASE_URL ||
-        config.auth?.baseUrl ||
+        this._config!.auth?.baseUrl ||
         this._clientConfig.BASE ||
         "https://sindri.app";
       this._clientConfig.TOKEN =
-        authOptions.apiKey || process.env.SINDRI_API_KEY || config.auth?.apiKey;
+        authOptions.apiKey ||
+        process.env.SINDRI_API_KEY ||
+        this._config!.auth?.apiKey;
     }
     return !!(this._clientConfig.BASE && this._clientConfig.TOKEN);
   }
