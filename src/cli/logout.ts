@@ -3,7 +3,6 @@ import { confirm } from "@inquirer/prompts";
 
 import sindri from "lib";
 import { Config } from "lib/config";
-import { logger } from "lib/logging";
 
 export const logoutCommand = new Command()
   .name("logout")
@@ -13,7 +12,7 @@ export const logoutCommand = new Command()
     const config = new Config();
     const auth = config.auth;
     if (!auth) {
-      logger.error("You must log in first with `sindri login`.");
+      sindri.logger.error("You must log in first with `sindri login`.");
       return;
     }
 
@@ -24,23 +23,19 @@ export const logoutCommand = new Command()
     });
     if (revokeKey) {
       try {
-        const response = await sindri._client.authorization.apikeyDelete(
-          auth.apiKeyId,
-        );
-        logger.info(`Successfully revoked "${auth.apiKeyName}" key.`);
-        logger.debug(`/api/v1/apikey/${auth.apiKeyId}/delete/ response:`);
-        logger.debug(response);
+        await sindri._client.authorization.apikeyDelete(auth.apiKeyId);
+        sindri.logger.info(`Successfully revoked "${auth.apiKeyName}" key.`);
       } catch (error) {
-        logger.warn(
+        sindri.logger.warn(
           `Error revoking "${auth.apiKeyName}" key, proceeding to clear credentials anyway.`,
         );
-        logger.error(error);
+        sindri.logger.error(error);
       }
     } else {
-      logger.warn("Skipping revocation of existing key.");
+      sindri.logger.warn("Skipping revocation of existing key.");
     }
 
     // Clear the existing credentials.
     config.update({ auth: null });
-    logger.info("You have successfully logged out.");
+    sindri.logger.info("You have successfully logged out.");
   });

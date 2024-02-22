@@ -82,7 +82,7 @@ export class SindriClient {
   /** @hidden */
   readonly _clientConfig: OpenAPIConfig;
 
-  readonly log: Logger;
+  readonly logger: Logger;
 
   /**
    * Represents the polling interval in milliseconds used for querying the status of an endpoint.
@@ -125,7 +125,8 @@ export class SindriClient {
   constructor(authOptions: AuthOptions = {}) {
     this._client = new ApiClient();
     this._clientConfig = this._client.request.config;
-    this.log = createLogger();
+    this.logger = createLogger();
+    this._clientConfig.logger = this.logger;
     this.authorize(authOptions);
   }
 
@@ -184,7 +185,7 @@ export class SindriClient {
    */
   get logLevel(): LogLevel {
     // We don't specify any custom log levels, so we can narrow the type to exclude strings.
-    return this.log.level as LogLevel;
+    return this.logger.level as LogLevel;
   }
 
   /**
@@ -198,7 +199,8 @@ export class SindriClient {
    * client.logLevel = "debug";
    */
   set logLevel(level: LogLevel) {
-    this.log.level = level;
+    this.logger.level = level;
+    this.logger.debug(`Set log level to "${this.logger.level}".`);
   }
 
   /**
@@ -381,7 +383,7 @@ export class SindriClient {
             cwd: project,
             gzip: true,
             onwarn: (code: string, message: string) => {
-              this.log.warn(`While creating tarball: ${code} - ${message}`);
+              this.logger.warn(`While creating tarball: ${code} - ${message}`);
             },
             prefix: `${circuitName}/`,
             sync: true,

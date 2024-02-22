@@ -7,7 +7,7 @@ import type { Schema } from "jsonschema";
 import nunjucks from "nunjucks";
 import type { PackageJson } from "type-fest";
 
-import { logger } from "lib/logging";
+import type { Logger } from "lib/logging";
 
 const currentFilePath = fileURLToPath(import.meta.url);
 const currentDirectoryPath = path.dirname(currentFilePath);
@@ -114,11 +114,13 @@ export function locatePackageJson(): string {
  * @param outputDirectory - The path to the output directory where the populated templates will be
  *     written.
  * @param context - The nunjucks template context.
+ * @param logger - The logger to use for debug messages.
  */
 export async function scaffoldDirectory(
   templateDirectory: string,
   outputDirectory: string,
   context: object,
+  logger?: Logger,
 ): Promise<void> {
   // Normalize the paths and create the output directory if necessary.
   const fullOutputDirectory = path.resolve(outputDirectory);
@@ -163,7 +165,7 @@ export async function scaffoldDirectory(
       // Ensure the output directory exists.
       if (!(await fileExists(outputPath))) {
         await mkdir(outputPath, { recursive: true });
-        logger.debug(`Created directory: "${outputPath}"`);
+        logger?.debug(`Created directory: "${outputPath}"`);
       }
       if (!(await stat(outputPath)).isDirectory()) {
         throw new Error(`"File ${outputPath} exists and is not a directory.`);
@@ -189,7 +191,7 @@ export async function scaffoldDirectory(
     const template = await readFile(inputPath, { encoding: "utf-8" });
     const renderedTemplate = render(template, context);
     await writeFile(outputPath, renderedTemplate, { encoding: "utf-8" });
-    logger.debug(`Rendered "${inputPath}" template to "${outputPath}".`);
+    logger?.debug(`Rendered "${inputPath}" template to "${outputPath}".`);
   };
   await processPath(fullTemplateDirectory, fullOutputDirectory);
 }

@@ -254,7 +254,8 @@ export const sendRequest = async <T>(
   onCancel(() => source.cancel("The user aborted a request."));
 
   try {
-    return await axiosClient.request(requestConfig);
+    const response = await axiosClient.request(requestConfig);
+    return response;
   } catch (error) {
     const axiosError = error as AxiosError<T>;
     if (axiosError.response) {
@@ -337,13 +338,34 @@ export const request = <T>(
   axiosClient: AxiosInstance = axios,
 ): CancelablePromise<T> => {
   return new CancelablePromise(async (resolve, reject, onCancel) => {
+    // Get a nicely formatted timedelta to display after requests.
+    const startTime = Date.now();
+    const getElapsedTime = (): string => {
+      const ellapsedMilliseconds = Date.now() - startTime;
+      if (ellapsedMilliseconds < 1000) {
+        return `${ellapsedMilliseconds} ms`;
+      }
+      const ellapsedSeconds = ellapsedMilliseconds / 1000;
+      if (ellapsedSeconds < 60) {
+        return `${ellapsedSeconds.toFixed(2)} s`;
+      }
+      const ellapsedMinutes = ellapsedSeconds / 60;
+      if (ellapsedMinutes < 60) {
+        return `${ellapsedMinutes.toFixed(2)} m`;
+      }
+      const ellapsedHours = ellapsedMinutes / 60;
+      return `${ellapsedHours.toFixed(2)} h`;
+    };
+
+    const url = getUrl(config, options);
+    const logPrefix = `${options.method} ${url}`;
     try {
-      const url = getUrl(config, options);
       const formData = getFormData(options);
       const body = getRequestBody(options);
       const headers = await getHeaders(config, options, formData);
 
       if (!onCancel.isCancelled) {
+        config.logger?.debug(`${logPrefix} requested`);
         const response = await sendRequest<T>(
           config,
           options,
@@ -367,12 +389,27 @@ export const request = <T>(
           statusText: response.statusText,
           body: responseHeader ?? responseBody,
         };
+        const responseMessage = `${logPrefix} ${response.status} ${
+          response.statusText
+        } (${getElapsedTime()})`;
+        if (!result.body || typeof result.body === "string") {
+          config.logger?.debug(
+            `${responseMessage} - ${result.body || "<empty-body>"}`,
+          );
+        } else {
+          config.logger?.debug(result.body, responseMessage);
+        }
 
         catchErrorCodes(options, result);
 
         resolve(result.body);
       }
     } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown error";
+      config.logger?.debug(
+        `${logPrefix} ERROR (${getElapsedTime()}) - ${errorMessage}`,
+      );
       reject(error);
     }
   });

@@ -1,5 +1,4 @@
 #! /usr/bin/env node
-import assert from "assert";
 import { argv, exit } from "process";
 
 import { Command } from "@commander-js/extra-typings";
@@ -13,12 +12,12 @@ import { logoutCommand } from "cli/logout";
 import { whoamiCommand } from "cli/whoami";
 import { loadPackageJson } from "cli/utils";
 import sindri from "lib";
-import { logger } from "lib/logging";
 
 export const program = new Command()
   .name("sindri")
   .description("The Sindri CLI client.")
   .version(loadPackageJson().version ?? "unknown")
+  .enablePositionalOptions()
   .option("-d, --debug", "Enable debug logging.", false)
   .option(
     "-q, --quiet",
@@ -37,23 +36,19 @@ export const program = new Command()
     // Set the logging level.
     const { debug, quiet } = command.opts();
     if (debug && quiet) {
-      logger.error(
+      sindri.logLevel = "error";
+      sindri.logger.error(
         "You cannot specify both the `--debug` and `--quiet` arguments.",
       );
       return exit(1);
     }
     if (debug) {
-      logger.level = "trace";
+      sindri.logger.level = "trace";
     } else if (quiet) {
-      logger.level = "silent";
+      sindri.logger.level = "silent";
     } else {
-      logger.level = "info";
+      sindri.logger.level = "info";
     }
-    logger.debug(`Set log level to "${logger.level}".`);
-
-    // Make sure the client is loaded and initialized before any subcommands run.
-    // Note that this also initializes the config.
-    assert(sindri);
   });
 
 if (require.main === module) {

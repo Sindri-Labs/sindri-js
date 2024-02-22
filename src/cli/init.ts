@@ -7,7 +7,7 @@ import { Command } from "@commander-js/extra-typings";
 import { confirm, input, select } from "@inquirer/prompts";
 
 import { scaffoldDirectory } from "cli/utils";
-import { logger } from "lib/logging";
+import sindri from "lib";
 
 export const initCommand = new Command()
   .name("init")
@@ -26,7 +26,7 @@ export const initCommand = new Command()
     if (!existsSync(directoryPath)) {
       mkdirSync(directoryPath, { recursive: true });
     } else if (!statSync(directoryPath).isDirectory()) {
-      logger.warn(
+      sindri.logger.warn(
         `File "${directoryPath}" exists and is not a directory, aborting.`,
       );
       return process.exit(1);
@@ -42,7 +42,7 @@ export const initCommand = new Command()
         default: false,
       });
       if (!proceed) {
-        logger.info("Aborting.");
+        sindri.logger.info("Aborting.");
         return process.exit(1);
       }
     }
@@ -246,23 +246,23 @@ export const initCommand = new Command()
         provingScheme,
       });
     } else {
-      logger.fatal(`Sorry, ${circuitType} is not yet supported.`);
+      sindri.logger.fatal(`Sorry, ${circuitType} is not yet supported.`);
       return process.exit(1);
     }
 
     // Perform the scaffolding.
-    logger.info(
+    sindri.logger.info(
       `Proceeding to generate scaffolded project in "${directoryPath}".`,
     );
-    await scaffoldDirectory("common", directoryPath, context);
-    await scaffoldDirectory(circuitType, directoryPath, context);
+    await scaffoldDirectory("common", directoryPath, context, sindri.logger);
+    await scaffoldDirectory(circuitType, directoryPath, context, sindri.logger);
     // We use this in `common` right now to keep the directory tracked, we can remove this once we
     // add files there.
     const gitKeepFile = path.join(directoryPath, ".gitkeep");
     if (existsSync(gitKeepFile)) {
       rmSync(gitKeepFile);
     }
-    logger.info("Project scaffolding successful.");
+    sindri.logger.info("Project scaffolding successful.");
 
     // Install dependencies.
     if (circuitType === "circom") {
@@ -271,13 +271,13 @@ export const initCommand = new Command()
         execSync("npm --version");
         npmInstalled = true;
       } catch {
-        logger.warn(
+        sindri.logger.warn(
           "NPM is not installed, cannot install circomlib as a dependency. " +
             "You will need to install NPM and run `npm install` yourself.",
         );
       }
       if (npmInstalled) {
-        logger.info("Installing circomlib.");
+        sindri.logger.info("Installing circomlib.");
         execSync("npm install", { cwd: directoryPath });
       }
     }
@@ -288,7 +288,7 @@ export const initCommand = new Command()
       execSync("git --version");
       gitInstalled = true;
     } catch {
-      logger.debug(
+      sindri.logger.debug(
         "Git is not installed, skipping git initialization questions.",
       );
     }
@@ -299,14 +299,18 @@ export const initCommand = new Command()
         default: true,
       });
       if (initializeGit) {
-        logger.info(`Initializing git repository in "${directoryPath}".`);
+        sindri.logger.info(
+          `Initializing git repository in "${directoryPath}".`,
+        );
         try {
           execSync("git init .", { cwd: directoryPath });
           execSync("git add .", { cwd: directoryPath });
           execSync("git commit -m 'Initial commit.'", { cwd: directoryPath });
-          logger.info("Successfully initialized git repository.");
+          sindri.logger.info("Successfully initialized git repository.");
         } catch (error) {
-          logger.error("Error occurred while initializing the git repository.");
+          sindri.logger.error(
+            "Error occurred while initializing the git repository.",
+          );
           // Node.js doesn't seem to have a typed version of this error, so we assert it as
           // something that's at least in the right ballpark.
           const execError = error as NodeJS.ErrnoException & {
@@ -325,7 +329,7 @@ export const initCommand = new Command()
               execError[key] = "<truncated>";
             }
           });
-          logger.error(execError);
+          sindri.logger.error(execError);
         }
       }
     }
