@@ -21,7 +21,7 @@ const circomspectCommand = new Command()
   .addHelpCommand(false)
   .allowUnknownOption()
   .passThroughOptions()
-  .argument("<args...>", "Arguments to pass to the tool.")
+  .argument("[args...]", "Arguments to pass to the tool.")
   .action(async (args) => {
     const image = "sindrilabs/circomspect:latest";
 
