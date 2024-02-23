@@ -13,6 +13,7 @@ services:
       - socat-docker-bridge
     environment:
       - DOCKER_HOST=tcp://localhost:2375
+      - SINDRI_DEVELOPMENT_HOST_ROOT=${PWD}
     init: true
     network_mode: host
     extra_hosts:

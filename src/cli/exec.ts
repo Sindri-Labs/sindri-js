@@ -48,6 +48,26 @@ const circomspectCommand = new Command()
       return process.exit(1);
     }
 
+    // Remap the root directory to its location on the host system when running in development mode.
+    let mountDirectory: string = rootDirectory;
+    if (process.env.SINDRI_DEVELOPMENT_HOST_ROOT) {
+      if (rootDirectory === "/sindri" || rootDirectory.startsWith("/sindri/")) {
+        mountDirectory = rootDirectory.replace(
+          "/sindri",
+          process.env.SINDRI_DEVELOPMENT_HOST_ROOT,
+        );
+        sindri.logger.debug(
+          `Remapped "${rootDirectory}" to "${mountDirectory}" for bind mount on the Docker host.`,
+        );
+      } else {
+        sindri.logger.fatal(
+          `The root directory path "${rootDirectory}" must be under "/sindri/"` +
+            'when using "SINDRI_DEVELOPMENT_HOST_ROOT".',
+        );
+        return process.exit(1);
+      }
+    }
+
     // Run circomspect with the project root mounted and pipe the output to stdout.
     let status: number;
     try {
@@ -59,7 +79,7 @@ const circomspectCommand = new Command()
             process.stdout,
             {
               HostConfig: {
-                Binds: [`${rootDirectory}:/sindri`],
+                Binds: [`${mountDirectory}:/sindri`],
               },
             },
             (error, data) => {
@@ -102,6 +122,7 @@ export const execCommand = new Command()
           `using the current directory as the project root.`,
       );
     }
+    rootDirectory = path.normalize(path.resolve(rootDirectory));
 
     // Check that docker is installed.
     docker = new Docker();
