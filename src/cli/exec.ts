@@ -6,11 +6,12 @@ import { Command } from "@commander-js/extra-typings";
 import Docker from "dockerode";
 
 import sindri from "lib";
-import { findFileUpwards } from "cli/utils";
+import { execDockerCommand, findFileUpwards } from "cli/utils";
 
 // Shared globals between the different subcommands.
 let docker: Docker;
 let rootDirectory: string;
+let tag: string;
 
 const circomspectCommand = new Command()
   .name("circomspect")
@@ -23,82 +24,20 @@ const circomspectCommand = new Command()
   .passThroughOptions()
   .argument("[args...]", "Arguments to pass to the tool.")
   .action(async (args) => {
-    const image = "sindrilabs/circomspect:latest";
-
-    // Pull the circomspect image.
-    sindri.logger.debug(`Pulling the "${image}" image.`);
     try {
-      await new Promise((resolve, reject) => {
-        docker.pull(
-          image,
-          (error: Error | null, stream: NodeJS.ReadableStream) => {
-            if (error) {
-              reject(error);
-            } else {
-              docker.modem.followProgress(stream, (error, result) =>
-                error ? reject(error) : resolve(result),
-              );
-            }
-          },
-        );
+      const code = await execDockerCommand("circomspect", args, {
+        docker,
+        logger: sindri.logger,
+        rootDirectory,
+        stream: process.stdout,
+        tag,
       });
-    } catch (error) {
-      sindri.logger.error(`Failed to pull the "${image}" image.`);
-      sindri.logger.error(error);
-      return process.exit(1);
-    }
-
-    // Remap the root directory to its location on the host system when running in development mode.
-    let mountDirectory: string = rootDirectory;
-    if (process.env.SINDRI_DEVELOPMENT_HOST_ROOT) {
-      if (rootDirectory === "/sindri" || rootDirectory.startsWith("/sindri/")) {
-        mountDirectory = rootDirectory.replace(
-          "/sindri",
-          process.env.SINDRI_DEVELOPMENT_HOST_ROOT,
-        );
-        sindri.logger.debug(
-          `Remapped "${rootDirectory}" to "${mountDirectory}" for bind mount on the Docker host.`,
-        );
-      } else {
-        sindri.logger.fatal(
-          `The root directory path "${rootDirectory}" must be under "/sindri/"` +
-            'when using "SINDRI_DEVELOPMENT_HOST_ROOT".',
-        );
-        return process.exit(1);
-      }
-    }
-
-    // Run circomspect with the project root mounted and pipe the output to stdout.
-    let status: number;
-    try {
-      const data: { StatusCode: number } = await new Promise(
-        (resolve, reject) => {
-          docker.run(
-            image,
-            args,
-            process.stdout,
-            {
-              HostConfig: {
-                Binds: [`${mountDirectory}:/sindri`],
-              },
-            },
-            (error, data) => {
-              if (error) {
-                reject(error);
-              } else {
-                resolve(data);
-              }
-            },
-          );
-        },
-      );
-      status = data.StatusCode;
+      process.exit(code);
     } catch (error) {
       sindri.logger.error("Failed to run the circomspect command.");
-      sindri.logger.error(error);
+      sindri.logger.debug(error);
       return process.exit(1);
     }
-    process.exit(status);
   });
 
 export const execCommand = new Command()
@@ -108,8 +47,15 @@ export const execCommand = new Command()
     "Run a ZK tool in your project root inside of an optimized docker container.",
   )
   .passThroughOptions()
+  .option(
+    "-t, --tag <tag>",
+    "The version tag of the docker image to use.",
+    "auto",
+  )
   .addCommand(circomspectCommand)
-  .hook("preAction", async () => {
+  .hook("preAction", async ({ tag: tagOption }) => {
+    tag = tagOption;
+
     // Find the project root.
     const cwd = process.cwd();
     const sindriJsonPath = findFileUpwards(/^sindri.json$/i, cwd);
@@ -130,9 +76,11 @@ export const execCommand = new Command()
       await docker.ping();
     } catch (error) {
       sindri.logger.error(
-        'Docker is not installed or running, but is requiring for "sindri exec".',
+        "Docker is either not installed or the daemon isn't currently running, but it is " +
+          'required by "sindri exec". Please install Docker by following the instructions at: ' +
+          "https://docs.docker.com/get-docker/",
       );
-      sindri.logger.error(error);
+      sindri.logger.debug(error);
       process.exit(1);
     }
   });
