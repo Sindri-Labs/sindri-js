@@ -284,6 +284,7 @@ export const lintCommand = new Command()
           });
 
           // Log out the circomspect results.
+          let circomspectIssueFound = false;
           results.forEach((result: SarifResult) => {
             if (
               !result?.locations?.length ||
@@ -314,14 +315,19 @@ export const lintCommand = new Command()
               `${result.message.text} [Circomspect: ${result.ruleId}]`;
             if (result.level === "error") {
               sindri.logger.error(logMessage);
+              circomspectIssueFound = true;
               errorCount += 1;
             } else if (result.level === "warning") {
               sindri.logger.warn(logMessage);
+              circomspectIssueFound = true;
               warningCount += 1;
             } else {
               sindri.logger.debug(logMessage);
             }
           });
+          if (!circomspectIssueFound {
+            sindri.logger.info("No issues found with Circomspect, good job!");
+          }
         }
       }
     }
