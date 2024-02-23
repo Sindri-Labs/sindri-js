@@ -325,7 +325,7 @@ export const lintCommand = new Command()
               sindri.logger.debug(logMessage);
             }
           });
-          if (!circomspectIssueFound {
+          if (!circomspectIssueFound) {
             sindri.logger.info("No issues found with Circomspect, good job!");
           }
         }
