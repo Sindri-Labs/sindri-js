@@ -88,6 +88,7 @@
     "@types/tar-js": "^0.3.5",
     "axios": "^1.6.2",
     "commander": "^11.1.0",
+    "dockerode": "^4.0.2",
     "env-paths": "^2.2.1",
     "formdata-node": "^6.0.3",
     "gzip-js": "^0.3.2",
@@ -106,6 +107,7 @@
   },
   "devDependencies": {
     "@ava/typescript": "^4.1.0",
+    "@types/dockerode": "^3.3.23",
     "@types/sarif": "^2.1.7",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@typescript-eslint/parser": "^6.11.0",

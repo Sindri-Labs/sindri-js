@@ -15,7 +15,7 @@ RUN if [ "$UID" != "1000" ]; then \
     ; fi
 
 RUN apt-get update
-RUN apt-get install --yes git \
+RUN apt-get install --yes git python3 \
     `# Chromium installation dependencies` \
     curl unzip \
     `# Chromium runtime dependencies` \

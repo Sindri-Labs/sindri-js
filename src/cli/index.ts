@@ -4,6 +4,7 @@ import { argv, exit } from "process";
 import { Command } from "@commander-js/extra-typings";
 
 import { configCommand } from "cli/config";
+import { execCommand } from "cli/exec";
 import { initCommand } from "cli/init";
 import { deployCommand } from "cli/deploy";
 import { lintCommand } from "cli/lint";
@@ -25,6 +26,7 @@ export const program = new Command()
     false,
   )
   .addCommand(configCommand)
+  .addCommand(execCommand)
   .addCommand(initCommand)
   .addCommand(deployCommand)
   .addCommand(lintCommand)
