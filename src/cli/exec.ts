@@ -53,8 +53,8 @@ export const execCommand = new Command()
     "auto",
   )
   .addCommand(circomspectCommand)
-  .hook("preAction", async ({ tag: tagOption }) => {
-    tag = tagOption;
+  .hook("preAction", async (command) => {
+    tag = command.opts().tag;
 
     // Find the project root.
     const cwd = process.cwd();
