@@ -35,8 +35,8 @@ const circomspectCommand = new Command()
       const code = await execDockerCommand("circomspect", args, {
         logger: sindri.logger,
         rootDirectory,
-        stream: process.stdout,
         tag,
+        tty: true,
       });
       process.exit(code);
     } catch (error) {

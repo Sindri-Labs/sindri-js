@@ -1,5 +1,4 @@
 import assert from "assert";
-import { execSync } from "child_process";
 import { randomUUID } from "crypto";
 import { existsSync, readFileSync, unlinkSync } from "fs";
 import os from "os";
@@ -11,7 +10,11 @@ import type { Schema } from "jsonschema";
 import { Validator as JsonValidator } from "jsonschema";
 import type { Log as SarifLog, Result as SarifResult } from "sarif";
 
-import { findFileUpwards, loadSindriManifestJsonSchema } from "cli/utils";
+import {
+  execCommand,
+  findFileUpwards,
+  loadSindriManifestJsonSchema,
+} from "cli/utils";
 import sindri from "lib";
 
 export const lintCommand = new Command()
@@ -186,55 +189,48 @@ export const lintCommand = new Command()
 
     // Run Circomspect for Circom circuits.
     if (circuitType === "circom") {
-      let circomspectInstalled: boolean = false;
       try {
-        execSync("circomspect --help");
-        circomspectInstalled = true;
-      } catch {
-        sindri.logger.warn(
-          "Circomspect is not installed, skipping circomspect static analysis.\n" +
-            "Please install circomspect by following the directions at: " +
-            "https://github.com/trailofbits/circomspect#installing-circomspect",
-        );
-        warningCount += 1;
-      }
-      if (circomspectInstalled) {
         // Run Circomspect and parse the results.
         sindri.logger.info(
           "Running static analysis with Circomspect by Trail of Bits...",
         );
         const sarifFile = path.join(
           os.tmpdir(),
-          `sindri-circomspect-${randomUUID()}.sarif`,
+          "sindri",
+          `circomspect-${randomUUID()}.sarif`,
         );
         let sarif: SarifLog | undefined;
         try {
-          const circuitPath =
+          const circuitPath: string =
             "circuitPath" in sindriJson && sindriJson.circuitPath
-              ? sindriJson.circuitPath
+              ? (sindriJson.circuitPath as string)
               : "circuit.circom";
-          try {
-            execSync(
-              `circomspect --level INFO --sarif-file ${sarifFile} ${circuitPath}`,
-              {
-                cwd: rootDirectory,
-              },
+          const code = await execCommand(
+            "circomspect",
+            ["--level", "INFO", "--sarif-file", sarifFile, circuitPath],
+            {
+              cwd: rootDirectory,
+              logger: sindri.logger,
+              rootDirectory,
+              tty: false,
+            },
+          );
+          if (code !== null) {
+            sindri.logger.debug("Parsing Circomspect SARIF results.");
+            const sarifContent = readFileSync(sarifFile, {
+              encoding: "utf-8",
+            });
+            sarif = JSON.parse(sarifContent);
+          } else {
+            sindri.logger.warn(
+              "Circomspect is not installed, skipping circomspect static analysis.\n" +
+                "Please install Docker by following the directions at: " +
+                "https://docs.docker.com/get-docker/\n" +
+                "Or install Circomspect by following the directions at: " +
+                "https://github.com/trailofbits/circomspect#installing-circomspect",
             );
-          } catch (error) {
-            // It's expected that circomspect will return a non-zero exit code if it finds issues,
-            // so we silently squash those errors and only throw if it's something else.
-            if (
-              !(error instanceof Error) ||
-              !("status" in error) ||
-              !error.status
-            ) {
-              throw error;
-            }
+            warningCount += 1;
           }
-          const sarifContent = readFileSync(sarifFile, {
-            encoding: "utf-8",
-          });
-          sarif = JSON.parse(sarifContent);
         } catch (error) {
           sindri.logger.fatal(
             `Error running Circomspect in "${rootDirectory}".`,
@@ -329,6 +325,10 @@ export const lintCommand = new Command()
             sindri.logger.info("No issues found with Circomspect, good job!");
           }
         }
+      } catch (error) {
+        sindri.logger.fatal("Error running Circomspect, aborting.");
+        sindri.logger.debug(error);
+        return process.exit(1);
       }
     }
 

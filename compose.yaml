@@ -22,6 +22,7 @@ services:
     volumes:
       - ./:/sindri/
       - ~/.gitconfig:/home/node/.gitconfig
+      - /tmp/sindri:/tmp/sindri
       - /var/run/docker.sock:/var/run/docker.sock
       - yarn-cache:/home/node/.cache/yarn/
 

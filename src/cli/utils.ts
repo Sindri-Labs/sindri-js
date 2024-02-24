@@ -1,9 +1,11 @@
+import assert from "assert";
+import { spawn } from "child_process";
 import { constants as fsConstants, readdirSync, readFileSync } from "fs";
 import { access, mkdir, readdir, readFile, stat, writeFile } from "fs/promises";
 import os from "os";
 import path from "path";
 import process from "process";
-import { Writable } from "stream";
+import { type Duplex, Writable } from "stream";
 import { fileURLToPath } from "url";
 
 import axios from "axios";
@@ -16,6 +18,32 @@ import type { Logger } from "lib/logging";
 
 const currentFilePath = fileURLToPath(import.meta.url);
 const currentDirectoryPath = path.dirname(currentFilePath);
+
+/**
+ * Checks if a given command exists in the system's PATH.
+ *
+ * This function attempts to spawn the command with the `--version` flag, assuming that most
+ * commands will support it or at least not have side effects when it is passed.
+ *
+ * @param command - The name of the command to check.
+ *
+ * @returns A boolean indicating whether the command exists.
+ */
+export function checkCommandExists(command: string): Promise<boolean> {
+  return new Promise((resolve) => {
+    const process = spawn(command, ["--version"]);
+
+    process.on("error", () => {
+      // Command could not be spawned or was not found in the PATH
+      resolve(false);
+    });
+
+    process.on("exit", (code) => {
+      // Command exists if exit code is 0 (success)
+      resolve(code !== 127 && code !== null);
+    });
+  });
+}
 
 /**
  * Checks whether we can connect to the Docker daemon.
@@ -38,6 +66,11 @@ export async function checkDockerAvailability(
 }
 
 /**
+ * Supported external commands, each must correspond to a `docker-zkp` image repository.
+ */
+type ExternalCommand = "circomspect";
+
+/**
  * A writable stream that discards all input.
  */
 export const devNull = new Writable({
@@ -45,6 +78,82 @@ export const devNull = new Writable({
     callback();
   },
 });
+
+/**
+ * Executes an external command, either locally or in a Docker container.
+ *
+ * @param command - The command to execute, corresponds to a `docker-zkp` image.
+ * @param args - The arguments to pass to the command.
+ * @param options - Additional options for the command.
+ * @param options.cwd - The current working directory for the executed command.
+ * @param options.docker - The `Docker` instance to use for running the command. Defaults to a new
+ *   `Docker` instance with default options.
+ * @param options.logger - The logger to use for logging messages. There will be no logging if not
+ *   specified.
+ * @param options.rootDirectory - The project root directory on the host. Will be determined by
+ *   searching up the directory tree for a `sindri.json` file if not specified. This directory is
+ *   mounted into the Docker container at `/sindri/` if the command is executed in Docker.
+ * @param options.tag - The tag of the Docker image to use. Defaults to `auto`, which will map to
+ *   the `latest` tag unless a version specifier is found in `sindri.json` that supersedes it.
+ * @param options.tty - Whether to use a TTY for the command. Defaults to `false` which means that
+ *   the command's output will be ignored.
+ *
+ * @returns The exit code of the command, or `null` if the command is not available locally or in
+ *   Docker.
+ */
+export async function execCommand(
+  command: ExternalCommand,
+  args: string[] = [],
+  {
+    cwd = process.cwd(),
+    docker = new Docker(),
+    logger,
+    rootDirectory,
+    tag = "auto",
+    tty = false,
+  }: {
+    cwd?: string;
+    docker?: Docker;
+    logger?: Logger;
+    rootDirectory?: string;
+    tag?: string;
+    tty?: boolean;
+  },
+): Promise<number | null> {
+  // Try using a local command first (unless `SINDRI_FORCE_DOCKER` is set).
+  if (isTruthy(process.env.SINDRI_FORCE_DOCKER ?? "false")) {
+    logger?.debug(
+      `Forcing docker usage for command "${command}" because "SINDRI_FORCE_DOCKER" is set to ` +
+        `"${process.env.SINDRI_FORCE_DOCKER}".`,
+    );
+  } else if (await checkCommandExists(command)) {
+    logger?.debug(`Executing the "${command}" command locally.`);
+    return await execLocalCommand(command, args, { cwd, logger, tty });
+  } else {
+    logger?.debug(
+      `The "${command}" command was not found locally, trying Docker instead.`,
+    );
+  }
+
+  // Fall back to using Docker if possible.
+  if (await checkDockerAvailability(logger)) {
+    logger?.debug(`Executing the "${command}" command in a Docker container.`);
+    return await execDockerCommand(command, args, {
+      cwd,
+      docker,
+      logger,
+      rootDirectory,
+      tag,
+      tty,
+    });
+  }
+
+  // No way to run the command.
+  logger?.debug(
+    `The "${command}" command is not available locally or in Docker.`,
+  );
+  return null;
+}
 
 /**
  * Executes an external command in a Docker container.
@@ -60,30 +169,30 @@ export const devNull = new Writable({
  * @param options.rootDirectory - The project root directory on the host. Will be determined by
  *   searching up the directory tree for a `sindri.json` file if not specified. This directory is
  *   mounted into the Docker container at `/sindri/`.
- * @param options.stream - The stream to write the command's output to. Defaults to discarding all
- *   output if not specified.
  * @param options.tag - The tag of the Docker image to use. Defaults to `auto`, which will map to
  *   the `latest` tag unless a version specifier is found in `sindri.json` that supersedes it.
+ * @param options.tty - Whether to use a TTY for the command. Defaults to `false` which means that
+ *  the command's output will be ignored.
  *
  * @returns The exit code of the command.
  */
 export async function execDockerCommand(
-  command: "circomspect",
+  command: ExternalCommand,
   args: string[] = [],
   {
     cwd = process.cwd(),
     docker = new Docker(),
     logger,
     rootDirectory,
-    stream = devNull,
     tag = "auto",
+    tty = false,
   }: {
     cwd?: string;
     docker?: Docker;
     logger?: Logger;
     rootDirectory?: string;
-    stream: NodeJS.WritableStream | NodeJS.WritableStream[];
     tag?: string;
+    tty?: boolean;
   },
 ): Promise<number> {
   // Determine the image to use.
@@ -176,31 +285,119 @@ export async function execDockerCommand(
 
   // Run circomspect with the project root mounted and pipe the output to stdout.
   const data: { StatusCode: number } = await new Promise((resolve, reject) => {
-    docker.run(
-      image,
-      args,
-      stream,
-      {
-        HostConfig: {
-          Binds: [
-            // Circuit project root.
-            `${mountDirectory}:/sindri`,
-            // Shared temporary directory.
-            `${os.tmpdir()}/sindri/:/tmp/sindri/`,
-          ],
+    docker
+      .run(
+        image,
+        args,
+        tty ? [process.stdout, process.stderr] : devNull,
+        {
+          AttachStderr: tty,
+          AttachStdin: tty,
+          AttachStdout: tty,
+          HostConfig: {
+            Binds: [
+              // Circuit project root.
+              `${mountDirectory}:/sindri`,
+              // Shared temporary directory.
+              `${os.tmpdir()}/sindri/:/tmp/sindri/`,
+            ],
+          },
+          OpenStdin: tty,
+          StdinOnce: false,
+          Tty: tty,
+          WorkingDir: internalCwd,
         },
-        WorkingDir: internalCwd,
-      },
-      (error, data) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(data);
+        (error, data) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(data);
+          }
+        },
+      )
+      .on("container", (container) => {
+        if (!tty) return;
+
+        // Attach stdin/stdout/stderr if we're running in TTY mode.
+        const stream = container.attach(
+          {
+            stream: true,
+            stdin: true,
+            stdout: true,
+            stderr: true,
+          },
+          function (error: Error, stream: Duplex) {
+            if (error) {
+              reject(error);
+            }
+
+            // Connect stdin and stdout.
+            // Note that stderr is redirected into stdout because this is the normal TTY behavior.
+            stream.pipe(process.stdout);
+          },
+        );
+
+        // Ensure the stream is resumed because streams start paused.
+        if (stream) {
+          stream.resume();
         }
-      },
-    );
+      });
   });
   return data.StatusCode;
+}
+
+/**
+ * Executes a command locally.
+ *
+ * @param command - The command to execute.
+ * @param args - The arguments to pass to the command.
+ * @param options - Additional options for the command.
+ * @param options.cwd - The current working directory for the executed command.
+ * @param options.logger - The logger to use for logging messages. There will be no logging if not
+ *  specified.
+ * @param options.tty - Whether to use a TTY for the command. Defaults to `false` which means that
+ *  the command's output will be ignored.
+ *
+ * @returns The exit code of the command.
+ */
+export async function execLocalCommand(
+  command: ExternalCommand,
+  args: string[] = [],
+  {
+    cwd = process.cwd(),
+    logger,
+    tty = false,
+  }: {
+    cwd?: string;
+    logger?: Logger;
+    tty?: boolean;
+  },
+): Promise<number> {
+  const child = spawn(command, args, {
+    cwd,
+    stdio: tty ? "inherit" : "ignore",
+  });
+  try {
+    const code: number = await new Promise((resolve, reject) => {
+      child.on("error", (error) => {
+        reject(error);
+      });
+      child.on("close", (code, signal) => {
+        // If the command exits with a signal (e.g. `SIGABRT`), then follow the common convention of
+        // mapping this to an exit code of: 128 + (the signal number).
+        if (code == null && signal != null) {
+          code = 128 + os.constants.signals[signal];
+        }
+        assert(code != null);
+        resolve(code);
+      });
+    });
+    return code;
+  } catch (error) {
+    logger?.error(`Failed to execute the "${command}" command.`);
+    logger?.error(error);
+    return process.exit(1);
+  }
 }
 
 /**
@@ -277,6 +474,18 @@ export async function getDockerImageTags(
     .filter(({ tag_status }) => tag_status === "active")
     .sort((a, b) => a.last_updated.localeCompare(b.last_updated))
     .map(({ name }) => name);
+}
+
+/**
+ * Determines if a string represents a truthy value.
+ *
+ * @param {string} str - The string to check for truthiness.
+ *
+ * @returns {boolean} `true` if the string represents a truthy value, otherwise `false`.
+ */
+export function isTruthy(str: string): boolean {
+  const truthyValues = ["1", "true", "t", "yes", "y", "on"];
+  return truthyValues.includes(str.toLowerCase());
 }
 
 /**
