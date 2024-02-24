@@ -1,7 +1,6 @@
 import assert from "assert";
 import { randomUUID } from "crypto";
 import { existsSync, readFileSync, unlinkSync } from "fs";
-import os from "os";
 import path from "path";
 import process from "process";
 
@@ -195,7 +194,8 @@ export const lintCommand = new Command()
           "Running static analysis with Circomspect by Trail of Bits...",
         );
         const sarifFile = path.join(
-          os.tmpdir(),
+          "/",
+          "/tmp/",
           "sindri",
           `circomspect-${randomUUID()}.sarif`,
         );
