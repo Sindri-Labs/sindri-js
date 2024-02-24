@@ -119,7 +119,9 @@ export async function execCommand(
     tag?: string;
     tty?: boolean;
   },
-): Promise<number | null> {
+): Promise<
+  { code: number; method: "docker" | "local" } | { code: null; method: null }
+> {
   // Try using a local command first (unless `SINDRI_FORCE_DOCKER` is set).
   if (isTruthy(process.env.SINDRI_FORCE_DOCKER ?? "false")) {
     logger?.debug(
@@ -128,7 +130,10 @@ export async function execCommand(
     );
   } else if (await checkCommandExists(command)) {
     logger?.debug(`Executing the "${command}" command locally.`);
-    return await execLocalCommand(command, args, { cwd, logger, tty });
+    return {
+      code: await execLocalCommand(command, args, { cwd, logger, tty }),
+      method: "local",
+    };
   } else {
     logger?.debug(
       `The "${command}" command was not found locally, trying Docker instead.`,
@@ -138,21 +143,24 @@ export async function execCommand(
   // Fall back to using Docker if possible.
   if (await checkDockerAvailability(logger)) {
     logger?.debug(`Executing the "${command}" command in a Docker container.`);
-    return await execDockerCommand(command, args, {
-      cwd,
-      docker,
-      logger,
-      rootDirectory,
-      tag,
-      tty,
-    });
+    return {
+      code: await execDockerCommand(command, args, {
+        cwd,
+        docker,
+        logger,
+        rootDirectory,
+        tag,
+        tty,
+      }),
+      method: "docker",
+    };
   }
 
   // There's no way to run the command.
   logger?.debug(
     `The "${command}" command is not available locally or in Docker.`,
   );
-  return null;
+  return { code: null, method: null };
 }
 
 /**

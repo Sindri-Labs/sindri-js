@@ -195,17 +195,18 @@ export const lintCommand = new Command()
         );
         const sarifFile = path.join(
           "/",
-          "/tmp/",
+          "tmp",
           "sindri",
           `circomspect-${randomUUID()}.sarif`,
         );
         let sarif: SarifLog | undefined;
+        let ranInDocker: boolean;
         try {
           const circuitPath: string =
             "circuitPath" in sindriJson && sindriJson.circuitPath
               ? (sindriJson.circuitPath as string)
               : "circuit.circom";
-          const code = await execCommand(
+          const { method } = await execCommand(
             "circomspect",
             ["--level", "INFO", "--sarif-file", sarifFile, circuitPath],
             {
@@ -215,7 +216,8 @@ export const lintCommand = new Command()
               tty: false,
             },
           );
-          if (code !== null) {
+          ranInDocker = method === "docker";
+          if (method !== null) {
             sindri.logger.debug("Parsing Circomspect SARIF results.");
             const sarifContent = readFileSync(sarifFile, {
               encoding: "utf-8",
@@ -297,8 +299,9 @@ export const lintCommand = new Command()
               sindri.logger.debug(result, "Missing Circomspect result fields:");
               return;
             }
+
             const filePath = path.relative(
-              rootDirectory,
+              ranInDocker ? "/sindri/" : rootDirectory,
               result.locations[0].physicalLocation.artifactLocation.uri.replace(
                 /^file:\/\//,
                 "",
