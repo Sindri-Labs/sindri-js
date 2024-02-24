@@ -299,7 +299,7 @@ export async function execDockerCommand(
               // Circuit project root.
               `${mountDirectory}:/sindri`,
               // Shared temporary directory.
-              `${os.tmpdir()}/sindri/:/tmp/sindri/`,
+              `/tmp/sindri/:/tmp/sindri/`,
             ],
           },
           OpenStdin: tty,
