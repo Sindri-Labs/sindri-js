@@ -50,7 +50,7 @@ export const execCommand = new Command()
   .name("exec")
   .alias("x")
   .description(
-    "Run a ZK tool in your project root inside of an optimized docker container.",
+    "Run a ZKP tool in your project root inside of an optimized docker container.",
   )
   .passThroughOptions()
   .option(
@@ -104,7 +104,7 @@ export const execCommand = new Command()
     if (!(await checkDockerAvailability(sindri.logger))) {
       sindri.logger.fatal(
         "Docker is either not installed or the daemon isn't currently running, but it is " +
-          'required by "sindri exec". Please install Docker by following the instructions at: ' +
+          'required by "sindri exec".\nPlease install Docker by following the instructions at: ' +
           "https://docs.docker.com/get-docker/",
       );
       process.exit(1);
