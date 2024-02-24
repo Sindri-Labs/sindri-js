@@ -64,6 +64,7 @@ export const execCommand = new Command()
   )
   .addCommand(circomspectCommand)
   .hook("preAction", async (command) => {
+    // Store the options in globals for subcommands to access them.
     const opts = command.opts();
     listTags = !!opts.listTags;
     tag = opts.tag;
@@ -95,7 +96,7 @@ export const execCommand = new Command()
       rootDirectory = cwd;
       sindri.logger.warn(
         `No "sindri.json" file was found in or above "${cwd}", ` +
-          `using the current directory as the project root.`,
+          "using the current directory as the project root.",
       );
     }
     rootDirectory = path.normalize(path.resolve(rootDirectory));

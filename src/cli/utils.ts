@@ -39,7 +39,7 @@ export function checkCommandExists(command: string): Promise<boolean> {
     });
 
     process.on("exit", (code) => {
-      // Command exists if exit code is 0 (success)
+      // Command exists if there are no errors or the exit code isn't 127.
       resolve(code !== 127 && code !== null);
     });
   });
@@ -148,7 +148,7 @@ export async function execCommand(
     });
   }
 
-  // No way to run the command.
+  // There's no way to run the command.
   logger?.debug(
     `The "${command}" command is not available locally or in Docker.`,
   );
