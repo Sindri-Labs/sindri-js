@@ -3,13 +3,15 @@ import path from "path";
 import process from "process";
 
 import { Command } from "@commander-js/extra-typings";
-import Docker from "dockerode";
 
 import sindri from "lib";
-import { execDockerCommand, findFileUpwards } from "cli/utils";
+import {
+  checkDockerAvailability,
+  execDockerCommand,
+  findFileUpwards,
+} from "cli/utils";
 
 // Shared globals between the different subcommands.
-let docker: Docker;
 let rootDirectory: string;
 let tag: string;
 
@@ -26,7 +28,6 @@ const circomspectCommand = new Command()
   .action(async (args) => {
     try {
       const code = await execDockerCommand("circomspect", args, {
-        docker,
         logger: sindri.logger,
         rootDirectory,
         stream: process.stdout,
@@ -71,16 +72,12 @@ export const execCommand = new Command()
     rootDirectory = path.normalize(path.resolve(rootDirectory));
 
     // Check that docker is installed.
-    docker = new Docker();
-    try {
-      await docker.ping();
-    } catch (error) {
-      sindri.logger.error(
+    if (!(await checkDockerAvailability(sindri.logger))) {
+      sindri.logger.fatal(
         "Docker is either not installed or the daemon isn't currently running, but it is " +
           'required by "sindri exec". Please install Docker by following the instructions at: ' +
           "https://docs.docker.com/get-docker/",
       );
-      sindri.logger.debug(error);
       process.exit(1);
     }
   });

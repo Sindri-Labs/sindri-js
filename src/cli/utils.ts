@@ -16,6 +16,25 @@ import type { Logger } from "lib/logging";
 const currentFilePath = fileURLToPath(import.meta.url);
 const currentDirectoryPath = path.dirname(currentFilePath);
 
+/** Checks whether we can connect to the Docker daemon.
+ *
+ * @returns A boolean value indicating whether the Docker daemon is accessible.
+ */
+export async function checkDockerAvailability(
+  logger?: Logger,
+): Promise<boolean> {
+  const docker = new Docker();
+  try {
+    await docker.ping();
+  } catch (error) {
+    logger?.debug("Failed to connect to the Docker daemon.");
+    logger?.debug(error);
+    return false;
+  }
+  logger?.debug("Docker daemon is accessible.");
+  return true;
+}
+
 /** A writable stream that discards all input. */
 export const devNull = new Writable({
   write(_chunk, _encoding, callback) {
@@ -55,7 +74,7 @@ export async function execDockerCommand(
     tag = "auto",
   }: {
     cwd?: string;
-    docker? Docker;
+    docker?: Docker;
     logger?: Logger;
     rootDirectory?: string;
     stream: NodeJS.WritableStream | NodeJS.WritableStream[];
