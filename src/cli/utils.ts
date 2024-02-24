@@ -472,6 +472,7 @@ export async function getDockerImageTags(
   }>(url);
   return results
     .filter(({ tag_status }) => tag_status === "active")
+    .filter(({ name }) => name !== "dev")
     .sort((a, b) => a.last_updated.localeCompare(b.last_updated))
     .map(({ name }) => name);
 }
