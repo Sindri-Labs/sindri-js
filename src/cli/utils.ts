@@ -6,6 +6,7 @@ import process from "process";
 import { Writable } from "stream";
 import { fileURLToPath } from "url";
 
+import axios from "axios";
 import Docker from "dockerode";
 import type { Schema } from "jsonschema";
 import nunjucks from "nunjucks";
@@ -16,7 +17,8 @@ import type { Logger } from "lib/logging";
 const currentFilePath = fileURLToPath(import.meta.url);
 const currentDirectoryPath = path.dirname(currentFilePath);
 
-/** Checks whether we can connect to the Docker daemon.
+/**
+ * Checks whether we can connect to the Docker daemon.
  *
  * @returns A boolean value indicating whether the Docker daemon is accessible.
  */
@@ -35,14 +37,17 @@ export async function checkDockerAvailability(
   return true;
 }
 
-/** A writable stream that discards all input. */
+/**
+ * A writable stream that discards all input.
+ */
 export const devNull = new Writable({
   write(_chunk, _encoding, callback) {
     callback();
   },
 });
 
-/** Executes an external command in a Docker container.
+/**
+ * Executes an external command in a Docker container.
  *
  * @param command - The command to execute, corresponds to a `docker-zkp` image.
  * @param args - The arguments to pass to the command.
@@ -244,6 +249,34 @@ export function findFileUpwards(
 
   // Recursively search in the parent directory.
   return findFileUpwards(filename, parentDirectory);
+}
+
+/**
+ * Retrieves the available tags for a Docker image from DockerHub, ordered from oldest to newest.
+ *
+ * @param repository - The name of the Docker image repository.
+ * @param username - The DockerHub username of the repository owner (default: "sindrilabs").
+ *
+ * @returns An array of available tags for the Docker image.
+ */
+export async function getDockerImageTags(
+  repository: string,
+  username: string = "sindrilabs",
+): Promise<string[]> {
+  const url = `https://hub.docker.com/v2/repositories/${username}/${repository}/tags/`;
+  const {
+    data: { results },
+  } = await axios.get<{
+    results: Array<{
+      last_updated: string;
+      name: string;
+      tag_status: string;
+    }>;
+  }>(url);
+  return results
+    .filter(({ tag_status }) => tag_status === "active")
+    .sort((a, b) => a.last_updated.localeCompare(b.last_updated))
+    .map(({ name }) => name);
 }
 
 /**

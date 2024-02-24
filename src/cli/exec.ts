@@ -1,17 +1,20 @@
-// import assert from "assert";
+import assert from "assert";
 import path from "path";
 import process from "process";
 
 import { Command } from "@commander-js/extra-typings";
 
-import sindri from "lib";
 import {
   checkDockerAvailability,
   execDockerCommand,
   findFileUpwards,
+  getDockerImageTags,
 } from "cli/utils";
+import sindri from "lib";
+import { print } from "lib/logging";
 
 // Shared globals between the different subcommands.
+let listTags: boolean;
 let rootDirectory: string;
 let tag: string;
 
@@ -26,6 +29,8 @@ const circomspectCommand = new Command()
   .passThroughOptions()
   .argument("[args...]", "Arguments to pass to the tool.")
   .action(async (args) => {
+    if (listTags) return; // Don't run the command if we're just listing tags.
+
     try {
       const code = await execDockerCommand("circomspect", args, {
         logger: sindri.logger,
@@ -49,13 +54,37 @@ export const execCommand = new Command()
   )
   .passThroughOptions()
   .option(
+    "-l, --list-tags",
+    "List the available docker image tags for a given tool.",
+  )
+  .option(
     "-t, --tag <tag>",
     "The version tag of the docker image to use.",
     "auto",
   )
   .addCommand(circomspectCommand)
   .hook("preAction", async (command) => {
-    tag = command.opts().tag;
+    const opts = command.opts();
+    listTags = !!opts.listTags;
+    tag = opts.tag;
+
+    // Handle the `--list-tags` option.
+    if (listTags) {
+      const repository = command.args[0];
+      assert(
+        repository,
+        "The preAction hook should only run if there's a subcommand.",
+      );
+      try {
+        const tags = await getDockerImageTags(repository);
+        tags.forEach((tag) => print(tag));
+      } catch (error) {
+        sindri.logger.fatal("Error listing available docker image tags.");
+        sindri.logger.error(error);
+        return process.exit(1);
+      }
+      return process.exit(0);
+    }
 
     // Find the project root.
     const cwd = process.cwd();
