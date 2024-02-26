@@ -228,9 +228,11 @@ export async function execDockerCommand(
           encoding: "utf-8",
         });
         const sindriJson = JSON.parse(sindriJsonContent);
-        tag = sindriJson.noirVersion;
-        if (tag && !tag.startsWith("v")) {
-          tag = `v${tag}`;
+        if (sindriJson.noirVersion) {
+          tag = sindriJson.noirVersion;
+          if (tag && !tag.startsWith("v")) {
+            tag = `v${tag}`;
+          }
         }
       } catch (error) {
         logger?.error(
