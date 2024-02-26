@@ -68,7 +68,7 @@ export async function checkDockerAvailability(
 /**
  * Supported external commands, each must correspond to a `docker-zkp` image repository.
  */
-type ExternalCommand = "circomspect";
+type ExternalCommand = "circomspect" | "nargo";
 
 /**
  * A writable stream that discards all input.
@@ -203,19 +203,9 @@ export async function execDockerCommand(
     tty?: boolean;
   },
 ): Promise<number> {
-  // Determine the image to use.
-  const image =
-    command === "circomspect"
-      ? `sindrilabs/circomspect:${tag === "auto" ? "latest" : tag}`
-      : null;
-  if (!image) {
-    throw new Error(`The command "${command}" is not supported.`);
-  }
-
   // Find the project root if one wasn't specified.
+  const sindriJsonPath = findFileUpwards(/^sindri.json$/i, cwd);
   if (!rootDirectory) {
-    const cwd = process.cwd();
-    const sindriJsonPath = findFileUpwards(/^sindri.json$/i, cwd);
     if (sindriJsonPath) {
       rootDirectory = path.dirname(sindriJsonPath);
     } else {
@@ -227,6 +217,40 @@ export async function execDockerCommand(
     }
   }
   rootDirectory = path.normalize(path.resolve(rootDirectory));
+
+  // Determine the image to use.
+  let image: string;
+  if (command === "nargo" && tag === "auto") {
+    let tag = "latest";
+    if (sindriJsonPath) {
+      try {
+        const sindriJsonContent = await readFile(sindriJsonPath, {
+          encoding: "utf-8",
+        });
+        const sindriJson = JSON.parse(sindriJsonContent);
+        tag = sindriJson.noirVersion;
+        if (tag && !tag.startsWith("v")) {
+          tag = `v${tag}`;
+        }
+      } catch (error) {
+        logger?.error(
+          `Failed to parse the "${sindriJsonPath}" file, ` +
+            'using the "latest" tag for the "nargo" command.',
+        );
+        logger?.debug(error);
+      }
+    } else {
+      logger?.warn(
+        `No "sindri.json" file was found in or above "${cwd}", ` +
+          'using the "latest" tag for the "nargo" command.',
+      );
+    }
+    image = `sindrilabs/${command}:${tag}`;
+  } else if (["circomspect", "nargo"].includes(command)) {
+    image = `sindrilabs/${command}:${tag === "auto" ? "latest" : tag}`;
+  } else {
+    throw new Error(`The command "${command}" is not supported.`);
+  }
 
   // Pull the appropriate image.
   logger?.debug(`Pulling the "${image}" image.`);
@@ -291,7 +315,7 @@ export async function execDockerCommand(
     `Remapped the "${cwd}" working directory to "${internalCwd}" in the Docker container.`,
   );
 
-  // Run circomspect with the project root mounted and pipe the output to stdout.
+  // Run the command with the project root mounted and pipe the output to stdout.
   const data: { StatusCode: number } = await new Promise((resolve, reject) => {
     docker
       .run(
