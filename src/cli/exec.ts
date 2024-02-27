@@ -46,6 +46,32 @@ const circomspectCommand = new Command()
     }
   });
 
+const nargoCommand = new Command()
+  .name("nargo")
+  .description("Aztec Lab's Noir compiler and package manager.")
+  .helpOption(false)
+  .addHelpCommand(false)
+  .allowUnknownOption()
+  .passThroughOptions()
+  .argument("[args...]", "Arguments to pass to the tool.")
+  .action(async (args) => {
+    if (listTags) return; // Don't run the command if we're just listing tags.
+
+    try {
+      const code = await execDockerCommand("nargo", args, {
+        logger: sindri.logger,
+        rootDirectory,
+        tag,
+        tty: true,
+      });
+      process.exit(code);
+    } catch (error) {
+      sindri.logger.error("Failed to run the nargo command.");
+      sindri.logger.debug(error);
+      return process.exit(1);
+    }
+  });
+
 export const execCommand = new Command()
   .name("exec")
   .alias("x")
@@ -63,6 +89,7 @@ export const execCommand = new Command()
     "auto",
   )
   .addCommand(circomspectCommand)
+  .addCommand(nargoCommand)
   .hook("preAction", async (command) => {
     // Store the options in globals for subcommands to access them.
     const opts = command.opts();
