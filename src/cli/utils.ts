@@ -10,6 +10,7 @@ import { fileURLToPath } from "url";
 
 import axios from "axios";
 import Docker from "dockerode";
+import { compareVersions } from "compare-versions";
 import type { Schema } from "jsonschema";
 import nunjucks from "nunjucks";
 import type { PackageJson } from "type-fest";
@@ -508,7 +509,10 @@ export async function getDockerImageTags(
     .filter(({ tag_status }) => tag_status === "active")
     .filter(({ name }) => name !== "dev")
     .sort((a, b) => a.last_updated.localeCompare(b.last_updated))
-    .map(({ name }) => name);
+    .map(({ name }) => name)
+    .sort((a, b) =>
+      a === "latest" ? 1 : b === "latest" ? -1 : compareVersions(a, b),
+    );
 }
 
 /**
