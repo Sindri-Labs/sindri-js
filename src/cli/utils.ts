@@ -9,8 +9,8 @@ import { type Duplex, Writable } from "stream";
 import { fileURLToPath } from "url";
 
 import axios from "axios";
-import Docker from "dockerode";
 import { compareVersions } from "compare-versions";
+import Docker from "dockerode";
 import type { Schema } from "jsonschema";
 import nunjucks from "nunjucks";
 import type { PackageJson } from "type-fest";
