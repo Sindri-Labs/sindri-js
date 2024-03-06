@@ -9,6 +9,7 @@ import { type Duplex, Writable } from "stream";
 import { fileURLToPath } from "url";
 
 import axios from "axios";
+import { compareVersions } from "compare-versions";
 import Docker from "dockerode";
 import type { Schema } from "jsonschema";
 import nunjucks from "nunjucks";
@@ -494,21 +495,36 @@ export async function getDockerImageTags(
   repository: string,
   username: string = "sindrilabs",
 ): Promise<string[]> {
-  const url = `https://hub.docker.com/v2/repositories/${username}/${repository}/tags/`;
-  const {
-    data: { results },
-  } = await axios.get<{
-    results: Array<{
-      last_updated: string;
-      name: string;
-      tag_status: string;
-    }>;
-  }>(url);
+  let url: string | undefined =
+    `https://hub.docker.com/v2/repositories/${username}/${repository}/tags/?page_size=1`;
+  interface Result {
+    last_updated: string;
+    name: string;
+    tag_status: string;
+  }
+  interface Response {
+    count: number;
+    next?: string;
+    previous: string | null;
+    results: Result[];
+  }
+  let results: Result[] = [];
+
+  while (url) {
+    const response: { data: Response } = await axios.get<Response>(url);
+
+    results = results.concat(response.data.results);
+    url = response.data.next; // Update the URL for the next request, or null if no more pages
+  }
+
   return results
     .filter(({ tag_status }) => tag_status === "active")
     .filter(({ name }) => name !== "dev")
     .sort((a, b) => a.last_updated.localeCompare(b.last_updated))
-    .map(({ name }) => name);
+    .map(({ name }) => name)
+    .sort((a, b) =>
+      a === "latest" ? 1 : b === "latest" ? -1 : compareVersions(a, b),
+    );
 }
 
 /**
