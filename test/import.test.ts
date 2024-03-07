@@ -16,7 +16,7 @@ test("cli", (t) => {
 test("lib browser cjs", (t) => {
   const lib = require("../dist/lib/browser/index.js");
   t.truthy(lib);
-  t.false("false" in lib, "library should not be nested under `default`");
+  t.false("default" in lib, "library should not be nested under `default`");
 });
 
 test("lib browser mjs", async (t) => {
