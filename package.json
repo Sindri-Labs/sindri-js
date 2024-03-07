@@ -87,7 +87,6 @@
     "@types/tar": "^6.1.10",
     "@types/tar-js": "^0.3.5",
     "axios": "^1.6.2",
-    "chalk": "^5.3.0",
     "commander": "^11.1.0",
     "compare-versions": "^6.1.0",
     "dockerode": "^4.0.2",
