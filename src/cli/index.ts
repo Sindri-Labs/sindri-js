@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 import { argv, exit } from "process";
 
+import chalk from "chalk";
 import { Command } from "@commander-js/extra-typings";
 
 import { configCommand } from "cli/config";
@@ -35,6 +36,7 @@ export const program = new Command()
   .addCommand(whoamiCommand)
   // Parse the base command options and respond to them before invoking the subcommand.
   .hook("preAction", async (command) => {
+    console.log(chalk.blue("hello!"));
     // Set the logging level.
     const { debug, quiet } = command.opts();
     if (debug && quiet) {
