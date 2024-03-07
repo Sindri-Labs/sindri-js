@@ -117,6 +117,7 @@
     "eslint": "^8.53.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
+    "flatted": "^3.3.1",
     "get-port": "^7.0.0",
     "http-mitm-proxy": "^1.1.0",
     "make-synchronous": "^1.0.0",
