@@ -1,6 +1,8 @@
 import test from "ava";
 
 /* eslint-disable @typescript-eslint/no-var-requires */
+// Type checking is also disabled in this file because we want type checking to work without the
+// `/dist/` directory being populated.
 
 test.before(() => {
   global.window = {} as Window & typeof globalThis;
