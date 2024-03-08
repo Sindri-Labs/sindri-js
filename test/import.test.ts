@@ -75,17 +75,17 @@ test("lib browser cjs", async (t) => {
 test("lib browser mjs", async (t) => {
   const { default: lib } = await import("../dist/lib/browser/index.mjs");
   t.truthy(lib);
-  t.false("default" in lib);
+  t.false("default" in lib, "library should not be nested under `default`");
 });
 
 test("lib node cjs", async (t) => {
   const lib = await requireCjs("../dist/lib/index.js");
   t.truthy(lib);
-  t.false("false" in lib, "library should not be nested under `default`");
+  t.false("default" in lib, "library should not be nested under `default`");
 });
 
 test("lib node mjs", async (t) => {
   const { default: lib } = await import("../dist/lib/index.mjs");
   t.truthy(lib);
-  t.false("default" in lib);
+  t.false("default" in lib, "library should not be nested under `default`");
 });
