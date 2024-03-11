@@ -14,10 +14,12 @@ import { whoamiCommand } from "cli/whoami";
 import { loadPackageJson } from "cli/utils";
 import sindri from "lib";
 
+const version = process.env.VERSION || loadPackageJson().version || "unknown";
+
 export const program = new Command()
   .name("sindri")
   .description("The Sindri CLI client.")
-  .version(loadPackageJson().version ?? "unknown")
+  .version(version)
   .enablePositionalOptions()
   .option("-d, --debug", "Enable debug logging.", false)
   .option(
