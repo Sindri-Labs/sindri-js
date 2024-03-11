@@ -53,6 +53,12 @@ export const program = new Command()
     } else {
       sindri.logLevel = "info";
     }
+
+    // Set the `Sindri-Client` header.
+    sindri._clientConfig.HEADERS = {
+      ...sindri._clientConfig.HEADERS,
+      "Sindri-Client": `sindri-js-cli/${process.env.VERSION || "unknown"}`,
+    };
   });
 
 if (require.main === module) {

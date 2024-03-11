@@ -125,13 +125,24 @@ export class SindriClient {
    * @see {@link SindriClient.authorize} for information on retrieving this value.
    */
   constructor(authOptions: AuthOptions = {}) {
+    // Initialize the client and store a reference to its config.
     this._client = new ApiClient();
     this._clientConfig = this._client.request.config;
+
+    // Set the `Sindri-Client` header.
+    this._clientConfig.HEADERS = {
+      ...this._clientConfig.HEADERS,
+      "Sindri-Client": `sindri-js-sdk/${process.env.VERSION || "unknown"}`,
+    };
+
+    // Create a local logger instance.
     this.logger = createLogger();
     if (!process.env.BROWSER_BUILD) {
       this._config = new Config(this.logger);
     }
     this._clientConfig.logger = this.logger;
+
+    // Authorize the client.
     this.authorize(authOptions);
   }
 
