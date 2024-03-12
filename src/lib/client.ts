@@ -125,13 +125,27 @@ export class SindriClient {
    * @see {@link SindriClient.authorize} for information on retrieving this value.
    */
   constructor(authOptions: AuthOptions = {}) {
+    // Initialize the client and store a reference to its config.
     this._client = new ApiClient();
     this._clientConfig = this._client.request.config;
+
+    // Set the `Sindri-Client` header.
+    const versionTag = process.env.VERSION
+      ? `v${process.env.VERSION}`
+      : "unknown";
+    this._clientConfig.HEADERS = {
+      ...this._clientConfig.HEADERS,
+      "Sindri-Client": `sindri-js-sdk/${versionTag}`,
+    };
+
+    // Create a local logger instance.
     this.logger = createLogger();
     if (!process.env.BROWSER_BUILD) {
       this._config = new Config(this.logger);
     }
     this._clientConfig.logger = this.logger;
+
+    // Authorize the client.
     this.authorize(authOptions);
   }
 
@@ -478,11 +492,12 @@ export class SindriClient {
     }
 
     // We need to shuffle in a hard-coded form boundary for tests to be deterministic.
-    // Note that it's import the boundary matches the Chrome format because the test runner checks
-    // payloads for this format in order to compare non-deterministic gzips.
+    // Note that it's important the boundary matches the Chrome format because the test runner
+    // checks payloads for this format in order to compare non-deterministic gzips.
     // TODO: These header changes are global, we need to make them local to this request.
     const oldHeaders = this._clientConfig.HEADERS;
     this._clientConfig.HEADERS = {
+      ...oldHeaders,
       "Content-Type":
         "multipart/form-data; boundary=----WebKitFormBoundary0buQ8d6EhWcs9X9d",
     };

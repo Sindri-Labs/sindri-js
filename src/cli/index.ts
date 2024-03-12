@@ -14,10 +14,13 @@ import { whoamiCommand } from "cli/whoami";
 import { loadPackageJson } from "cli/utils";
 import sindri from "lib";
 
+const version = process.env.VERSION || loadPackageJson().version;
+const versionTag = version ? `v${version}` : "unknown";
+
 export const program = new Command()
   .name("sindri")
   .description("The Sindri CLI client.")
-  .version(loadPackageJson().version ?? "unknown")
+  .version(versionTag)
   .enablePositionalOptions()
   .option("-d, --debug", "Enable debug logging.", false)
   .option(
@@ -51,6 +54,12 @@ export const program = new Command()
     } else {
       sindri.logLevel = "info";
     }
+
+    // Set the `Sindri-Client` header.
+    sindri._clientConfig.HEADERS = {
+      ...sindri._clientConfig.HEADERS,
+      "Sindri-Client": `sindri-js-cli/${versionTag}`,
+    };
   });
 
 if (require.main === module) {
