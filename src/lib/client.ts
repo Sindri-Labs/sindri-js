@@ -130,9 +130,12 @@ export class SindriClient {
     this._clientConfig = this._client.request.config;
 
     // Set the `Sindri-Client` header.
+    const versionTag = process.env.VERSION
+      ? `v${process.env.VERSION}`
+      : "unknown";
     this._clientConfig.HEADERS = {
       ...this._clientConfig.HEADERS,
-      "Sindri-Client": `sindri-js-sdk/${process.env.VERSION || "unknown"}`,
+      "Sindri-Client": `sindri-js-sdk/${versionTag}`,
     };
 
     // Create a local logger instance.
