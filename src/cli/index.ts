@@ -57,7 +57,7 @@ export const program = new Command()
     // Set the `Sindri-Client` header.
     sindri._clientConfig.HEADERS = {
       ...sindri._clientConfig.HEADERS,
-      "Sindri-Client": `sindri-js-cli/${process.env.VERSION || "unknown"}`,
+      "Sindri-Client": `sindri-js-cli/${version}`,
     };
   });
 
