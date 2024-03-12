@@ -2,7 +2,7 @@ import esbuild from "esbuild";
 import { defineConfig } from "tsup";
 
 process.env.NODE_ENV = process.env.NODE_ENV || "production";
-process.env.VERSION = process.env.VERSION || "v0.0.0";
+process.env.VERSION = process.env.VERSION || "0.0.0";
 
 export default defineConfig([
   // SDK for NodeJS.
