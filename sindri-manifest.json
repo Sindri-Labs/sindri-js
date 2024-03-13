@@ -213,6 +213,12 @@
       ],
       "additionalProperties": false
     },
+    "Halo2CurveOptions": {
+      "title": "Halo2CurveOptions",
+      "description": "The supported Halo2 curves.",
+      "enum": ["bn254"],
+      "type": "string"
+    },
     "Halo2ProvingSchemeOptions": {
       "title": "Halo2ProvingSchemeOptions",
       "description": "The supported Halo2 proving schemes.",
@@ -238,6 +244,16 @@
             "regex": "`name` must be a valid slug."
           },
           "type": "string"
+        },
+        "curve": {
+          "title": "Proving Curve",
+          "description": "The curve over which the proof is executed.",
+          "default": "bn254",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Halo2CurveOptions"
+            }
+          ]
         },
         "className": {
           "title": "Circuit Class Name",
@@ -314,6 +330,16 @@
           },
           "type": "string"
         },
+        "curve": {
+          "title": "Proving Curve",
+          "description": "The curve over which the proof is executed.",
+          "default": "bn254",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Halo2CurveOptions"
+            }
+          ]
+        },
         "className": {
           "title": "Circuit Class Name",
           "description": "The path to your circuit struct definition. (*e.g.* `my-package::my_file::MyCircuitStruct`).",
@@ -376,6 +402,12 @@
       ],
       "additionalProperties": false
     },
+    "NoirCurveOptions": {
+      "title": "NoirCurveOptions",
+      "description": "The supported Noir curves.",
+      "enum": ["bn254"],
+      "type": "string"
+    },
     "NoirProvingSchemeOptions": {
       "title": "NoirProvingSchemeOptions",
       "description": "The supported Noir proving schemes.",
@@ -407,6 +439,16 @@
             "regex": "`name` must be a valid slug."
           },
           "type": "string"
+        },
+        "curve": {
+          "title": "Proving Curve",
+          "description": "The curve over which the proof is executed.",
+          "default": "bn254",
+          "allOf": [
+            {
+              "$ref": "#/definitions/NoirCurveOptions"
+            }
+          ]
         },
         "provingScheme": {
           "description": "The backend proving scheme.",
