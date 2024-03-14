@@ -115,12 +115,20 @@ const proofCreateCommand = new Command()
       }
     }
 
+    // Only Circom supports smart contract calldata right now, so we only enable it for that circuit
+    // type. We'll need to update this as we add support for more circuit types.
+    const includeSmartContractCalldata =
+      "circuitType" in sindriJson &&
+      typeof sindriJson.circuitType === "string" &&
+      ["circom"].includes(sindriJson.circuitType);
+
     const circuitIdentifier = `${circuitName}:${tag}`;
     try {
       const response = await sindri.proveCircuit(
         circuitIdentifier,
         proofInput,
         !!verify,
+        includeSmartContractCalldata,
       );
       print(
         JSON.stringify(

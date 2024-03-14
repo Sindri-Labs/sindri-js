@@ -644,6 +644,7 @@ export class SindriClient {
     circuitId: string,
     proofInput: string,
     verify: boolean = false,
+    includeSmartContractCalldata: boolean = false,
   ): Promise<ProofInfoResponse> {
     const createResponse = await this._client.circuits.proofCreate(circuitId, {
       perform_verify: verify,
@@ -656,7 +657,7 @@ export class SindriClient {
         true, // includeProofInput
         true, // includeProof
         true, // includePublic
-        true, // includeSmartContractCalldata
+        includeSmartContractCalldata, // includeSmartContractCalldata
         true, // includeVerificationKey
       );
       if (response.status === "Ready" || response.status === "Failed") {
