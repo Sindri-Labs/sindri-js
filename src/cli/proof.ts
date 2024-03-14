@@ -124,12 +124,33 @@ const proofCreateCommand = new Command()
 
     const circuitIdentifier = `${circuitName}:${tag}`;
     try {
+      // Poll for proof generation to complete.
+      const startTime = Date.now();
       const response = await sindri.proveCircuit(
         circuitIdentifier,
         proofInput,
         !!verify,
         includeSmartContractCalldata,
       );
+      const elapsedSeconds = ((Date.now() - startTime) / 1000).toFixed(1);
+
+      // Check that the status is "Ready" or log an error.
+      if (response.status === "Ready") {
+        sindri.logger.info(
+          `Proof generated successfully after ${elapsedSeconds} seconds.`,
+        );
+      } else if (response.status === "Failed") {
+        sindri.logger.error(
+          `Proof generation failed after ${elapsedSeconds} seconds: ` +
+            (response.error ?? "Unknown error."),
+        );
+        return process.exit(1);
+      } else {
+        sindri.logger.fatal(`Unexpected response status: ${response.status}`);
+        return process.exit(1);
+      }
+
+      // Print out the formatted proof response.
       print(
         JSON.stringify(
           {
@@ -153,8 +174,8 @@ const proofCreateCommand = new Command()
       } else {
         sindri.logger.fatal("An unknown error occurred.");
         sindri.logger.error(error);
-        return process.exit(1);
       }
+      return process.exit(1);
     }
   });
 
