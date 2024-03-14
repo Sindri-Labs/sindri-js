@@ -643,13 +643,22 @@ export class SindriClient {
   async proveCircuit(
     circuitId: string,
     proofInput: string,
+    verify: boolean = false,
   ): Promise<ProofInfoResponse> {
     const createResponse = await this._client.circuits.proofCreate(circuitId, {
+      perform_verify: verify,
       proof_input: proofInput,
     });
     let response: ProofInfoResponse;
     while (true) {
-      response = await this._client.proofs.proofDetail(createResponse.proof_id);
+      response = await this._client.proofs.proofDetail(
+        createResponse.proof_id,
+        true, // includeProofInput
+        true, // includeProof
+        true, // includePublic
+        true, // includeSmartContractCalldata
+        true, // includeVerificationKey
+      );
       if (response.status === "Ready" || response.status === "Failed") {
         break;
       }

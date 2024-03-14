@@ -25,8 +25,12 @@ const proofCreateCommand = new Command()
     "Input file for the proof (defaults to stdin in on-TTY; " +
       "`input.json`, `example-input.json`, or `Prover.toml` otherwise).",
   )
+  .option(
+    "-v, --verify",
+    "Perform verification of the proof after creating it.",
+  )
   .option("-t, --tag <tag>", "Tag to generate the proof from.", "latest")
-  .action(async ({ input, tag }) => {
+  .action(async ({ input, tag, verify }) => {
     // Check that the API client is authorized.
     if (!sindri.apiKey || !sindri.baseUrl) {
       sindri.logger.warn("You must login first with `sindri login`.");
@@ -113,14 +117,20 @@ const proofCreateCommand = new Command()
 
     const circuitIdentifier = `${circuitName}:${tag}`;
     try {
-      const response = await sindri.proveCircuit(circuitIdentifier, proofInput);
+      const response = await sindri.proveCircuit(
+        circuitIdentifier,
+        proofInput,
+        !!verify,
+      );
       print(
         JSON.stringify(
           {
             proofId: response.proof_id,
             proof: response.proof,
+            proof_input: response.proof_input,
             public: response.public,
-            verificationKey: response.verification_key,
+            smart_contract_calldata: response.smart_contract_calldata,
+            verification_key: response.verification_key,
           },
           null,
           2,
