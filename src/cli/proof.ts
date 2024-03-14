@@ -25,11 +25,11 @@ const proofCreateCommand = new Command()
     "Input file for the proof (defaults to stdin in on-TTY; " +
       "`input.json`, `example-input.json`, or `Prover.toml` otherwise).",
   )
+  .option("-t, --tag <tag>", "Tag to generate the proof from.", "latest")
   .option(
     "-v, --verify",
     "Perform verification of the proof after creating it.",
   )
-  .option("-t, --tag <tag>", "Tag to generate the proof from.", "latest")
   .action(async ({ input, tag, verify }) => {
     // Check that the API client is authorized.
     if (!sindri.apiKey || !sindri.baseUrl) {
