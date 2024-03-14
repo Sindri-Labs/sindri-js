@@ -136,7 +136,8 @@ const proofCreateCommand = new Command()
             proofId: response.proof_id,
             proof: response.proof,
             public: response.public,
-            smart_contract_calldata: response.smart_contract_calldata,
+            // TODO: We need to figure out if this is the format we want to expose.
+            // smart_contract_calldata: response.smart_contract_calldata,
             verification_key: response.verification_key,
           },
           null,
