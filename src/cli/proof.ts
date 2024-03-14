@@ -135,7 +135,6 @@ const proofCreateCommand = new Command()
           {
             proofId: response.proof_id,
             proof: response.proof,
-            proof_input: response.proof_input,
             public: response.public,
             smart_contract_calldata: response.smart_contract_calldata,
             verification_key: response.verification_key,
