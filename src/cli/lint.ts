@@ -110,7 +110,7 @@ export const lintCommand = new Command()
         sindriJson.halo2Version === "axiom-v0.3.0"
       ) {
         subSchema = sindriManifestJsonSchema.anyOf.find((option: Schema) =>
-          /halo2axiomv022/i.test(option["$ref"] ?? ""),
+          /halo2axiomv030/i.test(option["$ref"] ?? ""),
         );
       } else {
         // We can't discriminate the different halo2 manifests if there's not a valid `halo2Version`
