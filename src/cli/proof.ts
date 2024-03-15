@@ -22,7 +22,7 @@ const proofCreateCommand = new Command()
   .description("Create a proof for the circuit.")
   .option(
     "-i, --input <input>",
-    "Input file for the proof (defaults to stdin in on-TTY; " +
+    "Input file for the proof (defaults to stdin if non-TTY; " +
       "`input.json`, `example-input.json`, or `Prover.toml` otherwise).",
   )
   .option("-t, --tag <tag>", "Tag to generate the proof from.", "latest")
@@ -92,7 +92,8 @@ const proofCreateCommand = new Command()
     } else if (!process.stdin.isTTY || input === "-") {
       // Read from stdin in a non-TTY context.
       proofInput = await readStdin();
-    } else {
+    }
+    if (!proofInput || !proofInput.trim()) {
       // Try to load from common input filenames.
       const defaultInputFiles = [
         "input.json",
