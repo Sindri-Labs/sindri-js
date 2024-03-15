@@ -23,10 +23,10 @@ jobs:
 
       - name: Store the Current Branch Name
         run: |
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            echo "BRANCH_NAME=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
+          {% raw %}if [ "${{ github.event_name }}" = "pull_request" ]; then{% endraw %}
+            {% raw %}echo "BRANCH_NAME=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV{% endraw %}
           else
-            BRANCH_NAME=$(echo ${{ github.ref }} | sed -e 's,refs/heads/,,')
+            {% raw %}BRANCH_NAME=$(echo ${{ github.ref }} | sed -e 's,refs/heads/,,'){% endraw %}
             echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
           fi
 
