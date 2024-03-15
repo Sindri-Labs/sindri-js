@@ -6,8 +6,53 @@ on:
   pull_request:
 
 jobs:
-  lint-and-compile:
+  lint-compile-prove:
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        id: setup-node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Store the Current Branch Name
+        run: |
+          echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+
+      - name: Install Sindri CLI Tool
+        run: |
+          npm install -g sindri@latest
+
+      {%- if circuitType == "circom" %}
+
+      - name: Install JavaScript Dependencies
+        run: |
+          npm ci
+      {%- endif %}
+
+      - name: Lint Circuit
+        run: |
+          sindri lint
+
+      - name: Compile the Circuit
+        run: |
+          sindri deploy --tag "${BRANCH_NAME}"
+
+      - name: Create and Verify a Proof
+        run: |
+          sindri proof create --verify --tag "${BRANCH_NAME}"
+
+        env:
+          SINDRI_API_KEY: {% raw %}${{ secrets.SINDRI_API_KEY }}{% endraw %}
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    needs: [lint-compile-prove]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -30,44 +75,9 @@ jobs:
           npm ci
       {%- endif %}
 
-      - name: Lint Circuit
-        run: |
-          sindri lint
-
-      - name: Compile circuit
-        run: |
-          sindri deploy --untagged
-        env:
-          SINDRI_API_KEY: {% raw %}${{ secrets.SINDRI_API_KEY }}{% endraw %}
-
-  deploy:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
-    needs: [lint-and-compile]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        id: setup-node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install Sindri CLI Tool
-        run: |
-          npm install -g sindri@latest
-
-      {%- if circuitType == "circom" %}
-
-      - name: Install JavaScript Dependencies
-        run: |
-          npm ci
-      {%- endif %}
-
-      - name: Deploy circuit
+      - name: Deploy the Circuit
         run: |
           sindri deploy
+
         env:
           SINDRI_API_KEY: {% raw %}${{ secrets.SINDRI_API_KEY }}{% endraw %}
