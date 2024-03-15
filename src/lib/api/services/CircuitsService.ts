@@ -2,7 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
 import type { ActionResponse } from "../models/ActionResponse";
 import type { CircuitInfoResponse } from "../models/CircuitInfoResponse";
 import type { ProofInfoResponse } from "../models/ProofInfoResponse";
@@ -123,6 +122,7 @@ export class CircuitsService {
    * @param includeProofInput
    * @param includeProof
    * @param includePublic
+   * @param includeSmartContractCalldata
    * @param includeVerificationKey
    * @returns ProofInfoResponse OK
    * @throws ApiError
@@ -132,6 +132,7 @@ export class CircuitsService {
     includeProofInput: boolean = false,
     includeProof: boolean = false,
     includePublic: boolean = false,
+    includeSmartContractCalldata: boolean = false,
     includeVerificationKey: boolean = false,
   ): CancelablePromise<Array<ProofInfoResponse>> {
     return this.httpRequest.request({
@@ -144,11 +145,13 @@ export class CircuitsService {
         include_proof_input: includeProofInput,
         include_proof: includeProof,
         include_public: includePublic,
+        include_smart_contract_calldata: includeSmartContractCalldata,
         include_verification_key: includeVerificationKey,
       },
       errors: {
         404: `Not Found`,
         500: `Internal Server Error`,
+        501: `Not Implemented`,
       },
     });
   }
@@ -169,7 +172,7 @@ export class CircuitsService {
        */
       proof_input: string;
       /**
-       * Perform an internal verification on the resulting proof.
+       * A boolean indicating whether an internal verification check occurred during the proof creation.
        */
       perform_verify?: boolean;
       /**

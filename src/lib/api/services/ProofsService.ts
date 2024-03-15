@@ -17,6 +17,7 @@ export class ProofsService {
    * @param includeProofInput
    * @param includeProof
    * @param includePublic
+   * @param includeSmartContractCalldata
    * @param includeVerificationKey
    * @returns ProofInfoResponse OK
    * @throws ApiError
@@ -25,6 +26,7 @@ export class ProofsService {
     includeProofInput: boolean = false,
     includeProof: boolean = false,
     includePublic: boolean = false,
+    includeSmartContractCalldata: boolean = false,
     includeVerificationKey: boolean = false,
   ): CancelablePromise<Array<ProofInfoResponse>> {
     return this.httpRequest.request({
@@ -34,10 +36,12 @@ export class ProofsService {
         include_proof_input: includeProofInput,
         include_proof: includeProof,
         include_public: includePublic,
+        include_smart_contract_calldata: includeSmartContractCalldata,
         include_verification_key: includeVerificationKey,
       },
       errors: {
         500: `Internal Server Error`,
+        501: `Not Implemented`,
       },
     });
   }
@@ -49,6 +53,7 @@ export class ProofsService {
    * @param includeProofInput
    * @param includeProof
    * @param includePublic
+   * @param includeSmartContractCalldata
    * @param includeVerificationKey
    * @returns ProofInfoResponse OK
    * @throws ApiError
@@ -58,6 +63,7 @@ export class ProofsService {
     includeProofInput: boolean = true,
     includeProof: boolean = true,
     includePublic: boolean = true,
+    includeSmartContractCalldata: boolean = false,
     includeVerificationKey: boolean = true,
   ): CancelablePromise<ProofInfoResponse> {
     return this.httpRequest.request({
@@ -70,11 +76,13 @@ export class ProofsService {
         include_proof_input: includeProofInput,
         include_proof: includeProof,
         include_public: includePublic,
+        include_smart_contract_calldata: includeSmartContractCalldata,
         include_verification_key: includeVerificationKey,
       },
       errors: {
         404: `Not Found`,
         500: `Internal Server Error`,
+        501: `Not Implemented`,
       },
     });
   }

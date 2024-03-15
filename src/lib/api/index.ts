@@ -17,6 +17,7 @@ export type { APIKeyResponse } from './models/APIKeyResponse';
 export type { CircomCircuitInfoResponse } from './models/CircomCircuitInfoResponse';
 export type { CircuitDoesNotExistResponse } from './models/CircuitDoesNotExistResponse';
 export type { CircuitInfoResponse } from './models/CircuitInfoResponse';
+export type { CircuitIsNotReadyResponse } from './models/CircuitIsNotReadyResponse';
 export type { CircuitType } from './models/CircuitType';
 export type { ComingSoonResponse } from './models/ComingSoonResponse';
 export type { ForgeInternalErrorResponse } from './models/ForgeInternalErrorResponse';
@@ -31,6 +32,7 @@ export type { ProofCannotBeCreatedResponse } from './models/ProofCannotBeCreated
 export type { ProofDoesNotExistResponse } from './models/ProofDoesNotExistResponse';
 export type { ProofInfoResponse } from './models/ProofInfoResponse';
 export type { Schema } from './models/Schema';
+export type { SmartContractVerifierResponse } from './models/SmartContractVerifierResponse';
 export type { TeamDetail } from './models/TeamDetail';
 export type { TeamMeResponse } from './models/TeamMeResponse';
 export type { TokenObtainPairInputSchema } from './models/TokenObtainPairInputSchema';
