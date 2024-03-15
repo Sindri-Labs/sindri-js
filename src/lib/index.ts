@@ -1,6 +1,6 @@
-import { Client } from "./client";
+import { SindriClient } from "./client";
 
-export default new Client();
+export default new SindriClient();
 
-export * from "./client";
+export type * from "./client";
 export type { LogLevel } from "./logging";

@@ -10,20 +10,21 @@ import type { TokenRefreshOutputSchema } from "../models/TokenRefreshOutputSchem
 import type { TokenVerifyInputSchema } from "../models/TokenVerifyInputSchema";
 
 import type { CancelablePromise } from "../core/CancelablePromise";
-import { OpenAPI } from "../core/OpenAPI";
-import { request as __request } from "../core/request";
+import type { BaseHttpRequest } from "../core/BaseHttpRequest";
 
 export class TokenService {
+  constructor(public readonly httpRequest: BaseHttpRequest) {}
+
   /**
    * Obtain Token
    * @param requestBody
    * @returns TokenObtainPairOutputSchema OK
    * @throws ApiError
    */
-  public static bf740E1AControllerObtainToken(
+  public fd3Aaa7BControllerObtainToken(
     requestBody: TokenObtainPairInputSchema,
   ): CancelablePromise<TokenObtainPairOutputSchema> {
-    return __request(OpenAPI, {
+    return this.httpRequest.request({
       method: "POST",
       url: "/api/token/pair",
       body: requestBody,
@@ -37,10 +38,10 @@ export class TokenService {
    * @returns TokenRefreshOutputSchema OK
    * @throws ApiError
    */
-  public static db93F15ControllerRefreshToken(
+  public b87E0720ControllerRefreshToken(
     requestBody: TokenRefreshInputSchema,
   ): CancelablePromise<TokenRefreshOutputSchema> {
-    return __request(OpenAPI, {
+    return this.httpRequest.request({
       method: "POST",
       url: "/api/token/refresh",
       body: requestBody,
@@ -54,10 +55,10 @@ export class TokenService {
    * @returns Schema OK
    * @throws ApiError
    */
-  public static abc17FbControllerVerifyToken(
+  public d1C092ControllerVerifyToken(
     requestBody: TokenVerifyInputSchema,
   ): CancelablePromise<Schema> {
-    return __request(OpenAPI, {
+    return this.httpRequest.request({
       method: "POST",
       url: "/api/token/verify",
       body: requestBody,

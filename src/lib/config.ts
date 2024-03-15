@@ -5,8 +5,7 @@ import envPaths from "env-paths";
 import _ from "lodash";
 import { z } from "zod";
 
-import { OpenAPI } from "lib/api";
-import { logger } from "lib/logging";
+import { type Logger } from "lib/logging";
 
 const getConfigPath = (): string => {
   const paths = envPaths("sindri", {
@@ -34,26 +33,26 @@ type ConfigSchema = z.infer<typeof ConfigSchema>;
 
 const defaultConfig: ConfigSchema = ConfigSchema.parse({});
 
-export const loadConfig = (): ConfigSchema => {
+export const loadConfig = (logger?: Logger): ConfigSchema => {
   const configPath = getConfigPath();
   if (fs.existsSync(configPath)) {
-    logger.debug(`Loading config from "${configPath}".`);
+    logger?.debug(`Loading config from "${configPath}".`);
     try {
       const configFileContents: string = fs.readFileSync(configPath, {
         encoding: "utf-8",
       });
       const loadedConfig = ConfigSchema.parse(JSON.parse(configFileContents));
-      logger.debug("Config loaded successfully.");
+      logger?.debug("Config loaded successfully.");
       return loadedConfig;
     } catch (error) {
-      logger.warn(
+      logger?.warn(
         `The config schema in "${configPath}" is invalid and will not be used.\n` +
           `To remove it and start fresh, run:\n    rm ${configPath}`,
       );
-      logger.debug(error);
+      logger?.debug(error);
     }
   }
-  logger.debug(
+  logger?.debug(
     `Config file "${configPath}" does not exist, initializing default config.`,
   );
   return _.cloneDeep(defaultConfig);
@@ -61,19 +60,11 @@ export const loadConfig = (): ConfigSchema => {
 
 export class Config {
   protected _config!: ConfigSchema;
-  protected static instance: Config;
+  protected readonly logger: Logger | undefined;
 
-  constructor() {
-    if (!Config.instance) {
-      this._config = loadConfig();
-      Config.instance = this;
-      // Prepare API the client with the loaded credentials.
-      if (this._config.auth) {
-        OpenAPI.BASE = this._config.auth.baseUrl;
-        OpenAPI.TOKEN = this._config.auth.apiKey;
-      }
-    }
-    return Config.instance;
+  constructor(logger?: Logger) {
+    this.logger = logger;
+    this.reload();
   }
 
   get auth(): ConfigSchema["auth"] {
@@ -84,10 +75,14 @@ export class Config {
     return _.cloneDeep(this._config);
   }
 
+  reload() {
+    this._config = loadConfig(this.logger);
+  }
+
   update(configData: Partial<ConfigSchema>) {
     // Merge and validate the configs.
-    logger.debug("Merging in config update:");
-    logger.debug(configData);
+    this.logger?.debug("Merging in config update:");
+    this.logger?.debug(configData);
     const newConfig: ConfigSchema = _.cloneDeep(this._config);
     _.merge(newConfig, configData);
     this._config = ConfigSchema.parse(newConfig);
@@ -100,7 +95,10 @@ export class Config {
     }
 
     // Write out the new config.
-    logger.debug(`Writing merged config to "${configPath}":`, this._config);
+    this.logger?.debug(
+      `Writing merged config to "${configPath}":`,
+      this._config,
+    );
     fs.writeFileSync(configPath, JSON.stringify(this._config, null, 2), {
       encoding: "utf-8",
     });

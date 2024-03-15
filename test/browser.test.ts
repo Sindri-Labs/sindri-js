@@ -52,6 +52,46 @@ test("create circuit from file array", async (t) => {
   t.true(true);
 });
 
+test("create proof", async (t) => {
+  // Create a circuit first.
+  const tag = "browser-create-proof-multiplier2-circuit";
+  const circuitDirectory = path.join(dataDirectory, "circom-multiplier2");
+  const fileNames = await fs.readdir(circuitDirectory);
+  const fileData = await Promise.all(
+    fileNames.map(async (fileName) => ({
+      content: await fs.readFile(
+        path.join(circuitDirectory, fileName),
+        "utf-8",
+      ),
+      fileName,
+    })),
+  );
+  await t.context.page.evaluate(
+    async (fileData, tag) => {
+      const files = fileData.map(
+        ({ content, fileName }) => new File([content], fileName),
+      );
+      await sindri.createCircuit(files, [tag]);
+    },
+    fileData,
+    tag,
+  );
+
+  // Create a proof.
+  const proofInput = await fs.readFile(
+    path.join(circuitDirectory, "input.json"),
+    "utf-8",
+  );
+  const proofResponse = await t.context.page.evaluate(
+    async (circuitIdentifier, proofInput) => {
+      return await sindri.proveCircuit(circuitIdentifier, proofInput);
+    },
+    `circom-multiplier2:${tag}`,
+    proofInput,
+  );
+  t.true(proofResponse?.status === "Ready");
+});
+
 test("fetch robots.txt", async (t) => {
   const content = await t.context.page.evaluate(async () => {
     const response = await fetch("https://sindri.app/robots.txt");

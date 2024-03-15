@@ -7,14 +7,7 @@ import walk from "ignore-walk";
 import tar from "tar";
 import Tar from "tar-js";
 
-import {
-  CircuitsService,
-  CircuitStatus,
-  CircuitType,
-  OpenAPI,
-  ProofsService,
-  ProofStatus,
-} from "lib/api";
+import { ApiClient, CircuitType, JobStatus, OpenAPIConfig } from "lib/api";
 import type {
   CircomCircuitInfoResponse,
   Halo2CircuitInfoResponse,
@@ -22,8 +15,8 @@ import type {
   NoirCircuitInfoResponse,
   ProofInfoResponse,
 } from "lib/api";
-import { loadConfig } from "lib/config";
-import { logger, LogLevel } from "lib/logging";
+import { Config } from "lib/config";
+import { createLogger, type Logger, type LogLevel } from "lib/logging";
 import { File, FormData } from "lib/isomorphic";
 import type {
   BrowserFile,
@@ -33,11 +26,12 @@ import type {
 } from "lib/isomorphic";
 
 // Re-export types from the API.
-export { CircuitStatus, CircuitType, ProofStatus };
 export type {
   CircomCircuitInfoResponse,
+  CircuitType,
   GnarkCircuitInfoResponse,
   Halo2CircuitInfoResponse,
+  JobStatus,
   NoirCircuitInfoResponse,
   ProofInfoResponse,
 };
@@ -46,6 +40,9 @@ export type CircuitInfoResponse =
   | Halo2CircuitInfoResponse
   | GnarkCircuitInfoResponse
   | NoirCircuitInfoResponse;
+
+// Re-export other internal types.
+export type { Logger, LogLevel };
 
 /**
  * The options for authenticating with the API.
@@ -66,7 +63,7 @@ export interface AuthOptions {
  * as the central entry point for the SDK, facilitating various operations such as compiling ZKP
  * circuits and generating proofs.
  *
- * The {@link Client} class encapsulates all the necessary methods and properties required to
+ * The {@link SindriClient} class encapsulates all the necessary methods and properties required to
  * communicate effectively with the Sindri ZKP service, handling tasks like authentication, request
  * management, and response processing.
  *
@@ -74,12 +71,21 @@ export interface AuthOptions {
  * and then utilizing its methods to interact with the service.
  *
  * @example
- * // Create an instance of the `Client` class.
- * const client = new Client({ apiKey: 'your-api-key' });
+ * // Create an instance of the `SindriClient` class.
+ * const client = new SindriClient({ apiKey: 'your-api-key' });
  *
  * // Use the client to interact with the Sindri ZKP service...
  */
-export class Client {
+export class SindriClient {
+  /** @hidden */
+  readonly _client: ApiClient;
+  /** @hidden */
+  readonly _clientConfig: OpenAPIConfig;
+  /** @hidden */
+  readonly _config: Config | undefined;
+
+  readonly logger: Logger;
+
   /**
    * Represents the polling interval in milliseconds used for querying the status of an endpoint.
    * This value determines the frequency at which the SDK polls an endpoint to check for any changes
@@ -102,23 +108,44 @@ export class Client {
   public pollingInterval: number = 1000;
 
   /**
-   * Constructs a new instance of the {@link Client} class for interacting with the Sindri ZKP
+   * Constructs a new instance of the {@link SindriClient} class for interacting with the Sindri ZKP
    * service.  This constructor initializes the client with the necessary authentication options.
    *
    * The provided `authOptions` parameter allows for specifying authentication credentials and
    * configurations required for the client to communicate securely with the service.  See
-   * {@link Client.authorize} for more details about how authentication credentials are sourced.
+   * {@link SindriClient.authorize} for more details about how authentication credentials are sourced.
    *
    * @param authOptions - The authentication options for the client, including
    * credentials like API keys or tokens. Defaults to an empty object if not provided.
    *
    * @example
-   * // Instantiating the Client with authentication options
-   * const client = new Client({ apiKey: 'sindri-...-fskd' });
+   * // Instantiating the SindriClient with authentication options
+   * const client = new SindriClient({ apiKey: 'sindri-...-fskd' });
    *
-   * @see {@link Client.authorize} for information on retrieving this value.
+   * @see {@link SindriClient.authorize} for information on retrieving this value.
    */
   constructor(authOptions: AuthOptions = {}) {
+    // Initialize the client and store a reference to its config.
+    this._client = new ApiClient();
+    this._clientConfig = this._client.request.config;
+
+    // Set the `Sindri-Client` header.
+    const versionTag = process.env.VERSION
+      ? `v${process.env.VERSION}`
+      : "unknown";
+    this._clientConfig.HEADERS = {
+      ...this._clientConfig.HEADERS,
+      "Sindri-Client": `sindri-js-sdk/${versionTag}`,
+    };
+
+    // Create a local logger instance.
+    this.logger = createLogger();
+    if (!process.env.BROWSER_BUILD) {
+      this._config = new Config(this.logger);
+    }
+    this._clientConfig.logger = this.logger;
+
+    // Authorize the client.
     this.authorize(authOptions);
   }
 
@@ -142,10 +169,13 @@ export class Client {
    * }
    */
   get apiKey(): string | null {
-    if (OpenAPI.TOKEN && typeof OpenAPI.TOKEN !== "string") {
+    if (
+      this._clientConfig.TOKEN &&
+      typeof this._clientConfig.TOKEN !== "string"
+    ) {
       return null;
     }
-    return OpenAPI.TOKEN || null;
+    return this._clientConfig.TOKEN || null;
   }
 
   /**
@@ -160,7 +190,7 @@ export class Client {
    * console.log(`Current base URL: ${client.baseUrl}`);
    */
   get baseUrl(): string {
-    return OpenAPI.BASE;
+    return this._clientConfig.BASE;
   }
 
   /** Retrieves the current log level of the client. The log level determines the verbosity of logs
@@ -174,7 +204,7 @@ export class Client {
    */
   get logLevel(): LogLevel {
     // We don't specify any custom log levels, so we can narrow the type to exclude strings.
-    return logger.level as LogLevel;
+    return this.logger.level as LogLevel;
   }
 
   /**
@@ -188,7 +218,8 @@ export class Client {
    * client.logLevel = "debug";
    */
   set logLevel(level: LogLevel) {
-    logger.level = level;
+    this.logger.level = level;
+    this.logger.debug(`Set log level to "${this.logger.level}".`);
   }
 
   /**
@@ -218,23 +249,44 @@ export class Client {
    */
   authorize(authOptions: AuthOptions): boolean {
     if (process.env.BROWSER_BUILD) {
-      OpenAPI.BASE = authOptions.baseUrl || "https://sindri.app";
-      OpenAPI.TOKEN = authOptions.apiKey;
+      this._clientConfig.BASE = authOptions.baseUrl || "https://sindri.app";
+      this._clientConfig.TOKEN = authOptions.apiKey;
     } else {
-      const config = loadConfig();
-      OpenAPI.BASE =
+      this._config!.reload();
+      this._clientConfig.BASE =
         authOptions.baseUrl ||
         process.env.SINDRI_BASE_URL ||
-        config.auth?.baseUrl ||
-        OpenAPI.BASE ||
+        this._config!.auth?.baseUrl ||
+        this._clientConfig.BASE ||
         "https://sindri.app";
-      OpenAPI.TOKEN =
-        authOptions.apiKey || process.env.SINDRI_API_KEY || config.auth?.apiKey;
+      this._clientConfig.TOKEN =
+        authOptions.apiKey ||
+        process.env.SINDRI_API_KEY ||
+        this._config!.auth?.apiKey;
     }
-    return !!(OpenAPI.BASE && OpenAPI.TOKEN);
+    return !!(this._clientConfig.BASE && this._clientConfig.TOKEN);
   }
 
-  // }[tags=["latest"]]
+  /**
+   * Creates a new {@link SindriClient} client instance. The class itself is not exported, so use
+   * this method on the exported (or any other) client instance to create a new instance. The new
+   * instance can be configured and used completely independently from any other instances. For
+   * example it can use different credentials or a different log level.
+   *
+   * @param authOptions - The authentication options for the client, including
+   * credentials like API keys or tokens. Defaults to an empty object if not provided.
+   *
+   * @example
+   * import sindri from 'sindri';
+   *
+   * // Equivalent to: const myClient = new SindriClient({ ... });
+   * const myClient = sindri.create({ apiKey: 'sindri-mykey-1234'});
+   *
+   * @returns The new client instance.
+   */
+  create(authOptions: AuthOptions | undefined): SindriClient {
+    return new SindriClient(authOptions);
+  }
 
   /**
    * Asynchronously creates and deploys a new circuit, initiating its compilation process.  This
@@ -371,7 +423,7 @@ export class Client {
             cwd: project,
             gzip: true,
             onwarn: (code: string, message: string) => {
-              logger.warn(`While creating tarball: ${code} - ${message}`);
+              this.logger.warn(`While creating tarball: ${code} - ${message}`);
             },
             prefix: `${circuitName}/`,
             sync: true,
@@ -440,28 +492,26 @@ export class Client {
     }
 
     // We need to shuffle in a hard-coded form boundary for tests to be deterministic.
-    // Note that it's import the boundary matches the Chrome format because the test runner checks
-    // payloads for this format in order to compare non-deterministic gzips.
+    // Note that it's important the boundary matches the Chrome format because the test runner
+    // checks payloads for this format in order to compare non-deterministic gzips.
     // TODO: These header changes are global, we need to make them local to this request.
-    const oldHeaders = OpenAPI.HEADERS;
-    OpenAPI.HEADERS = {
+    const oldHeaders = this._clientConfig.HEADERS;
+    this._clientConfig.HEADERS = {
+      ...oldHeaders,
       "Content-Type":
         "multipart/form-data; boundary=----WebKitFormBoundary0buQ8d6EhWcs9X9d",
     };
-    const createResponsePromise = CircuitsService.circuitCreate(
+    const createResponsePromise = this._client.circuits.circuitCreate(
       formData as NodeFormData,
     );
     const createResponse = await createResponsePromise;
-    OpenAPI.HEADERS = oldHeaders;
+    this._clientConfig.HEADERS = oldHeaders;
     const circuitId = createResponse.circuit_id;
 
     let response: CircuitInfoResponse;
     while (true) {
-      response = await CircuitsService.circuitDetail(circuitId, false);
-      if (
-        response.status === CircuitStatus.READY ||
-        response.status === CircuitStatus.FAILED
-      ) {
+      response = await this._client.circuits.circuitDetail(circuitId, false);
+      if (response.status === "Ready" || response.status === "Failed") {
         break;
       }
 
@@ -491,7 +541,7 @@ export class Client {
    * console.log("Proofs:', proofs);
    */
   async getAllCircuitProofs(circuitId: string): Promise<ProofInfoResponse[]> {
-    return await CircuitsService.circuitProofs(circuitId);
+    return await this._client.circuits.circuitProofs(circuitId);
   }
 
   /**
@@ -507,7 +557,7 @@ export class Client {
    * console.log("Circuits:", circuits);
    */
   async getAllCircuits(): Promise<CircuitInfoResponse[]> {
-    return await CircuitsService.circuitList();
+    return await this._client.circuits.circuitList();
   }
 
   /**
@@ -527,7 +577,7 @@ export class Client {
    * console.log("How many proofs?", proofs.length);
    */
   async getAllProofs(): Promise<ProofInfoResponse[]> {
-    return await ProofsService.proofList();
+    return await this._client.proofs.proofList();
   }
 
   /**
@@ -547,7 +597,7 @@ export class Client {
    * console.log('Circuit details:', circuit);
    */
   async getCircuit(circuitId: string): Promise<CircuitInfoResponse> {
-    return await CircuitsService.circuitDetail(circuitId);
+    return await this._client.circuits.circuitDetail(circuitId);
   }
 
   /**
@@ -567,7 +617,7 @@ export class Client {
    * console.log("Proof details:", proof);
    */
   async getProof(proofId: string): Promise<ProofInfoResponse> {
-    return await ProofsService.proofDetail(proofId);
+    return await this._client.proofs.proofDetail(proofId);
   }
 
   /**
@@ -593,17 +643,24 @@ export class Client {
   async proveCircuit(
     circuitId: string,
     proofInput: string,
+    verify: boolean = false,
+    includeSmartContractCalldata: boolean = false,
   ): Promise<ProofInfoResponse> {
-    const createResponse = await CircuitsService.proofCreate(circuitId, {
+    const createResponse = await this._client.circuits.proofCreate(circuitId, {
+      perform_verify: verify,
       proof_input: proofInput,
     });
     let response: ProofInfoResponse;
     while (true) {
-      response = await ProofsService.proofDetail(createResponse.proof_id);
-      if (
-        response.status === ProofStatus.READY ||
-        response.status === ProofStatus.FAILED
-      ) {
+      response = await this._client.proofs.proofDetail(
+        createResponse.proof_id,
+        true, // includeProofInput
+        true, // includeProof
+        true, // includePublic
+        includeSmartContractCalldata, // includeSmartContractCalldata
+        true, // includeVerificationKey
+      );
+      if (response.status === "Ready" || response.status === "Failed") {
         break;
       }
 

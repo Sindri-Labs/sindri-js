@@ -2,6 +2,7 @@ import esbuild from "esbuild";
 import { defineConfig } from "tsup";
 
 process.env.NODE_ENV = process.env.NODE_ENV || "production";
+process.env.VERSION = process.env.VERSION || "0.0.0";
 
 export default defineConfig([
   // SDK for NodeJS.
@@ -11,6 +12,7 @@ export default defineConfig([
     entry: ["src/lib/index.ts"],
     env: {
       NODE_ENV: process.env.NODE_ENV,
+      VERSION: process.env.VERSION,
     },
     format: ["cjs", "esm"],
     minify: process.env.NODE_ENV === "production",
@@ -29,6 +31,7 @@ export default defineConfig([
     env: {
       BROWSER_BUILD: "true",
       NODE_ENV: process.env.NODE_ENV,
+      VERSION: process.env.VERSION,
     },
     format: ["cjs", "esm"],
     minify: process.env.NODE_ENV === "production",
@@ -63,6 +66,7 @@ export default defineConfig([
     entry: ["src/cli/index.ts"],
     env: {
       NODE_ENV: process.env.NODE_ENV,
+      VERSION: process.env.VERSION,
     },
     format: ["cjs"],
     minify: process.env.NODE_ENV === "production",

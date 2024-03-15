@@ -4,6 +4,6 @@
 /* eslint-disable */
 
 /**
- * CircuitType choices
+ * JobStatus choices
  */
-export type CircuitType = "circom" | "gnark" | "halo2" | "noir";
+export type JobStatus = "Queued" | "In Progress" | "Ready" | "Failed";

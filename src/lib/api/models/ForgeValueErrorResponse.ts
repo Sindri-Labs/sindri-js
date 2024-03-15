@@ -4,8 +4,9 @@
 /* eslint-disable */
 
 /**
- * Client input when creating a circuit.
+ * Response for ForgeValueError
  */
-export type CircuitCreateInput = {
-  tags: Array<string>;
+export type ForgeValueErrorResponse = {
+  error: string;
+  message?: string;
 };

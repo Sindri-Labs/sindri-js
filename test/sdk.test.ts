@@ -52,6 +52,25 @@ test("create circuit from tarball", async (t) => {
   t.true(true);
 });
 
+test("create proof", async (t) => {
+  // Create a circuit first.
+  const tag = "sdk-create-proof-multiplier2-circuit";
+  const circuitDirectory = path.join(dataDirectory, "circom-multiplier2");
+  const circuitResponse = await sindri.createCircuit(circuitDirectory, [tag]);
+  t.true(circuitResponse.status === "Ready");
+
+  // Create a proof.
+  const proofInput = await fs.readFile(
+    path.join(circuitDirectory, "input.json"),
+    "utf-8",
+  );
+  const proofResponse = await sindri.proveCircuit(
+    `circom-multiplier2:${tag}`,
+    proofInput,
+  );
+  t.true(proofResponse?.status === "Ready");
+});
+
 test("get all circuit proofs", async (t) => {
   // Compile a circuit.
   const circuitTarballDirectory = path.join(

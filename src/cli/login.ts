@@ -9,15 +9,9 @@ import {
   select,
 } from "@inquirer/prompts";
 
-import {
-  ApiError,
-  AuthorizationService,
-  InternalService,
-  OpenAPI,
-  TokenService,
-} from "lib/api";
+import sindri from "lib";
+import { ApiError, type TeamMeResponse } from "lib/api";
 import { Config } from "lib/config";
-import { logger } from "lib/logging";
 
 export const loginCommand = new Command()
   .name("login")
@@ -25,40 +19,37 @@ export const loginCommand = new Command()
   .option(
     "-u, --base-url <URL>",
     "The base URL for the Sindri API. Mainly useful for development.",
-    OpenAPI.BASE,
+    "https://sindri.app",
   )
   .action(async ({ baseUrl }) => {
-    // Check if they're already authenticated, and prompt for confirmation if so.
     const config = new Config();
+    // Check if they're already authenticated, and prompt for confirmation if so.
     const auth = config.auth;
-    if (auth) {
-      let authenticated: boolean = false;
+    if (!auth) {
+      let teamMeResponse: TeamMeResponse | undefined;
       try {
-        const teamMeResult = await InternalService.teamMe();
-        logger.debug("/api/v1/team/me/ response:");
-        logger.debug(teamMeResult);
-        authenticated = true;
+        teamMeResponse = await sindri._client.internal.teamMe();
       } catch (error) {
         if (error instanceof ApiError && error.status === 401) {
-          logger.warn(
+          sindri.logger.warn(
             "Existing credentials found, but invalid. Please continue logging in to update them.",
           );
         } else {
-          logger.fatal("An unknown error occurred.");
-          logger.error(error);
+          sindri.logger.fatal("An unknown error occurred.");
+          sindri.logger.error(error);
           return process.exit(1);
         }
       }
 
-      if (authenticated) {
+      if (teamMeResponse) {
         const proceed = await confirm({
           message:
-            `You are already logged in as ${auth.teamSlug} on ${auth.baseUrl}, ` +
+            `You are already logged in as ${teamMeResponse.team.slug} on ${sindri.baseUrl}, ` +
             "are you sure you want to proceed?",
           default: false,
         });
         if (!proceed) {
-          logger.info("Aborting.");
+          sindri.logger.info("Aborting.");
           return;
         }
       }
@@ -75,19 +66,16 @@ export const loginCommand = new Command()
     // Generate an API key for one of their teams.
     try {
       // Generate a JWT token to authenticate the user.
-      OpenAPI.BASE = baseUrl;
-      const tokenResult = await TokenService.bf740E1AControllerObtainToken({
-        username,
-        password,
-      });
-      logger.debug("/api/token/ response:");
-      logger.debug(tokenResult);
-      OpenAPI.TOKEN = tokenResult.access;
+      sindri._clientConfig.BASE = baseUrl;
+      const tokenResult =
+        await sindri._client.token.fd3Aaa7BControllerObtainToken({
+          username,
+          password,
+        });
+      sindri._clientConfig.TOKEN = tokenResult.access;
 
       // Fetch their teams and have the user select one.
-      const userResult = await InternalService.userMeWithJwtAuth();
-      logger.debug("/api/v1/user/me/ response:");
-      logger.debug(userResult);
+      const userResult = await sindri._client.internal.userMeWithJwtAuth();
       const teamId = await select({
         message: "Select a Organization:",
         choices: userResult.teams.map(({ id, slug }) => ({
@@ -101,14 +89,15 @@ export const loginCommand = new Command()
       }
 
       // Generate an API key.
-      OpenAPI.HEADERS = { "Sindri-Team-Id": `${teamId}` };
-      const apiKeyResult = await AuthorizationService.apikeyGenerate({
+      sindri._clientConfig.HEADERS = {
+        ...sindri._clientConfig.HEADERS,
+        "Sindri-Team-Id": `${teamId}`,
+      };
+      const apiKeyResult = await sindri._client.authorization.apikeyGenerate({
         username,
         password,
         name,
       });
-      logger.debug("/api/apikey/generate/ response:");
-      logger.debug(apiKeyResult);
       const apiKey = apiKeyResult.api_key;
       const apiKeyId = apiKeyResult.id;
       const apiKeyName = apiKeyResult.name;
@@ -127,12 +116,12 @@ export const loginCommand = new Command()
           teamSlug: team.slug,
         },
       });
-      logger.info(
+      sindri.logger.info(
         "You have successfully authorized the client with your Sindri account.",
       );
     } catch (error) {
-      logger.fatal("An irrecoverable error occurred.");
-      logger.error(error);
+      sindri.logger.fatal("An irrecoverable error occurred.");
+      sindri.logger.error(error);
       process.exit(1);
     }
   });

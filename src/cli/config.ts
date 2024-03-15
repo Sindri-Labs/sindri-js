@@ -1,14 +1,15 @@
 import { Command } from "@commander-js/extra-typings";
 
-import { Config } from "lib/config";
 import { print } from "lib/logging";
+import sindri from "lib";
 
 export const configListCommand = new Command()
   .name("list")
   .description("Show the current config.")
   .action(async () => {
-    const config = new Config();
-    print(config.config);
+    // Reload the config because the log level was `silent` when the config was initially loaded.
+    sindri._config!.reload();
+    print(sindri._config!.config);
   });
 
 export const configCommand = new Command()

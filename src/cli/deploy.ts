@@ -9,8 +9,8 @@ import walk from "ignore-walk";
 import tar from "tar";
 
 import { findFileUpwards } from "cli/utils";
-import { ApiError, CircuitsService, CircuitStatus, OpenAPI } from "lib/api";
-import { logger } from "lib/logging";
+import sindri from "lib";
+import { ApiError } from "lib/api";
 
 export const deployCommand = new Command()
   .name("deploy")
@@ -22,7 +22,7 @@ export const deployCommand = new Command()
     // Validate the tags and "untagged" option.
     if (untagged) {
       if (tags.length !== 1 || tags[0] !== "latest") {
-        logger.error(
+        sindri.logger.error(
           "You cannot use both the `--tag` and `--untagged` options together.",
         );
         return process.exit(1);
@@ -30,7 +30,7 @@ export const deployCommand = new Command()
     } else {
       for (const tag of tags) {
         if (!/^[-a-zA-Z0-9_]+$/.test(tag)) {
-          logger.error(
+          sindri.logger.error(
             `"${tag}" is not a valid tag. Tags may only contain alphanumeric characters, ` +
               "underscores, and hyphens.",
           );
@@ -42,21 +42,21 @@ export const deployCommand = new Command()
     // Find `sindri.json` and move into the root of the project directory.
     const directoryPath = path.resolve(directory);
     if (!existsSync(directoryPath)) {
-      logger.error(
+      sindri.logger.error(
         `The "${directoryPath}" directory does not exist. Aborting.`,
       );
       return process.exit(1);
     }
     const sindriJsonPath = findFileUpwards(/^sindri.json$/i, directoryPath);
     if (!sindriJsonPath) {
-      logger.error(
+      sindri.logger.error(
         `No "sindri.json" file was found in or above "${directoryPath}". Aborting.`,
       );
       return process.exit(1);
     }
-    logger.debug(`Found "sindri.json" at "${sindriJsonPath}".`);
+    sindri.logger.debug(`Found "sindri.json" at "${sindriJsonPath}".`);
     const rootDirectory = path.dirname(sindriJsonPath);
-    logger.debug(`Changing current directory to "${rootDirectory}".`);
+    sindri.logger.debug(`Changing current directory to "${rootDirectory}".`);
     process.chdir(rootDirectory);
 
     // Load `sindri.json`.
@@ -66,26 +66,26 @@ export const deployCommand = new Command()
         encoding: "utf-8",
       });
       sindriJson = JSON.parse(sindriJsonContent);
-      logger.debug(
+      sindri.logger.debug(
         `Successfully loaded "sindri.json" from "${sindriJsonPath}":`,
       );
-      logger.debug(sindriJson);
+      sindri.logger.debug(sindriJson);
     } catch (error) {
-      logger.fatal(
+      sindri.logger.fatal(
         `Error loading "${sindriJsonPath}", perhaps it is not valid JSON?`,
       );
-      logger.error(error);
+      sindri.logger.error(error);
       return process.exit(1);
     }
     if (!("name" in sindriJson)) {
-      logger.error('No "name" field found in "sindri.json". Aborting.');
+      sindri.logger.error('No "name" field found in "sindri.json". Aborting.');
       return process.exit(1);
     }
     const circuitName = sindriJson.name;
 
     // Check that the API client is authorized.
-    if (!OpenAPI.TOKEN || !OpenAPI.BASE) {
-      logger.warn("You must login first with `sindri login`.");
+    if (!sindri.apiKey || !sindri.baseUrl) {
+      sindri.logger.warn("You must login first with `sindri login`.");
       return process.exit(1);
     }
 
@@ -108,7 +108,7 @@ export const deployCommand = new Command()
     }
     const formData = new FormData();
     const tarballFilename = `${circuitName}.tar.gz`;
-    logger.info(
+    sindri.logger.info(
       `Creating "${tarballFilename}" package with ${files.length} files.`,
     );
     formData.append(
@@ -119,7 +119,9 @@ export const deployCommand = new Command()
             {
               gzip: true,
               onwarn: (code: string, message: string) => {
-                logger.warn(`While creating tarball: ${code} - ${message}`);
+                sindri.logger.warn(
+                  `While creating tarball: ${code} - ${message}`,
+                );
               },
               prefix: `${circuitName}/`,
               sync: true,
@@ -144,64 +146,57 @@ export const deployCommand = new Command()
     // Upload the tarball.
     let circuitId: string | undefined;
     try {
-      logger.info("Circuit compilation initiated.");
-      const response = await CircuitsService.circuitCreate(formData);
+      sindri.logger.info("Circuit compilation initiated.");
+      const response = await sindri._client.circuits.circuitCreate(formData);
       circuitId = response.circuit_id;
-      logger.debug("/api/v1/circuit/create/ response:");
-      logger.debug(response);
     } catch (error) {
       if (error instanceof ApiError && error.status === 401) {
-        logger.error(
+        sindri.logger.error(
           "Your credentials are invalid. Please log in again with `sindri login`.",
         );
       } else {
-        logger.fatal("An unknown error occurred.");
-        logger.error(error);
+        sindri.logger.fatal("An unknown error occurred.");
+        sindri.logger.error(error);
         return process.exit(1);
       }
     }
     if (!circuitId) {
-      logger.error("No circuit ID was returned from the API. Aborting.");
+      sindri.logger.error("No circuit ID was returned from the API. Aborting.");
       return process.exit(1);
     }
 
     // Poll for circuit compilation to complete.
     const startTime = Date.now();
-    let previousStatus: CircuitStatus | undefined;
     while (true) {
       try {
-        logger.debug("Polling for circuit compilation status.");
-        const response = await CircuitsService.circuitDetail(circuitId, false);
-
-        // Only log this when the status changes because it's noisy.
-        if (previousStatus !== response.status) {
-          previousStatus = response.status;
-          logger.debug(`/api/v1/circuit/${circuitId}/detail/ response:`);
-          logger.debug(response);
-        }
+        sindri.logger.debug("Polling for circuit compilation status.");
+        const response = await sindri._client.circuits.circuitDetail(
+          circuitId,
+          false,
+        );
 
         const elapsedSeconds = ((Date.now() - startTime) / 1000).toFixed(1);
-        if (response.status === CircuitStatus.READY) {
-          logger.info(
+        if (response.status === "Ready") {
+          sindri.logger.info(
             `Circuit compiled successfully after ${elapsedSeconds} seconds.`,
           );
           break;
-        } else if (response.status === CircuitStatus.FAILED) {
-          logger.error(
+        } else if (response.status === "Failed") {
+          sindri.logger.error(
             `Circuit compilation failed after ${elapsedSeconds} seconds: ` +
               (response.error ?? "Unknown error."),
           );
           return process.exit(1);
-        } else if (response.status === CircuitStatus.QUEUED) {
-          logger.debug("Circuit compilation is queued.");
-        } else if (response.status === CircuitStatus.IN_PROGRESS) {
-          logger.debug("Circuit compilation is in progress.");
+        } else if (response.status === "Queued") {
+          sindri.logger.debug("Circuit compilation is queued.");
+        } else if (response.status === "In Progress") {
+          sindri.logger.debug("Circuit compilation is in progress.");
         }
       } catch (error) {
-        logger.fatal(
+        sindri.logger.fatal(
           "An unknown error occurred while polling for compilation to finish.",
         );
-        logger.error(error);
+        sindri.logger.error(error);
         return process.exit(1);
       }
 

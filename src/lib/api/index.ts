@@ -2,7 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+export { ApiClient } from './ApiClient';
+
 export { ApiError } from './core/ApiError';
+export { BaseHttpRequest } from './core/BaseHttpRequest';
 export { CancelablePromise, CancelError } from './core/CancelablePromise';
 export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
@@ -12,22 +15,24 @@ export type { APIKeyDoesNotExistResponse } from './models/APIKeyDoesNotExistResp
 export type { APIKeyErrorResponse } from './models/APIKeyErrorResponse';
 export type { APIKeyResponse } from './models/APIKeyResponse';
 export type { CircomCircuitInfoResponse } from './models/CircomCircuitInfoResponse';
-export type { CircuitCreateInput } from './models/CircuitCreateInput';
 export type { CircuitDoesNotExistResponse } from './models/CircuitDoesNotExistResponse';
-export { CircuitStatus } from './models/CircuitStatus';
-export { CircuitType } from './models/CircuitType';
+export type { CircuitInfoResponse } from './models/CircuitInfoResponse';
+export type { CircuitIsNotReadyResponse } from './models/CircuitIsNotReadyResponse';
+export type { CircuitType } from './models/CircuitType';
 export type { ComingSoonResponse } from './models/ComingSoonResponse';
 export type { ForgeInternalErrorResponse } from './models/ForgeInternalErrorResponse';
 export type { ForgeInvalidUploadResponse } from './models/ForgeInvalidUploadResponse';
+export type { ForgeValueErrorResponse } from './models/ForgeValueErrorResponse';
 export type { GnarkCircuitInfoResponse } from './models/GnarkCircuitInfoResponse';
 export type { Halo2CircuitInfoResponse } from './models/Halo2CircuitInfoResponse';
+export type { JobStatus } from './models/JobStatus';
 export type { NoirCircuitInfoResponse } from './models/NoirCircuitInfoResponse';
 export type { ObtainApikeyInput } from './models/ObtainApikeyInput';
 export type { ProofCannotBeCreatedResponse } from './models/ProofCannotBeCreatedResponse';
 export type { ProofDoesNotExistResponse } from './models/ProofDoesNotExistResponse';
 export type { ProofInfoResponse } from './models/ProofInfoResponse';
-export { ProofStatus } from './models/ProofStatus';
 export type { Schema } from './models/Schema';
+export type { SmartContractVerifierResponse } from './models/SmartContractVerifierResponse';
 export type { TeamDetail } from './models/TeamDetail';
 export type { TeamMeResponse } from './models/TeamMeResponse';
 export type { TokenObtainPairInputSchema } from './models/TokenObtainPairInputSchema';

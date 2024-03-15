@@ -3,29 +3,78 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { CircuitStatus } from "./CircuitStatus";
-import type { CircuitType } from "./CircuitType";
+import type { JobStatus } from "./JobStatus";
 
 /**
  * Response for getting Gnark circuit info.
  */
 export type GnarkCircuitInfoResponse = {
+  /**
+   * A unique identifier generated for the circuit. UUID4 format.
+   */
   circuit_id: string;
-  circuit_type: CircuitType;
+  /**
+   * The name of a circuit. This can be used in place of circuit_id for proving. This is specified during creation in the included sindri.json file.
+   */
   circuit_name: string;
+  /**
+   * The development framework used to write the circuit. This is specified during creation in the included sindri.json file.
+   */
+  circuit_type: "gnark";
+  /**
+   * The UTC datetime the circuit was uploaded in ISO8601 format.
+   */
   date_created: string;
-  status: CircuitStatus;
-  compute_time?: number;
-  compute_times?: any;
-  file_sizes?: Record<string, any>;
-  metadata?: Record<string, any>;
-  uploaded_file_name: string;
-  worker_hardware?: Record<string, any>;
-  verification_key?: Record<string, any>;
-  error?: string;
-  circuit_struct_name: string;
-  curve: string;
-  gnark_version: string;
-  package_name: string;
+  /**
+   * The number of proofs submitted for this circuit.
+   */
+  num_proofs: number;
+  /**
+   * The proving scheme for this circuit. This is specified during creation in the included sindri.json file.
+   */
   proving_scheme: string;
+  /**
+   * The status of the circuit job.
+   */
+  status: JobStatus;
+  /**
+   * The user/team that owns this circuit.
+   */
+  team: string;
+  /**
+   * Total compute time in ISO8601 format. This does not include the Queued time.
+   */
+  compute_time?: number;
+  /**
+   * Total compute time in seconds. This does not include the Queued time.
+   */
+  compute_time_sec?: number;
+  /**
+   * Detailed compute times for the circuit compilation.
+   */
+  compute_times?: any;
+  /**
+   * Total size of stored file(s) in bytes.
+   */
+  file_size?: number;
+  /**
+   * The name of the uploaded circuit file. Note: the CLI and SDKs create a generic name when a directory is specified for upload.
+   */
+  uploaded_file_name: string;
+  /**
+   * The verification key of this circuit.
+   */
+  verification_key?: Record<string, any>;
+  /**
+   * The error message for a failed circuit upload.
+   */
+  error?: string;
+  /**
+   * The elliptic curve over which the proving protocol takes place.
+   */
+  curve: string;
+  /**
+   * The Gnark frontend version tag.
+   */
+  gnark_version: string;
 };
