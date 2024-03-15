@@ -17,11 +17,18 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
+      {%- if circuitType == "circom" %}
           cache: npm
+      {%- endif %}
 
       - name: Store the Current Branch Name
         run: |
-          echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "BRANCH_NAME=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
+          else
+            BRANCH_NAME=$(echo ${{ github.ref }} | sed -e 's,refs/heads/,,')
+            echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+          fi
 
       - name: Install Sindri CLI Tool
         run: |
@@ -41,11 +48,13 @@ jobs:
       - name: Compile the Circuit
         run: |
           sindri deploy --tag "${BRANCH_NAME}"
+        env:
+          SINDRI_API_KEY: {% raw %}${{ secrets.SINDRI_API_KEY }}{% endraw %}
+
 
       - name: Create and Verify a Proof
         run: |
           sindri proof create --verify --tag "${BRANCH_NAME}"
-
         env:
           SINDRI_API_KEY: {% raw %}${{ secrets.SINDRI_API_KEY }}{% endraw %}
 
@@ -62,7 +71,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
+      {%- if circuitType == "circom" %}
           cache: npm
+      {%- endif %}
 
       - name: Install Sindri CLI Tool
         run: |
@@ -78,6 +89,5 @@ jobs:
       - name: Deploy the Circuit
         run: |
           sindri deploy
-
         env:
           SINDRI_API_KEY: {% raw %}${{ secrets.SINDRI_API_KEY }}{% endraw %}
