@@ -56,10 +56,6 @@ export type ProofInfoResponse = {
    */
   file_size?: number;
   /**
-   * The private/public inputs to the circuit.
-   */
-  proof_input?: Record<string, any>;
-  /**
    * The succinct argument(s) of knowledge.
    */
   proof?: Record<string, any>;

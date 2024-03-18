@@ -27,7 +27,7 @@ export class ApiClient {
     constructor(config?: Partial<OpenAPIConfig>, HttpRequest: HttpRequestConstructor = AxiosHttpRequest) {
         this.request = new HttpRequest({
             BASE: config?.BASE ?? 'https://sindri.app',
-            VERSION: config?.VERSION ?? '1.6.9',
+            VERSION: config?.VERSION ?? '1.6.11',
             WITH_CREDENTIALS: config?.WITH_CREDENTIALS ?? false,
             CREDENTIALS: config?.CREDENTIALS ?? 'include',
             TOKEN: config?.TOKEN,
