@@ -654,7 +654,6 @@ export class SindriClient {
     while (true) {
       response = await this._client.proofs.proofDetail(
         createResponse.proof_id,
-        true, // includeProofInput
         true, // includeProof
         true, // includePublic
         includeSmartContractCalldata, // includeSmartContractCalldata

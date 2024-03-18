@@ -14,7 +14,6 @@ export class ProofsService {
   /**
    * Proof List
    * Return list of ProofInfoResponse for proofs related to team.
-   * @param includeProofInput
    * @param includeProof
    * @param includePublic
    * @param includeSmartContractCalldata
@@ -23,7 +22,6 @@ export class ProofsService {
    * @throws ApiError
    */
   public proofList(
-    includeProofInput: boolean = false,
     includeProof: boolean = false,
     includePublic: boolean = false,
     includeSmartContractCalldata: boolean = false,
@@ -33,7 +31,6 @@ export class ProofsService {
       method: "GET",
       url: "/api/v1/proof/list",
       query: {
-        include_proof_input: includeProofInput,
         include_proof: includeProof,
         include_public: includePublic,
         include_smart_contract_calldata: includeSmartContractCalldata,
@@ -50,7 +47,6 @@ export class ProofsService {
    * Proof Detail
    * Get info for existing proof
    * @param proofId
-   * @param includeProofInput
    * @param includeProof
    * @param includePublic
    * @param includeSmartContractCalldata
@@ -60,7 +56,6 @@ export class ProofsService {
    */
   public proofDetail(
     proofId: string,
-    includeProofInput: boolean = true,
     includeProof: boolean = true,
     includePublic: boolean = true,
     includeSmartContractCalldata: boolean = false,
@@ -73,7 +68,6 @@ export class ProofsService {
         proof_id: proofId,
       },
       query: {
-        include_proof_input: includeProofInput,
         include_proof: includeProof,
         include_public: includePublic,
         include_smart_contract_calldata: includeSmartContractCalldata,

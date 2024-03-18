@@ -119,7 +119,6 @@ export class CircuitsService {
    * Circuit Proofs
    * Return list of ProofInfoResponse for proofs of circuit_id related to team.
    * @param circuitId
-   * @param includeProofInput
    * @param includeProof
    * @param includePublic
    * @param includeSmartContractCalldata
@@ -129,7 +128,6 @@ export class CircuitsService {
    */
   public circuitProofs(
     circuitId: string,
-    includeProofInput: boolean = false,
     includeProof: boolean = false,
     includePublic: boolean = false,
     includeSmartContractCalldata: boolean = false,
@@ -142,7 +140,6 @@ export class CircuitsService {
         circuit_id: circuitId,
       },
       query: {
-        include_proof_input: includeProofInput,
         include_proof: includeProof,
         include_public: includePublic,
         include_smart_contract_calldata: includeSmartContractCalldata,
@@ -168,7 +165,7 @@ export class CircuitsService {
     circuitId: string,
     formData: {
       /**
-       * JSON-serialized string for the proof input.
+       * A string representing proof input which may be formatted as JSON for any framework. Noir circuits optionally accept TOML formatted proof input.
        */
       proof_input: string;
       /**
