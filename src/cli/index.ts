@@ -3,6 +3,7 @@ import { argv, exit } from "process";
 
 import { Command } from "@commander-js/extra-typings";
 
+import { cloneCommand } from "cli/clone";
 import { configCommand } from "cli/config";
 import { execCommand } from "cli/exec";
 import { initCommand } from "cli/init";
@@ -29,6 +30,7 @@ export const program = new Command()
     "Disable all logging aside from direct command outputs for programmatic consumption.",
     false,
   )
+  .addCommand(cloneCommand)
   .addCommand(configCommand)
   .addCommand(execCommand)
   .addCommand(initCommand)

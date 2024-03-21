@@ -42,11 +42,11 @@ export type NoirCircuitInfoResponse = {
    */
   team: string;
   /**
-   * Total compute time in ISO8601 format. This does not include the Queued time.
+   * Total compute time in ISO8601 format.
    */
   compute_time?: number;
   /**
-   * Total compute time in seconds. This does not include the Queued time.
+   * Total compute time in seconds.
    */
   compute_time_sec?: number;
   /**
@@ -57,6 +57,14 @@ export type NoirCircuitInfoResponse = {
    * Total size of stored file(s) in bytes.
    */
   file_size?: number;
+  /**
+   * Queue time in ISO8601 format.
+   */
+  queue_time?: number;
+  /**
+   * Queue time in seconds.
+   */
+  queue_time_sec?: number;
   /**
    * The name of the uploaded circuit file. Note: the CLI and SDKs create a generic name when a directory is specified for upload.
    */

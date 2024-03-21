@@ -250,6 +250,7 @@ export const sendRequest = async <T>(
     method: options.method,
     withCredentials: config.WITH_CREDENTIALS,
     cancelToken: source.token,
+    responseType: options.responseType,
   };
 
   onCancel(() => source.cancel("The user aborted a request."));
@@ -397,6 +398,10 @@ export const request = <T>(
           config.logger?.debug(
             `${responseMessage} - ${result.body || "<empty-body>"}`,
           );
+        } else if (options.responseType === "stream") {
+          config.logger?.debug(`${responseMessage} - <streaming-response>`);
+        } else if (options.responseType === "blob") {
+          config.logger?.debug(`${responseMessage} - <blob-response>`);
         } else {
           config.logger?.debug(result.body, responseMessage);
         }
