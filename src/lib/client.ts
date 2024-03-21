@@ -330,10 +330,10 @@ export class SindriClient {
     // First, validate the tags and them to the form data.
     tags = typeof tags === "string" ? [tags] : tags ?? [];
     for (const tag of tags) {
-      if (!/^[-a-zA-Z0-9_]+$/.test(tag)) {
+      if (!/^[-a-zA-Z0-9_.]+$/.test(tag)) {
         throw new Error(
           `"${tag}" is not a valid tag. Tags may only contain alphanumeric characters, ` +
-            "underscores, and hyphens.",
+            "underscores, hyphens, and periods.",
         );
       }
       formData.append("tags", tag);
