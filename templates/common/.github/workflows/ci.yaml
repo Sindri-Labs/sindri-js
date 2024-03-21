@@ -1,0 +1,125 @@
+name: CI Workflow
+
+on:
+  push:
+    branches: [main, master]
+    tags:
+      - "v*"
+  pull_request:
+
+jobs:
+  lint-compile-prove:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      {%- if circuitType == "circom" %}
+          cache: npm
+      {%- endif %}
+
+      - name: Store the Current Branch Name
+        run: |
+          {% raw %}if [ "${{ github.event_name }}" = "pull_request" ]; then{% endraw %}
+            {% raw %}echo "BRANCH_NAME=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV{% endraw %}
+          {% raw %}elif [[ "${{ github.ref }}" == refs/tags/* ]]; then{% endraw %}
+            echo "No branch name detected because this is a git tag release."
+          else
+            {% raw %}BRANCH_NAME=$(echo ${{ github.ref }} | sed -e 's,refs/heads/,,'){% endraw %}
+            echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+          fi
+
+      - name: Install Sindri CLI Tool
+        run: |
+          npm install -g sindri@latest
+
+      {%- if circuitType == "circom" %}
+
+      - name: Install JavaScript Dependencies
+        run: |
+          npm ci
+      {%- endif %}
+
+      - name: Lint Circuit
+        run: |
+          sindri lint
+
+      - name: Compile the Circuit
+        run: |
+          if [ -z "${BRANCH_NAME}" ]; then
+            # Compile without a circuit tag for tag releases because there's no branch reference.
+            echo "Deploying as an untagged circuit."
+            sindri deploy --untagged
+          else
+            # Otherwise use the branch name as a tag.
+            echo "Deploying with tag \"${BRANCH_NAME}\"."
+            sindri deploy --tag "${BRANCH_NAME}"
+          fi
+        env:
+          SINDRI_API_KEY: {% raw %}${{ secrets.SINDRI_API_KEY }}{% endraw %}
+
+
+      - name: Create and Verify a Proof
+        # Skip proving on tag releases because there's no branch to use as a tag.
+        if: "!startsWith(github.ref, 'refs/tags/v')"
+        run: |
+          sindri proof create --verify --tag "${BRANCH_NAME}"
+        env:
+          SINDRI_API_KEY: {% raw %}${{ secrets.SINDRI_API_KEY }}{% endraw %}
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: >
+      github.event_name == 'push' &&
+      (
+        github.ref == 'refs/heads/main' ||
+        github.ref == 'refs/heads/master' ||
+        startsWith(github.ref, 'refs/tags/v')
+      )
+
+    needs: [lint-compile-prove]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      {%- if circuitType == "circom" %}
+          cache: npm
+      {%- endif %}
+
+      - name: Install Sindri CLI Tool
+        run: |
+          npm install -g sindri@latest
+
+      {%- if circuitType == "circom" %}
+
+      - name: Install JavaScript Dependencies
+        run: |
+          npm ci
+      {%- endif %}
+
+      - name: Extract Version Tag
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            # Use the git version tag as the circuit tag for tag releases.
+            echo "VERSION_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+          else
+            # Use `latest` as the circuit tag for `main`/`master` CD releases.
+            echo "VERSION_TAG=latest" >> $GITHUB_ENV
+          fi
+
+      - name: Deploy the Circuit
+        run: |
+          echo "Deploying with tag \"${VERSION_TAG}\"."
+          sindri deploy --tag "${VERSION_TAG}"
+        env:
+          SINDRI_API_KEY: {% raw %}${{ secrets.SINDRI_API_KEY }}{% endraw %}
