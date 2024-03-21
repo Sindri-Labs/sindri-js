@@ -29,10 +29,10 @@ export const deployCommand = new Command()
       }
     } else {
       for (const tag of tags) {
-        if (!/^[-a-zA-Z0-9_]+$/.test(tag)) {
+        if (!/^[-a-zA-Z0-9_.]+$/.test(tag)) {
           sindri.logger.error(
             `"${tag}" is not a valid tag. Tags may only contain alphanumeric characters, ` +
-              "underscores, and hyphens.",
+              "underscores, hyphens, and periods.",
           );
           return process.exit(1);
         }
