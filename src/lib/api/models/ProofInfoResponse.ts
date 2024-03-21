@@ -39,17 +39,20 @@ export type ProofInfoResponse = {
    */
   status: JobStatus;
   /**
-   * The user/team that owns this circuit for this proof.
+   * The user/team that owns this proof.
    */
   team: string;
   /**
-   * Total compute time in ISO8601 format. This does not include the Queued time.
+   * Total compute time in ISO8601 format.
    */
   compute_time?: number;
   /**
-   * Total compute time in seconds. This does not include the Queued time.
+   * Total compute time in seconds.
    */
   compute_time_sec?: number;
+  /**
+   * Detailed compute times for the proof generation.
+   */
   compute_times?: any;
   /**
    * Total size of stored file(s) in bytes.
@@ -63,6 +66,14 @@ export type ProofInfoResponse = {
    * The public outputs of the circuit.
    */
   public?: any;
+  /**
+   * Queue time in ISO8601 format.
+   */
+  queue_time?: number;
+  /**
+   * Queue time in seconds.
+   */
+  queue_time_sec?: number;
   /**
    * The proof and public formatted as calldata for the smart contract verifier.
    */

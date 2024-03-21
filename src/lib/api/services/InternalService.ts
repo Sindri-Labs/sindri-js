@@ -14,6 +14,27 @@ export class InternalService {
   constructor(public readonly httpRequest: BaseHttpRequest) {}
 
   /**
+   * Circuit Download
+   * Return the gzipped tarball for the specified circuit.
+   * @param circuitId
+   * @returns binary OK
+   * @throws ApiError
+   */
+  public circuitDownload(circuitId: string): CancelablePromise<Blob> {
+    return this.httpRequest.request({
+      method: "GET",
+      url: "/api/v1/circuit/{circuit_id}/download",
+      path: {
+        circuit_id: circuitId,
+      },
+      errors: {
+        404: `Not Found`,
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
    * Circuit Smart Contract Verifier
    * Get smart contract verifier for existing circuit
    * @param circuitId
