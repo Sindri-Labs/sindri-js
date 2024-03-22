@@ -13,7 +13,7 @@
     "preserveConstEnums": true,
     "sourceMap": true,
     "outDir": "dist",
-    "rootDir": "src",
+    "esModuleInterop": true
   },
   "include": ["src/**/*", "test/**/*"],
   "exclude": ["dist/**/*", "node_modules/**/*", "test/import.test.ts"]
