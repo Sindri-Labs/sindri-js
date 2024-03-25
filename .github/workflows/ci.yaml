@@ -62,11 +62,13 @@ jobs:
 
       # TODO: Delete this steps once I have everything all working.
       - name: Install Ldid to Sign MacOS Binaries
+        if: success() || failure()
         run: |
           sudo curl -L https://github.com/ProcursusTeam/ldid/releases/download/v2.1.5-procursus7/ldid_linux_x86_64 -o /usr/bin/ldid
           sudo chmod a+xr /usr/bin/ldid
 
       - name: Build Pkg Packages
+        if: success() || failure()
         run: |
           yarn build:pkg:fast
 
