@@ -21,6 +21,8 @@
   ],
   "files": [
     "dist/",
+    "!dist/cli/index.bundle.js",
+    "!dist/cli/index.bundle.js.map",
     "sindri-manifest.json",
     "src/",
     "templates/",
@@ -48,6 +50,8 @@
   },
   "scripts": {
     "build": "rm -rf dist/* && NODE_ENV=production tsup",
+    "build:pkg": "yarn build && yarn pkg pkg.config.json",
+    "build:pkg:fast": "yarn pkg pkg.config.json",
     "build:watch": "rm -rf dist/* && NODE_ENV=development tsup --watch",
     "download-sindri-manifest-schema": "nwget https://sindri.app/api/v1/sindri-manifest-schema.json -O sindri-manifest.json && prettier --write sindri-manifest.json",
     "download-sindri-manifest-schema:dev": "nwget http://localhost/api/v1/sindri-manifest-schema.json -O sindri-manifest.json && prettier --write sindri-manifest.json",
@@ -126,6 +130,7 @@
     "nodemon": "^3.0.2",
     "openapi-typescript-codegen": "^0.25.0",
     "parse-multipart-data": "^1.5.0",
+    "pkg": "^5.8.1",
     "prettier": "^3.1.0",
     "puppeteer": "^22.6.0",
     "rollup": "^4.9.5",

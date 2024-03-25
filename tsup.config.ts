@@ -74,5 +74,18 @@ export default defineConfig([
     shims: true,
     sourcemap: true,
     target: "node18",
+    // Produce an IIFE bundle for use with a <script> tag in a browser.
+    onSuccess: async () => {
+      await esbuild.build({
+        bundle: true,
+        entryPoints: ["dist/cli/index.js"],
+        external: ["ssh2"],
+        format: "cjs",
+        minify: process.env.NODE_ENV === "production",
+        outfile: "dist/cli/index.bundle.js",
+        platform: "node",
+        sourcemap: true,
+      });
+    },
   },
 ]);

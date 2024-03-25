@@ -1,0 +1,18 @@
+{
+  "bin": "dist/cli/index.bundle.js",
+  "name": "sindri",
+  "pkg": {
+    "assets": ["sindri-manifest.json", "templates/**/*"],
+    "debug": true,
+    "outputPath": "pkg",
+    "scripts": "dist/cli/index.bundle.js",
+    "targets": [
+      "node18-linuxstatic-arm64",
+      "node18-linuxstatic-x64",
+      "node18-macos-arm64",
+      "node18-macos-x64",
+      "node18-win-arm64",
+      "node18-win-x64"
+    ]
+  }
+}
