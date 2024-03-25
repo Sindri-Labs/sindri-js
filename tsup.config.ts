@@ -79,6 +79,7 @@ export default defineConfig([
       await esbuild.build({
         bundle: true,
         entryPoints: ["dist/cli/index.js"],
+        external: ["ssh2"],
         format: "cjs",
         minify: process.env.NODE_ENV === "production",
         outfile: "dist/cli/index.bundle.js",
