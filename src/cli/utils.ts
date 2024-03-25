@@ -1,6 +1,6 @@
 import assert from "assert";
 import { spawn } from "child_process";
-import { constants as fsConstants, readdirSync, readFileSync } from "fs";
+import { readdirSync, readFileSync } from "fs";
 import fs from "fs";
 import { mkdir, readdir, readFile, stat, writeFile } from "fs/promises";
 import os from "os";
