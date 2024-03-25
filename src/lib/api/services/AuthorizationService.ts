@@ -37,12 +37,12 @@ export class AuthorizationService {
   /**
    * Generate long-term API Key (requires prior authentication)
    * Return a long-term API key for the user's team.
-   * @param name
+   * @param name An optional name or tag to assign to the generated API Key.
    * @returns APIKeyResponse Created
    * @throws ApiError
    */
   public apikeyGenerateWithAuth(
-    name: string = "",
+    name?: string,
   ): CancelablePromise<APIKeyResponse> {
     return this.httpRequest.request({
       method: "POST",
@@ -75,7 +75,7 @@ export class AuthorizationService {
   /**
    * Delete API Key
    * Mark the specified API Key as deleted.
-   * @param apikeyId
+   * @param apikeyId The UUID4 identifier associated with this API Key.
    * @returns ActionResponse OK
    * @throws ApiError
    */

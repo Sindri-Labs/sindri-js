@@ -45,42 +45,15 @@ export class CircuitsService {
   }
 
   /**
-   * Circuit Download
-   * Return the gzipped tarball for the specified circuit.
-   * @param circuitId
-   * @returns any OK
-   * @throws ApiError
-   */
-  public circuitDownload(circuitId: string): CancelablePromise<any> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/api/v1/circuit/{circuit_id}/download",
-      path: {
-        circuit_id: circuitId,
-      },
-      errors: {
-        404: `Not Found`,
-        500: `Internal Server Error`,
-      },
-    });
-  }
-
-  /**
    * Circuit List
-   * Return a list of CircuitInfoResponse for circuits related to user.
-   * @param includeVerificationKey
+   * Return the list of all circuit infos.
    * @returns CircuitInfoResponse OK
    * @throws ApiError
    */
-  public circuitList(
-    includeVerificationKey: boolean = false,
-  ): CancelablePromise<Array<CircuitInfoResponse>> {
+  public circuitList(): CancelablePromise<Array<CircuitInfoResponse>> {
     return this.httpRequest.request({
       method: "GET",
       url: "/api/v1/circuit/list",
-      query: {
-        include_verification_key: includeVerificationKey,
-      },
       errors: {
         500: `Internal Server Error`,
       },
@@ -89,9 +62,21 @@ export class CircuitsService {
 
   /**
    * Circuit Detail
-   * Get info for existing circuit
-   * @param circuitId
-   * @param includeVerificationKey
+   * Get info for an existing circuit.
+   * @param circuitId The circuit identifer of the circuit.
+   * This can take one of the following forms:
+   *
+   * 1. `<CIRCUIT_ID>` - The unique UUID4 ID for an exact version of a compiled circuit.
+   * 2. `<CIRCUIT_NAME>` - The name of a circuit owned by the authenticated team. This will default to
+   * the most recent version of the circuit tagged as `latest`.
+   * 3. `<CIRCUIT_NAME>:<TAG>` - The name of a circuit owned by the authenticated team and an explicit
+   * tag. This corresponds to the most recent compilation of the circuit with the specified tag.
+   * 4. `<TEAM_NAME>/<CIRCUIT_NAME>` - The name of a circuit owned by the specified team.  This will
+   * default to the most recent version of the circuit tagged as `latest`.
+   * 5. `<TEAM_NAME>/<CIRCUIT_NAME>:<TAG>` - The name of a circuit owned by a specified team and an
+   * explicit tag. This corresponds to the most recent compilation of the team's circuit with the
+   * specified tag.
+   * @param includeVerificationKey Indicates whether to include the verification key in the response.
    * @returns CircuitInfoResponse OK
    * @throws ApiError
    */
@@ -117,8 +102,20 @@ export class CircuitsService {
 
   /**
    * Delete Circuit
-   * Mark the specified circuit and any related proofs as deleted.
-   * @param circuitId
+   * Mark the specified circuit and any of its related proofs as deleted.
+   * @param circuitId The circuit identifer of the circuit.
+   * This can take one of the following forms:
+   *
+   * 1. `<CIRCUIT_ID>` - The unique UUID4 ID for an exact version of a compiled circuit.
+   * 2. `<CIRCUIT_NAME>` - The name of a circuit owned by the authenticated team. This will default to
+   * the most recent version of the circuit tagged as `latest`.
+   * 3. `<CIRCUIT_NAME>:<TAG>` - The name of a circuit owned by the authenticated team and an explicit
+   * tag. This corresponds to the most recent compilation of the circuit with the specified tag.
+   * 4. `<TEAM_NAME>/<CIRCUIT_NAME>` - The name of a circuit owned by the specified team.  This will
+   * default to the most recent version of the circuit tagged as `latest`.
+   * 5. `<TEAM_NAME>/<CIRCUIT_NAME>:<TAG>` - The name of a circuit owned by a specified team and an
+   * explicit tag. This corresponds to the most recent compilation of the team's circuit with the
+   * specified tag.
    * @returns ActionResponse OK
    * @throws ApiError
    */
@@ -138,21 +135,25 @@ export class CircuitsService {
 
   /**
    * Circuit Proofs
-   * Return list of ProofInfoResponse for proofs of circuit_id related to team.
-   * @param circuitId
-   * @param includeProof
-   * @param includePublic
-   * @param includeSmartContractCalldata
-   * @param includeVerificationKey
+   * Return a list of proof infos for the provided circuit_id.
+   * @param circuitId The circuit identifer of the circuit.
+   * This can take one of the following forms:
+   *
+   * 1. `<CIRCUIT_ID>` - The unique UUID4 ID for an exact version of a compiled circuit.
+   * 2. `<CIRCUIT_NAME>` - The name of a circuit owned by the authenticated team. This will default to
+   * the most recent version of the circuit tagged as `latest`.
+   * 3. `<CIRCUIT_NAME>:<TAG>` - The name of a circuit owned by the authenticated team and an explicit
+   * tag. This corresponds to the most recent compilation of the circuit with the specified tag.
+   * 4. `<TEAM_NAME>/<CIRCUIT_NAME>` - The name of a circuit owned by the specified team.  This will
+   * default to the most recent version of the circuit tagged as `latest`.
+   * 5. `<TEAM_NAME>/<CIRCUIT_NAME>:<TAG>` - The name of a circuit owned by a specified team and an
+   * explicit tag. This corresponds to the most recent compilation of the team's circuit with the
+   * specified tag.
    * @returns ProofInfoResponse OK
    * @throws ApiError
    */
   public circuitProofs(
     circuitId: string,
-    includeProof: boolean = false,
-    includePublic: boolean = false,
-    includeSmartContractCalldata: boolean = false,
-    includeVerificationKey: boolean = false,
   ): CancelablePromise<Array<ProofInfoResponse>> {
     return this.httpRequest.request({
       method: "GET",
@@ -160,16 +161,9 @@ export class CircuitsService {
       path: {
         circuit_id: circuitId,
       },
-      query: {
-        include_proof: includeProof,
-        include_public: includePublic,
-        include_smart_contract_calldata: includeSmartContractCalldata,
-        include_verification_key: includeVerificationKey,
-      },
       errors: {
         404: `Not Found`,
         500: `Internal Server Error`,
-        501: `Not Implemented`,
       },
     });
   }
@@ -177,7 +171,19 @@ export class CircuitsService {
   /**
    * Create Proof for Circuit
    * Prove a circuit with specific inputs.
-   * @param circuitId
+   * @param circuitId The circuit identifer of the circuit.
+   * This can take one of the following forms:
+   *
+   * 1. `<CIRCUIT_ID>` - The unique UUID4 ID for an exact version of a compiled circuit.
+   * 2. `<CIRCUIT_NAME>` - The name of a circuit owned by the authenticated team. This will default to
+   * the most recent version of the circuit tagged as `latest`.
+   * 3. `<CIRCUIT_NAME>:<TAG>` - The name of a circuit owned by the authenticated team and an explicit
+   * tag. This corresponds to the most recent compilation of the circuit with the specified tag.
+   * 4. `<TEAM_NAME>/<CIRCUIT_NAME>` - The name of a circuit owned by the specified team.  This will
+   * default to the most recent version of the circuit tagged as `latest`.
+   * 5. `<TEAM_NAME>/<CIRCUIT_NAME>:<TAG>` - The name of a circuit owned by a specified team and an
+   * explicit tag. This corresponds to the most recent compilation of the team's circuit with the
+   * specified tag.
    * @param formData
    * @returns ProofInfoResponse Created
    * @throws ApiError
@@ -190,7 +196,7 @@ export class CircuitsService {
        */
       proof_input: string;
       /**
-       * A boolean indicating whether an internal verification check occurred during the proof creation.
+       * A boolean indicating whether to perform an internal verification check during the proof creation.
        */
       perform_verify?: boolean;
       /**

@@ -12,45 +12,13 @@ export class ProofsService {
   constructor(public readonly httpRequest: BaseHttpRequest) {}
 
   /**
-   * Proof List
-   * Return list of ProofInfoResponse for proofs related to team.
-   * @param includeProof
-   * @param includePublic
-   * @param includeSmartContractCalldata
-   * @param includeVerificationKey
-   * @returns ProofInfoResponse OK
-   * @throws ApiError
-   */
-  public proofList(
-    includeProof: boolean = false,
-    includePublic: boolean = false,
-    includeSmartContractCalldata: boolean = false,
-    includeVerificationKey: boolean = false,
-  ): CancelablePromise<Array<ProofInfoResponse>> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/api/v1/proof/list",
-      query: {
-        include_proof: includeProof,
-        include_public: includePublic,
-        include_smart_contract_calldata: includeSmartContractCalldata,
-        include_verification_key: includeVerificationKey,
-      },
-      errors: {
-        500: `Internal Server Error`,
-        501: `Not Implemented`,
-      },
-    });
-  }
-
-  /**
    * Proof Detail
-   * Get info for existing proof
-   * @param proofId
-   * @param includeProof
-   * @param includePublic
-   * @param includeSmartContractCalldata
-   * @param includeVerificationKey
+   * Get info for an existing proof.
+   * @param proofId The UUID4 identifier associated with this proof.
+   * @param includeProof Indicates whether to include the proof in the response.
+   * @param includePublic Indicates whether to include public inputs in the response.
+   * @param includeSmartContractCalldata Indicates whether to include the proof and public formatted as smart contract calldata in the response.
+   * @param includeVerificationKey Indicates whether to include the circuit's verification key in the response.
    * @returns ProofInfoResponse OK
    * @throws ApiError
    */
@@ -84,7 +52,7 @@ export class ProofsService {
   /**
    * Delete Proof
    * Mark the specified proof as deleted.
-   * @param proofId
+   * @param proofId The UUID4 identifier associated with this proof.
    * @returns ActionResponse OK
    * @throws ApiError
    */
