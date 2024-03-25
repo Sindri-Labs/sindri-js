@@ -21,6 +21,14 @@ RUN apt-get install --yes git python3 \
     `# Chromium runtime dependencies` \
     libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libgbm1 libasound2 libpangocairo-1.0-0 libxss1 libgtk-3-0
 
+# Install ldid for signing MacOS binaries.
+RUN if [ "$(uname -m)" = "aarch64" ]; then \
+      curl -L https://github.com/ProcursusTeam/ldid/releases/download/v2.1.5-procursus7/ldid_linux_aarch64 -o /usr/bin/ldid; \
+    else \
+      curl -L https://github.com/ProcursusTeam/ldid/releases/download/v2.1.5-procursus7/ldid_linux_x86_64 -o /usr/bin/ldid; \
+    fi && \
+    chmod a+rx /usr/bin/ldid
+
 USER node
 
 # Conditionally install an arm64 build of Chromium for Puppeteer if we're on an arm64 host.
