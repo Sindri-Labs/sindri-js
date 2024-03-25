@@ -21,6 +21,8 @@
   ],
   "files": [
     "dist/",
+    "!dist/cli/index.bundle.js",
+    "!dist/cli/index.bundle.js.map",
     "sindri-manifest.json",
     "src/",
     "templates/",
