@@ -28,7 +28,7 @@ USER node
 # See: https://github.com/puppeteer/puppeteer/issues/7740#issuecomment-1875162960
 RUN if [ "$(uname -m)" = "aarch64" ]; then \
       cd /home/node/ && \
-      curl 'https://playwright.azureedge.net/builds/chromium/1088/chromium-linux-arm64.zip' > chromium.zip && \
+      curl 'https://playwright.azureedge.net/builds/chromium/1107/chromium-linux-arm64.zip' > chromium.zip && \
       unzip chromium.zip && \
       rm -f chromium.zip && \
       echo 'export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true' >> ~/.bashrc && \
