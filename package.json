@@ -39,6 +39,19 @@
     "./dist/lib/index.mjs": "./dist/lib/browser/index.mjs"
   },
   "jsdelivr": "./dist/lib/browser/sindri.iife.js",
+  "pkg": {
+    "assets": ["sindri-manifest.json", "templates/**/*"],
+    "debug": true,
+    "targets": [
+      "node18-linuxstatic-arm64",
+      "node18-linuxstatic-x64",
+      "node18-macos-arm64",
+      "node18-macos-x64",
+      "node18-win-arm64",
+      "node18-win-x64"
+    ],
+    "scripts": "dist/cli/index.js"
+  },
   "exports": {
     ".": {
       "import": "./dist/lib/index.mjs",
