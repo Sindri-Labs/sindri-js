@@ -1,7 +1,8 @@
 import assert from "assert";
 import { spawn } from "child_process";
 import { constants as fsConstants, readdirSync, readFileSync } from "fs";
-import { access, mkdir, readdir, readFile, stat, writeFile } from "fs/promises";
+import fs from "fs";
+import { mkdir, readdir, readFile, stat, writeFile } from "fs/promises";
 import os from "os";
 import path from "path";
 import process from "process";
@@ -443,7 +444,9 @@ export async function execLocalCommand(
  */
 export async function fileExists(filePath: string): Promise<boolean> {
   try {
-    await access(filePath, fsConstants.F_OK);
+    // Note that pkg has some bugs around `fs` function calls, so we can't use `access()` here.
+    // See: https://github.com/vercel/pkg/issues/2020
+    await fs.promises.stat(filePath);
     return true;
   } catch {
     return false;
