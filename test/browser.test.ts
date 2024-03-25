@@ -147,23 +147,33 @@ test("get all circuits", async (t) => {
   t.truthy(circuits[0]?.circuit_id);
 });
 
-test("get all proofs", async (t) => {
-  const proofs = await t.context.page.evaluate(async () =>
-    sindri.getAllProofs(),
-  );
-  t.true(Array.isArray(proofs));
-  t.true(proofs.length > 0);
-  t.truthy(proofs[0]?.proof_id);
-});
-
 test("get proof", async (t) => {
-  const proofs = await t.context.page.evaluate(async () =>
-    sindri.getAllProofs(),
+  // Compile a circuit and create a proof.
+  const circuitDirectory = path.join(dataDirectory, "circom-multiplier2");
+  const fileNames = await fs.readdir(circuitDirectory);
+  const fileData = await Promise.all(
+    fileNames.map(async (fileName) => ({
+      content: await fs.readFile(
+        path.join(circuitDirectory, fileName),
+        "utf-8",
+      ),
+      fileName,
+    })),
   );
-  t.true(Array.isArray(proofs));
-  t.true(proofs.length > 0);
-  const proof = proofs[0];
+  const circuit = await t.context.page.evaluate(async (fileData) => {
+    const files = fileData.map(
+      ({ content, fileName }) => new File([content], fileName),
+    );
+    return await sindri.createCircuit(files, [
+      "from-browser-file-array-for-get-proof",
+    ]);
+  }, fileData);
+  const proof = await t.context.page.evaluate(async (circuit) => {
+    return await sindri.proveCircuit(circuit.circuit_id, '{"a":"5","b":"4"}');
+  }, circuit);
+  t.truthy(proof?.proof_id);
 
+  // Check that we can retrieve the proof using `sindri.getProof()`.
   const retrievedProof = await t.context.page.evaluate(
     async (proofId) => sindri.getProof(proofId),
     proof!.proof_id,

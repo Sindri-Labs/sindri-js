@@ -34,6 +34,10 @@ export type GnarkCircuitInfoResponse = {
    */
   proving_scheme: string;
   /**
+   * Whether the circuit is public. Public circuits can be used by any user.
+   */
+  public: boolean;
+  /**
    * The status of the circuit job.
    */
   status: JobStatus;

@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { ActionResponse } from "../models/ActionResponse";
+import type { ProofInfoResponse } from "../models/ProofInfoResponse";
 import type { SmartContractVerifierResponse } from "../models/SmartContractVerifierResponse";
 import type { TeamMeResponse } from "../models/TeamMeResponse";
 import type { UserMeResponse } from "../models/UserMeResponse";
@@ -46,7 +47,19 @@ export class InternalService {
   /**
    * Circuit Smart Contract Verifier
    * Get smart contract verifier for existing circuit
-   * @param circuitId
+   * @param circuitId The circuit identifer of the circuit.
+   * This can take one of the following forms:
+   *
+   * 1. `<CIRCUIT_ID>` - The unique UUID4 ID for an exact version of a compiled circuit.
+   * 2. `<CIRCUIT_NAME>` - The name of a circuit owned by the authenticated team. This will default to
+   * the most recent version of the circuit tagged as `latest`.
+   * 3. `<CIRCUIT_NAME>:<TAG>` - The name of a circuit owned by the authenticated team and an explicit
+   * tag. This corresponds to the most recent compilation of the circuit with the specified tag.
+   * 4. `<TEAM_NAME>/<CIRCUIT_NAME>` - The name of a circuit owned by the specified team.  This will
+   * default to the most recent version of the circuit tagged as `latest`.
+   * 5. `<TEAM_NAME>/<CIRCUIT_NAME>:<TAG>` - The name of a circuit owned by a specified team and an
+   * explicit tag. This corresponds to the most recent compilation of the team's circuit with the
+   * specified tag.
    * @returns SmartContractVerifierResponse OK
    * @throws ApiError
    */
@@ -98,6 +111,22 @@ export class InternalService {
       mediaType: "application/x-www-form-urlencoded",
       errors: {
         422: `Unprocessable Entity`,
+      },
+    });
+  }
+
+  /**
+   * Proof List
+   * Return the list of all proof infos.
+   * @returns ProofInfoResponse OK
+   * @throws ApiError
+   */
+  public proofList(): CancelablePromise<Array<ProofInfoResponse>> {
+    return this.httpRequest.request({
+      method: "GET",
+      url: "/api/v1/proof/list",
+      errors: {
+        500: `Internal Server Error`,
       },
     });
   }
