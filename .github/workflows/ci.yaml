@@ -66,6 +66,10 @@ jobs:
           sudo curl -L https://github.com/ProcursusTeam/ldid/releases/download/v2.1.5-procursus7/ldid_linux_x86_64 -o /usr/bin/ldid
           sudo chmod a+xr /usr/bin/ldid
 
+      - name: Build Pkg Packages
+        run: |
+          yarn build:pkg:fast
+
   deploy:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
