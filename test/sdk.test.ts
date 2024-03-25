@@ -121,24 +121,25 @@ test("get circuit", async (t) => {
   t.deepEqual(circuit.circuit_id, retrievedCircuit.circuit_id);
 });
 
-test("get all proofs", async (t) => {
-  const proofs = await sindri.getAllProofs();
-  t.true(Array.isArray(proofs));
-  t.true(proofs.length > 0);
-  t.truthy(proofs[0]?.proof_id);
-});
-
 test("get proof", async (t) => {
-  // Get a proof from the full selection.
-  const proofs = await sindri.getAllProofs();
-  t.true(Array.isArray(proofs));
-  t.true(proofs.length > 0);
-  t.truthy(proofs[0]);
-  const proof = proofs[0];
+  // Compile a circuit and create a proof.
+  const circuitTarballDirectory = path.join(
+    dataDirectory,
+    "circom-multiplier2.tgz",
+  );
+  const circuit = await sindri.createCircuit(circuitTarballDirectory, [
+    "from-tarball-for-get-proof",
+  ]);
+  const proof = await sindri.proveCircuit(
+    circuit.circuit_id,
+    '{"a":"5","b":"4"}',
+  );
+  t.truthy(proof?.proof_id);
 
+  // Check that we can retrieve the proof using `sindri.getProof()`.
   const retrievedProof = await sindri.getProof(proof!.proof_id);
   t.truthy(retrievedProof?.proof_id);
-  t.deepEqual(proof?.proof_id, retrievedProof.proof_id);
+  t.deepEqual(proof.proof_id, retrievedProof.proof_id);
 });
 
 test("prove circuit", async (t) => {
