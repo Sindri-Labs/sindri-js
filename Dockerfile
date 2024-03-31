@@ -45,6 +45,11 @@ RUN mkdir -p ~/.npm-global && \
     npm config set prefix '~/.npm-global' && \
     echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
 
+# Set up bash completion for npm.
+RUN npm completion >> ~/.bashrc && \
+    echo '# Do not split words on colons in completion:' >> ~/.bashrc && \
+    echo 'export COMP_WORDBREAKS=${COMP_WORDBREAKS//:}' >> ~/.bashrc
+
 WORKDIR /sindri/
 
 # Link the `sindri-js` project.
