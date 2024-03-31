@@ -37,8 +37,8 @@ RUN if [ "$(uname -m)" = "aarch64" ]; then \
     fi
 
 # Skip installing any node dependencies because we're going to bind mount over `node_modules` anyway.
-# We'll also do a volume mount to persist the yarn cache.
-RUN mkdir -p ~/.cache/yarn
+# We'll also do a volume mount to persist the npm cache.
+RUN mkdir -p ~/.npm/
 
 # Set up npm to use a non-root directory for global packages.
 RUN mkdir -p ~/.npm-global && \
@@ -62,4 +62,4 @@ RUN mkdir -p dist/cli/ && \
     npm link && \
     rm patch-package
 
-CMD ["/bin/sh", "-c", "yarn install && yarn build:watch"]
+CMD ["/bin/sh", "-c", "npm install && npm run build:watch"]
