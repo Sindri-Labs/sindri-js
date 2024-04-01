@@ -22,26 +22,26 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.version }}
-          cache: yarn
+          cache: npm
 
       - name: Install JavaScript Dependencies
         run: |
-          yarn install --frozen-lockfile --ignore-engines
+          npm clean-install
 
       - name: Lint
         if: success() || failure()
         run: |
-          yarn lint
+          npm run lint
 
       - name: Type Check
         if: success() || failure()
         run: |
-          yarn type-check
+          npm run type-check
 
       - name: Build
         if: success() || failure()
         run: |
-          yarn build
+          npm run build
 
       # We only run the browser tests for the development version of node because the browser environment
       # is independent of the node version, so all that matters is the build we deploy works in the browser.
@@ -58,7 +58,7 @@ jobs:
       - name: Test
         if: success() || failure()
         run: |
-          yarn test:fast
+          npm run test:fast
 
   deploy:
     runs-on: ubuntu-latest
@@ -78,7 +78,7 @@ jobs:
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
 
       - name: Install JavaScript Dependencies
-        run: yarn install --frozen-lockfile
+        run: npm clean-install
 
       - name: Update package.json Version
         run: npm version --no-git-tag-version $VERSION
@@ -86,7 +86,7 @@ jobs:
       - name: Build With Updated Version
         if: success() || failure()
         run: |
-          yarn build
+          npm run build
 
       - name: Publish to NPM
         run: |

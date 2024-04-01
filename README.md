@@ -73,7 +73,7 @@ sindri deploy
 
 ### Using Docker
 
-Most of the project commands should be relatively easy to run natively on any system with node and Yarn v1 installed, but a Docker Compose configuration is provided as a convenience.
+Most of the project commands should be relatively easy to run natively on any system with node and npm installed, but a Docker Compose configuration is provided as a convenience.
 In addition to ensuring that the proper dependencies are available, the container is also configured to install the package globally as a symbolic link with `npm link` and automatically rebuild it whenever files change.
 This means that the `sindri` command inside the container should always reflect your local code changes.
 
@@ -91,7 +91,7 @@ To drop into a shell in the running container, you can run the following.
 docker compose exec sindri-js bash
 ```
 
-From here, you can use the `sindri` command or run any of the Yarn invocations for linting, formatting, etc.
+From here, you can use the `sindri` command or run any of the npm script invocations for linting, formatting, etc.
 
 #### Integrating With Local Development Server
 
@@ -109,7 +109,7 @@ Both your credentials and the local base URL for the server will be stored in `s
 To install the project dependencies:
 
 ```bash
-yarn install
+npm install
 ```
 
 ### Building
@@ -119,7 +119,7 @@ yarn install
 To run the build process in development mode and watch for file changes:
 
 ```bash
-yarn build:watch
+npm run build:watch
 ```
 
 This command will run automatically in the container if you're using Docker Compose.
@@ -129,7 +129,7 @@ This command will run automatically in the container if you're using Docker Comp
 To perform a production build with minified outputs:
 
 ```bash
-yarn build
+npm run build
 ```
 
 ### Testing
@@ -139,18 +139,18 @@ yarn build
 The test suite can be run with:
 
 ```bash
-yarn test
+npm run test
 ```
 
 This will first build the project and then run the tests against the build outputs using pre-recorded fixtures for network requests.
-To skip the build step, you can use `yarn test:fast`.
+To skip the build step, you can use `npm run test:fast`.
 
 #### Test Watcher
 
 In development, you can use
 
 ```bash
-yarn test:watch
+npm run test:watch
 ```
 
 to rebuild the project and rerun the tests whenever there are code changes.
@@ -161,7 +161,7 @@ Additionally, this command will allow network requests without fixtures to go th
 This command will build the project and record new fixtures for all network requests.
 
 ```bash
-yarn test:record
+npm run test:record
 ```
 
 You will need to have your environment authenticated with an API key for the "Sindri CLI/SDK Testing Team" organization on [Sindri](https://sindri.app) in order to make the necessary network requests for recording fixtures.
@@ -172,19 +172,19 @@ The credentials stored by `sindri login` will be used automatically for the test
 This will fetch the latest OpenAPI schema for the Sindri API and autogenerate an updated API client in [`src/lib/api/`](src/lib/api/).
 
 ```bash
-yarn generate-api
+npm run generate-api
 ```
 
 To develop against unreleased API features, you can use these variants to target a local development server:
 
 ```bash
 # If you're not using Docker:
-yarn generate-api:dev
+npm run generate-api:dev
 
 # Or...
 
 # If you are using Docker:
-yarn denerate-api:docker
+npm run denerate-api:docker
 ```
 
 ### Updating Sindri Manifest JSON Schema
@@ -193,19 +193,19 @@ The Sindri Manifest JSON Schema is stored in [`sindri-manifest.json`](sindri-man
 The file can be updated by running:
 
 ```bash
-yarn download-sindri-manifest-schema
+npm run download-sindri-manifest-schema
 ```
 
 To develop against an unreleased version of the schema, you can use these variants to target a local development server:
 
 ```bash
 # If you're not using Docker:
-yarn download-sindri-manifest-schema:dev
+npm run download-sindri-manifest-schema:dev
 
 # Or...
 
 # If you are using Docker:
-yarn download-sindri-manifest-schema:docker
+npm run download-sindri-manifest-schema:docker
 ```
 
 ### Linting
@@ -213,7 +213,7 @@ yarn download-sindri-manifest-schema:docker
 To lint the project with Eslint and Prettier:
 
 ```bash
-yarn lint
+npm run lint
 ```
 
 This check will already run on CI.
@@ -223,7 +223,7 @@ This check will already run on CI.
 To reformat the project using Prettier:
 
 ```bash
-yarn format
+npm run format
 ```
 
 ### Type Checking
@@ -231,7 +231,7 @@ yarn format
 To check the TypeScript types:
 
 ```bash
-yarn type-check
+npm run type-check
 ```
 
 This check will already run on CI.

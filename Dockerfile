@@ -37,13 +37,18 @@ RUN if [ "$(uname -m)" = "aarch64" ]; then \
     fi
 
 # Skip installing any node dependencies because we're going to bind mount over `node_modules` anyway.
-# We'll also do a volume mount to persist the yarn cache.
-RUN mkdir -p ~/.cache/yarn
+# We'll also do a volume mount to persist the npm cache.
+RUN mkdir -p ~/.npm/
 
 # Set up npm to use a non-root directory for global packages.
 RUN mkdir -p ~/.npm-global && \
     npm config set prefix '~/.npm-global' && \
     echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
+
+# Set up bash completion for npm.
+RUN npm completion >> ~/.bashrc && \
+    echo '# Do not split words on colons in completion:' >> ~/.bashrc && \
+    echo 'export COMP_WORDBREAKS=${COMP_WORDBREAKS//:}' >> ~/.bashrc
 
 WORKDIR /sindri/
 
@@ -62,4 +67,4 @@ RUN mkdir -p dist/cli/ && \
     npm link && \
     rm patch-package
 
-CMD ["/bin/sh", "-c", "yarn install && yarn build:watch"]
+CMD ["/bin/sh", "-c", "npm install && npm run build:watch"]
