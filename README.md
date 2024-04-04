@@ -6,13 +6,14 @@
 
 <img src="https://github.com/Sindri-Labs/sindri-js/blob/487fb8a7fd5e0e3147a46eafb72ca89a06fe7540/media/sindri-gradient-logo.webp" height="160" align="right"/>
 
-#### [CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) | [SDK Quickstart](https://sindri-labs.github.io/docs/getting-started/typescript-sdk/) | [CLI Docs](https://sindri-labs.github.io/docs/reference/cli/) | [SDK Docs](https://sindri.app/docs/reference/sdk/ts/classes/SindriClient/) | [Development](#development)
+#### [CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) | [CLI Docs](https://sindri-labs.github.io/docs/reference/cli/) | [SDK Quickstart](https://sindri-labs.github.io/docs/getting-started/typescript-sdk/) | [SDK Docs](https://sindri.app/docs/reference/sdk/ts/classes/SindriClient/) | [Development](#development)
 
 > Sindri is a platform that makes compiling Zero-Knowledge Proof circuits in any framework and generating proofs with full GPU acceleration as easy and scalable as serverless platforms like AWS Lambda.
 > The CLI tool offers an easy and intuitive interface for circuit development and deployment that will feel very familiar to anyone who has used Docker, Git, Heroku, or NPM.
 
 For more information about the Sindri platform, please check out [sindri.app](https://sindri.app/).
 The best way to get started with the Sindri CLI is to begin with the [Sindri CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) and to then refer to the [Sindri CLI Reference Docs](https://sindri-labs.github.io/docs/reference/cli/) for more detailed information about the CLI commands and options.
+For the TypeScript SDK, you can similarly check out the [TypeScript SDK Quickstart](https://sindri-labs.github.io/docs/getting-started/typescript-sdk/) and the [TypeScript SDK Reference Docs](https://sindri-labs.github.io/docs/reference/sdk/ts/classes/SindriClient/).
 
 #### Why Should I Use Sindri?
 
@@ -37,6 +38,7 @@ npm install -g sindri@latest
 
 To compile circuits on Sindri, you'll need to have an account and authenticate the CLI to use it.
 Visit [sindri.app](https://sindri.app/) to find more details about account creation.
+You can then use the [`sindri login`](https://sindri.app/docs/reference/cli/login/) command to create a machine-local API key that will be used for subsequent commands.
 
 ```bash
 sindri login
@@ -45,7 +47,7 @@ sindri login
 ### Circuit Project Creation
 
 The Sindri CLI provides a project scaffolding tool to help you get started with circuit development.
-The `sindri init` command will initialize a new circuit project for you with everything you need to get started.
+The [`sindri init`](https://sindri.app/docs/reference/cli/init/) command will initialize a new circuit project for you with everything you need to get started.
 
 ```bash
 sindri init my-circuit
@@ -53,7 +55,7 @@ sindri init my-circuit
 
 ### Linting Circuits
 
-You can run `sindri lint` from within your circuit project directory to perform local checks to ensure your circuit is valid and ready for compilation.
+You can run [`sindri lint`](https://sindri.app/docs/reference/cli/lint/) from within your circuit project directory to perform local checks to ensure your circuit is valid and ready for compilation.
 This will not actually compile your circuit, but will perform basic checks to uncover issues that would prevent your circuit from compiling successfully.
 
 ```bash
@@ -62,11 +64,69 @@ sindri lint
 
 ### Circuit Compilation
 
-To compile your circuit on the Sindri platform, you can use the `sindri deploy` command to upload and compile it.
+To compile your circuit on the Sindri platform, you can use the [`sindri deploy`](https://sindri.app/docs/reference/cli/deploy/) command to upload and compile it.
 If there are compilation errors, they will be reported, and the command will exit with a non-zero exit code.
 
 ```bash
 sindri deploy
+```
+
+### Proof Generation
+
+You can use the [`sindri proof create`](https://sindri.app/docs/reference/cli/proof/create/) command to create a new proof for your circuit.
+
+```bash
+sindri proof create --input proof-input.json
+```
+
+## Using the TypeScript SDK
+
+This section provides the essentials to get started with the TypeScript SDK.
+The SDK is fully compatible with both TypeScript and JavaScript, NodeJS and browser environments, and CommonJS and ES Module import systems.
+For more detailed information about getting started, please take a look at the [TypeScript SDK Quickstart](https://sindri-labs.github.io/docs/getting-started/typescript-sdk/) and the [TypeScript SDK Reference Docs](https://sindri-labs.github.io/docs/reference/sdk/ts/classes/SindriClient/).
+
+### Installation
+
+The TypeScript SDK is provided by the same [sindri](https://www.npmjs.com/package/sindri) package that provides the CLI tool.
+You can add it to your project by running.
+
+```bash
+npm install sindri@latest
+```
+
+### Authentication
+
+When you run `sindri login`, a machine-local API key will automatically be stored in a config file in your home directory and used for authentication with both the CLI and the SDK.
+You can alternatively set a `SINDRI_API_KEY` environment variable to override this, or specify an API key manually when authorizing the client.
+Visit [https://sindri.app/signup/](https://sindri.app/signup/) to create an account first and [https://sindri.app/z/me/page/settings/api-keys](https://sindri.app/z/me/page/settings/api-keys) to create an API key.
+
+```typescript
+import sindri from "sindri";
+
+sindri.authorize({ apiKey: "my-key-here" });
+```
+
+### Circuit Compilation
+
+You can use the [`SindriClient.createCircuit()`](https://sindri.app/docs/reference/sdk/ts/classes/SindriClient/#createcircuit) method to compile a new version of a circuit.
+
+```typescript
+import sindri from "sindri";
+
+// Compile the circuit in the `/path/to/my/circuit/` directory.
+const circuit = await sindri.createCircuit("/path/to/my/circuit/");
+```
+
+### Proof Generation
+
+You can use the [`SindriClient.proveCircuit()`](https://sindri.app/docs/reference/sdk/ts/classes/SindriClient/#provecircuit) method to generate a proof for a circuit.
+
+```typescript
+import sindri from "sindri";
+
+const circuitIdentifier = "my-circuit";
+const proofInput = JSON.stringify({ X: 5, Y: 32 });
+const proof = await sindri.proveCircuit(circuitIdentifier, proofInput);
 ```
 
 ## Development
