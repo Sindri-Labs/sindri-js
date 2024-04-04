@@ -6,7 +6,7 @@
 
 <img src="https://github.com/Sindri-Labs/sindri-js/blob/487fb8a7fd5e0e3147a46eafb72ca89a06fe7540/media/sindri-gradient-logo.webp" height="160" align="right"/>
 
-#### [CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) | [SDK Quickstart](https://sindri-labs.github.io/docs/getting-started/typescript-sdk/) | [CLI Reference Docs](https://sindri-labs.github.io/docs/reference/cli/) | [SDK Reference Docs](https://sindri.app/docs/reference/sdk/ts/classes/SindriClient/) | [Development](#development)
+#### [CLI Quickstart](https://sindri-labs.github.io/docs/getting-started/cli/) | [SDK Quickstart](https://sindri-labs.github.io/docs/getting-started/typescript-sdk/) | [CLI Docs](https://sindri-labs.github.io/docs/reference/cli/) | [SDK Docs](https://sindri.app/docs/reference/sdk/ts/classes/SindriClient/) | [Development](#development)
 
 > Sindri is a platform that makes compiling Zero-Knowledge Proof circuits in any framework and generating proofs with full GPU acceleration as easy and scalable as serverless platforms like AWS Lambda.
 > The CLI tool offers an easy and intuitive interface for circuit development and deployment that will feel very familiar to anyone who has used Docker, Git, Heroku, or NPM.
