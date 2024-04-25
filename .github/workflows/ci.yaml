@@ -31,15 +31,17 @@ jobs:
           # Ava doesn't officially have node v22 engine compatibility yet, so we skip engine checks
           # for development dependencies with node v22. Since this is only for development dependencies,
           # it won't be an issue for users of the sindri package.
+          echo "Node version ${NODE_VERSION}."
           if [ "${NODE_VERSION}" -lt 22 ]; then
+              echo "Installing dependencies with strict node engine checking."
               npm config set engine-strict=true
               npm clean-install
           else
-            # Check that all production dependencies install with engine compatibility.
-              npm config set engine-strict=true # TODO: Change to false.
+              echo "Installing production dependencies with strict node engine checking."
+              npm config set engine-strict=false
               npm clean-install --production
 
-            # Install development dependencies without doing engine checks.
+              echo "Installing all dependencies without strict node engine checking."
               npm config set engine-strict=true
               npm clean-install --ignore-engines
           fi
