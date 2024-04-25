@@ -97,7 +97,7 @@
     "jsonschema": "^1.4.1",
     "lodash": "^4.17.21",
     "nunjucks": "^3.2.4",
-    "patch-package": "^7.0.0",
+    "patch-package": "^8.0.0",
     "pino": "^8.16.2",
     "pino-pretty": "^10.2.3",
     "postinstall-postinstall": "^2.1.0",
