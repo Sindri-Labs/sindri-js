@@ -26,19 +26,7 @@ jobs:
 
       - name: Install JavaScript Dependencies
         run: |
-          # Ava doesn't officially support node v19 or v22 engine compatibility
-          # yet, but works fine so we skip engine checking for the development
-          # dependencies.  Since this is only for development dependencies, it
-          # won't be an issue for users of the sindri package.
-          echo "Installing production dependencies with strict node engine checking."
-          npm config set engine-strict=true
-          mv patches patches.bck
-          npm clean-install --omit=dev
-          mv patches.bck patches
-
-          echo "Installing all dependencies without strict node engine checking."
-          npm config set engine-strict=false
-          npm clean-install --ignore-engines
+          npm clean-install
 
       - name: Lint
         if: success() || failure()
