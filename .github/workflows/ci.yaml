@@ -32,7 +32,7 @@ jobs:
           # won't be an issue for users of the sindri package.
           echo "Installing production dependencies with strict node engine checking."
           npm config set engine-strict=false
-          npm clean-install --omit=dev
+          YARN_PRODUCTION=false npm clean-install --omit=dev
 
           echo "Installing all dependencies without strict node engine checking."
           npm config set engine-strict=true
