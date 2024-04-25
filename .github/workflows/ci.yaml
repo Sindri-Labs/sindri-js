@@ -25,26 +25,18 @@ jobs:
           cache: npm
 
       - name: Install JavaScript Dependencies
-        env:
-          NODE_VERSION: ${{ matrix.version }}
         run: |
-          # Ava doesn't officially have node v22 engine compatibility yet, so we skip engine checks
-          # for development dependencies with node v22. Since this is only for development dependencies,
-          # it won't be an issue for users of the sindri package.
-          echo "Node version ${NODE_VERSION}."
-          if [ "${NODE_VERSION}" -lt 22 ]; then
-              echo "Installing dependencies with strict node engine checking."
-              npm config set engine-strict=true
-              npm clean-install
-          else
-              echo "Installing production dependencies with strict node engine checking."
-              npm config set engine-strict=false
-              npm clean-install --production
+          # Ava doesn't officially support node v19 or v22 engine compatibility
+          # yet, but works fine so we skip engine checking for the development
+          # dependencies.  Since this is only for development dependencies, it
+          # won't be an issue for users of the sindri package.
+          echo "Installing production dependencies with strict node engine checking."
+          npm config set engine-strict=false
+          npm clean-install --omit=dev
 
-              echo "Installing all dependencies without strict node engine checking."
-              npm config set engine-strict=true
-              npm clean-install --ignore-engines
-          fi
+          echo "Installing all dependencies without strict node engine checking."
+          npm config set engine-strict=true
+          npm clean-install --ignore-engines
 
       - name: Lint
         if: success() || failure()
