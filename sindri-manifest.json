@@ -21,6 +21,12 @@
     }
   ],
   "definitions": {
+    "ZkevmVersionOptions": {
+      "title": "ZkevmVersionOptions",
+      "description": "The supported zkSync Era zkEVM version tags.",
+      "enum": ["latest", "1.4.2"],
+      "type": "string"
+    },
     "CircomCurveOptions": {
       "title": "CircomCurveOptions",
       "description": "The supported Circom curves.",
@@ -129,7 +135,7 @@
     "GnarkProvingSchemeOptions": {
       "title": "GnarkProvingSchemeOptions",
       "description": "The supported Gnark proving schemes.",
-      "enum": ["groth16"],
+      "enum": ["groth16", "plonk"],
       "type": "string"
     },
     "GnarkSindriManifest": {
