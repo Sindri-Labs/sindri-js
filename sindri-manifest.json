@@ -129,7 +129,7 @@
     "GnarkVersionOptions": {
       "title": "GnarkVersionOptions",
       "description": "The supported Gnark framework versions.",
-      "enum": ["v0.8.1", "v0.9.0"],
+      "enum": ["v0.8.1", "v0.9.0", "v0.10.0"],
       "type": "string"
     },
     "GnarkProvingSchemeOptions": {
