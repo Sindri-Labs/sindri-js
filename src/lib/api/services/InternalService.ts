@@ -74,9 +74,9 @@ export class InternalService {
       },
       errors: {
         404: `Not Found`,
-        412: `Precondition Failed`,
         500: `Internal Server Error`,
         501: `Not Implemented`,
+        503: `Service Unavailable`,
       },
     });
   }
@@ -117,7 +117,10 @@ export class InternalService {
 
   /**
    * Proof List
-   * Return the list of all proof infos.
+   * Return the list of all proof infos. Note that while this endpoint provides a
+   * comprehensive list of circuits, certain fields such as the `proof` and `public` will always be
+   * `null`. To retrieve these fields for a proof, please query the proof-detail endpoint
+   * supplied with the desired proof ID.
    * @returns ProofInfoResponse OK
    * @throws ApiError
    */
