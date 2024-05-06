@@ -67,11 +67,10 @@ export const loginCommand = new Command()
     try {
       // Generate a JWT token to authenticate the user.
       sindri._clientConfig.BASE = baseUrl;
-      const tokenResult =
-        await sindri._client.token.fd3Aaa7BControllerObtainToken({
-          username,
-          password,
-        });
+      const tokenResult = await sindri._client.token.jwtTokenGenerate({
+        username,
+        password,
+      });
       sindri._clientConfig.TOKEN = tokenResult.access;
 
       // Fetch their teams and have the user select one.

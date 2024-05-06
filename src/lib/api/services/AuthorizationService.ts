@@ -28,8 +28,9 @@ export class AuthorizationService {
       body: requestBody,
       mediaType: "application/json",
       errors: {
+        400: `Bad Request`,
         401: `Unauthorized`,
-        412: `Precondition Failed`,
+        403: `Forbidden`,
       },
     });
   }
@@ -51,7 +52,7 @@ export class AuthorizationService {
         name: name,
       },
       errors: {
-        412: `Precondition Failed`,
+        400: `Bad Request`,
       },
     });
   }
