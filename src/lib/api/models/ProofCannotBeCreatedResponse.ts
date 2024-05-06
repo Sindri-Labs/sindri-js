@@ -9,6 +9,5 @@
  */
 export type ProofCannotBeCreatedResponse = {
   error: string;
-  circuit_id: string;
   message?: string;
 };

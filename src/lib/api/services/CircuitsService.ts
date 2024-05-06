@@ -36,7 +36,7 @@ export class CircuitsService {
       formData: formData,
       mediaType: "multipart/form-data",
       errors: {
-        412: `Precondition Failed`,
+        400: `Bad Request`,
         422: `Unprocessable Entity`,
         500: `Internal Server Error`,
         501: `Not Implemented`,
@@ -46,7 +46,10 @@ export class CircuitsService {
 
   /**
    * Circuit List
-   * Return the list of all circuit infos.
+   * Return the list of all circuit infos. Note that while this endpoint provides a
+   * comprehensive list of circuits, certain fields such as the `verification_key` will always be
+   * `null`. To retrieve these fields for a circuit, please query the circuit-detail endpoint
+   * supplied with the desired circuit ID.
    * @returns CircuitInfoResponse OK
    * @throws ApiError
    */
@@ -135,7 +138,10 @@ export class CircuitsService {
 
   /**
    * Circuit Proofs
-   * Return a list of proof infos for the provided circuit_id.
+   * Return the list of all proof infos for the provided circuit_id. Note that while this
+   * endpoint provides a comprehensive list of proofs, certain fields such as the `proof` and
+   * `public` will always be `null`. To retrieve these fields for a proof, please query the
+   * proof-detail endpoint supplied with the desired proof ID.
    * @param circuitId The circuit identifer of the circuit.
    * This can take one of the following forms:
    *
@@ -214,9 +220,10 @@ export class CircuitsService {
       formData: formData,
       mediaType: "application/x-www-form-urlencoded",
       errors: {
+        400: `Bad Request`,
         404: `Not Found`,
-        412: `Precondition Failed`,
         501: `Not Implemented`,
+        503: `Service Unavailable`,
       },
     });
   }

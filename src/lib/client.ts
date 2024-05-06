@@ -9,6 +9,7 @@ import Tar from "tar-js";
 
 import { ApiClient, CircuitType, JobStatus, OpenAPIConfig } from "lib/api";
 import type {
+  BoojumCircuitInfoResponse,
   CircomCircuitInfoResponse,
   Halo2CircuitInfoResponse,
   GnarkCircuitInfoResponse,
@@ -27,6 +28,7 @@ import type {
 
 // Re-export types from the API.
 export type {
+  BoojumCircuitInfoResponse,
   CircomCircuitInfoResponse,
   CircuitType,
   GnarkCircuitInfoResponse,
@@ -36,6 +38,7 @@ export type {
   ProofInfoResponse,
 };
 export type CircuitInfoResponse =
+  | BoojumCircuitInfoResponse
   | CircomCircuitInfoResponse
   | Halo2CircuitInfoResponse
   | GnarkCircuitInfoResponse

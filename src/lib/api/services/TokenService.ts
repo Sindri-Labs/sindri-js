@@ -16,12 +16,31 @@ export class TokenService {
   constructor(public readonly httpRequest: BaseHttpRequest) {}
 
   /**
-   * Obtain Token
+   * Verify Token
+   * @param requestBody
+   * @returns Schema OK
+   * @throws ApiError
+   */
+  public jwtTokenVerify(
+    requestBody: TokenVerifyInputSchema,
+  ): CancelablePromise<Schema> {
+    return this.httpRequest.request({
+      method: "POST",
+      url: "/api/token/verify",
+      body: requestBody,
+      mediaType: "application/json",
+    });
+  }
+
+  /**
+   * Generate JWT Token Pair
+   * Override the ninja_jwt default `obtain_token` method in order to
+   * add email verification check before generating a token.
    * @param requestBody
    * @returns TokenObtainPairOutputSchema OK
    * @throws ApiError
    */
-  public fd3Aaa7BControllerObtainToken(
+  public jwtTokenGenerate(
     requestBody: TokenObtainPairInputSchema,
   ): CancelablePromise<TokenObtainPairOutputSchema> {
     return this.httpRequest.request({
@@ -29,6 +48,9 @@ export class TokenService {
       url: "/api/token/pair",
       body: requestBody,
       mediaType: "application/json",
+      errors: {
+        403: `Forbidden`,
+      },
     });
   }
 
@@ -38,29 +60,12 @@ export class TokenService {
    * @returns TokenRefreshOutputSchema OK
    * @throws ApiError
    */
-  public b87E0720ControllerRefreshToken(
+  public jwtTokenRefresh(
     requestBody: TokenRefreshInputSchema,
   ): CancelablePromise<TokenRefreshOutputSchema> {
     return this.httpRequest.request({
       method: "POST",
       url: "/api/token/refresh",
-      body: requestBody,
-      mediaType: "application/json",
-    });
-  }
-
-  /**
-   * Verify Token
-   * @param requestBody
-   * @returns Schema OK
-   * @throws ApiError
-   */
-  public d1C092ControllerVerifyToken(
-    requestBody: TokenVerifyInputSchema,
-  ): CancelablePromise<Schema> {
-    return this.httpRequest.request({
-      method: "POST",
-      url: "/api/token/verify",
       body: requestBody,
       mediaType: "application/json",
     });
