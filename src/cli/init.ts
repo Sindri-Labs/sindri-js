@@ -119,10 +119,13 @@ export const initCommand = new Command()
           return true;
         },
       });
-      const provingScheme: "groth16" = await select({
+      const provingScheme: "groth16" | "plonk" = await select({
         message: "Proving Scheme:",
         default: "groth16",
-        choices: [{ name: "Groth16", value: "groth16" }],
+        choices: [
+          { name: "Groth16", value: "groth16" },
+          { name: "PlonK", value: "plonk" },
+        ],
       });
       const curveName:
         | "bn254"
