@@ -1,11 +1,10 @@
-use std::{fs::File, marker::PhantomData};
+use std::fs::File;
 
 use halo2_proofs::{
     arithmetic::Field,
-    circuit::{AssignedCell, Chip, Layouter, Region, SimpleFloorPlanner, Value},
+    circuit::{Layouter, SimpleFloorPlanner, Value},
     halo2curves::bn256::Fr,
-    plonk::{Advice, Circuit, Column, ConstraintSystem, Error, Fixed, Instance, Selector},
-    poly::Rotation,
+    plonk::{Circuit, ConstraintSystem, Error},
 };
 
 use super::chip::{EqualChip, EqualConfig};

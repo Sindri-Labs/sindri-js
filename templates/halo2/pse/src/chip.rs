@@ -1,6 +1,11 @@
 use std::marker::PhantomData;
 
-use halo2_proofs::{arithmetic::Field, circuit::*, plonk::*, poly::Rotation};
+use halo2_proofs::{
+    arithmetic::Field, 
+    circuit::{AssignedCell, Layouter, Region, Value}, 
+    plonk::{Advice, Column, ConstraintSystem, Error, Instance, Selector}, 
+    poly::Rotation
+};
 
 #[derive(Debug, Clone)]
 pub struct EqualConfig {
