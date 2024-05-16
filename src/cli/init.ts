@@ -154,6 +154,14 @@ export const initCommand = new Command()
       });
     } else if (circuitType === "halo2") {
       // Halo2.
+      const halo2Version: "axiom-v0.3.0" | "pse-v0.3.0" = await select({
+        message: "Halo2 Base Version:",
+        default: "axiom-v0.3.0",
+        choices: [
+          { name: "Axiom v0.3.0", value: "axiom-v0.3.0" },
+          { name: "PSE v0.3.0", value: "pse-v0.3.0" },
+        ],
+      });
       const packageName = await input({
         message: "Halo2 Package Name:",
         default: circuitName
@@ -175,21 +183,6 @@ export const initCommand = new Command()
           return true;
         },
       });
-      const halo2Version: "axiom-v0.3.0" = await select({
-        message: "Halo2 Base Version:",
-        default: "axiom-v0.3.0",
-        choices: [{ name: "Axiom v0.3.0", value: "axiom-v0.3.0" }],
-      });
-      const threadBuilder: "GateThreadBuilder" | undefined =
-        halo2Version !== "axiom-v0.3.0"
-          ? undefined
-          : await select({
-              message: "Halo2 Base Version:",
-              default: "GateThreadBuilder",
-              choices: [
-                { name: "Gate Thread Builder", value: "GateThreadBuilder" },
-              ],
-            });
       // Collect `degree` as a positive integer.
       const degree: number = parseInt(
         await input({
@@ -207,12 +200,25 @@ export const initCommand = new Command()
         }),
         10,
       );
-
+      const threadBuilder: "GateThreadBuilder" | undefined =
+        halo2Version !== "axiom-v0.3.0"
+          ? undefined
+          : await select({
+              message: "Halo2 Base Version:",
+              default: "GateThreadBuilder",
+              choices: [
+                { name: "Gate Thread Builder", value: "GateThreadBuilder" },
+              ],
+            });
+      // Return the circuit path, depending on the halo2Version field
+      const circuitPath:
+        | "::circuit::EqualCircuit"
+        | "::circuit_def::CircuitInput" =
+        halo2Version !== "axiom-v0.3.0"
+          ? "::circuit::EqualCircuit"
+          : "::circuit_def::CircuitInput";
       // Replace hyphens with underscores in the package name.
-      const className = `${packageName.replace(
-        /-/g,
-        "_",
-      )}::circuit_def::CircuitInput`;
+      const className = `${packageName.replace(/-/g, "_")}${circuitPath}`;
 
       Object.assign(context, {
         className,
