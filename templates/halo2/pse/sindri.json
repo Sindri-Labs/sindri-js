@@ -1,0 +1,9 @@
+{
+  "$schema": "https://sindri.app/api/v1/sindri-manifest-schema.json",
+  "name": "{{ circuitName }}",
+  "circuitType": "{{  circuitType  }}",
+  "className": "{{ className }}",
+  "degree": {{ degree }},
+  "halo2Version": "{{ halo2Version }}",
+  "packageName": "{{ packageName }}"
+}
