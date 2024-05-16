@@ -72,6 +72,7 @@ export const initCommand = new Command()
       ],
     });
     const context: object = { circuitName, circuitType };
+    let templatePath = circuitType;
 
     // Handle individual circuit types.
     if (circuitType === "circom") {
@@ -219,6 +220,7 @@ export const initCommand = new Command()
           : "::circuit_def::CircuitInput";
       // Replace hyphens with underscores in the package name.
       const className = `${packageName.replace(/-/g, "_")}${circuitPath}`;
+      templatePath = `${templatePath}/${halo2Version}`;
 
       Object.assign(context, {
         className,
@@ -277,7 +279,12 @@ export const initCommand = new Command()
       `Proceeding to generate scaffolded project in "${directoryPath}".`,
     );
     await scaffoldDirectory("common", directoryPath, context, sindri.logger);
-    await scaffoldDirectory(circuitType, directoryPath, context, sindri.logger);
+    await scaffoldDirectory(
+      templatePath,
+      directoryPath,
+      context,
+      sindri.logger,
+    );
     // We use this in `common` right now to keep the directory tracked, we can remove this once we
     // add files there.
     const gitKeepFile = path.join(directoryPath, ".gitkeep");
