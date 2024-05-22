@@ -16,7 +16,7 @@ interface CollectedTags extends Array<string> {
   isNotDefault?: boolean;
 }
 
-function collectOptions(value: string, previous: CollectedTags): CollectedTags {
+function collectTags(value: string, previous: CollectedTags): CollectedTags {
   // The first time this function is called, `previous` will be the default `["latest"]` value
   // without `isNotDefault` set. It will only be called if at least one explicit tag was specified,
   // so we want to drop this initial default value when this happens. We track that we've already
@@ -31,7 +31,7 @@ function collectOptions(value: string, previous: CollectedTags): CollectedTags {
 export const deployCommand = new Command()
   .name("deploy")
   .description("Deploy the current Sindri project.")
-  .option("-t, --tag <tag>", "Tag to apply to the circuit.", collectOptions, [
+  .option("-t, --tag <tag>", "Tag to apply to the circuit.", collectTags, [
     "latest",
   ])
   .option("-u, --untagged", "Discard the current circuit after compiling.")
