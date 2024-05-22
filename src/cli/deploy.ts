@@ -12,16 +12,34 @@ import { findFileUpwards } from "cli/utils";
 import sindri from "lib";
 import { ApiError } from "lib/api";
 
+interface CollectedTags extends Array<string> {
+  isNotDefault?: boolean;
+}
+
+function collectOptions(value: string, previous: CollectedTags): CollectedTags {
+  // The first time this function is called, `previous` will be the default `["latest"]` value
+  // without `isNotDefault` set. It will only be called if at least one explicit tag was specified,
+  // so we want to drop this initial default value when this happens. We track that we've already
+  // done this by setting `isNotDefault` on the array so that we don't do it again.
+  const merged: CollectedTags = previous.isNotDefault
+    ? previous.concat([value])
+    : [value];
+  merged.isNotDefault = true;
+  return merged;
+}
+
 export const deployCommand = new Command()
   .name("deploy")
   .description("Deploy the current Sindri project.")
-  .option("-t, --tag <tag...>", "Tag to apply to the circuit.", ["latest"])
+  .option("-t, --tag <tag>", "Tag to apply to the circuit.", collectOptions, [
+    "latest",
+  ])
   .option("-u, --untagged", "Discard the current circuit after compiling.")
   .argument("[directory]", "The location of the Sindri project to deploy.", ".")
   .action(async (directory, { tag: tags, untagged }) => {
     // Validate the tags and "untagged" option.
     if (untagged) {
-      if (tags.length !== 1 || tags[0] !== "latest") {
+      if (tags.length !== 1 || tags[0] !== "latest" || tags.isNotDefault) {
         sindri.logger.error(
           "You cannot use both the `--tag` and `--untagged` options together.",
         );
