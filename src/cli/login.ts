@@ -61,6 +61,12 @@ export const loginCommand = new Command()
     const name = await input({
       default: `${os.hostname().substring(0, 28)}-sdk`,
       message: "New API Key Name:",
+      validate: (input) => {
+        if (input.length > 32) {
+          return "API key name must 32 characters or fewer.";
+        }
+        return true;
+      },
     });
 
     // Generate an API key for one of their teams.
