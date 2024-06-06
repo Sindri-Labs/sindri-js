@@ -59,7 +59,7 @@ export const loginCommand = new Command()
     const username = await input({ message: "Username:" });
     const password = await passwordInput({ mask: true, message: "Password:" });
     const name = await input({
-      default: `${os.hostname()}-sdk`,
+      default: `${os.hostname().substring(0, 28)}-sdk`,
       message: "New API Key Name:",
     });
 
