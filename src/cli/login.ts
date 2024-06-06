@@ -63,7 +63,7 @@ export const loginCommand = new Command()
       message: "New API Key Name:",
       validate: (input) => {
         if (input.length > 32) {
-          return "API key name must 32 characters or less.";
+          return "API key name must 32 characters or fewer.";
         }
         return true;
       },
