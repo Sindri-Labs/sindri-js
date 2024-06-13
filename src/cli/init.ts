@@ -72,6 +72,7 @@ export const initCommand = new Command()
       ],
     });
     const context: object = { circuitName, circuitType };
+    let templateDirectory: string = circuitType;
 
     // Handle individual circuit types.
     if (circuitType === "circom") {
@@ -154,6 +155,14 @@ export const initCommand = new Command()
       });
     } else if (circuitType === "halo2") {
       // Halo2.
+      const halo2Version: "axiom-v0.3.0" | "pse-v0.3.0" = await select({
+        message: "Halo2 Base Version:",
+        default: "axiom-v0.3.0",
+        choices: [
+          { name: "Axiom v0.3.0", value: "axiom-v0.3.0" },
+          { name: "PSE v0.3.0", value: "pse-v0.3.0" },
+        ],
+      });
       const packageName = await input({
         message: "Halo2 Package Name:",
         default: circuitName
@@ -175,21 +184,6 @@ export const initCommand = new Command()
           return true;
         },
       });
-      const halo2Version: "axiom-v0.3.0" = await select({
-        message: "Halo2 Base Version:",
-        default: "axiom-v0.3.0",
-        choices: [{ name: "Axiom v0.3.0", value: "axiom-v0.3.0" }],
-      });
-      const threadBuilder: "GateThreadBuilder" | undefined =
-        halo2Version !== "axiom-v0.3.0"
-          ? undefined
-          : await select({
-              message: "Halo2 Base Version:",
-              default: "GateThreadBuilder",
-              choices: [
-                { name: "Gate Thread Builder", value: "GateThreadBuilder" },
-              ],
-            });
       // Collect `degree` as a positive integer.
       const degree: number = parseInt(
         await input({
@@ -207,12 +201,26 @@ export const initCommand = new Command()
         }),
         10,
       );
-
+      const threadBuilder: "GateThreadBuilder" | undefined =
+        halo2Version === "axiom-v0.3.0"
+          ? await select({
+              message: "Halo2 Base Version:",
+              default: "GateThreadBuilder",
+              choices: [
+                { name: "Gate Thread Builder", value: "GateThreadBuilder" },
+              ],
+            })
+          : undefined;
+      // Return the circuit path, depending on the halo2Version field
+      const circuitPath:
+        | "::circuit::EqualCircuit"
+        | "::circuit_def::CircuitInput" =
+        halo2Version !== "axiom-v0.3.0"
+          ? "::circuit::EqualCircuit"
+          : "::circuit_def::CircuitInput";
       // Replace hyphens with underscores in the package name.
-      const className = `${packageName.replace(
-        /-/g,
-        "_",
-      )}::circuit_def::CircuitInput`;
+      const className = `${packageName.replace(/-/g, "_")}${circuitPath}`;
+      templateDirectory = `${templateDirectory}/${halo2Version}`;
 
       Object.assign(context, {
         className,
@@ -271,7 +279,12 @@ export const initCommand = new Command()
       `Proceeding to generate scaffolded project in "${directoryPath}".`,
     );
     await scaffoldDirectory("common", directoryPath, context, sindri.logger);
-    await scaffoldDirectory(circuitType, directoryPath, context, sindri.logger);
+    await scaffoldDirectory(
+      templateDirectory,
+      directoryPath,
+      context,
+      sindri.logger,
+    );
     // We use this in `common` right now to keep the directory tracked, we can remove this once we
     // add files there.
     const gitKeepFile = path.join(directoryPath, ".gitkeep");
