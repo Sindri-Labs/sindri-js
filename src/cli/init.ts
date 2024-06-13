@@ -72,7 +72,7 @@ export const initCommand = new Command()
       ],
     });
     const context: object = { circuitName, circuitType };
-    let templatePath = circuitType;
+    let templateDirectory: string = circuitType;
 
     // Handle individual circuit types.
     if (circuitType === "circom") {
@@ -202,15 +202,15 @@ export const initCommand = new Command()
         10,
       );
       const threadBuilder: "GateThreadBuilder" | undefined =
-        halo2Version !== "axiom-v0.3.0"
-          ? undefined
-          : await select({
+        halo2Version === "axiom-v0.3.0"
+          ? await select({
               message: "Halo2 Base Version:",
               default: "GateThreadBuilder",
               choices: [
                 { name: "Gate Thread Builder", value: "GateThreadBuilder" },
               ],
-            });
+            })
+          : undefined;
       // Return the circuit path, depending on the halo2Version field
       const circuitPath:
         | "::circuit::EqualCircuit"
@@ -220,7 +220,7 @@ export const initCommand = new Command()
           : "::circuit_def::CircuitInput";
       // Replace hyphens with underscores in the package name.
       const className = `${packageName.replace(/-/g, "_")}${circuitPath}`;
-      templatePath = `${templatePath}/${halo2Version}`;
+      templateDirectory = `${templateDirectory}/${halo2Version}`;
 
       Object.assign(context, {
         className,
@@ -280,7 +280,7 @@ export const initCommand = new Command()
     );
     await scaffoldDirectory("common", directoryPath, context, sindri.logger);
     await scaffoldDirectory(
-      templatePath,
+      templateDirectory,
       directoryPath,
       context,
       sindri.logger,
