@@ -130,7 +130,10 @@ export async function execCommand(
         `"${process.env.SINDRI_FORCE_DOCKER}".`,
     );
   } else if (await checkCommandExists(command)) {
-    logger?.debug(`Executing the "${command}" command locally.`);
+    logger?.debug(
+      { args, command },
+      `Executing the "${command}" command locally.`,
+    );
     return {
       code: await execLocalCommand(command, args, { cwd, logger, tty }),
       method: "local",
@@ -143,7 +146,10 @@ export async function execCommand(
 
   // Fall back to using Docker if possible.
   if (await checkDockerAvailability(logger)) {
-    logger?.debug(`Executing the "${command}" command in a Docker container.`);
+    logger?.debug(
+      { args, command },
+      `Executing the "${command}" command in a Docker container.`,
+    );
     return {
       code: await execDockerCommand(command, args, {
         cwd,
