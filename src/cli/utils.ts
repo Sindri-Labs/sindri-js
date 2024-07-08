@@ -32,6 +32,7 @@ const currentDirectoryPath = path.dirname(currentFilePath);
  */
 export function checkCommandExists(command: string): Promise<boolean> {
   return new Promise((resolve) => {
+    // TODO: Circomspect doesn't support this argument, so this will always fail for that command.
     const process = spawn(command, ["--version"]);
 
     process.on("error", () => {
