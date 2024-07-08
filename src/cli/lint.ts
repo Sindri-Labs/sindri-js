@@ -202,13 +202,37 @@ export const lintCommand = new Command()
         let sarif: SarifLog | undefined;
         let ranInDocker: boolean;
         try {
+          // Check if circomspect supports the `--library` flag (introduced in v9.0.0).
+          const { code: libraryPathSupportedTestCode } = await execCommand(
+            "circomspect",
+            ["--library", "/test/path/"],
+            {
+              tty: false,
+            },
+          );
+          const libraryPathSupported: boolean =
+            libraryPathSupportedTestCode === 0;
+          // Conditionally include library paths if supported by the ciromspect version.
+          // It's important that this backend logic is kept in sync with the backend.
+          const libraryPathArgs: string[] = libraryPathSupported
+            ? ["--library", ".", "--library", path.join(".", "node_modules")]
+            : [];
+
+          // Try to run circomspect.
           const circuitPath: string =
             "circuitPath" in sindriJson && sindriJson.circuitPath
               ? (sindriJson.circuitPath as string)
               : "circuit.circom";
           const { method } = await execCommand(
             "circomspect",
-            ["--level", "INFO", "--sarif-file", sarifFile, circuitPath],
+            [
+              ...libraryPathArgs,
+              "--level",
+              "INFO",
+              "--sarif-file",
+              sarifFile,
+              circuitPath,
+            ],
             {
               cwd: rootDirectory,
               logger: sindri.logger,
