@@ -12,6 +12,7 @@ import type { Log as SarifLog, Result as SarifResult } from "sarif";
 import {
   execCommand,
   findFileUpwards,
+  isTruthy,
   loadSindriManifestJsonSchema,
 } from "cli/utils";
 import sindri from "lib";
@@ -186,8 +187,16 @@ export const lintCommand = new Command()
       sindri.logger.debug(`README file found at "${readmePath}".`);
     }
 
-    // Run Circomspect for Circom circuits.
-    if (circuitType === "circom") {
+    // Run Circomspect for Circom circuits, unless it's been disabled.
+    if (
+      circuitType === "circom" &&
+      isTruthy(process.env.SINDRI_LINT_DISABLE_CIRCOMSPECT ?? "false")
+    ) {
+      sindri.logger.warn(
+        "Skipping Circomspect static analysis because " +
+          `"SINDRI_LINT_DISABLE_CIRCOMSPECT=${process.env.SINDRI_LINT_DISABLE_CIRCOMSPECT}".`,
+      );
+    } else if (circuitType === "circom") {
       try {
         // Run Circomspect and parse the results.
         sindri.logger.info(
