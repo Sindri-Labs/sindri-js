@@ -32,6 +32,7 @@ const currentDirectoryPath = path.dirname(currentFilePath);
  */
 export function checkCommandExists(command: string): Promise<boolean> {
   return new Promise((resolve) => {
+    // TODO: Circomspect doesn't support this argument, so this will always fail for that command.
     const process = spawn(command, ["--version"]);
 
     process.on("error", () => {
@@ -130,7 +131,10 @@ export async function execCommand(
         `"${process.env.SINDRI_FORCE_DOCKER}".`,
     );
   } else if (await checkCommandExists(command)) {
-    logger?.debug(`Executing the "${command}" command locally.`);
+    logger?.debug(
+      { args, command },
+      `Executing the "${command}" command locally.`,
+    );
     return {
       code: await execLocalCommand(command, args, { cwd, logger, tty }),
       method: "local",
@@ -143,7 +147,10 @@ export async function execCommand(
 
   // Fall back to using Docker if possible.
   if (await checkDockerAvailability(logger)) {
-    logger?.debug(`Executing the "${command}" command in a Docker container.`);
+    logger?.debug(
+      { args, command },
+      `Executing the "${command}" command in a Docker container.`,
+    );
     return {
       code: await execDockerCommand(command, args, {
         cwd,
