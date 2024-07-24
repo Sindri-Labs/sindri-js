@@ -9,12 +9,10 @@
 /* tslint:disable */
 /* eslint-disable */
 import axios from "axios";
-import type {
-  AxiosError,
-  AxiosRequestConfig,
-  AxiosResponse,
-  AxiosInstance,
-} from "axios";
+import type { AxiosRequestConfig, AxiosResponse, AxiosInstance } from "axios";
+import { AxiosError } from "axios";
+import pRetry from "@fullstax/p-retry";
+
 // Manual edit to use our isomorphic `FormData`.
 import { FormData } from "lib/isomorphic";
 
@@ -231,6 +229,23 @@ export const getRequestBody = (options: ApiRequestOptions): any => {
   return undefined;
 };
 
+const shouldRetry = (error: Error): boolean =>
+  !!(
+    axios.isAxiosError(error) &&
+    ((error.response?.status &&
+      [502, 503, 504].includes(error.response.status)) ||
+      (error.code &&
+        [
+          // Some of these codes aren't on `AxiosError` for some reason, see:
+          //   * https://github.com/axios/axios/issues/4894#issuecomment-2062064639
+          "ECONNREFUSED",
+          "ENOTFOUND",
+          "ENETUNREACH",
+          AxiosError.ECONNABORTED,
+          AxiosError.ERR_NETWORK,
+        ].includes(error.code)))
+  );
+
 export const sendRequest = async <T>(
   config: OpenAPIConfig,
   options: ApiRequestOptions,
@@ -256,8 +271,28 @@ export const sendRequest = async <T>(
   onCancel(() => source.cancel("The user aborted a request."));
 
   try {
-    const response = await axiosClient.request(requestConfig);
-    return response;
+    if (!config.sindri) {
+      return await axiosClient.request(requestConfig);
+    }
+    return await pRetry(() => axiosClient.request(requestConfig), {
+      ...config.sindri.retryOptions,
+      onFailedAttempt: (error) => {
+        // Don't log anything if we're not going to retry the request, the error will get logged
+        // further up the stack in that case.
+        if (!shouldRetry(error)) return;
+
+        config.sindri!.logger.debug(
+          {
+            attemptNumber: error.attemptNumber,
+            error: error.message,
+            retriesLeft: error.retriesLeft,
+          },
+          `${options.method} ${url} - Request failed, ` +
+            `${error.retriesLeft > 0 ? "retrying" : "aborting..."}...`,
+        );
+      },
+      shouldRetry,
+    });
   } catch (error) {
     const axiosError = error as AxiosError<T>;
     if (axiosError.response) {
@@ -367,7 +402,7 @@ export const request = <T>(
       const headers = await getHeaders(config, options, formData);
 
       if (!onCancel.isCancelled) {
-        config.logger?.debug(`${logPrefix} requested`);
+        config.sindri?.logger.debug(`${logPrefix} requested`);
         const response = await sendRequest<T>(
           config,
           options,
@@ -395,15 +430,17 @@ export const request = <T>(
           response.statusText
         } (${getElapsedTime()})`;
         if (!result.body || typeof result.body === "string") {
-          config.logger?.debug(
+          config.sindri?.logger.debug(
             `${responseMessage} - ${result.body || "<empty-body>"}`,
           );
         } else if (options.responseType === "stream") {
-          config.logger?.debug(`${responseMessage} - <streaming-response>`);
+          config.sindri?.logger.debug(
+            `${responseMessage} - <streaming-response>`,
+          );
         } else if (options.responseType === "blob") {
-          config.logger?.debug(`${responseMessage} - <blob-response>`);
+          config.sindri?.logger.debug(`${responseMessage} - <blob-response>`);
         } else {
-          config.logger?.debug(result.body, responseMessage);
+          config.sindri?.logger.debug(result.body, responseMessage);
         }
 
         catchErrorCodes(options, result);
@@ -413,7 +450,7 @@ export const request = <T>(
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "Unknown error";
-      config.logger?.debug(
+      config.sindri?.logger.debug(
         `${logPrefix} ERROR (${getElapsedTime()}) - ${errorMessage}`,
       );
       reject(error);

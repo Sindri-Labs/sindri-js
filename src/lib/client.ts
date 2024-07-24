@@ -4,6 +4,7 @@ import type { Readable } from "stream";
 
 import gzip from "gzip-js";
 import walk from "ignore-walk";
+import type { WrapOptions as RetryOptions } from "retry";
 import tar from "tar";
 import Tar from "tar-js";
 
@@ -111,6 +112,18 @@ export class SindriClient {
   public pollingInterval: number = 1000;
 
   /**
+   * Represents the options for retrying requests to the Sindri ZKP service.
+   *
+   * See the [`retry` package](https://www.npmjs.com/package/retry#retrytimeoutsoptions)
+   * documentation for more information on the available options. The values here are the defaults,
+   * but they can be replaced with custom values in the constructor.
+   */
+  public retryOptions: RetryOptions = {
+    minTimeout: 1000,
+    retries: 6,
+  };
+
+  /**
    * Constructs a new instance of the {@link SindriClient} class for interacting with the Sindri ZKP
    * service.  This constructor initializes the client with the necessary authentication options.
    *
@@ -127,7 +140,10 @@ export class SindriClient {
    *
    * @see {@link SindriClient.authorize} for information on retrieving this value.
    */
-  constructor(authOptions: AuthOptions = {}) {
+  constructor(
+    authOptions: AuthOptions = {},
+    { retryOptions }: { retryOptions?: RetryOptions } = {},
+  ) {
     // Initialize the client and store a reference to its config.
     this._client = new ApiClient();
     this._clientConfig = this._client.request.config;
@@ -146,10 +162,15 @@ export class SindriClient {
     if (!process.env.BROWSER_BUILD) {
       this._config = new Config(this.logger);
     }
-    this._clientConfig.logger = this.logger;
+    this._clientConfig.sindri = this;
 
     // Authorize the client.
     this.authorize(authOptions);
+
+    // Store the retry options.
+    if (retryOptions) {
+      this.retryOptions = structuredClone(retryOptions);
+    }
   }
 
   /**
@@ -278,6 +299,8 @@ export class SindriClient {
    *
    * @param authOptions - The authentication options for the client, including
    * credentials like API keys or tokens. Defaults to an empty object if not provided.
+   * @param options - Additional options for configuring the client.
+   * @param options.retryOptions - The options related to retrying a request.
    *
    * @example
    * import sindri from 'sindri';
@@ -287,8 +310,15 @@ export class SindriClient {
    *
    * @returns The new client instance.
    */
-  create(authOptions: AuthOptions | undefined): SindriClient {
-    return new SindriClient(authOptions);
+  create(
+    authOptions: AuthOptions | undefined,
+    options:
+      | {
+          retryOptions?: RetryOptions;
+        }
+      | undefined,
+  ): SindriClient {
+    return new SindriClient(authOptions, options);
   }
 
   /**
