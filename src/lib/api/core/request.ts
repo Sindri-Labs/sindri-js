@@ -367,7 +367,7 @@ export const request = <T>(
       const headers = await getHeaders(config, options, formData);
 
       if (!onCancel.isCancelled) {
-        config.logger?.debug(`${logPrefix} requested`);
+        config.sindri?.logger.debug(`${logPrefix} requested`);
         const response = await sendRequest<T>(
           config,
           options,
@@ -395,15 +395,17 @@ export const request = <T>(
           response.statusText
         } (${getElapsedTime()})`;
         if (!result.body || typeof result.body === "string") {
-          config.logger?.debug(
+          config.sindri?.logger.debug(
             `${responseMessage} - ${result.body || "<empty-body>"}`,
           );
         } else if (options.responseType === "stream") {
-          config.logger?.debug(`${responseMessage} - <streaming-response>`);
+          config.sindri?.logger.debug(
+            `${responseMessage} - <streaming-response>`,
+          );
         } else if (options.responseType === "blob") {
-          config.logger?.debug(`${responseMessage} - <blob-response>`);
+          config.sindri?.logger.debug(`${responseMessage} - <blob-response>`);
         } else {
-          config.logger?.debug(result.body, responseMessage);
+          config.sindri?.logger.debug(result.body, responseMessage);
         }
 
         catchErrorCodes(options, result);
@@ -413,7 +415,7 @@ export const request = <T>(
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "Unknown error";
-      config.logger?.debug(
+      config.sindri?.logger.debug(
         `${logPrefix} ERROR (${getElapsedTime()}) - ${errorMessage}`,
       );
       reject(error);

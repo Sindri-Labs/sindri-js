@@ -146,7 +146,7 @@ export class SindriClient {
     if (!process.env.BROWSER_BUILD) {
       this._config = new Config(this.logger);
     }
-    this._clientConfig.logger = this.logger;
+    this._clientConfig.sindri = this;
 
     // Authorize the client.
     this.authorize(authOptions);
