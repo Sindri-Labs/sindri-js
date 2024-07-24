@@ -21,6 +21,9 @@
     },
     {
       "$ref": "#/definitions/NoirSindriManifest"
+    },
+    {
+      "$ref": "#/definitions/Plonky2SindriManifest"
     }
   ],
   "definitions": {
@@ -582,6 +585,75 @@
         }
       },
       "required": ["circuitType", "name"],
+      "additionalProperties": false
+    },
+    "Plonky2VersionOptions": {
+      "title": "Plonky2VersionOptions",
+      "description": "The supported Plonky2 framework versions.",
+      "enum": ["0.2.0", "0.2.1", "0.2.2"],
+      "type": "string"
+    },
+    "Plonky2SindriManifest": {
+      "title": "Sindri Manifest for Plonky2 Circuits",
+      "description": "Sindri Manifest for Plonky2 circuits.",
+      "type": "object",
+      "properties": {
+        "circuitType": {
+          "title": "Circuit Type",
+          "description": "The (frontend) development framework that your circuit is written with.",
+          "enum": ["plonky2"],
+          "type": "string"
+        },
+        "name": {
+          "title": "Circuit Name",
+          "description": "The circuit name used to uniquely identify the circuit within your organization. Similar to a GitHub project name or a Docker image name.",
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "error_messages": {
+            "regex": "`name` must be a valid slug."
+          },
+          "type": "string"
+        },
+        "structName": {
+          "title": "Circuit struct Name",
+          "description": "The path to your circuit struct definition. (*e.g.* `my-package::my_file::MyCircuitStruct`).",
+          "pattern": "^([A-Za-z_][A-Za-z0-9_]*::)+[A-Za-z_][A-Za-z0-9_]*$",
+          "error_messages": {
+            "regex": "`structName` must be a valid and fully qualifed Rust path to a struct including the crate name."
+          },
+          "type": "string"
+        },
+        "plonky2Version": {
+          "description": "Plonky2 version defaults to '0.2.2'",
+          "default": "0.2.2",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Plonky2VersionOptions"
+            }
+          ]
+        },
+        "provingScheme": {
+          "title": "Proving Scheme",
+          "description": "Plonky2 proving scheme defaults to `plonky2`.",
+          "default": "plonky2",
+          "type": "string"
+        },
+        "packageName": {
+          "title": "Rust Package Name",
+          "description": "The name of the Rust package containing your circuit.",
+          "pattern": "^[a-z0-9_]+(?:-[a-z0-9_]+)*$",
+          "error_messages": {
+            "regex": "`packageName` must be a valid Rust crate name."
+          },
+          "type": "string"
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": ["https://sindri.app/api/v1/sindri-manifest-schema.json"]
+        }
+      },
+      "required": ["circuitType", "name", "structName", "packageName"],
       "additionalProperties": false
     }
   }
