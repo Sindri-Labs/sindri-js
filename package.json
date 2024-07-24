@@ -76,6 +76,7 @@
   "homepage": "https://github.com/Sindri-Labs/sindri-js#readme",
   "dependencies": {
     "@commander-js/extra-typings": "^11.1.0",
+    "@fullstax/p-retry": "^6.2.0-patch.4",
     "@inquirer/prompts": "^3.3.0",
     "@tsconfig/node18": "^18.2.2",
     "@types/gzip-js": "^0.3.5",
@@ -102,6 +103,7 @@
     "pino-pretty": "^10.2.3",
     "postinstall-postinstall": "^2.1.0",
     "rc": "^1.2.8",
+    "retry": "^0.13.1",
     "tar": "^6.2.0",
     "tar-js": "^0.3.0",
     "zod": "^3.22.4"
