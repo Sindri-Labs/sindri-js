@@ -120,7 +120,7 @@ export class SindriClient {
    */
   public retryOptions: RetryOptions = {
     minTimeout: 1000,
-    retries: 4,
+    retries: 6,
   };
 
   /**
