@@ -274,7 +274,7 @@ export const sendRequest = async <T>(
     if (!config.sindri) {
       return await axiosClient.request(requestConfig);
     }
-    return pRetry(() => axiosClient.request(requestConfig), {
+    return await pRetry(() => axiosClient.request(requestConfig), {
       ...config.sindri.retryOptions,
       onFailedAttempt: (error) => {
         // Don't log anything if we're not going to retry the request, the error will get logged
