@@ -4,6 +4,7 @@ import type { Readable } from "stream";
 
 import gzip from "gzip-js";
 import walk from "ignore-walk";
+import type { WrapOptions as RetryOptions } from "retry";
 import tar from "tar";
 import Tar from "tar-js";
 
@@ -111,6 +112,21 @@ export class SindriClient {
   public pollingInterval: number = 1000;
 
   /**
+   * Represents the options for retrying requests to the Sindri ZKP service.
+   *
+   * See the [`retry` package](https://www.npmjs.com/package/retry#retrytimeoutsoptions)
+   * documentation for more information on the available options.
+   */
+  public retryOptions: RetryOptions;
+  /**
+   * The default retry options that will be used for the client if none are provided.
+   */
+  static readonly defaultRetryOptions: RetryOptions = {
+    minTimeout: 1000,
+    retries: 4,
+  };
+
+  /**
    * Constructs a new instance of the {@link SindriClient} class for interacting with the Sindri ZKP
    * service.  This constructor initializes the client with the necessary authentication options.
    *
@@ -127,7 +143,12 @@ export class SindriClient {
    *
    * @see {@link SindriClient.authorize} for information on retrieving this value.
    */
-  constructor(authOptions: AuthOptions = {}) {
+  constructor(
+    authOptions: AuthOptions = {},
+    { retryOptions }: { retryOptions: RetryOptions } = {
+      retryOptions: SindriClient.defaultRetryOptions,
+    },
+  ) {
     // Initialize the client and store a reference to its config.
     this._client = new ApiClient();
     this._clientConfig = this._client.request.config;
@@ -150,6 +171,9 @@ export class SindriClient {
 
     // Authorize the client.
     this.authorize(authOptions);
+
+    // Store the retry options.
+    this.retryOptions = structuredClone(retryOptions);
   }
 
   /**
