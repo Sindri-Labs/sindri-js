@@ -31,6 +31,10 @@ export type ProofInfoResponse = {
    */
   date_created: string;
   /**
+   * Metadata keys and values for the proof that were specified at creation time.
+   */
+  meta: Record<string, string>;
+  /**
    * A boolean indicating whether an internal verification check occurred during the proof creation.
    */
   perform_verify: boolean;
