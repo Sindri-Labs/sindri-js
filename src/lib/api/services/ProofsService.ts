@@ -26,7 +26,7 @@ export class ProofsService {
     proofId: string,
     includeProof: boolean = true,
     includePublic: boolean = true,
-    includeSmartContractCalldata: boolean = false,
+    includeSmartContractCalldata: boolean = true,
     includeVerificationKey: boolean = true,
   ): CancelablePromise<ProofInfoResponse> {
     return this.httpRequest.request({
