@@ -19,17 +19,13 @@ export class CircuitsService {
    * @returns CircuitInfoResponse Created
    * @throws ApiError
    */
-  public circuitCreate(
-    formData: // This is a manual edit to allow `FormData` to be passed in directly:
-    | FormData // DO NOT REMOVE THIS!
-      | {
-          files: Array<Blob>;
-          /**
-           * Tags for a circuit.
-           */
-          tags?: Array<string>;
-        },
-  ): CancelablePromise<CircuitInfoResponse> {
+  public circuitCreate(formData: {
+    files: Array<Blob>;
+    /**
+     * Tags for a circuit.
+     */
+    tags?: Array<string>;
+  }): CancelablePromise<CircuitInfoResponse> {
     return this.httpRequest.request({
       method: "POST",
       url: "/api/v1/circuit/create",
@@ -46,10 +42,7 @@ export class CircuitsService {
 
   /**
    * Circuit List
-   * Return the list of all circuit infos. Note that while this endpoint provides a
-   * comprehensive list of circuits, certain fields such as the `verification_key` will always be
-   * `null`. To retrieve these fields for a circuit, please query the circuit-detail endpoint
-   * supplied with the desired circuit ID.
+   * List all circuits owned by team.
    * @returns CircuitInfoResponse OK
    * @throws ApiError
    */
@@ -105,7 +98,7 @@ export class CircuitsService {
 
   /**
    * Delete Circuit
-   * Mark the specified circuit and any of its related proofs as deleted.
+   * Delete a circuit.
    * @param circuitId The circuit identifer of the circuit.
    * This can take one of the following forms:
    *
@@ -138,10 +131,7 @@ export class CircuitsService {
 
   /**
    * Circuit Proofs
-   * Return the list of all proof infos for the provided circuit_id. Note that while this
-   * endpoint provides a comprehensive list of proofs, certain fields such as the `proof` and
-   * `public` will always be `null`. To retrieve these fields for a proof, please query the
-   * proof-detail endpoint supplied with the desired proof ID.
+   * List all proofs for a circuit.
    * @param circuitId The circuit identifer of the circuit.
    * This can take one of the following forms:
    *
@@ -222,8 +212,8 @@ export class CircuitsService {
       errors: {
         400: `Bad Request`,
         404: `Not Found`,
+        409: `Conflict`,
         501: `Not Implemented`,
-        503: `Service Unavailable`,
       },
     });
   }

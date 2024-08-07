@@ -21,6 +21,4 @@ export type ApiRequestOptions = {
   readonly mediaType?: string;
   readonly responseHeader?: string;
   readonly errors?: Record<number, string>;
-  readonly responseType?: // DO NOT REMOVE
-  "arraybuffer" | "blob" | "document" | "json" | "text" | "stream";
 };

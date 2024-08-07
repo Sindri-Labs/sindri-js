@@ -36,8 +36,8 @@ export class AuthorizationService {
   }
 
   /**
-   * Generate long-term API Key (requires prior authentication)
-   * Return a long-term API key for the user's team.
+   * API Key Generate
+   * Generate an API key for the requesting team.
    * @param name An optional name or tag to assign to the generated API Key.
    * @returns APIKeyResponse Created
    * @throws ApiError
@@ -59,7 +59,7 @@ export class AuthorizationService {
 
   /**
    * API Key List
-   * Return a list of API Keys for the team.
+   * List API keys for the requesting team.
    * @returns APIKeyResponse OK
    * @throws ApiError
    */
@@ -74,8 +74,8 @@ export class AuthorizationService {
   }
 
   /**
-   * Delete API Key
-   * Mark the specified API Key as deleted.
+   * API Key Delete
+   * Delete a specific API key.
    * @param apikeyId The UUID4 identifier associated with this API Key.
    * @returns ActionResponse OK
    * @throws ApiError
