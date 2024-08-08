@@ -362,7 +362,7 @@ export class SindriClient {
   async createCircuit(
     project: string | Array<BrowserFile | NodeFile>,
     tags: string | string[] | null = ["latest"],
-    meta: Meta,
+    meta: Meta = {},
   ): Promise<CircuitInfoResponse> {
     const formData = new FormData();
 
