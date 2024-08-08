@@ -19,13 +19,17 @@ export class CircuitsService {
    * @returns CircuitInfoResponse Created
    * @throws ApiError
    */
-  public circuitCreate(formData: {
-    files: Array<Blob>;
-    /**
-     * Tags for a circuit.
-     */
-    tags?: Array<string>;
-  }): CancelablePromise<CircuitInfoResponse> {
+  public circuitCreate(
+    formData: // This is a manual edit to allow `FormData` to be passed in directly:
+    | FormData // DO NOT REMOVE THIS!
+      | {
+          files: Array<Blob>;
+          /**
+           * Tags for a circuit.
+           */
+          tags?: Array<string>;
+        },
+  ): CancelablePromise<CircuitInfoResponse> {
     return this.httpRequest.request({
       method: "POST",
       url: "/api/v1/circuit/create",

@@ -15,6 +15,11 @@ import type { UserMeResponse } from "../models/UserMeResponse";
 import type { CancelablePromise } from "../core/CancelablePromise";
 import type { BaseHttpRequest } from "../core/BaseHttpRequest";
 
+// DO NOT REMOVE
+type BinaryResponseType = typeof globalThis extends { ReadableStream: unknown }
+  ? Blob
+  : NodeJS.ReadableStream;
+
 export class InternalService {
   constructor(public readonly httpRequest: BaseHttpRequest) {}
 
@@ -40,8 +45,8 @@ export class InternalService {
    */
   public circuitDownload(
     circuitId: string,
-    path?: string,
-  ): CancelablePromise<any> {
+    // DO NOT REMOVE
+  ): CancelablePromise<BinaryResponseType> {
     return this.httpRequest.request({
       method: "GET",
       url: "/api/v1/circuit/{circuit_id}/download",
@@ -301,6 +306,7 @@ export class InternalService {
         422: `Unprocessable Entity`,
         500: `Internal Server Error`,
       },
+      responseType: process.env.BROWSER_BUILD ? "blob" : "stream", // DO NOT REMOVE
     });
   }
 
