@@ -4,10 +4,11 @@ import process from "process";
 
 import { Command } from "@commander-js/extra-typings";
 
-import { findFileUpwards } from "cli/utils";
+import { collectMetaWithLogger, findFileUpwards } from "cli/utils";
 import sindri from "lib";
 import { ApiError } from "lib/api";
 import { print } from "lib/logging";
+import { getDefaultMeta } from "lib/utils";
 
 const readStdin = async (): Promise<string> => {
   let inputData = "";
@@ -25,12 +26,18 @@ const proofCreateCommand = new Command()
     "Input file for the proof (defaults to stdin if non-TTY; " +
       "`input.json`, `example-input.json`, or `Prover.toml` otherwise).",
   )
+  .option(
+    "-m, --meta <key=value>",
+    "Metadata key/value to attach to the proof.",
+    collectMetaWithLogger(sindri.logger),
+    getDefaultMeta({ logger: sindri.logger, raiseExceptions: false }),
+  )
   .option("-t, --tag <tag>", "Tag to generate the proof from.", "latest")
   .option(
     "-v, --verify",
     "Perform verification of the proof after creating it.",
   )
-  .action(async ({ input, tag, verify }) => {
+  .action(async ({ input, meta, tag, verify }) => {
     // Check that the API client is authorized.
     if (!sindri.apiKey || !sindri.baseUrl) {
       sindri.logger.warn("You must login first with `sindri login`.");
@@ -132,6 +139,7 @@ const proofCreateCommand = new Command()
         proofInput,
         !!verify,
         includeSmartContractCalldata,
+        meta,
       );
       const elapsedSeconds = ((Date.now() - startTime) / 1000).toFixed(1);
 
@@ -156,6 +164,7 @@ const proofCreateCommand = new Command()
         JSON.stringify(
           {
             proofId: response.proof_id,
+            meta: response.meta,
             proof: response.proof,
             public: response.public,
             // TODO: We need to figure out if this is the format we want to expose.
