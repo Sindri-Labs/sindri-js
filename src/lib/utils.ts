@@ -23,6 +23,12 @@ export function getDefaultMeta({
   if (cache && cachedDefaultMeta) {
     return cachedDefaultMeta;
   }
+
+  // There are no environment variables in a browser.
+  if (process.env.BROWSER_BUILD) {
+    return (cachedDefaultMeta = {});
+  }
+
   const { SINDRI_META } = process.env;
   if (!SINDRI_META) {
     return (cachedDefaultMeta = {});
