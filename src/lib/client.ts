@@ -26,6 +26,7 @@ import type {
   NodeFile,
   NodeFormData,
 } from "lib/isomorphic";
+import { type Meta, validateMetaAndMergeWithDefaults } from "lib/utils";
 
 // Re-export types from the API.
 export type {
@@ -46,7 +47,7 @@ export type CircuitInfoResponse =
   | NoirCircuitInfoResponse;
 
 // Re-export other internal types.
-export type { Logger, LogLevel };
+export type { Logger, LogLevel, Meta };
 
 /**
  * The options for authenticating with the API.
@@ -343,6 +344,10 @@ export class SindriClient {
    * should be associated with the deployed circuit. Defaults to `["latest"]`. Specify an empty
    * array to indicate that you don't care about the compilation outputs and just want to see if it
    * the circuit will compile.
+   * @param meta - An object containing metadata to associate with the circuit build. This will be
+   * merged into any metadata specified in the `SINDRI_META` environment variable. This variable can
+   * be a JSON object (*e.g.* `{"key": "value"}`) or a colon-delimited set of assignments (*e.g.*
+   * `key1=value1:key2=value2`).
    * @returns A promise which resolves to the details of the deployed circuit.
    *
    * @example
@@ -357,6 +362,7 @@ export class SindriClient {
   async createCircuit(
     project: string | Array<BrowserFile | NodeFile>,
     tags: string | string[] | null = ["latest"],
+    meta: Meta,
   ): Promise<CircuitInfoResponse> {
     const formData = new FormData();
 
@@ -374,6 +380,12 @@ export class SindriClient {
     if (tags.length === 0) {
       formData.append("tags", "");
     }
+
+    // Validate and add the metadata.
+    formData.append(
+      "meta",
+      JSON.stringify(validateMetaAndMergeWithDefaults(meta)),
+    );
 
     // Handle `project` being a file or directory path.
     if (typeof project === "string") {
@@ -647,6 +659,15 @@ export class SindriClient {
    * @param circuitId - The unique identifier of the circuit for which the proof is being generated.
    * @param proofInput - The input data required for generating the proof. This should be a string
    * containing either JSON data or TOML data (in the case of Noir).
+   * @param verify - A boolean indicating whether to perform a verification check of the generated
+   * proof.
+   * @param includeSmartContractCalldata - A boolean indicating whether to include calldata for the
+   * proof that can be passed into a smart contract for verification. Note that not all frameworks
+   * support this.
+   * @param meta - An object containing metadata to associate with the proof. This will be merged
+   * into any metadata specified in the `SINDRI_META` environment variable. This variable can be a
+   * JSON object (*e.g.* `{"key": "value"}`) or a colon-delimited set of assignments (*e.g.*
+   * `key1=value1:key2=value2`).
    * @returns A promise that resolves to the information of the generated proof.
    *
    * @example
@@ -658,8 +679,10 @@ export class SindriClient {
     proofInput: string,
     verify: boolean = false,
     includeSmartContractCalldata: boolean = false,
+    meta: Meta = {},
   ): Promise<ProofInfoResponse> {
     const createResponse = await this._client.circuits.proofCreate(circuitId, {
+      meta: validateMetaAndMergeWithDefaults(meta), // This will raise an error if it's invalid.
       perform_verify: verify,
       proof_input: proofInput,
     });
