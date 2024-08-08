@@ -45,6 +45,7 @@ export class InternalService {
    */
   public circuitDownload(
     circuitId: string,
+    path?: string,
     // DO NOT REMOVE
   ): CancelablePromise<BinaryResponseType> {
     return this.httpRequest.request({
