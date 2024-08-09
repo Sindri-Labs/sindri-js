@@ -13,7 +13,7 @@ export class ProofsService {
 
   /**
    * Proof Detail
-   * Get info for an existing proof.
+   * Get info for a specific proof.
    * @param proofId The UUID4 identifier associated with this proof.
    * @param includeProof Indicates whether to include the proof in the response.
    * @param includePublic Indicates whether to include public inputs in the response.
@@ -26,7 +26,7 @@ export class ProofsService {
     proofId: string,
     includeProof: boolean = true,
     includePublic: boolean = true,
-    includeSmartContractCalldata: boolean = false,
+    includeSmartContractCalldata: boolean = true,
     includeVerificationKey: boolean = true,
   ): CancelablePromise<ProofInfoResponse> {
     return this.httpRequest.request({
@@ -51,7 +51,7 @@ export class ProofsService {
 
   /**
    * Delete Proof
-   * Mark the specified proof as deleted.
+   * Delete a specific proof.
    * @param proofId The UUID4 identifier associated with this proof.
    * @returns ActionResponse OK
    * @throws ApiError

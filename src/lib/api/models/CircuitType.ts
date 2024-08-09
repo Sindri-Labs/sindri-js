@@ -6,4 +6,10 @@
 /**
  * CircuitType choices
  */
-export type CircuitType = "boojum" | "circom" | "gnark" | "halo2" | "noir";
+export type CircuitType =
+  | "boojum"
+  | "circom"
+  | "gnark"
+  | "halo2"
+  | "noir"
+  | "plonky2";
