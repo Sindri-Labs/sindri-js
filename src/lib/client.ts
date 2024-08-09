@@ -12,9 +12,10 @@ import { ApiClient, CircuitType, JobStatus, OpenAPIConfig } from "lib/api";
 import type {
   BoojumCircuitInfoResponse,
   CircomCircuitInfoResponse,
-  Halo2CircuitInfoResponse,
   GnarkCircuitInfoResponse,
+  Halo2CircuitInfoResponse,
   NoirCircuitInfoResponse,
+  Plonky2CircuitInfoResponse,
   ProofInfoResponse,
 } from "lib/api";
 import { Config } from "lib/config";
@@ -36,6 +37,7 @@ export type {
   Halo2CircuitInfoResponse,
   JobStatus,
   NoirCircuitInfoResponse,
+  Plonky2CircuitInfoResponse,
   ProofInfoResponse,
 };
 export type CircuitInfoResponse =
@@ -43,7 +45,8 @@ export type CircuitInfoResponse =
   | CircomCircuitInfoResponse
   | Halo2CircuitInfoResponse
   | GnarkCircuitInfoResponse
-  | NoirCircuitInfoResponse;
+  | NoirCircuitInfoResponse
+  | Plonky2CircuitInfoResponse;
 
 // Re-export other internal types.
 export type { Logger, LogLevel };

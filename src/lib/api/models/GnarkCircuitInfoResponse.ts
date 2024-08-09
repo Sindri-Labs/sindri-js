@@ -13,10 +13,11 @@ export type GnarkCircuitInfoResponse = {
    * A unique identifier generated for the circuit. UUID4 format.
    */
   circuit_id: string;
-  /**
-   * The name of a circuit. This can be used in place of circuit_id for proving. This is specified during creation in the included sindri.json file.
-   */
   circuit_name: string;
+  /**
+   * The name of the project. This can be used in place of circuit_id for proving. This is specified during creation in the included sindri.json file. If the project is renamed, this will be the new name of the project, not the original name that was included in the sindri.json file.
+   */
+  project_name: string;
   /**
    * The development framework used to write the circuit. This is specified during creation in the included sindri.json file.
    */
@@ -28,7 +29,7 @@ export type GnarkCircuitInfoResponse = {
   /**
    * The number of proofs submitted for this circuit.
    */
-  num_proofs: number;
+  num_proofs?: number;
   /**
    * The proving scheme for this circuit. This is specified during creation in the included sindri.json file.
    */
@@ -42,9 +43,21 @@ export type GnarkCircuitInfoResponse = {
    */
   status: JobStatus;
   /**
-   * The user/team that owns this circuit.
+   * Tags for the circuit.
+   */
+  tags: Array<string>;
+  /**
+   * The name of the team that owns this circuit.
    */
   team: string;
+  /**
+   * URL for the avatar image of the team that owns this circuit.
+   */
+  team_avatar_url: string;
+  /**
+   * The slug of the team that owns this circuit.
+   */
+  team_slug: string;
   /**
    * Total compute time in ISO8601 format.
    */
@@ -74,9 +87,21 @@ export type GnarkCircuitInfoResponse = {
    */
   uploaded_file_name: string;
   /**
+   * Boolean indicating whether this circuit has a smart contract verifier available.
+   */
+  has_smart_contract_verifier?: boolean;
+  /**
+   * Boolean indicating whether this circuit has a verification key available.
+   */
+  has_verification_key?: boolean;
+  /**
    * The verification key of this circuit.
    */
   verification_key?: Record<string, any>;
+  /**
+   * A list of runtime warnings with UTC timestamps.
+   */
+  warnings?: Array<string>;
   /**
    * The error message for a failed circuit upload.
    */

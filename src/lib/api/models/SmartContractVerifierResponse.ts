@@ -10,5 +10,5 @@ export type SmartContractVerifierResponse = {
   /**
    * The smart contract verifier code.
    */
-  contract_code: string;
+  contract_code?: string;
 };
