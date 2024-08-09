@@ -61,6 +61,8 @@ export class InternalService {
         404: `Not Found`,
         500: `Internal Server Error`,
       },
+
+      responseType: process.env.BROWSER_BUILD ? "blob" : "stream", // DO NOT REMOVE
     });
   }
 
@@ -307,7 +309,6 @@ export class InternalService {
         422: `Unprocessable Entity`,
         500: `Internal Server Error`,
       },
-      responseType: process.env.BROWSER_BUILD ? "blob" : "stream", // DO NOT REMOVE
     });
   }
 
