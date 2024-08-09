@@ -8,9 +8,10 @@ import { FormData } from "formdata-node";
 import walk from "ignore-walk";
 import tar from "tar";
 
-import { findFileUpwards } from "cli/utils";
+import { collectMetaWithLogger, findFileUpwards } from "cli/utils";
 import sindri from "lib";
 import { ApiError } from "lib/api";
+import { getDefaultMeta } from "lib/utils";
 
 interface CollectedTags extends Array<string> {
   isNotDefault?: boolean;
@@ -31,12 +32,18 @@ function collectTags(value: string, previous: CollectedTags): CollectedTags {
 export const deployCommand = new Command()
   .name("deploy")
   .description("Deploy the current Sindri project.")
+  .option(
+    "-m, --meta <key=value>",
+    "Metadata key/value to attach to the circuit build.",
+    collectMetaWithLogger(sindri.logger),
+    getDefaultMeta({ logger: sindri.logger, raiseExceptions: false }),
+  )
   .option("-t, --tag <tag>", "Tag to apply to the circuit.", collectTags, [
     "latest",
   ])
   .option("-u, --untagged", "Discard the current circuit after compiling.")
   .argument("[directory]", "The location of the Sindri project to deploy.", ".")
-  .action(async (directory, { tag: tags, untagged }) => {
+  .action(async (directory, { meta, tag: tags, untagged }) => {
     // Validate the tags and "untagged" option.
     if (untagged) {
       if (tags.length !== 1 || tags[0] !== "latest" || tags.isNotDefault) {
@@ -151,6 +158,9 @@ export const deployCommand = new Command()
       ]),
       tarballFilename,
     );
+
+    // Atach the metadata to the form data.
+    formData.append("meta", JSON.stringify(meta));
 
     // Attach the tags to the form data.
     if (untagged) {
