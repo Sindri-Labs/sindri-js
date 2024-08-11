@@ -549,6 +549,12 @@
           },
           "type": "string"
         },
+        "circuitTypeV2": {
+          "title": "Circuit Type",
+          "description": "The (frontend) development framework that your circuit is written with.",
+          "enum": ["noir"],
+          "type": "string"
+        },
         "curve": {
           "title": "Proving Curve",
           "description": "The curve over which the proof is executed.",
@@ -584,7 +590,7 @@
           "examples": ["https://sindri.app/api/v1/sindri-manifest-schema.json"]
         }
       },
-      "required": ["circuitType", "name"],
+      "required": ["circuitType", "name", "circuitTypeV2"],
       "additionalProperties": false
     },
     "Plonky2VersionOptions": {

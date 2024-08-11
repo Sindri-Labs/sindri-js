@@ -107,6 +107,10 @@ export type NoirCircuitInfoResponse = {
    */
   error?: string;
   /**
+   * The development framework used to write the circuit. This is specified during creation in the included sindri.json file.
+   */
+  circuit_type_v2: "noir";
+  /**
    * The number of opcodes in the intermediate representation.
    */
   acir_opcodes?: number;
