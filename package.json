@@ -49,7 +49,7 @@
   "scripts": {
     "build": "rm -rf dist/* && NODE_ENV=production tsup",
     "build:watch": "rm -rf dist/* && NODE_ENV=development tsup --watch",
-    "download-sindri-manifest-schema": "nwget ${SINDRI_BASE_URL:-https://sindri.app}/api/v1/sindri-manifest-schema.json -O sindri-manifest.json && sed -i -E 's#\"https?://[^/]+/api/#\\\"https://sindri.app/api/#g' sindri-manifest.json && prettier --write sindri-manifest.json",
+    "download-sindri-manifest-schema": "export SINDRI_BASE_URL=${SINDRI_BASE_URL:-https://sindri.app} && nwget ${SINDRI_BASE_URL:-https://sindri.app}/api/v1/sindri-manifest-schema.json -O sindri-manifest.json && sed -i -E 's#\"https?://[^/]+/api/#\\\"https://sindri.app/api/#g' sindri-manifest.json && prettier --write sindri-manifest.json",
     "download-sindri-manifest-schema:dev": "export SINDRI_BASE_URL=http://localhost:8000 && npm run download-sindri-manifest-schema",
     "download-sindri-manifest-schema:docker": "export SINDRI_BASE_URL=http://host.docker.internal:8000 && npm run download-sindri-manifest-schema",
     "download-sindri-manifest-schema:stage": "export SINDRI_BASE_URL=https://stage.sindri.app && npm run download-sindri-manifest-schema",
@@ -61,7 +61,7 @@
     "generate-api:no-patch:dev": "export SINDRI_BASE_URL=http://localhost:8000 && npm run generate-api:no-patch",
     "generate-api:no-patch:docker": "export SINDRI_BASE_URL=http://host.docker.internal:8000 && npm run generate-api:no-patch",
     "generate-api:no-patch:stage": "export SINDRI_BASE_URL=https://stage.sindri.app && npm run generate-api:no-patch",
-    "generate-api:regenerate-patch": "rm -rf src/lib/api.patched/ && cp -r src/lib/api/ src/lib/api.patched/ && npm run generate-api:no-patch && diff --exclude=request.ts --recursive --unified src/lib/api/ src/lib/api.patched/ > src/lib/api.patch || true && rm -rf src/lib/api && mv src/lib/api.patched src/lib/api",
+    "generate-api:regenerate-patch": "export SINDRI_BASE_URL=${SINDRI_BASE_URL:-https://sindri.app} && rm -rf src/lib/api.patched/ && cp -r src/lib/api/ src/lib/api.patched/ && npm run generate-api:no-patch && diff --exclude=request.ts --recursive --unified src/lib/api/ src/lib/api.patched/ > src/lib/api.patch || true && rm -rf src/lib/api && mv src/lib/api.patched src/lib/api",
     "generate-api:regenerate-patch:dev": "export SINDRI_BASE_URL=http://localhost:8000 && npm run generate-api:regenerate-patch",
     "generate-api:regenerate-patch:docker": "export SINDRI_BASE_URL=http://host.docker.internal:8000 && npm run generate-api:regenerate-patch",
     "generate-api:regenerate-patch:stage": "export SINDRI_BASE_URL=https://stage.sindri.app && npm run generate-api:regenerate-patch",
