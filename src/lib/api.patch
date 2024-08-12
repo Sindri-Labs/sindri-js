@@ -1,0 +1,95 @@
+diff '--exclude=request.ts' --recursive --unified src/lib/api/core/ApiRequestOptions.ts src/lib/api.patched/core/ApiRequestOptions.ts
+--- src/lib/api/core/ApiRequestOptions.ts	2024-08-09 18:53:02.210119687 +0000
++++ src/lib/api.patched/core/ApiRequestOptions.ts	2024-08-09 18:53:00.115239970 +0000
+@@ -21,4 +21,6 @@
+   readonly mediaType?: string;
+   readonly responseHeader?: string;
+   readonly errors?: Record<number, string>;
++  readonly responseType?: // DO NOT REMOVE
++  "arraybuffer" | "blob" | "document" | "json" | "text" | "stream";
+ };
+diff '--exclude=request.ts' --recursive --unified src/lib/api/core/OpenAPI.ts src/lib/api.patched/core/OpenAPI.ts
+--- src/lib/api/core/OpenAPI.ts	2024-08-09 18:53:02.283031763 +0000
++++ src/lib/api.patched/core/OpenAPI.ts	2024-08-09 18:53:00.134141235 +0000
+@@ -2,6 +2,8 @@
+ /* istanbul ignore file */
+ /* tslint:disable */
+ /* eslint-disable */
++import type { SindriClient } from "lib/client"; // DO NOT REMOVE
++
+ import type { ApiRequestOptions } from "./ApiRequestOptions";
+ 
+ type Resolver<T> = (options: ApiRequestOptions) => Promise<T>;
+@@ -17,6 +19,10 @@
+   PASSWORD?: string | Resolver<string> | undefined;
+   HEADERS?: Headers | Resolver<Headers> | undefined;
+   ENCODE_PATH?: ((path: string) => string) | undefined;
++  // DO NOT REMOVE
++  // Shoehorn the SindriClient instance into the OpenAPIConfig type because it's the only shared
++  // data structure between the SDK client class and the request methods `requests.ts` module.
++  sindri?: SindriClient; // DO NOT REMOVE
+ };
+ 
+ export const OpenAPI: OpenAPIConfig = {
+diff '--exclude=request.ts' --recursive --unified src/lib/api/services/CircuitsService.ts src/lib/api.patched/services/CircuitsService.ts
+--- src/lib/api/services/CircuitsService.ts	2024-08-09 18:53:02.868040035 +0000
++++ src/lib/api.patched/services/CircuitsService.ts	2024-08-09 18:53:00.142808352 +0000
+@@ -19,13 +19,17 @@
+    * @returns CircuitInfoResponse Created
+    * @throws ApiError
+    */
+-  public circuitCreate(formData: {
+-    files: Array<Blob>;
+-    /**
+-     * Tags for a circuit.
+-     */
+-    tags?: Array<string>;
+-  }): CancelablePromise<CircuitInfoResponse> {
++  public circuitCreate(
++    formData: // This is a manual edit to allow `FormData` to be passed in directly:
++    | FormData // DO NOT REMOVE THIS!
++      | {
++          files: Array<Blob>;
++          /**
++           * Tags for a circuit.
++           */
++          tags?: Array<string>;
++        },
++  ): CancelablePromise<CircuitInfoResponse> {
+     return this.httpRequest.request({
+       method: "POST",
+       url: "/api/v1/circuit/create",
+diff '--exclude=request.ts' --recursive --unified src/lib/api/services/InternalService.ts src/lib/api.patched/services/InternalService.ts
+--- src/lib/api/services/InternalService.ts	2024-08-09 18:53:02.887637421 +0000
++++ src/lib/api.patched/services/InternalService.ts	2024-08-09 18:53:00.144901923 +0000
+@@ -15,6 +15,11 @@
+ import type { CancelablePromise } from "../core/CancelablePromise";
+ import type { BaseHttpRequest } from "../core/BaseHttpRequest";
+ 
++// DO NOT REMOVE
++type BinaryResponseType = typeof globalThis extends { ReadableStream: unknown }
++  ? Blob
++  : NodeJS.ReadableStream;
++
+ export class InternalService {
+   constructor(public readonly httpRequest: BaseHttpRequest) {}
+ 
+@@ -41,7 +46,8 @@
+   public circuitDownload(
+     circuitId: string,
+     path?: string,
+-  ): CancelablePromise<any> {
++    // DO NOT REMOVE
++  ): CancelablePromise<BinaryResponseType> {
+     return this.httpRequest.request({
+       method: "GET",
+       url: "/api/v1/circuit/{circuit_id}/download",
+@@ -55,6 +61,8 @@
+         404: `Not Found`,
+         500: `Internal Server Error`,
+       },
++
++      responseType: process.env.BROWSER_BUILD ? "blob" : "stream", // DO NOT REMOVE
+     });
+   }
+ 

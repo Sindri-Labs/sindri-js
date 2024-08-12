@@ -244,7 +244,13 @@ npm run generate-api:dev
 # Or...
 
 # If you are using Docker:
-npm run denerate-api:docker
+npm run generate-api:docker
+```
+
+You can also generate against stage with:
+
+```bash
+npm run generate-api:stage
 ```
 
 ### Updating Sindri Manifest JSON Schema

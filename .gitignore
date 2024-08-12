@@ -2,3 +2,7 @@
 .http-mitm-proxy/
 /dist/
 /node_modules/
+
+# Patch files when patching the generated internal API client fails.
+*.orig
+*.rej
