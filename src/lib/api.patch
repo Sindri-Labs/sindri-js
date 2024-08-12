@@ -1,6 +1,6 @@
 diff '--exclude=request.ts' --recursive --unified src/lib/api/core/ApiRequestOptions.ts src/lib/api.patched/core/ApiRequestOptions.ts
---- src/lib/api/core/ApiRequestOptions.ts	2024-08-12 23:03:11.729231486 +0000
-+++ src/lib/api.patched/core/ApiRequestOptions.ts	2024-08-12 23:03:09.883954417 +0000
+--- src/lib/api/core/ApiRequestOptions.ts	2024-08-12 23:10:35.305390567 +0000
++++ src/lib/api.patched/core/ApiRequestOptions.ts	2024-08-12 23:10:33.224679898 +0000
 @@ -21,4 +21,6 @@
    readonly mediaType?: string;
    readonly responseHeader?: string;
@@ -9,8 +9,8 @@ diff '--exclude=request.ts' --recursive --unified src/lib/api/core/ApiRequestOpt
 +  "arraybuffer" | "blob" | "document" | "json" | "text" | "stream";
  };
 diff '--exclude=request.ts' --recursive --unified src/lib/api/core/OpenAPI.ts src/lib/api.patched/core/OpenAPI.ts
---- src/lib/api/core/OpenAPI.ts	2024-08-12 23:03:11.806287140 +0000
-+++ src/lib/api.patched/core/OpenAPI.ts	2024-08-12 23:03:09.886464053 +0000
+--- src/lib/api/core/OpenAPI.ts	2024-08-12 23:10:35.468215286 +0000
++++ src/lib/api.patched/core/OpenAPI.ts	2024-08-12 23:10:33.236278363 +0000
 @@ -2,6 +2,8 @@
  /* istanbul ignore file */
  /* tslint:disable */
@@ -32,8 +32,8 @@ diff '--exclude=request.ts' --recursive --unified src/lib/api/core/OpenAPI.ts sr
  
  export const OpenAPI: OpenAPIConfig = {
 diff '--exclude=request.ts' --recursive --unified src/lib/api/services/CircuitsService.ts src/lib/api.patched/services/CircuitsService.ts
---- src/lib/api/services/CircuitsService.ts	2024-08-12 23:03:12.497734856 +0000
-+++ src/lib/api.patched/services/CircuitsService.ts	2024-08-12 23:03:09.917353515 +0000
+--- src/lib/api/services/CircuitsService.ts	2024-08-12 23:10:36.233765143 +0000
++++ src/lib/api.patched/services/CircuitsService.ts	2024-08-12 23:10:33.245030941 +0000
 @@ -19,17 +19,21 @@
     * @returns CircuitInfoResponse Created
     * @throws ApiError
@@ -67,11 +67,9 @@ diff '--exclude=request.ts' --recursive --unified src/lib/api/services/CircuitsS
      return this.httpRequest.request({
        method: "POST",
        url: "/api/v1/circuit/create",
-Only in src/lib/api.patched/services: CircuitsService.ts.orig
-Only in src/lib/api.patched/services: CircuitsService.ts.rej
 diff '--exclude=request.ts' --recursive --unified src/lib/api/services/InternalService.ts src/lib/api.patched/services/InternalService.ts
---- src/lib/api/services/InternalService.ts	2024-08-12 23:03:12.517980399 +0000
-+++ src/lib/api.patched/services/InternalService.ts	2024-08-12 23:03:09.914144376 +0000
+--- src/lib/api/services/InternalService.ts	2024-08-12 23:10:36.253929268 +0000
++++ src/lib/api.patched/services/InternalService.ts	2024-08-12 23:10:33.246806199 +0000
 @@ -15,6 +15,11 @@
  import type { CancelablePromise } from "../core/CancelablePromise";
  import type { BaseHttpRequest } from "../core/BaseHttpRequest";
