@@ -6,9 +6,9 @@
 import type { JobStatus } from "./JobStatus";
 
 /**
- * Response for getting Noir circuit info.
+ * Response for getting Plonky2 circuit info.
  */
-export type NoirCircuitInfoResponse = {
+export type Plonky2CircuitInfoResponse = {
   /**
    * A unique identifier generated for the circuit. UUID4 format.
    */
@@ -21,15 +21,11 @@ export type NoirCircuitInfoResponse = {
   /**
    * The development framework used to write the circuit. This is specified during creation in the included sindri.json file.
    */
-  circuit_type: "noir";
+  circuit_type: "plonky2";
   /**
    * The UTC datetime the circuit was uploaded in ISO8601 format.
    */
   date_created: string;
-  /**
-   * Metadata keys and values for the circuit that were specified at creation time.
-   */
-  meta: Record<string, string>;
   /**
    * The number of proofs submitted for this circuit.
    */
@@ -111,23 +107,11 @@ export type NoirCircuitInfoResponse = {
    */
   error?: string;
   /**
-   * The number of opcodes in the intermediate representation.
+   * The path to the circuit struct definition. This is specified during creation in the included sindri.json file.
    */
-  acir_opcodes?: number;
+  struct_name: string;
   /**
-   * The number of constraints with an instantiated proving backend in the circuit.
+   * The Plonky2 frontend version tag.
    */
-  circuit_size?: number;
-  /**
-   * The elliptic curve over which the proving protocol takes place.
-   */
-  curve: string;
-  /**
-   * The name of the circuit project specified in the included Nargo.toml file.
-   */
-  nargo_package_name: string;
-  /**
-   * The Noir frontend version tag.
-   */
-  noir_version: string;
+  plonky2_version: string;
 };

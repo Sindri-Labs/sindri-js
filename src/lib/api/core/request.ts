@@ -239,6 +239,7 @@ const shouldRetry = (error: Error): boolean =>
           // Some of these codes aren't on `AxiosError` for some reason, see:
           //   * https://github.com/axios/axios/issues/4894#issuecomment-2062064639
           "ECONNREFUSED",
+          "ECONNRESET",
           "ENOTFOUND",
           "ENETUNREACH",
           AxiosError.ECONNABORTED,

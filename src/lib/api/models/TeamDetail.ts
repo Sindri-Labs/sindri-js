@@ -7,6 +7,14 @@
  * Details about a team.
  */
 export type TeamDetail = {
+  /**
+   * URL for the team's avatar image.
+   */
+  avatar_url: string;
+  /**
+   * The date that the team was created.
+   */
+  date_created: string;
   description: string;
   id: number;
   /**
@@ -17,6 +25,14 @@ export type TeamDetail = {
    * The name of the team.
    */
   name: string;
+  /**
+   * The number of projects owned by the team.
+   */
+  num_projects: number;
+  /**
+   * The number of proofs submitted by the team.
+   */
+  num_proofs?: number;
   /**
    * Whether the team is a Sindri corporate team.
    */

@@ -14,10 +14,11 @@ export type ProofInfoResponse = {
    * A unique identifier generated for the proof. UUID4 format.
    */
   proof_id: string;
-  /**
-   * The name of the circuit associated with this proof.
-   */
   circuit_name: string;
+  /**
+   * The name of the project associated with this proof.
+   */
+  project_name: string;
   /**
    * The circuit_id of the circuit associated with this proof. UUID4 format.
    */
@@ -43,9 +44,29 @@ export type ProofInfoResponse = {
    */
   status: JobStatus;
   /**
-   * The user/team that owns this proof.
+   * The name of the team that owns this proof.
    */
   team: string;
+  /**
+   * URL for the avatar image of the team that owns this proof.
+   */
+  team_avatar_url: string;
+  /**
+   * The slug of the team that owns this proof.
+   */
+  team_slug: string;
+  /**
+   * The name of the team that owns the circuit associated with this proof.
+   */
+  circuit_team: string;
+  /**
+   * URL for the avatar image of the team that owns the circuit associated with this proof.
+   */
+  circuit_team_avatar_url: string;
+  /**
+   * The slug of the team that owns the circuit associated with this proof.
+   */
+  circuit_team_slug: string;
   /**
    * Total compute time in ISO8601 format.
    */
@@ -83,9 +104,21 @@ export type ProofInfoResponse = {
    */
   smart_contract_calldata?: string;
   /**
+   * Boolean indicating whether this proof has smart contract calldata available.
+   */
+  has_smart_contract_calldata?: boolean;
+  /**
+   * Boolean indicating whether this proof's circuit has a verification key available.
+   */
+  has_verification_key?: boolean;
+  /**
    * The verification key of this circuit.
    */
   verification_key?: Record<string, any>;
+  /**
+   * A list of runtime warnings with UTC timestamps.
+   */
+  warnings?: Array<string>;
   /**
    * The error message for a failed proof.
    */

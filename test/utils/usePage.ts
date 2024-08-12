@@ -105,9 +105,15 @@ export const usePage = async ({
       ],
     });
 
-    // Start recording, and only allow connections to `sindri.app`.
+    // Start recording, and only allow connections to likely API endpoints.
     nock.disableNetConnect();
-    nock.enableNetConnect("sindri.app");
+    // We allow three sources here:
+    // * https://localhost.run/'s https://*.lhr.life for development.
+    // * https://ngrok.com/ for development.
+    // * https://sindri.app/ for production, stage, and development.
+    nock.enableNetConnect(
+      /^(https?:\/\/)?(.+\.)?(lhr\.life|ngrok-free.app|sindri.app)(:\d+)?$/i,
+    );
     nockBack.setMode((process.env.NOCK_BACK_MODE ?? "lockdown") as BackMode);
     const { nockDone } = await nockBack(fixtureFilename, {
       before: matchFormPayloads,
