@@ -38,11 +38,11 @@ jobs:
         run: |
           npm run type-check
 
-      - name: Check Patch Orig/Rej Files Aren't in the Patch File
+      - name: Check Patch Orig/Rej Files Aren't in the Project
         if: success() || failure()
         run: |
           if grep -q -e '\.orig' -e '\.rej' src/lib/api.patch; then
-            echo "Found .orig or .rej in src/lib/api.patch, clean those up before updating the patch file."
+            echo "Found .orig or .rej in src/lib/api.patch, clean those up please."
             exit 1
           else
             echo "No .orig or .rej found in src/lib/api.patch, all good."
