@@ -25,6 +25,10 @@ export class CircuitsService {
       | {
           files: Array<Blob>;
           /**
+           * An arbitrary mapping of metadata keys to string values. This can be used to track additional information about the circuit such as an ID from an external system.
+           */
+          meta?: Record<string, string>;
+          /**
            * Tags for a circuit.
            */
           tags?: Array<string>;
@@ -191,6 +195,10 @@ export class CircuitsService {
   public proofCreate(
     circuitId: string,
     formData: {
+      /**
+       * An arbitrary mapping of metadata keys to string values. This can be used to track additional information about the proof such as an ID from an external system.
+       */
+      meta?: Record<string, string>;
       /**
        * A string representing proof input which may be formatted as JSON for any framework. Noir circuits optionally accept TOML formatted proof input.
        */

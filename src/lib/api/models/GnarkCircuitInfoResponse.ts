@@ -27,6 +27,10 @@ export type GnarkCircuitInfoResponse = {
    */
   date_created: string;
   /**
+   * Metadata keys and values for the circuit that were specified at creation time.
+   */
+  meta: Record<string, string>;
+  /**
    * The number of proofs submitted for this circuit.
    */
   num_proofs?: number;

@@ -15,6 +15,7 @@ import type { Schema } from "jsonschema";
 import nunjucks from "nunjucks";
 import type { PackageJson } from "type-fest";
 
+import { type Meta, validateMetaEntry } from "lib/utils";
 import type { Logger } from "lib/logging";
 
 const currentFilePath = fileURLToPath(import.meta.url);
@@ -66,6 +67,56 @@ export async function checkDockerAvailability(
   logger?.debug("Docker daemon is accessible.");
   return true;
 }
+
+/**
+ * Collects a metadata key/value from the command line arguments.
+ *
+ * Note that this will exit the process if an entry is invalid.
+ *
+ * @param assignment - The key/value assignment to collect.
+ * @param previousMeta - The metadata collected so far.
+ * @param logger - An optional logger to use for logging messages.
+ * @returns The updated metadata.
+ */
+export function collectMeta(
+  assignment: string,
+  previousMeta: Meta,
+  logger: Logger,
+): Meta {
+  // Split the assignment into a key and value.
+  const equalIndex = assignment.indexOf("=");
+  if (equalIndex === -1) {
+    logger.fatal(
+      `Invalid metadata segment '${assignment}' (missing '=', try 'key=value'). Aborting.`,
+    );
+    process.exit(1);
+  }
+  const [key, value] = [
+    assignment.slice(0, equalIndex),
+    assignment.slice(equalIndex + 1),
+  ];
+
+  // Validate the key and value.
+  const validationError = validateMetaEntry(key, value);
+  if (validationError) {
+    logger.fatal(
+      { key, value },
+      `Invalid metadata entry '${assignment}'. ${validationError} Aborting.`,
+    );
+    process.exit(1);
+  }
+
+  return { ...previousMeta, [key]: value };
+}
+
+/** Binds {@link collectMeta} to a specific logger instance.
+ *
+ * @param logger - The logger to use for logging messages.
+ */
+export const collectMetaWithLogger =
+  (logger: Logger) =>
+  (assignment: string, previousMeta: Meta): Meta =>
+    collectMeta(assignment, previousMeta, logger);
 
 /**
  * Supported external commands, each must correspond to a `docker-zkp` image repository.
