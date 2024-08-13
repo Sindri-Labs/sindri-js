@@ -138,6 +138,12 @@
       "enum": ["v0.8.1", "v0.9.0", "v0.10.0"],
       "type": "string"
     },
+    "GnarkProverHashToFieldNameOptions": {
+      "title": "GnarkProverHashToFieldNameOptions",
+      "description": "The supported Gnark prover HashToField function names.",
+      "enum": ["", "CometBlsHashToField"],
+      "type": "string"
+    },
     "GnarkProvingSchemeOptions": {
       "title": "GnarkProvingSchemeOptions",
       "description": "The supported Gnark proving schemes.",
@@ -199,6 +205,16 @@
             "regex": "`packageName` must be a valid Go package name."
           },
           "type": "string"
+        },
+        "proverHashToFieldName": {
+          "title": "Proving HashToField function name.",
+          "description": "The prover HashToField function name.",
+          "default": "",
+          "allOf": [
+            {
+              "$ref": "#/definitions/GnarkProverHashToFieldNameOptions"
+            }
+          ]
         },
         "provingScheme": {
           "description": "The backend proving scheme.",
