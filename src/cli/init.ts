@@ -61,18 +61,16 @@ export const initCommand = new Command()
         return true;
       },
     });
-    const circuitType: "circom" | "gnark" | "halo2" | "noir" | "plonky2" =
-      await select({
-        message: "Proving Framework:",
-        default: "circom",
-        choices: [
-          { name: "Circom", value: "circom" },
-          { name: "Gnark", value: "gnark" },
-          { name: "Halo2", value: "halo2" },
-          { name: "Noir", value: "noir" },
-          { name: "Plonky2", value: "plonky2" },
-        ],
-      });
+    const circuitType: "circom" | "gnark" | "halo2" | "noir" = await select({
+      message: "Proving Framework:",
+      default: "circom",
+      choices: [
+        { name: "Circom", value: "circom" },
+        { name: "Gnark", value: "gnark" },
+        { name: "Halo2", value: "halo2" },
+        { name: "Noir", value: "noir" },
+      ],
+    });
     const context: object = { circuitName, circuitType };
     let templateDirectory: string = circuitType;
 
@@ -270,12 +268,6 @@ export const initCommand = new Command()
         packageName,
         noirVersion,
         provingScheme,
-      });
-    } else if (circuitType === "plonky2") {
-      // Custom inputs.
-      const somethingElse = "value";
-      Object.assign(context, {
-        somethingElse,
       });
     } else {
       sindri.logger.fatal(`Sorry, ${circuitType} is not yet supported.`);
