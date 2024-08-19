@@ -4,9 +4,12 @@
 /* eslint-disable */
 import type { ActionResponse } from "../models/ActionResponse";
 import type { CircuitInfoResponse } from "../models/CircuitInfoResponse";
+import type { CircuitStatusResponse } from "../models/CircuitStatusResponse";
+import type { PagedProjectInfoResponse } from "../models/PagedProjectInfoResponse";
 import type { PagedProofInfoResponse } from "../models/PagedProofInfoResponse";
 import type { ProjectInfoResponse } from "../models/ProjectInfoResponse";
 import type { ProofInfoResponse } from "../models/ProofInfoResponse";
+import type { ProofStatusResponse } from "../models/ProofStatusResponse";
 import type { SmartContractVerifierResponse } from "../models/SmartContractVerifierResponse";
 import type { TeamDetail } from "../models/TeamDetail";
 import type { TeamMeResponse } from "../models/TeamMeResponse";
@@ -214,6 +217,41 @@ export class InternalService {
   }
 
   /**
+   * Project List
+   * List all projects meeting filter criteria.
+   * @param formData
+   * @param limit The number of projects to return.
+   * @param offset The number of projects to skip.
+   * @returns PagedProjectInfoResponse OK
+   * @throws ApiError
+   */
+  public projectListPaginated(
+    formData: {
+      /**
+       * Return projects owned by this team.
+       */
+      team_name?: string;
+    },
+    limit: number = 100,
+    offset?: number,
+  ): CancelablePromise<PagedProjectInfoResponse> {
+    return this.httpRequest.request({
+      method: "POST",
+      url: "/api/v1/project/list/paginated",
+      query: {
+        limit: limit,
+        offset: offset,
+      },
+      formData: formData,
+      mediaType: "application/x-www-form-urlencoded",
+      errors: {
+        404: `Not Found`,
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
    * Project Proofs
    * Get all proofs for a project.
    * @param projectId The project identifer of the project.
@@ -350,6 +388,29 @@ export class InternalService {
   }
 
   /**
+   * Circuit Status
+   * Get status for a specific circuit.
+   * @param circuitId The UUID4 identifier associated with this circuit.
+   * @returns CircuitStatusResponse OK
+   * @throws ApiError
+   */
+  public circuitStatus(
+    circuitId: string,
+  ): CancelablePromise<CircuitStatusResponse> {
+    return this.httpRequest.request({
+      method: "GET",
+      url: "/api/v1/circuit/{circuit_id}/status",
+      path: {
+        circuit_id: circuitId,
+      },
+      errors: {
+        404: `Not Found`,
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
    * Change Password
    * Change user password. Requires JWT authentication.
    * @param formData
@@ -413,6 +474,27 @@ export class InternalService {
         offset: offset,
       },
       errors: {
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
+   * Proof Status
+   * Get status for a specific proof.
+   * @param proofId The UUID4 identifier associated with this proof.
+   * @returns ProofStatusResponse OK
+   * @throws ApiError
+   */
+  public proofStatus(proofId: string): CancelablePromise<ProofStatusResponse> {
+    return this.httpRequest.request({
+      method: "GET",
+      url: "/api/v1/proof/{proof_id}/status",
+      path: {
+        proof_id: proofId,
+      },
+      errors: {
+        404: `Not Found`,
         500: `Internal Server Error`,
       },
     });
