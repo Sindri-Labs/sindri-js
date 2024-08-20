@@ -19,6 +19,7 @@ export type { CircomCircuitInfoResponse } from "./models/CircomCircuitInfoRespon
 export type { CircuitDoesNotExistResponse } from "./models/CircuitDoesNotExistResponse";
 export type { CircuitInfoResponse } from "./models/CircuitInfoResponse";
 export type { CircuitIsNotReadyResponse } from "./models/CircuitIsNotReadyResponse";
+export type { CircuitStatusResponse } from "./models/CircuitStatusResponse";
 export type { CircuitType } from "./models/CircuitType";
 export type { ComingSoonResponse } from "./models/ComingSoonResponse";
 export type { ForgeInternalErrorResponse } from "./models/ForgeInternalErrorResponse";
@@ -30,6 +31,7 @@ export type { JobStatus } from "./models/JobStatus";
 export type { JWTTokenErrorResponse } from "./models/JWTTokenErrorResponse";
 export type { NoirCircuitInfoResponse } from "./models/NoirCircuitInfoResponse";
 export type { ObtainApikeyInput } from "./models/ObtainApikeyInput";
+export type { PagedProjectInfoResponse } from "./models/PagedProjectInfoResponse";
 export type { PagedProofInfoResponse } from "./models/PagedProofInfoResponse";
 export type { Plonky2CircuitInfoResponse } from "./models/Plonky2CircuitInfoResponse";
 export type { ProjectDoesNotExistResponse } from "./models/ProjectDoesNotExistResponse";
@@ -38,6 +40,7 @@ export type { ProjectLatestCircuitResponse } from "./models/ProjectLatestCircuit
 export type { ProofCannotBeCreatedResponse } from "./models/ProofCannotBeCreatedResponse";
 export type { ProofDoesNotExistResponse } from "./models/ProofDoesNotExistResponse";
 export type { ProofInfoResponse } from "./models/ProofInfoResponse";
+export type { ProofStatusResponse } from "./models/ProofStatusResponse";
 export type { Schema } from "./models/Schema";
 export type { SmartContractVerifierResponse } from "./models/SmartContractVerifierResponse";
 export type { TeamDetail } from "./models/TeamDetail";

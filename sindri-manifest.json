@@ -17,6 +17,9 @@
       "$ref": "#/definitions/Halo2AxiomV030SindriManifest"
     },
     {
+      "$ref": "#/definitions/Halo2DelphinusSindriManifest"
+    },
+    {
       "$ref": "#/definitions/Halo2PSEV030SindriManifest"
     },
     {
@@ -250,7 +253,7 @@
     "Halo2ProvingSchemeOptions": {
       "title": "Halo2ProvingSchemeOptions",
       "description": "The supported Halo2 proving schemes.",
-      "enum": ["shplonk"],
+      "enum": ["gwc", "shplonk"],
       "type": "string"
     },
     "Halo2AxiomV022SindriManifest": {
@@ -283,15 +286,6 @@
             }
           ]
         },
-        "className": {
-          "title": "Circuit Class Name",
-          "description": "The path to your circuit struct definition. (*e.g.* `my-package::my_file::MyCircuitStruct`).",
-          "pattern": "^([A-Za-z_][A-Za-z0-9_]*::)+[A-Za-z_][A-Za-z0-9_]*$",
-          "error_messages": {
-            "regex": "`className` must be a valid and fully qualifed Rust path to a struct including the crate name."
-          },
-          "type": "string"
-        },
         "degree": {
           "title": "Degree",
           "description": "Specifies that the circuit will have 2^degree rows.",
@@ -303,6 +297,24 @@
           "enum": ["axiom-v0.2.2"],
           "type": "string"
         },
+        "provingScheme": {
+          "description": "The backend proving scheme. Defaults to shplonk.",
+          "default": "shplonk",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Halo2ProvingSchemeOptions"
+            }
+          ]
+        },
+        "className": {
+          "title": "Circuit Class Name",
+          "description": "The path to your circuit struct definition. (*e.g.* `my-package::my_file::MyCircuitStruct`).",
+          "pattern": "^([A-Za-z_][A-Za-z0-9_]*::)+[A-Za-z_][A-Za-z0-9_]*$",
+          "error_messages": {
+            "regex": "`className` must be a valid and fully qualifed Rust path to a struct including the crate name."
+          },
+          "type": "string"
+        },
         "packageName": {
           "title": "Rust Package Name",
           "description": "The name of the Rust package containing your circuit.",
@@ -311,15 +323,6 @@
             "regex": "`packageName` must be a valid Rust crate name."
           },
           "type": "string"
-        },
-        "provingScheme": {
-          "description": "The backend proving scheme.",
-          "default": "shplonk",
-          "allOf": [
-            {
-              "$ref": "#/definitions/Halo2ProvingSchemeOptions"
-            }
-          ]
         },
         "$schema": {
           "type": "string",
@@ -331,9 +334,9 @@
       "required": [
         "circuitType",
         "name",
-        "className",
         "degree",
         "halo2Version",
+        "className",
         "packageName"
       ],
       "additionalProperties": false
@@ -368,15 +371,6 @@
             }
           ]
         },
-        "className": {
-          "title": "Circuit Class Name",
-          "description": "The path to your circuit struct definition. (*e.g.* `my-package::my_file::MyCircuitStruct`).",
-          "pattern": "^([A-Za-z_][A-Za-z0-9_]*::)+[A-Za-z_][A-Za-z0-9_]*$",
-          "error_messages": {
-            "regex": "`className` must be a valid and fully qualifed Rust path to a struct including the crate name."
-          },
-          "type": "string"
-        },
         "degree": {
           "title": "Degree",
           "description": "Specifies that the circuit will have 2^degree rows.",
@@ -388,6 +382,24 @@
           "enum": ["axiom-v0.3.0"],
           "type": "string"
         },
+        "provingScheme": {
+          "description": "The backend proving scheme. Defaults to shplonk.",
+          "default": "shplonk",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Halo2ProvingSchemeOptions"
+            }
+          ]
+        },
+        "className": {
+          "title": "Circuit Class Name",
+          "description": "The path to your circuit struct definition. (*e.g.* `my-package::my_file::MyCircuitStruct`).",
+          "pattern": "^([A-Za-z_][A-Za-z0-9_]*::)+[A-Za-z_][A-Za-z0-9_]*$",
+          "error_messages": {
+            "regex": "`className` must be a valid and fully qualifed Rust path to a struct including the crate name."
+          },
+          "type": "string"
+        },
         "packageName": {
           "title": "Rust Package Name",
           "description": "The name of the Rust package containing your circuit.",
@@ -396,15 +408,6 @@
             "regex": "`packageName` must be a valid Rust crate name."
           },
           "type": "string"
-        },
-        "provingScheme": {
-          "description": "The backend proving scheme.",
-          "default": "shplonk",
-          "allOf": [
-            {
-              "$ref": "#/definitions/Halo2ProvingSchemeOptions"
-            }
-          ]
         },
         "threadBuilder": {
           "title": "Thread Builder",
@@ -422,12 +425,90 @@
       "required": [
         "circuitType",
         "name",
-        "className",
         "degree",
         "halo2Version",
+        "className",
         "packageName",
         "threadBuilder"
       ],
+      "additionalProperties": false
+    },
+    "Halo2DelphinusSindriManifest": {
+      "title": "Sindri Manifest for Delphinus Halo2 Circuits",
+      "description": "Sindri Manifest for Delphinus circuits built with the Halo2 framework.",
+      "type": "object",
+      "properties": {
+        "circuitType": {
+          "title": "Circuit Type",
+          "description": "The (frontend) development framework that your circuit is written with.",
+          "enum": ["halo2"],
+          "type": "string"
+        },
+        "name": {
+          "title": "Circuit Name",
+          "description": "The circuit name used to uniquely identify the circuit within your organization. Similar to a GitHub project name or a Docker image name.",
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "error_messages": {
+            "regex": "`name` must be a valid slug."
+          },
+          "type": "string"
+        },
+        "curve": {
+          "title": "Proving Curve",
+          "description": "The curve over which the proof is executed.",
+          "default": "bn254",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Halo2CurveOptions"
+            }
+          ]
+        },
+        "degree": {
+          "title": "Degree",
+          "description": "Specifies that the circuit will have 2^degree rows.",
+          "type": "integer"
+        },
+        "halo2Version": {
+          "title": "Halo2 Version",
+          "description": "The Halo2 frontend that your circuit is written with.",
+          "enum": ["delphinus"],
+          "type": "string"
+        },
+        "provingScheme": {
+          "description": "The backend proving scheme. Defaults to shplonk.",
+          "default": "shplonk",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Halo2ProvingSchemeOptions"
+            }
+          ]
+        },
+        "circuitDataFilename": {
+          "title": "Circuit Data Filename",
+          "description": "Path to circuit data, e.g. `host.{circuit}.circuit.data`. If left empty, circuit data from mock trusted setup provided. Defaults to empty string (i.e. no circuit data.)",
+          "default": "",
+          "type": "string"
+        },
+        "trustedSetupFilename": {
+          "title": "Trusted Setup Filename",
+          "description": "Path to trusted setup parameters, e.g. `K22.params`. If left empty, mock trusted setup is provided. Defaults to empty string (i.e. no trusted setup.)",
+          "default": "",
+          "type": "string"
+        },
+        "verificationKeyFilename": {
+          "title": "Verification Key Filename",
+          "description": "Path to verification key, e.g. `host.{circuit}.circuit.data.vkey.data`. If left empty, verification key from mock trusted setup provided. Defaults to empty string (i.e. no verification key.)",
+          "default": "",
+          "type": "string"
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": ["https://sindri.app/api/v1/sindri-manifest-schema.json"]
+        }
+      },
+      "required": ["circuitType", "name", "degree", "halo2Version"],
       "additionalProperties": false
     },
     "Halo2PSEV030SindriManifest": {
@@ -460,15 +541,6 @@
             }
           ]
         },
-        "className": {
-          "title": "Circuit Class Name",
-          "description": "The path to your circuit struct definition. (*e.g.* `my-package::my_file::MyCircuitStruct`).",
-          "pattern": "^([A-Za-z_][A-Za-z0-9_]*::)+[A-Za-z_][A-Za-z0-9_]*$",
-          "error_messages": {
-            "regex": "`className` must be a valid and fully qualifed Rust path to a struct including the crate name."
-          },
-          "type": "string"
-        },
         "degree": {
           "title": "Degree",
           "description": "Specifies that the circuit will have 2^degree rows.",
@@ -480,6 +552,24 @@
           "enum": ["pse-v0.3.0"],
           "type": "string"
         },
+        "provingScheme": {
+          "description": "The backend proving scheme. Defaults to shplonk.",
+          "default": "shplonk",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Halo2ProvingSchemeOptions"
+            }
+          ]
+        },
+        "className": {
+          "title": "Circuit Class Name",
+          "description": "The path to your circuit struct definition. (*e.g.* `my-package::my_file::MyCircuitStruct`).",
+          "pattern": "^([A-Za-z_][A-Za-z0-9_]*::)+[A-Za-z_][A-Za-z0-9_]*$",
+          "error_messages": {
+            "regex": "`className` must be a valid and fully qualifed Rust path to a struct including the crate name."
+          },
+          "type": "string"
+        },
         "packageName": {
           "title": "Rust Package Name",
           "description": "The name of the Rust package containing your circuit.",
@@ -488,15 +578,6 @@
             "regex": "`packageName` must be a valid Rust crate name."
           },
           "type": "string"
-        },
-        "provingScheme": {
-          "description": "The backend proving scheme.",
-          "default": "shplonk",
-          "allOf": [
-            {
-              "$ref": "#/definitions/Halo2ProvingSchemeOptions"
-            }
-          ]
         },
         "$schema": {
           "type": "string",
@@ -508,9 +589,9 @@
       "required": [
         "circuitType",
         "name",
-        "className",
         "degree",
         "halo2Version",
+        "className",
         "packageName"
       ],
       "additionalProperties": false
