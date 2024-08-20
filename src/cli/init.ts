@@ -289,6 +289,16 @@ export const initCommand = new Command()
           return true;
         },
       });
+      const structName = await input({
+        message: "Full path to circuit struct:",
+        default: "fibonacci::FibonacciCircuit",
+        validate: (input): boolean | string => {
+          if (input.length === 0) {
+            return "You must specify a struct name.";
+          }
+          return true;
+        },
+      });
       const plonky2Version: "0.2.0" | "0.2.1" | "0.2.2" = await select({
         message: "Plonky2 Version:",
         default: "0.2.2",
@@ -297,6 +307,11 @@ export const initCommand = new Command()
           { name: "0.2.1", value: "0.2.1" },
           { name: "0.2.2", value: "0.2.2" },
         ],
+      });
+      Object.assign(context, {
+        packageName,
+        plonky2Version,
+        structName,
       });
     } else {
       sindri.logger.fatal(`Sorry, ${circuitType} is not yet supported.`);
