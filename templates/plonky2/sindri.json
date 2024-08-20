@@ -1,9 +1,8 @@
 {
-    "name": "{{ circuitName }}",
-    "circuitType": "plonky2",
-    "structName": "{{ structName }}",
-    "plonky2Version": "{{ plonky2Version }}",
-    "provingScheme": "plonky2",
-    "packageName": "{{ packageName }}"
-  }
-  
+  "name": "{{ circuitName }}",
+  "circuitType": "plonky2",
+  "structName": "{{ structName }}",
+  "plonky2Version": "{{ plonky2Version }}",
+  "provingScheme": "plonky2",
+  "packageName": "{{ packageName }}"
+}

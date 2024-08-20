@@ -61,17 +61,18 @@ export const initCommand = new Command()
         return true;
       },
     });
-    const circuitType: "circom" | "gnark" | "halo2" | "noir" | "plonky2" = await select({
-      message: "Proving Framework:",
-      default: "circom",
-      choices: [
-        { name: "Circom", value: "circom" },
-        { name: "Gnark", value: "gnark" },
-        { name: "Halo2", value: "halo2" },
-        { name: "Noir", value: "noir" },
-        { name: "Plonky2", value: "plonky2" },
-      ],
-    });
+    const circuitType: "circom" | "gnark" | "halo2" | "noir" | "plonky2" =
+      await select({
+        message: "Proving Framework:",
+        default: "circom",
+        choices: [
+          { name: "Circom", value: "circom" },
+          { name: "Gnark", value: "gnark" },
+          { name: "Halo2", value: "halo2" },
+          { name: "Noir", value: "noir" },
+          { name: "Plonky2", value: "plonky2" },
+        ],
+      });
     const context: object = { circuitName, circuitType };
     let templateDirectory: string = circuitType;
 
@@ -288,8 +289,7 @@ export const initCommand = new Command()
           return true;
         },
       });
-      const plonky2Version: "0.2.0" | "0.2.1" | "0.2.2" =
-      await select({
+      const plonky2Version: "0.2.0" | "0.2.1" | "0.2.2" = await select({
         message: "Plonky2 Version:",
         default: "0.2.2",
         choices: [
@@ -298,9 +298,7 @@ export const initCommand = new Command()
           { name: "0.2.2", value: "0.2.2" },
         ],
       });
-    }
-    
-    else {
+    } else {
       sindri.logger.fatal(`Sorry, ${circuitType} is not yet supported.`);
       return process.exit(1);
     }
