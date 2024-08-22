@@ -12,11 +12,13 @@ import { ApiClient, CircuitType, JobStatus, OpenAPIConfig } from "lib/api";
 import type {
   BoojumCircuitInfoResponse,
   CircomCircuitInfoResponse,
+  CircuitStatusResponse,
   GnarkCircuitInfoResponse,
   Halo2CircuitInfoResponse,
   NoirCircuitInfoResponse,
   Plonky2CircuitInfoResponse,
   ProofInfoResponse,
+  ProofStatusResponse,
 } from "lib/api";
 import { Config } from "lib/config";
 import { createLogger, type Logger, type LogLevel } from "lib/logging";
@@ -556,16 +558,16 @@ export class SindriClient {
     this._clientConfig.HEADERS = oldHeaders;
     const circuitId = createResponse.circuit_id;
 
-    let response: CircuitInfoResponse;
     while (true) {
-      response = await this._client.circuits.circuitDetail(circuitId, false);
+      const response: CircuitStatusResponse =
+        await this._client.internal.circuitStatus(circuitId);
       if (response.status === "Ready" || response.status === "Failed") {
         break;
       }
 
       await new Promise((resolve) => setTimeout(resolve, this.pollingInterval));
     }
-    return response;
+    return this._client.circuits.circuitDetail(circuitId, false);
   }
 
   /**
@@ -689,21 +691,22 @@ export class SindriClient {
       perform_verify: verify,
       proof_input: proofInput,
     });
-    let response: ProofInfoResponse;
+    const proofId: string = createResponse.proof_id;
     while (true) {
-      response = await this._client.proofs.proofDetail(
-        createResponse.proof_id,
-        true, // includeProof
-        true, // includePublic
-        includeSmartContractCalldata, // includeSmartContractCalldata
-        true, // includeVerificationKey
-      );
+      const response: ProofStatusResponse =
+        await this._client.internal.proofStatus(proofId);
       if (response.status === "Ready" || response.status === "Failed") {
         break;
       }
 
       await new Promise((resolve) => setTimeout(resolve, this.pollingInterval));
     }
-    return response;
+    return this._client.proofs.proofDetail(
+      proofId,
+      true, // includeProof
+      true, // includePublic
+      includeSmartContractCalldata, // includeSmartContractCalldata
+      true, // includeVerificationKey
+    );
   }
 }

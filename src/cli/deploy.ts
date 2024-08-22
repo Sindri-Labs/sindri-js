@@ -1,3 +1,4 @@
+import assert from "node:assert";
 import { Blob } from "buffer";
 import { existsSync, readFileSync } from "fs";
 import path from "path";
@@ -10,7 +11,7 @@ import tar from "tar";
 
 import { collectMetaWithLogger, findFileUpwards } from "cli/utils";
 import sindri from "lib";
-import { ApiError } from "lib/api";
+import { ApiError, CircuitInfoResponse, CircuitStatusResponse } from "lib/api";
 import { getDefaultMeta } from "lib/utils";
 
 interface CollectedTags extends Array<string> {
@@ -198,26 +199,35 @@ export const deployCommand = new Command()
     while (true) {
       try {
         sindri.logger.debug("Polling for circuit compilation status.");
-        const response = await sindri._client.circuits.circuitDetail(
-          circuitId,
-          false,
-        );
+        // Get the fast status response first for performance.
+        const statusResponse: CircuitStatusResponse =
+          await sindri._client.internal.circuitStatus(circuitId);
 
+        // Get the full circuit response only if the compilation is complete or failed.
+        const response: CircuitInfoResponse | null = [
+          "Failed",
+          "Ready",
+        ].includes(statusResponse.status)
+          ? await sindri._client.circuits.circuitDetail(circuitId, false)
+          : null;
+
+        // Check the circuit status and log the appropriate message.
         const elapsedSeconds = ((Date.now() - startTime) / 1000).toFixed(1);
-        if (response.status === "Ready") {
+        if (statusResponse.status === "Ready") {
           sindri.logger.info(
             `Circuit compiled successfully after ${elapsedSeconds} seconds.`,
           );
           break;
-        } else if (response.status === "Failed") {
+        } else if (statusResponse.status === "Failed") {
+          assert(response != null);
           sindri.logger.error(
             `Circuit compilation failed after ${elapsedSeconds} seconds: ` +
               (response.error ?? "Unknown error."),
           );
           return process.exit(1);
-        } else if (response.status === "Queued") {
+        } else if (statusResponse.status === "Queued") {
           sindri.logger.debug("Circuit compilation is queued.");
-        } else if (response.status === "In Progress") {
+        } else if (statusResponse.status === "In Progress") {
           sindri.logger.debug("Circuit compilation is in progress.");
         }
       } catch (error) {
