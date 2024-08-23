@@ -33,7 +33,7 @@
     "ZkevmVersionOptions": {
       "title": "ZkevmVersionOptions",
       "description": "The supported zkSync Era zkEVM version tags.",
-      "enum": ["latest", "1.4.2", "1.5.0"],
+      "enum": ["latest", "1.4.2", "1.5.0", "prover-v16.3.0"],
       "type": "string"
     },
     "CircomCurveOptions": {
