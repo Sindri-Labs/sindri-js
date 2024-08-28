@@ -14,6 +14,9 @@ export type ProofInfoResponse = {
    * A unique identifier generated for the proof. UUID4 format.
    */
   proof_id: string;
+  /**
+   * @deprecated
+   */
   circuit_name: string;
   /**
    * The name of the project associated with this proof.
@@ -70,39 +73,39 @@ export type ProofInfoResponse = {
   /**
    * Total compute time in ISO8601 format.
    */
-  compute_time?: number;
+  compute_time?: string | null;
   /**
    * Total compute time in seconds.
    */
-  compute_time_sec?: number;
+  compute_time_sec?: number | null;
   /**
    * Detailed compute times for the proof generation.
    */
-  compute_times?: any;
+  compute_times?: null;
   /**
    * Total size of stored file(s) in bytes.
    */
-  file_size?: number;
+  file_size?: number | null;
   /**
    * The succinct argument(s) of knowledge.
    */
-  proof?: Record<string, any>;
+  proof?: Record<string, any> | null;
   /**
    * The public outputs of the circuit.
    */
-  public?: any;
+  public?: null;
   /**
    * Queue time in ISO8601 format.
    */
-  queue_time?: number;
+  queue_time?: string | null;
   /**
    * Queue time in seconds.
    */
-  queue_time_sec?: number;
+  queue_time_sec?: number | null;
   /**
    * The proof and public formatted as calldata for the smart contract verifier.
    */
-  smart_contract_calldata?: string;
+  smart_contract_calldata?: string | null;
   /**
    * Boolean indicating whether this proof has smart contract calldata available.
    */
@@ -114,13 +117,13 @@ export type ProofInfoResponse = {
   /**
    * The verification key of this circuit.
    */
-  verification_key?: Record<string, any>;
+  verification_key?: Record<string, any> | null;
   /**
    * A list of runtime warnings with UTC timestamps.
    */
-  warnings?: Array<string>;
+  warnings?: Array<string> | null;
   /**
    * The error message for a failed proof.
    */
-  error?: string;
+  error?: string | null;
 };

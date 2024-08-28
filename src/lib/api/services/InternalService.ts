@@ -202,7 +202,7 @@ export class InternalService {
     /**
      * Return projects owned by this team.
      */
-    team_name?: string;
+    team_name?: string | null;
   }): CancelablePromise<Array<ProjectInfoResponse>> {
     return this.httpRequest.request({
       method: "POST",
@@ -230,7 +230,7 @@ export class InternalService {
       /**
        * Return projects owned by this team.
        */
-      team_name?: string;
+      team_name?: string | null;
     },
     limit: number = 100,
     offset?: number,
@@ -327,11 +327,11 @@ export class InternalService {
       /**
        * Whether the project is public.
        */
-      is_public?: boolean;
+      is_public?: boolean | null;
       /**
        * The name of the project.
        */
-      name?: string;
+      name?: string | null;
     },
   ): CancelablePromise<ProjectInfoResponse> {
     return this.httpRequest.request({
