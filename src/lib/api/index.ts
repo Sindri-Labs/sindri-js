@@ -46,6 +46,7 @@ export type { ProjectSettingsInput } from "./models/ProjectSettingsInput";
 export type { ProofCannotBeCreatedResponse } from "./models/ProofCannotBeCreatedResponse";
 export type { ProofDoesNotExistResponse } from "./models/ProofDoesNotExistResponse";
 export type { ProofInfoResponse } from "./models/ProofInfoResponse";
+export type { ProofListInput } from "./models/ProofListInput";
 export type { ProofStatusResponse } from "./models/ProofStatusResponse";
 export type { Schema } from "./models/Schema";
 export type { SmartContractVerifierResponse } from "./models/SmartContractVerifierResponse";

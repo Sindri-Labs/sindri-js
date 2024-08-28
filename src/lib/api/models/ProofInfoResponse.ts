@@ -73,57 +73,57 @@ export type ProofInfoResponse = {
   /**
    * Total compute time in ISO8601 format.
    */
-  compute_time?: string | null;
+  compute_time: string | null;
   /**
    * Total compute time in seconds.
    */
-  compute_time_sec?: number | null;
+  compute_time_sec: number | null;
   /**
    * Detailed compute times for the proof generation.
    */
-  compute_times?: null;
+  compute_times: null;
   /**
    * Total size of stored file(s) in bytes.
    */
-  file_size?: number | null;
+  file_size: number | null;
   /**
    * The succinct argument(s) of knowledge.
    */
-  proof?: Record<string, any> | null;
+  proof: Record<string, any> | null;
   /**
    * The public outputs of the circuit.
    */
-  public?: null;
+  public: null;
   /**
    * Queue time in ISO8601 format.
    */
-  queue_time?: string | null;
+  queue_time: string | null;
   /**
    * Queue time in seconds.
    */
-  queue_time_sec?: number | null;
+  queue_time_sec: number | null;
   /**
    * The proof and public formatted as calldata for the smart contract verifier.
    */
-  smart_contract_calldata?: string | null;
+  smart_contract_calldata: string | null;
   /**
    * Boolean indicating whether this proof has smart contract calldata available.
    */
-  has_smart_contract_calldata?: boolean;
+  has_smart_contract_calldata: boolean;
   /**
    * Boolean indicating whether this proof's circuit has a verification key available.
    */
-  has_verification_key?: boolean;
+  has_verification_key: boolean;
   /**
    * The verification key of this circuit.
    */
-  verification_key?: Record<string, any> | null;
+  verification_key: Record<string, any> | null;
   /**
    * A list of runtime warnings with UTC timestamps.
    */
-  warnings?: Array<string> | null;
+  warnings: Array<string> | null;
   /**
    * The error message for a failed proof.
    */
-  error?: string | null;
+  error: string | null;
 };

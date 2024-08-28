@@ -20,7 +20,7 @@ export type ProjectInfoResponse = {
   /**
    * The most recent circuit tagged "latest" or the most recently created circuit if no circuit is tagged "latest".
    */
-  latest_circuit?: ProjectLatestCircuitResponse | null;
+  latest_circuit: ProjectLatestCircuitResponse | null;
   /**
    * The name of the project.
    */
