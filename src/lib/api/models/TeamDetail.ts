@@ -32,7 +32,7 @@ export type TeamDetail = {
   /**
    * The number of proofs submitted by the team.
    */
-  num_proofs?: number;
+  num_proofs: number | null;
   /**
    * Whether the team is a Sindri corporate team.
    */

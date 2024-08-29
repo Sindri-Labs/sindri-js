@@ -20,7 +20,7 @@ export type ProjectInfoResponse = {
   /**
    * The most recent circuit tagged "latest" or the most recently created circuit if no circuit is tagged "latest".
    */
-  latest_circuit?: ProjectLatestCircuitResponse;
+  latest_circuit?: ProjectLatestCircuitResponse | null;
   /**
    * The name of the project.
    */
@@ -28,7 +28,7 @@ export type ProjectInfoResponse = {
   /**
    * The number of proofs created for this project.
    */
-  num_proofs?: number;
+  num_proofs: number | null;
   /**
    * A unique identifier generated for the project. UUID4 format.
    */

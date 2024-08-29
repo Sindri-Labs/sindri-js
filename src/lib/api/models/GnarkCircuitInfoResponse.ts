@@ -13,6 +13,9 @@ export type GnarkCircuitInfoResponse = {
    * A unique identifier generated for the circuit. UUID4 format.
    */
   circuit_id: string;
+  /**
+   * @deprecated
+   */
   circuit_name: string;
   /**
    * The name of the project. This can be used in place of circuit_id for proving. This is specified during creation in the included sindri.json file. If the project is renamed, this will be the new name of the project, not the original name that was included in the sindri.json file.
@@ -33,7 +36,7 @@ export type GnarkCircuitInfoResponse = {
   /**
    * The number of proofs submitted for this circuit.
    */
-  num_proofs?: number;
+  num_proofs: number | null;
   /**
    * The proving scheme for this circuit. This is specified during creation in the included sindri.json file.
    */
@@ -65,27 +68,27 @@ export type GnarkCircuitInfoResponse = {
   /**
    * Total compute time in ISO8601 format.
    */
-  compute_time?: number;
+  compute_time?: string | null;
   /**
    * Total compute time in seconds.
    */
-  compute_time_sec?: number;
+  compute_time_sec?: number | null;
   /**
    * Detailed compute times for the circuit compilation.
    */
-  compute_times?: any;
+  compute_times?: null;
   /**
    * Total size of stored file(s) in bytes.
    */
-  file_size?: number;
+  file_size?: number | null;
   /**
    * Queue time in ISO8601 format.
    */
-  queue_time?: number;
+  queue_time?: string | null;
   /**
    * Queue time in seconds.
    */
-  queue_time_sec?: number;
+  queue_time_sec?: number | null;
   /**
    * The name of the uploaded circuit file. Note: the CLI and SDKs create a generic name when a directory is specified for upload.
    */
@@ -101,15 +104,15 @@ export type GnarkCircuitInfoResponse = {
   /**
    * The verification key of this circuit.
    */
-  verification_key?: Record<string, any>;
+  verification_key?: Record<string, any> | null;
   /**
    * A list of runtime warnings with UTC timestamps.
    */
-  warnings?: Array<string>;
+  warnings?: Array<string> | null;
   /**
    * The error message for a failed circuit upload.
    */
-  error?: string;
+  error?: string | null;
   /**
    * The elliptic curve over which the proving protocol takes place.
    */

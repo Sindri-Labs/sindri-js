@@ -5,6 +5,7 @@
 import type { ActionResponse } from "../models/ActionResponse";
 import type { CircuitInfoResponse } from "../models/CircuitInfoResponse";
 import type { CircuitStatusResponse } from "../models/CircuitStatusResponse";
+import type { JobStatus } from "../models/JobStatus";
 import type { PagedProjectInfoResponse } from "../models/PagedProjectInfoResponse";
 import type { PagedProofInfoResponse } from "../models/PagedProofInfoResponse";
 import type { ProjectInfoResponse } from "../models/ProjectInfoResponse";
@@ -202,7 +203,7 @@ export class InternalService {
     /**
      * Return projects owned by this team.
      */
-    team_name?: string;
+    team_name?: string | null;
   }): CancelablePromise<Array<ProjectInfoResponse>> {
     return this.httpRequest.request({
       method: "POST",
@@ -230,7 +231,7 @@ export class InternalService {
       /**
        * Return projects owned by this team.
        */
-      team_name?: string;
+      team_name?: string | null;
     },
     limit: number = 100,
     offset?: number,
@@ -327,11 +328,11 @@ export class InternalService {
       /**
        * Whether the project is public.
        */
-      is_public?: boolean;
+      is_public?: boolean | null;
       /**
        * The name of the project.
        */
-      name?: string;
+      name?: string | null;
     },
   ): CancelablePromise<ProjectInfoResponse> {
     return this.httpRequest.request({
@@ -441,13 +442,29 @@ export class InternalService {
   /**
    * Proof List
    * List proofs for the requesting team.
+   * @param formData
    * @returns ProofInfoResponse OK
    * @throws ApiError
    */
-  public proofList(): CancelablePromise<Array<ProofInfoResponse>> {
+  public proofList(formData: {
+    /**
+     * Return proofs created after this date.
+     */
+    date_created_after?: string | null;
+    /**
+     * Return proofs created before this date.
+     */
+    date_created_before?: string | null;
+    /**
+     * Return proofs with this job status.
+     */
+    status?: JobStatus | null;
+  }): CancelablePromise<Array<ProofInfoResponse>> {
     return this.httpRequest.request({
-      method: "GET",
+      method: "POST",
       url: "/api/v1/proof/list",
+      formData: formData,
+      mediaType: "application/x-www-form-urlencoded",
       errors: {
         500: `Internal Server Error`,
       },
@@ -457,22 +474,39 @@ export class InternalService {
   /**
    * Proof List
    * List proofs for the requesting team.
+   * @param formData
    * @param limit The number of proofs to return.
    * @param offset The number of proofs to skip.
    * @returns PagedProofInfoResponse OK
    * @throws ApiError
    */
   public proofListPaginated(
+    formData: {
+      /**
+       * Return proofs created after this date.
+       */
+      date_created_after?: string | null;
+      /**
+       * Return proofs created before this date.
+       */
+      date_created_before?: string | null;
+      /**
+       * Return proofs with this job status.
+       */
+      status?: JobStatus | null;
+    },
     limit: number = 100,
     offset?: number,
   ): CancelablePromise<PagedProofInfoResponse> {
     return this.httpRequest.request({
-      method: "GET",
+      method: "POST",
       url: "/api/v1/proof/list/paginated",
       query: {
         limit: limit,
         offset: offset,
       },
+      formData: formData,
+      mediaType: "application/x-www-form-urlencoded",
       errors: {
         500: `Internal Server Error`,
       },

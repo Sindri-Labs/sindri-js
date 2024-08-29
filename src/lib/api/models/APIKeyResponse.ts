@@ -13,7 +13,7 @@ export type APIKeyResponse = {
   /**
    * The API key. Will be `null` unless the key was created during the request. Keys are not stored in plaintext and can not be recovered after creation time.
    */
-  api_key?: string;
+  api_key: string | null;
   /**
    * The date that the API key was created.
    */
@@ -21,11 +21,11 @@ export type APIKeyResponse = {
   /**
    * The date that the API key will automatically expire.
    */
-  date_expires?: string;
+  date_expires: string | null;
   /**
    * The last time that the API key was used to authenticate with the API.
    */
-  date_last_used?: string;
+  date_last_used: string | null;
   /**
    * The database ID for the API key. Used when deleting keys.
    */
