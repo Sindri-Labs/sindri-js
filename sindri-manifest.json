@@ -1,116 +1,78 @@
 {
   "$id": "https://sindri.app/api/v1/sindri-manifest-schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "SindriManifest",
-  "description": "Sindri Manifest file schema for `sindri.json` files.",
-  "anyOf": [
-    {
-      "$ref": "#/definitions/CircomSindriManifest"
-    },
-    {
-      "$ref": "#/definitions/GnarkSindriManifest"
-    },
-    {
-      "$ref": "#/definitions/Halo2AxiomV022SindriManifest"
-    },
-    {
-      "$ref": "#/definitions/Halo2AxiomV030SindriManifest"
-    },
-    {
-      "$ref": "#/definitions/Halo2DelphinusSindriManifest"
-    },
-    {
-      "$ref": "#/definitions/Halo2PSEV030SindriManifest"
-    },
-    {
-      "$ref": "#/definitions/NoirSindriManifest"
-    },
-    {
-      "$ref": "#/definitions/Plonky2SindriManifest"
-    }
-  ],
-  "definitions": {
-    "ZkevmVersionOptions": {
-      "title": "ZkevmVersionOptions",
-      "description": "The supported zkSync Era zkEVM version tags.",
-      "enum": ["latest", "1.4.2", "1.5.0", "prover-v16.3.0"],
-      "type": "string"
-    },
+  "$defs": {
     "CircomCurveOptions": {
-      "title": "CircomCurveOptions",
+      "const": "bn254",
       "description": "The supported Circom curves.",
       "enum": ["bn254"],
+      "title": "CircomCurveOptions",
       "type": "string"
     },
     "CircomProvingSchemeOptions": {
-      "title": "CircomProvingSchemeOptions",
+      "const": "groth16",
       "description": "The supported Circom proving schemes.",
       "enum": ["groth16"],
-      "type": "string"
-    },
-    "CircomWitnessCompilerOptions": {
-      "title": "CircomWitnessCompilerOptions",
-      "description": "The supported Circom witness compilers.",
-      "enum": ["c++", "wasm"],
+      "title": "CircomProvingSchemeOptions",
       "type": "string"
     },
     "CircomSindriManifest": {
-      "title": "Sindri Manifest for Circom Circuits",
+      "additionalProperties": false,
       "description": "Sindri Manifest for Circom circuits.",
-      "type": "object",
       "properties": {
         "circuitType": {
-          "title": "Circuit Type",
+          "const": "circom",
           "description": "The (frontend) development framework that your circuit is written with.",
           "enum": ["circom"],
+          "title": "Circuit Type",
           "type": "string"
         },
         "name": {
-          "title": "Circuit Name",
           "description": "The circuit name used to uniquely identify the circuit within your organization. Similar to a GitHub project name or a Docker image name.",
-          "pattern": "^[a-zA-Z0-9_-]+$",
           "error_messages": {
-            "regex": "`name` must be a valid slug."
+            "pattern": "`name` must be a valid slug."
           },
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "title": "Circuit Name",
           "type": "string"
         },
         "circuitPath": {
-          "title": "Circuit Path",
-          "description": "Path to a `.circom` circuit file with a main component (defaults to `./circuit.circom`).",
           "default": "./circuit.circom",
-          "pattern": "^[^/].*\\.circom$",
+          "description": "Path to a `.circom` circuit file with a main component (defaults to `./circuit.circom`).",
           "error_messages": {
-            "regex": "`circuit_path` must be a valid relative path to your main `.circom` file."
+            "pattern": "`circuit_path` must be a valid relative path to your main `.circom` file."
           },
+          "pattern": "^[^/].*\\.circom$",
+          "title": "Circuit Path",
           "type": "string"
         },
         "curve": {
-          "title": "Proving Curve",
-          "description": "The curve over which the proof is executed.",
-          "default": "bn254",
           "allOf": [
             {
-              "$ref": "#/definitions/CircomCurveOptions"
+              "$ref": "#/$defs/CircomCurveOptions"
             }
-          ]
+          ],
+          "default": "bn254",
+          "description": "The curve over which the proof is executed.",
+          "title": "Proving Curve"
         },
         "provingScheme": {
-          "description": "The backend proving scheme.",
-          "default": "groth16",
           "allOf": [
             {
-              "$ref": "#/definitions/CircomProvingSchemeOptions"
+              "$ref": "#/$defs/CircomProvingSchemeOptions"
             }
-          ]
+          ],
+          "default": "groth16",
+          "description": "The backend proving scheme."
         },
         "witnessCompiler": {
-          "description": "The circuit witness compiler.",
-          "default": "c++",
           "allOf": [
             {
-              "$ref": "#/definitions/CircomWitnessCompilerOptions"
+              "$ref": "#/$defs/CircomWitnessCompilerOptions"
             }
-          ]
+          ],
+          "default": "c++",
+          "description": "The circuit witness compiler."
         },
         "$schema": {
           "type": "string",
@@ -120,10 +82,16 @@
         }
       },
       "required": ["circuitType", "name"],
-      "additionalProperties": false
+      "title": "Sindri Manifest for Circom Circuits",
+      "type": "object"
+    },
+    "CircomWitnessCompilerOptions": {
+      "description": "The supported Circom witness compilers.",
+      "enum": ["c++", "wasm"],
+      "title": "CircomWitnessCompilerOptions",
+      "type": "string"
     },
     "GnarkCurveOptions": {
-      "title": "GnarkCurveOptions",
       "description": "The supported Gnark curves.",
       "enum": [
         "bls12-377",
@@ -133,100 +101,95 @@
         "bw6-633",
         "bw6-761"
       ],
-      "type": "string"
-    },
-    "GnarkVersionOptions": {
-      "title": "GnarkVersionOptions",
-      "description": "The supported Gnark framework versions.",
-      "enum": ["v0.8.1", "v0.9.0", "v0.10.0"],
+      "title": "GnarkCurveOptions",
       "type": "string"
     },
     "GnarkProverHashToFieldNameOptions": {
-      "title": "GnarkProverHashToFieldNameOptions",
       "description": "The supported Gnark prover HashToField function names.",
       "enum": ["", "CometBlsHashToField"],
+      "title": "GnarkProverHashToFieldNameOptions",
       "type": "string"
     },
     "GnarkProvingSchemeOptions": {
-      "title": "GnarkProvingSchemeOptions",
       "description": "The supported Gnark proving schemes.",
       "enum": ["groth16", "plonk"],
+      "title": "GnarkProvingSchemeOptions",
       "type": "string"
     },
     "GnarkSindriManifest": {
-      "title": "Sindri Manifest for Gnark Circuits",
+      "additionalProperties": false,
       "description": "Sindri Manifest for Gnark circuits.",
-      "type": "object",
       "properties": {
         "circuitType": {
-          "title": "Circuit Type",
+          "const": "gnark",
           "description": "The (frontend) development framework that your circuit is written with.",
           "enum": ["gnark"],
+          "title": "Circuit Type",
           "type": "string"
         },
         "name": {
-          "title": "Circuit Name",
           "description": "The circuit name used to uniquely identify the circuit within your organization. Similar to a GitHub project name or a Docker image name.",
-          "pattern": "^[a-zA-Z0-9_-]+$",
           "error_messages": {
-            "regex": "`name` must be a valid slug."
+            "pattern": "`name` must be a valid slug."
           },
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "title": "Circuit Name",
           "type": "string"
         },
         "circuitStructName": {
-          "title": "Circuit Struct Name",
           "description": "The name of the Go struct which defines your circuit inputs.",
-          "pattern": "^[A-Z][A-Za-z0-9_]*$",
           "error_messages": {
-            "regex": "`circuitStructName` must be a valid Go exported struct name."
+            "pattern": "`circuitStructName` must be a valid Go exported struct name."
           },
+          "pattern": "^[A-Z][A-Za-z0-9_]*$",
+          "title": "Circuit Struct Name",
           "type": "string"
         },
         "curve": {
-          "title": "Proving Curve",
-          "description": "The curve over which the proof is executed.",
-          "default": "bn254",
           "allOf": [
             {
-              "$ref": "#/definitions/GnarkCurveOptions"
+              "$ref": "#/$defs/GnarkCurveOptions"
             }
-          ]
+          ],
+          "default": "bn254",
+          "description": "The curve over which the proof is executed.",
+          "title": "Proving Curve"
         },
         "gnarkVersion": {
-          "description": "The version of the Gnark framework that your circuit uses.",
           "allOf": [
             {
-              "$ref": "#/definitions/GnarkVersionOptions"
+              "$ref": "#/$defs/GnarkVersionOptions"
             }
-          ]
+          ],
+          "description": "The version of the Gnark framework that your circuit uses."
         },
         "packageName": {
-          "title": "Go Package Name",
           "description": "The name of the Go package containing your circuit definition.",
-          "pattern": "^[a-z][a-z0-9]*$",
           "error_messages": {
-            "regex": "`packageName` must be a valid Go package name."
+            "pattern": "`packageName` must be a valid Go package name."
           },
+          "pattern": "^[a-z][a-z0-9]*$",
+          "title": "Go Package Name",
           "type": "string"
         },
         "proverHashToFieldName": {
-          "title": "Proving HashToField function name.",
-          "description": "The prover HashToField function name.",
-          "default": "",
           "allOf": [
             {
-              "$ref": "#/definitions/GnarkProverHashToFieldNameOptions"
+              "$ref": "#/$defs/GnarkProverHashToFieldNameOptions"
             }
-          ]
+          ],
+          "default": "",
+          "description": "The prover HashToField function name.",
+          "title": "Proving HashToField function name."
         },
         "provingScheme": {
-          "description": "The backend proving scheme.",
-          "default": "groth16",
           "allOf": [
             {
-              "$ref": "#/definitions/GnarkProvingSchemeOptions"
+              "$ref": "#/$defs/GnarkProvingSchemeOptions"
             }
-          ]
+          ],
+          "default": "groth16",
+          "description": "The backend proving scheme."
         },
         "$schema": {
           "type": "string",
@@ -242,86 +205,82 @@
         "gnarkVersion",
         "packageName"
       ],
-      "additionalProperties": false
+      "title": "Sindri Manifest for Gnark Circuits",
+      "type": "object"
     },
-    "Halo2CurveOptions": {
-      "title": "Halo2CurveOptions",
-      "description": "The supported Halo2 curves.",
-      "enum": ["bn254"],
-      "type": "string"
-    },
-    "Halo2ProvingSchemeOptions": {
-      "title": "Halo2ProvingSchemeOptions",
-      "description": "The supported Halo2 proving schemes.",
-      "enum": ["gwc", "shplonk"],
+    "GnarkVersionOptions": {
+      "description": "The supported Gnark framework versions.",
+      "enum": ["v0.8.1", "v0.9.0", "v0.10.0"],
+      "title": "GnarkVersionOptions",
       "type": "string"
     },
     "Halo2AxiomV022SindriManifest": {
-      "title": "Sindri Manifest for Axiom v0.2.2 Halo2 Circuits",
+      "additionalProperties": false,
       "description": "Sindri Manifest for Axiom v0.2.2 circuits built with the Halo2 framework.",
-      "type": "object",
       "properties": {
         "circuitType": {
-          "title": "Circuit Type",
+          "const": "halo2",
           "description": "The (frontend) development framework that your circuit is written with.",
           "enum": ["halo2"],
+          "title": "Circuit Type",
           "type": "string"
         },
         "name": {
-          "title": "Circuit Name",
           "description": "The circuit name used to uniquely identify the circuit within your organization. Similar to a GitHub project name or a Docker image name.",
-          "pattern": "^[a-zA-Z0-9_-]+$",
           "error_messages": {
-            "regex": "`name` must be a valid slug."
+            "pattern": "`name` must be a valid slug."
           },
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "title": "Circuit Name",
           "type": "string"
         },
         "curve": {
-          "title": "Proving Curve",
-          "description": "The curve over which the proof is executed.",
-          "default": "bn254",
           "allOf": [
             {
-              "$ref": "#/definitions/Halo2CurveOptions"
+              "$ref": "#/$defs/Halo2CurveOptions"
             }
-          ]
+          ],
+          "default": "bn254",
+          "description": "The curve over which the proof is executed.",
+          "title": "Proving Curve"
         },
         "degree": {
-          "title": "Degree",
           "description": "Specifies that the circuit will have 2^degree rows.",
+          "title": "Degree",
           "type": "integer"
         },
         "halo2Version": {
-          "title": "Halo2 Version",
+          "const": "axiom-v0.2.2",
           "description": "The Halo2 frontend that your circuit is written with.",
           "enum": ["axiom-v0.2.2"],
+          "title": "Halo2 Version",
           "type": "string"
         },
         "provingScheme": {
-          "description": "The backend proving scheme. Defaults to shplonk.",
-          "default": "shplonk",
           "allOf": [
             {
-              "$ref": "#/definitions/Halo2ProvingSchemeOptions"
+              "$ref": "#/$defs/Halo2ProvingSchemeOptions"
             }
-          ]
+          ],
+          "default": "shplonk",
+          "description": "The backend proving scheme. Defaults to shplonk."
         },
         "className": {
-          "title": "Circuit Class Name",
           "description": "The path to your circuit struct definition. (*e.g.* `my-package::my_file::MyCircuitStruct`).",
-          "pattern": "^([A-Za-z_][A-Za-z0-9_]*::)+[A-Za-z_][A-Za-z0-9_]*$",
           "error_messages": {
-            "regex": "`className` must be a valid and fully qualifed Rust path to a struct including the crate name."
+            "pattern": "`className` must be a valid and fully qualifed Rust path to a struct including the crate name."
           },
+          "pattern": "^([A-Za-z_][A-Za-z0-9_]*::)+[A-Za-z_][A-Za-z0-9_]*$",
+          "title": "Circuit Class Name",
           "type": "string"
         },
         "packageName": {
-          "title": "Rust Package Name",
           "description": "The name of the Rust package containing your circuit.",
-          "pattern": "^[a-z0-9_]+(?:-[a-z0-9_]+)*$",
           "error_messages": {
-            "regex": "`packageName` must be a valid Rust crate name."
+            "pattern": "`packageName` must be a valid Rust crate name."
           },
+          "pattern": "^[a-z0-9_]+(?:-[a-z0-9_]+)*$",
+          "title": "Rust Package Name",
           "type": "string"
         },
         "$schema": {
@@ -339,80 +298,82 @@
         "className",
         "packageName"
       ],
-      "additionalProperties": false
+      "title": "Sindri Manifest for Axiom v0.2.2 Halo2 Circuits",
+      "type": "object"
     },
     "Halo2AxiomV030SindriManifest": {
-      "title": "Sindri Manifest for Axiom v0.3.0 Halo2 Circuits",
+      "additionalProperties": false,
       "description": "Sindri Manifest for Axiom v0.3.0 circuits built with the Halo2 framework.",
-      "type": "object",
       "properties": {
         "circuitType": {
-          "title": "Circuit Type",
+          "const": "halo2",
           "description": "The (frontend) development framework that your circuit is written with.",
           "enum": ["halo2"],
+          "title": "Circuit Type",
           "type": "string"
         },
         "name": {
-          "title": "Circuit Name",
           "description": "The circuit name used to uniquely identify the circuit within your organization. Similar to a GitHub project name or a Docker image name.",
-          "pattern": "^[a-zA-Z0-9_-]+$",
           "error_messages": {
-            "regex": "`name` must be a valid slug."
+            "pattern": "`name` must be a valid slug."
           },
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "title": "Circuit Name",
           "type": "string"
         },
         "curve": {
-          "title": "Proving Curve",
-          "description": "The curve over which the proof is executed.",
-          "default": "bn254",
           "allOf": [
             {
-              "$ref": "#/definitions/Halo2CurveOptions"
+              "$ref": "#/$defs/Halo2CurveOptions"
             }
-          ]
+          ],
+          "default": "bn254",
+          "description": "The curve over which the proof is executed.",
+          "title": "Proving Curve"
         },
         "degree": {
-          "title": "Degree",
           "description": "Specifies that the circuit will have 2^degree rows.",
+          "title": "Degree",
           "type": "integer"
         },
         "halo2Version": {
-          "title": "Halo2 Version",
+          "const": "axiom-v0.3.0",
           "description": "The Halo2 frontend that your circuit is written with.",
           "enum": ["axiom-v0.3.0"],
+          "title": "Halo2 Version",
           "type": "string"
         },
         "provingScheme": {
-          "description": "The backend proving scheme. Defaults to shplonk.",
-          "default": "shplonk",
           "allOf": [
             {
-              "$ref": "#/definitions/Halo2ProvingSchemeOptions"
+              "$ref": "#/$defs/Halo2ProvingSchemeOptions"
             }
-          ]
+          ],
+          "default": "shplonk",
+          "description": "The backend proving scheme. Defaults to shplonk."
         },
         "className": {
-          "title": "Circuit Class Name",
           "description": "The path to your circuit struct definition. (*e.g.* `my-package::my_file::MyCircuitStruct`).",
-          "pattern": "^([A-Za-z_][A-Za-z0-9_]*::)+[A-Za-z_][A-Za-z0-9_]*$",
           "error_messages": {
-            "regex": "`className` must be a valid and fully qualifed Rust path to a struct including the crate name."
+            "pattern": "`className` must be a valid and fully qualifed Rust path to a struct including the crate name."
           },
+          "pattern": "^([A-Za-z_][A-Za-z0-9_]*::)+[A-Za-z_][A-Za-z0-9_]*$",
+          "title": "Circuit Class Name",
           "type": "string"
         },
         "packageName": {
-          "title": "Rust Package Name",
           "description": "The name of the Rust package containing your circuit.",
-          "pattern": "^[a-z0-9_]+(?:-[a-z0-9_]+)*$",
           "error_messages": {
-            "regex": "`packageName` must be a valid Rust crate name."
+            "pattern": "`packageName` must be a valid Rust crate name."
           },
+          "pattern": "^[a-z0-9_]+(?:-[a-z0-9_]+)*$",
+          "title": "Rust Package Name",
           "type": "string"
         },
         "threadBuilder": {
-          "title": "Thread Builder",
           "description": "The type of multi-threaded witness generator used. Choose GateThreadBuilder for simple circuits or RlcThreadBuilder for advanced applications that require sources of randomness.",
           "enum": ["GateThreadBuilder", "RlcThreadBuilder"],
+          "title": "Thread Builder",
           "type": "string"
         },
         "$schema": {
@@ -431,74 +392,83 @@
         "packageName",
         "threadBuilder"
       ],
-      "additionalProperties": false
+      "title": "Sindri Manifest for Axiom v0.3.0 Halo2 Circuits",
+      "type": "object"
+    },
+    "Halo2CurveOptions": {
+      "const": "bn254",
+      "description": "The supported Halo2 curves.",
+      "enum": ["bn254"],
+      "title": "Halo2CurveOptions",
+      "type": "string"
     },
     "Halo2DelphinusSindriManifest": {
-      "title": "Sindri Manifest for Delphinus Halo2 Circuits",
+      "additionalProperties": false,
       "description": "Sindri Manifest for Delphinus circuits built with the Halo2 framework.",
-      "type": "object",
       "properties": {
         "circuitType": {
-          "title": "Circuit Type",
+          "const": "halo2",
           "description": "The (frontend) development framework that your circuit is written with.",
           "enum": ["halo2"],
+          "title": "Circuit Type",
           "type": "string"
         },
         "name": {
-          "title": "Circuit Name",
           "description": "The circuit name used to uniquely identify the circuit within your organization. Similar to a GitHub project name or a Docker image name.",
-          "pattern": "^[a-zA-Z0-9_-]+$",
           "error_messages": {
-            "regex": "`name` must be a valid slug."
+            "pattern": "`name` must be a valid slug."
           },
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "title": "Circuit Name",
           "type": "string"
         },
         "curve": {
-          "title": "Proving Curve",
-          "description": "The curve over which the proof is executed.",
-          "default": "bn254",
           "allOf": [
             {
-              "$ref": "#/definitions/Halo2CurveOptions"
+              "$ref": "#/$defs/Halo2CurveOptions"
             }
-          ]
+          ],
+          "default": "bn254",
+          "description": "The curve over which the proof is executed.",
+          "title": "Proving Curve"
         },
         "degree": {
-          "title": "Degree",
           "description": "Specifies that the circuit will have 2^degree rows.",
+          "title": "Degree",
           "type": "integer"
         },
         "halo2Version": {
-          "title": "Halo2 Version",
+          "const": "delphinus",
           "description": "The Halo2 frontend that your circuit is written with.",
           "enum": ["delphinus"],
+          "title": "Halo2 Version",
           "type": "string"
         },
         "provingScheme": {
-          "description": "The backend proving scheme. Defaults to shplonk.",
-          "default": "shplonk",
           "allOf": [
             {
-              "$ref": "#/definitions/Halo2ProvingSchemeOptions"
+              "$ref": "#/$defs/Halo2ProvingSchemeOptions"
             }
-          ]
+          ],
+          "default": "shplonk",
+          "description": "The backend proving scheme. Defaults to shplonk."
         },
         "circuitDataFilename": {
-          "title": "Circuit Data Filename",
-          "description": "Path to circuit data, e.g. `host.{circuit}.circuit.data`. If left empty, circuit data from mock trusted setup provided. Defaults to empty string (i.e. no circuit data.)",
           "default": "",
+          "description": "Path to circuit data, e.g. `host.{circuit}.circuit.data`. If left empty, circuit data from mock trusted setup provided. Defaults to empty string (i.e. no circuit data.)",
+          "title": "Circuit Data Filename",
           "type": "string"
         },
         "trustedSetupFilename": {
-          "title": "Trusted Setup Filename",
-          "description": "Path to trusted setup parameters, e.g. `K22.params`. If left empty, mock trusted setup is provided. Defaults to empty string (i.e. no trusted setup.)",
           "default": "",
+          "description": "Path to trusted setup parameters, e.g. `K22.params`. If left empty, mock trusted setup is provided. Defaults to empty string (i.e. no trusted setup.)",
+          "title": "Trusted Setup Filename",
           "type": "string"
         },
         "verificationKeyFilename": {
-          "title": "Verification Key Filename",
-          "description": "Path to verification key, e.g. `host.{circuit}.circuit.data.vkey.data`. If left empty, verification key from mock trusted setup provided. Defaults to empty string (i.e. no verification key.)",
           "default": "",
+          "description": "Path to verification key, e.g. `host.{circuit}.circuit.data.vkey.data`. If left empty, verification key from mock trusted setup provided. Defaults to empty string (i.e. no verification key.)",
+          "title": "Verification Key Filename",
           "type": "string"
         },
         "$schema": {
@@ -509,74 +479,76 @@
         }
       },
       "required": ["circuitType", "name", "degree", "halo2Version"],
-      "additionalProperties": false
+      "title": "Sindri Manifest for Delphinus Halo2 Circuits",
+      "type": "object"
     },
     "Halo2PSEV030SindriManifest": {
-      "title": "Sindri Manifest for PSE v0.3.0 Halo2 Circuits",
+      "additionalProperties": false,
       "description": "Sindri Manifest for PSE v0.3.0 circuits built with the Halo2 framework.",
-      "type": "object",
       "properties": {
         "circuitType": {
-          "title": "Circuit Type",
+          "const": "halo2",
           "description": "The (frontend) development framework that your circuit is written with.",
           "enum": ["halo2"],
+          "title": "Circuit Type",
           "type": "string"
         },
         "name": {
-          "title": "Circuit Name",
           "description": "The circuit name used to uniquely identify the circuit within your organization. Similar to a GitHub project name or a Docker image name.",
-          "pattern": "^[a-zA-Z0-9_-]+$",
           "error_messages": {
-            "regex": "`name` must be a valid slug."
+            "pattern": "`name` must be a valid slug."
           },
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "title": "Circuit Name",
           "type": "string"
         },
         "curve": {
-          "title": "Proving Curve",
-          "description": "The curve over which the proof is executed.",
-          "default": "bn254",
           "allOf": [
             {
-              "$ref": "#/definitions/Halo2CurveOptions"
+              "$ref": "#/$defs/Halo2CurveOptions"
             }
-          ]
+          ],
+          "default": "bn254",
+          "description": "The curve over which the proof is executed.",
+          "title": "Proving Curve"
         },
         "degree": {
-          "title": "Degree",
           "description": "Specifies that the circuit will have 2^degree rows.",
+          "title": "Degree",
           "type": "integer"
         },
         "halo2Version": {
-          "title": "Halo2 Version",
+          "const": "pse-v0.3.0",
           "description": "The Halo2 frontend that your circuit is written with.",
           "enum": ["pse-v0.3.0"],
+          "title": "Halo2 Version",
           "type": "string"
         },
         "provingScheme": {
-          "description": "The backend proving scheme. Defaults to shplonk.",
-          "default": "shplonk",
           "allOf": [
             {
-              "$ref": "#/definitions/Halo2ProvingSchemeOptions"
+              "$ref": "#/$defs/Halo2ProvingSchemeOptions"
             }
-          ]
+          ],
+          "default": "shplonk",
+          "description": "The backend proving scheme. Defaults to shplonk."
         },
         "className": {
-          "title": "Circuit Class Name",
           "description": "The path to your circuit struct definition. (*e.g.* `my-package::my_file::MyCircuitStruct`).",
-          "pattern": "^([A-Za-z_][A-Za-z0-9_]*::)+[A-Za-z_][A-Za-z0-9_]*$",
           "error_messages": {
-            "regex": "`className` must be a valid and fully qualifed Rust path to a struct including the crate name."
+            "pattern": "`className` must be a valid and fully qualifed Rust path to a struct including the crate name."
           },
+          "pattern": "^([A-Za-z_][A-Za-z0-9_]*::)+[A-Za-z_][A-Za-z0-9_]*$",
+          "title": "Circuit Class Name",
           "type": "string"
         },
         "packageName": {
-          "title": "Rust Package Name",
           "description": "The name of the Rust package containing your circuit.",
-          "pattern": "^[a-z0-9_]+(?:-[a-z0-9_]+)*$",
           "error_messages": {
-            "regex": "`packageName` must be a valid Rust crate name."
+            "pattern": "`packageName` must be a valid Rust crate name."
           },
+          "pattern": "^[a-z0-9_]+(?:-[a-z0-9_]+)*$",
+          "title": "Rust Package Name",
           "type": "string"
         },
         "$schema": {
@@ -594,22 +566,95 @@
         "className",
         "packageName"
       ],
-      "additionalProperties": false
+      "title": "Sindri Manifest for PSE v0.3.0 Halo2 Circuits",
+      "type": "object"
+    },
+    "Halo2ProvingSchemeOptions": {
+      "description": "The supported Halo2 proving schemes.",
+      "enum": ["gwc", "shplonk"],
+      "title": "Halo2ProvingSchemeOptions",
+      "type": "string"
+    },
+    "Halo2TranscriptHashOptions": {
+      "description": "The supported Halo2 hash functions.",
+      "enum": ["blake2b", "keccak256", "poseidon"],
+      "title": "Halo2TranscriptHashOptions",
+      "type": "string"
     },
     "NoirCurveOptions": {
-      "title": "NoirCurveOptions",
+      "const": "bn254",
       "description": "The supported Noir curves.",
       "enum": ["bn254"],
+      "title": "NoirCurveOptions",
       "type": "string"
     },
     "NoirProvingSchemeOptions": {
-      "title": "NoirProvingSchemeOptions",
+      "const": "barretenberg",
       "description": "The supported Noir proving schemes.",
       "enum": ["barretenberg"],
+      "title": "NoirProvingSchemeOptions",
       "type": "string"
     },
+    "NoirSindriManifest": {
+      "additionalProperties": false,
+      "description": "Sindri Manifest for Noir circuits.",
+      "properties": {
+        "circuitType": {
+          "const": "noir",
+          "description": "The (frontend) development framework that your circuit is written with.",
+          "enum": ["noir"],
+          "title": "Circuit Type",
+          "type": "string"
+        },
+        "name": {
+          "description": "The circuit name used to uniquely identify the circuit within your organization. Similar to a GitHub project name or a Docker image name.",
+          "error_messages": {
+            "pattern": "`name` must be a valid slug."
+          },
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "title": "Circuit Name",
+          "type": "string"
+        },
+        "curve": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/NoirCurveOptions"
+            }
+          ],
+          "default": "bn254",
+          "description": "The curve over which the proof is executed.",
+          "title": "Proving Curve"
+        },
+        "provingScheme": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/NoirProvingSchemeOptions"
+            }
+          ],
+          "default": "barretenberg",
+          "description": "The backend proving scheme."
+        },
+        "noirVersion": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/NoirVersionOptions"
+            }
+          ],
+          "default": "latest",
+          "description": "Noir compiler version (defaults to `latest`)."
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": ["https://sindri.app/api/v1/sindri-manifest-schema.json"]
+        }
+      },
+      "required": ["circuitType", "name"],
+      "title": "Sindri Manifest for Noir Circuits",
+      "type": "object"
+    },
     "NoirVersionOptions": {
-      "title": "NoirVersionOptions",
       "description": "The supported Noir Compiler and Prover versions.",
       "enum": [
         "latest",
@@ -624,123 +669,60 @@
         "0.27.0",
         "0.28.0"
       ],
-      "type": "string"
-    },
-    "NoirSindriManifest": {
-      "title": "Sindri Manifest for Noir Circuits",
-      "description": "Sindri Manifest for Noir circuits.",
-      "type": "object",
-      "properties": {
-        "circuitType": {
-          "title": "Circuit Type",
-          "description": "The (frontend) development framework that your circuit is written with.",
-          "enum": ["noir"],
-          "type": "string"
-        },
-        "name": {
-          "title": "Circuit Name",
-          "description": "The circuit name used to uniquely identify the circuit within your organization. Similar to a GitHub project name or a Docker image name.",
-          "pattern": "^[a-zA-Z0-9_-]+$",
-          "error_messages": {
-            "regex": "`name` must be a valid slug."
-          },
-          "type": "string"
-        },
-        "curve": {
-          "title": "Proving Curve",
-          "description": "The curve over which the proof is executed.",
-          "default": "bn254",
-          "allOf": [
-            {
-              "$ref": "#/definitions/NoirCurveOptions"
-            }
-          ]
-        },
-        "provingScheme": {
-          "description": "The backend proving scheme.",
-          "default": "barretenberg",
-          "allOf": [
-            {
-              "$ref": "#/definitions/NoirProvingSchemeOptions"
-            }
-          ]
-        },
-        "noirVersion": {
-          "description": "Noir compiler version (defaults to `latest`).",
-          "default": "latest",
-          "allOf": [
-            {
-              "$ref": "#/definitions/NoirVersionOptions"
-            }
-          ]
-        },
-        "$schema": {
-          "type": "string",
-          "title": "Sindri Manifest JSON Schema URL",
-          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
-          "examples": ["https://sindri.app/api/v1/sindri-manifest-schema.json"]
-        }
-      },
-      "required": ["circuitType", "name"],
-      "additionalProperties": false
-    },
-    "Plonky2VersionOptions": {
-      "title": "Plonky2VersionOptions",
-      "description": "The supported Plonky2 framework versions.",
-      "enum": ["0.2.0", "0.2.1", "0.2.2"],
+      "title": "NoirVersionOptions",
       "type": "string"
     },
     "Plonky2SindriManifest": {
-      "title": "Sindri Manifest for Plonky2 Circuits",
+      "additionalProperties": false,
       "description": "Sindri Manifest for Plonky2 circuits.",
-      "type": "object",
       "properties": {
         "circuitType": {
-          "title": "Circuit Type",
+          "const": "plonky2",
           "description": "The (frontend) development framework that your circuit is written with.",
           "enum": ["plonky2"],
+          "title": "Circuit Type",
           "type": "string"
         },
         "name": {
-          "title": "Circuit Name",
           "description": "The circuit name used to uniquely identify the circuit within your organization. Similar to a GitHub project name or a Docker image name.",
-          "pattern": "^[a-zA-Z0-9_-]+$",
           "error_messages": {
-            "regex": "`name` must be a valid slug."
+            "pattern": "`name` must be a valid slug."
           },
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "title": "Circuit Name",
           "type": "string"
         },
         "structName": {
-          "title": "Circuit struct Name",
           "description": "The path to your circuit struct definition. (*e.g.* `my-package::my_file::MyCircuitStruct`).",
-          "pattern": "^([A-Za-z_][A-Za-z0-9_]*::)+[A-Za-z_][A-Za-z0-9_]*$",
           "error_messages": {
-            "regex": "`structName` must be a valid and fully qualifed Rust path to a struct including the crate name."
+            "pattern": "`structName` must be a valid and fully qualifed Rust path to a struct including the crate name."
           },
+          "pattern": "^([A-Za-z_][A-Za-z0-9_]*::)+[A-Za-z_][A-Za-z0-9_]*$",
+          "title": "Circuit struct Name",
           "type": "string"
         },
         "plonky2Version": {
-          "description": "Plonky2 version defaults to '0.2.2'",
-          "default": "0.2.2",
           "allOf": [
             {
-              "$ref": "#/definitions/Plonky2VersionOptions"
+              "$ref": "#/$defs/Plonky2VersionOptions"
             }
-          ]
+          ],
+          "default": "0.2.2",
+          "description": "Plonky2 version defaults to '0.2.2'"
         },
         "provingScheme": {
-          "title": "Proving Scheme",
-          "description": "Plonky2 proving scheme defaults to `plonky2`.",
           "default": "plonky2",
+          "description": "Plonky2 proving scheme defaults to `plonky2`.",
+          "title": "Proving Scheme",
           "type": "string"
         },
         "packageName": {
-          "title": "Rust Package Name",
           "description": "The name of the Rust package containing your circuit.",
-          "pattern": "^[a-z0-9_]+(?:-[a-z0-9_]+)*$",
           "error_messages": {
-            "regex": "`packageName` must be a valid Rust crate name."
+            "pattern": "`packageName` must be a valid Rust crate name."
           },
+          "pattern": "^[a-z0-9_]+(?:-[a-z0-9_]+)*$",
+          "title": "Rust Package Name",
           "type": "string"
         },
         "$schema": {
@@ -751,7 +733,48 @@
         }
       },
       "required": ["circuitType", "name", "structName", "packageName"],
-      "additionalProperties": false
+      "title": "Sindri Manifest for Plonky2 Circuits",
+      "type": "object"
+    },
+    "Plonky2VersionOptions": {
+      "description": "The supported Plonky2 framework versions.",
+      "enum": ["0.2.0", "0.2.1", "0.2.2"],
+      "title": "Plonky2VersionOptions",
+      "type": "string"
+    },
+    "ZkevmVersionOptions": {
+      "description": "The supported zkSync Era zkEVM version tags.",
+      "enum": ["latest", "1.4.2", "1.5.0", "prover-v16.3.0"],
+      "title": "ZkevmVersionOptions",
+      "type": "string"
     }
-  }
+  },
+  "anyOf": [
+    {
+      "$ref": "#/$defs/CircomSindriManifest"
+    },
+    {
+      "$ref": "#/$defs/GnarkSindriManifest"
+    },
+    {
+      "$ref": "#/$defs/Halo2AxiomV022SindriManifest"
+    },
+    {
+      "$ref": "#/$defs/Halo2AxiomV030SindriManifest"
+    },
+    {
+      "$ref": "#/$defs/Halo2DelphinusSindriManifest"
+    },
+    {
+      "$ref": "#/$defs/Halo2PSEV030SindriManifest"
+    },
+    {
+      "$ref": "#/$defs/NoirSindriManifest"
+    },
+    {
+      "$ref": "#/$defs/Plonky2SindriManifest"
+    }
+  ],
+  "description": "Sindri Manifest file schema for `sindri.json` files.",
+  "title": "SindriManifest"
 }

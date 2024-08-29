@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type TokenRefreshOutputSchema = {
-  refresh: string;
-  access: string | null;
+export type Input = {
+  limit?: number;
+  offset?: number;
 };
