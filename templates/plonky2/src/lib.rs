@@ -15,7 +15,7 @@ pub const D: usize = 2;
 pub type C = PoseidonGoldilocksConfig;
 pub type F = <C as GenericConfig<D>>::F;
 
-pub struct FibonacciCircuit{
+pub struct EqualCircuit{
     pub proof: ProofWithPublicInputs<F, C, D>,
     pub verifier_only: VerifierOnlyCircuitData<C, D>,
     pub common: CommonCircuitData<F, D>,
@@ -28,7 +28,7 @@ pub struct InputData {
     pub b: u64,
 }
 
-impl FibonacciCircuit {
+impl EqualCircuit {
     pub fn prove(path: &str) -> Self {
         let config = CircuitConfig::standard_recursion_config();
         let mut builder = CircuitBuilder::<F, D>::new(config);
