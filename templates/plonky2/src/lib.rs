@@ -24,7 +24,8 @@ pub struct FibonacciCircuit{
 // User should configure the inputs field to match the type in the from_json function
 #[derive(Serialize, Deserialize)]
 pub struct InputData {
-    pub inputs: Vec<u64>
+    pub a: u64,
+    pub b: u64,
 }
 
 impl FibonacciCircuit {
@@ -33,20 +34,15 @@ impl FibonacciCircuit {
         let mut builder = CircuitBuilder::<F, D>::new(config);
 
         // The arithmetic circuit.
-        let initial_a = builder.add_virtual_target();
-        let initial_b = builder.add_virtual_target();
-        let mut prev_target = initial_a;
-        let mut cur_target = initial_b;
-        for _ in 0..99 {
-            let temp = builder.add(prev_target, cur_target);
-            prev_target = cur_target;
-            cur_target = temp;
-        }
+        let a = builder.add_virtual_target();
+        let b = builder.add_virtual_target();
+        
+        // 
+        builder.connect(a, b);
 
         // Public inputs are the two initial values (provided below) and the result (which is generated).
-        builder.register_public_input(initial_a);
-        builder.register_public_input(initial_b);
-        builder.register_public_input(cur_target);
+        builder.register_public_input(a);
+        builder.register_public_input(b);
 
         let data = builder.build::<C>();
         
@@ -55,9 +51,9 @@ impl FibonacciCircuit {
         let input_targets = data.prover_only.public_inputs.clone();
 
         let mut pw = PartialWitness::new();
-        for i in 0..input_data.len() {
-            pw.set_target(input_targets[i], F::from_canonical_u64(input_data[i]));
-        }
+
+        pw.set_target(input_targets[0], F::from_canonical_u64(input_data.a));
+        pw.set_target(input_targets[1], F::from_canonical_u64(input_data.b));
 
         let proof_with_pis = data.prove(pw).unwrap();
 
@@ -69,9 +65,9 @@ impl FibonacciCircuit {
     }    
 }
 
-pub fn from_json(path: &str) -> Vec<u64> {
+pub fn from_json(path: &str) -> InputData {
     let inputs = fs::read_to_string(path).unwrap();
     let data: InputData = serde_json::from_str(&inputs).unwrap();
     
-    data.inputs
+    data
 }
