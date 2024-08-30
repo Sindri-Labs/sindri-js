@@ -15,7 +15,7 @@ pub const D: usize = 2;
 pub type C = PoseidonGoldilocksConfig;
 pub type F = <C as GenericConfig<D>>::F;
 
-pub struct EqualCircuit{
+pub struct EqualityCircuit{
     pub proof: ProofWithPublicInputs<F, C, D>,
     pub verifier_only: VerifierOnlyCircuitData<C, D>,
     pub common: CommonCircuitData<F, D>,
@@ -28,7 +28,7 @@ pub struct InputData {
     pub b: u64,
 }
 
-impl EqualCircuit {
+impl EqualityCircuit {
     pub fn prove(path: &str) -> Self {
         let config = CircuitConfig::standard_recursion_config();
         let mut builder = CircuitBuilder::<F, D>::new(config);
@@ -37,7 +37,7 @@ impl EqualCircuit {
         let a = builder.add_virtual_target();
         let b = builder.add_virtual_target();
         
-        // 
+        // Constrains a == b.
         builder.connect(a, b);
 
         // Public inputs are the two initial values (provided below) and the result (which is generated).
