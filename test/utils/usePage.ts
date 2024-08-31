@@ -97,7 +97,7 @@ export const usePage = async ({
     t.context.browser = await puppeteer.launch({
       headless: true,
       // Ignore certificate errors because the proxy uses a self-signed certificate.
-      ignoreHTTPSErrors: true,
+      acceptInsecureCerts: true,
       args: [
         `--proxy-server=http://localhost:${proxyPort}`,
         // Disable CORS because they don't play back correctly with Nock and the proxy.
