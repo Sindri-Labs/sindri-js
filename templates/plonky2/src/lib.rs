@@ -30,8 +30,8 @@ pub struct TemplateStructName {
 // User should configure the inputs field to match the type in the from_json function
 #[derive(Serialize, Deserialize)]
 pub struct InputData {
-    pub a: u64,
-    pub b: u64,
+    pub x: u64,
+    pub y: u64,
 }
 
 impl TemplateStructName {
@@ -40,15 +40,15 @@ impl TemplateStructName {
         let mut builder = CircuitBuilder::<F, D>::new(config);
 
         // The arithmetic circuit.
-        let a = builder.add_virtual_target();
-        let b = builder.add_virtual_target();
+        let x = builder.add_virtual_target();
+        let y = builder.add_virtual_target();
 
-        // Constrains a == b.
-        builder.connect(a, b);
+        // Constrains x == y.
+        builder.connect(x, y);
 
         // Public inputs are the two initial values (provided below) and the result (which is generated).
-        builder.register_public_input(a);
-        builder.register_public_input(b);
+        builder.register_public_input(x);
+        builder.register_public_input(y);
 
         let data = builder.build::<C>();
 
@@ -58,8 +58,8 @@ impl TemplateStructName {
 
         let mut pw = PartialWitness::new();
 
-        pw.set_target(input_targets[0], F::from_canonical_u64(input_data.a));
-        pw.set_target(input_targets[1], F::from_canonical_u64(input_data.b));
+        pw.set_target(input_targets[0], F::from_canonical_u64(input_data.x));
+        pw.set_target(input_targets[1], F::from_canonical_u64(input_data.y));
 
         let proof_with_pis = data.prove(pw).unwrap();
 
