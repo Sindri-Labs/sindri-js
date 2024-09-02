@@ -1,10 +1,16 @@
-use plonky2::{iop::target::Target, plonk::config::{GenericConfig, PoseidonGoldilocksConfig}};
 use plonky2::field::types::Field;
 use plonky2::iop::witness::{PartialWitness, WitnessWrite};
 use plonky2::plonk::circuit_builder::CircuitBuilder;
-use plonky2::plonk::circuit_data::{CircuitConfig, VerifierOnlyCircuitData, CommonCircuitData};
-use plonky2::util::serialization::{Buffer, GateSerializer, IoResult, Read, WitnessGeneratorSerializer, Write, DefaultGateSerializer, DefaultGeneratorSerializer};
+use plonky2::plonk::circuit_data::{CircuitConfig, CommonCircuitData, VerifierOnlyCircuitData};
 use plonky2::plonk::proof::ProofWithPublicInputs;
+use plonky2::util::serialization::{
+    Buffer, DefaultGateSerializer, DefaultGeneratorSerializer, GateSerializer, IoResult, Read,
+    WitnessGeneratorSerializer, Write,
+};
+use plonky2::{
+    iop::target::Target,
+    plonk::config::{GenericConfig, PoseidonGoldilocksConfig},
+};
 use serde::{Deserialize, Serialize};
 use std::fs;
 
@@ -15,7 +21,7 @@ pub const D: usize = 2;
 pub type C = PoseidonGoldilocksConfig;
 pub type F = <C as GenericConfig<D>>::F;
 
-pub struct EqualityCircuit{
+pub struct TemplateStructName {
     pub proof: ProofWithPublicInputs<F, C, D>,
     pub verifier_only: VerifierOnlyCircuitData<C, D>,
     pub common: CommonCircuitData<F, D>,
@@ -28,7 +34,7 @@ pub struct InputData {
     pub b: u64,
 }
 
-impl EqualityCircuit {
+impl TemplateStructName {
     pub fn prove(path: &str) -> Self {
         let config = CircuitConfig::standard_recursion_config();
         let mut builder = CircuitBuilder::<F, D>::new(config);
@@ -36,7 +42,7 @@ impl EqualityCircuit {
         // The arithmetic circuit.
         let a = builder.add_virtual_target();
         let b = builder.add_virtual_target();
-        
+
         // Constrains a == b.
         builder.connect(a, b);
 
@@ -45,7 +51,7 @@ impl EqualityCircuit {
         builder.register_public_input(b);
 
         let data = builder.build::<C>();
-        
+
         // We construct the partial witness using inputs from the JSON file
         let input_data = from_json(path);
         let input_targets = data.prover_only.public_inputs.clone();
@@ -62,12 +68,12 @@ impl EqualityCircuit {
             verifier_only: data.verifier_only,
             common: data.common,
         }
-    }    
+    }
 }
 
 pub fn from_json(path: &str) -> InputData {
     let inputs = fs::read_to_string(path).unwrap();
     let data: InputData = serde_json::from_str(&inputs).unwrap();
-    
+
     data
 }

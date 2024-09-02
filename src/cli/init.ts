@@ -291,10 +291,13 @@ export const initCommand = new Command()
       });
       const structName = await input({
         message: "Full path to circuit struct:",
-        default: "fibonacci::FibonacciCircuit",
+        default: "Circuit",
         validate: (input): boolean | string => {
-          if (input.length === 0) {
-            return "You must specify a struct name.";
+          if (!/^[A-Z][A-Za-z0-9_]*$/.test(input)) {
+            return (
+              "Struct name must begin with an uppercase letter and contain only " +
+              "alphanumeric characters and underscores."
+            );
           }
           return true;
         },
