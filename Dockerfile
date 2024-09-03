@@ -25,10 +25,13 @@ USER node
 
 # Conditionally install an arm64 build of Chromium for Puppeteer if we're on an arm64 host.
 # This prevents us from having to emulate x86_64 on arm Macs during development to run browser tests.
-# See: https://github.com/puppeteer/puppeteer/issues/7740#issuecomment-1875162960
+# See:
+# * https://github.com/puppeteer/puppeteer/issues/7740#issuecomment-1875162960
+# * https://pptr.dev/chromium-support - Puppeteer version compatibility with Chromium.
+# * https://github.com/microsoft/playwright/commits/main/ - Playwright Chromium versions added in commits.
 RUN if [ "$(uname -m)" = "aarch64" ]; then \
       cd /home/node/ && \
-      curl 'https://playwright.azureedge.net/builds/chromium/1107/chromium-linux-arm64.zip' > chromium.zip && \
+      curl 'https://playwright.azureedge.net/builds/chromium/1129/chromium-linux-arm64.zip' > chromium.zip && \
       unzip chromium.zip && \
       rm -f chromium.zip && \
       echo 'export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true' >> ~/.bashrc && \
