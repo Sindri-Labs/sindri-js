@@ -6,6 +6,7 @@ import type { ActionResponse } from "../models/ActionResponse";
 import type { CircuitInfoResponse } from "../models/CircuitInfoResponse";
 import type { CircuitStatusResponse } from "../models/CircuitStatusResponse";
 import type { JobStatus } from "../models/JobStatus";
+import type { PagedCircuitInfoResponse } from "../models/PagedCircuitInfoResponse";
 import type { PagedProjectInfoResponse } from "../models/PagedProjectInfoResponse";
 import type { PagedProofInfoResponse } from "../models/PagedProofInfoResponse";
 import type { ProjectInfoResponse } from "../models/ProjectInfoResponse";
@@ -132,6 +133,41 @@ export class InternalService {
       url: "/api/v1/project/{project_id}/circuits",
       path: {
         project_id: projectId,
+      },
+      errors: {
+        404: `Not Found`,
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
+   * Project Circuits
+   * List all circuits for a project.
+   * @param projectId The project identifer of the project.
+   * This can take one of the following forms:
+   *
+   * 1. `<PROJECT_ID>` - The unique UUID4 ID for a project.
+   * 2. `<TEAM_NAME>/<PROJECT_NAME>` - The name of a project owned by the specified team.
+   * @param limit The number of circuits to return.
+   * @param offset The number of circuits to skip.
+   * @returns PagedCircuitInfoResponse OK
+   * @throws ApiError
+   */
+  public projectCircuitsPaginated(
+    projectId: string,
+    limit: number = 100,
+    offset?: number,
+  ): CancelablePromise<PagedCircuitInfoResponse> {
+    return this.httpRequest.request({
+      method: "GET",
+      url: "/api/v1/project/{project_id}/circuits/paginated",
+      path: {
+        project_id: projectId,
+      },
+      query: {
+        limit: limit,
+        offset: offset,
       },
       errors: {
         404: `Not Found`,
