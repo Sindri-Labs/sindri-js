@@ -36,13 +36,11 @@ function createProxy(): Proxy {
   proxy.onRequest((ctx, callback) => {
     const host = ctx.clientToProxyRequest.headers.host ?? "";
     if (/(^|.).google.com/i.test(host)) {
-      // Return 500 errors for any Google requests.
-      ctx.proxyToClientResponse.writeHead(500, {
+      // Return 403 errors for any Google requests.
+      ctx.proxyToClientResponse.writeHead(403, {
         "Content-Type": "text/plain",
       });
-      ctx.proxyToClientResponse.end(
-        "Internal Server Error: Blocked Google Services",
-      );
+      ctx.proxyToClientResponse.end("Bad Request: Google Services Blocked");
     } else {
       // Continue processing the request normally if it's not Google.
       return callback();

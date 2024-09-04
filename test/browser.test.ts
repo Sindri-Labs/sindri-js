@@ -30,7 +30,10 @@ test("library is injected and authorized", async (t) => {
 });
 
 test("access to google.com is blocked", async (t) => {
+  // Squash Chrome's error logging for this page, we expect a 403 error.
+  t.context.page.removeAllListeners("console");
   const status: number | null = await t.context.page.evaluate(async () => {
+    // Hackily use the sindri's internal client to make a request to Google.
     sindri._clientConfig.BASE = "https://accounts.google.com";
     try {
       const response: { status: number } = await sindri._client.request.request(
@@ -46,8 +49,8 @@ test("access to google.com is blocked", async (t) => {
   });
   t.deepEqual(
     status,
-    500,
-    "Requests to google.com delays should be blocked with a 500 status code.",
+    403,
+    "Requests to google.com delays should be blocked with a 403 status code.",
   );
 });
 
