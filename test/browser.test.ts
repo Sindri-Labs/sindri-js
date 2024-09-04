@@ -29,6 +29,28 @@ test("library is injected and authorized", async (t) => {
   t.truthy(baseUrl);
 });
 
+test("access to google.com is blocked", async (t) => {
+  const status: number | null = await t.context.page.evaluate(async () => {
+    sindri._clientConfig.BASE = "https://accounts.google.com";
+    try {
+      const response: { status: number } = await sindri._client.request.request(
+        {
+          method: "GET",
+          url: "/ListAccounts",
+        },
+      );
+      return response?.status ?? null;
+    } catch (error) {
+      return (error as { status: number })?.status ?? null;
+    }
+  });
+  t.deepEqual(
+    status,
+    500,
+    "Requests to google.com delays should be blocked with a 500 status code.",
+  );
+});
+
 test("create circuit from file array", async (t) => {
   const circuitDirectory = path.join(dataDirectory, "circom-multiplier2");
   const fileNames = await fs.readdir(circuitDirectory);
