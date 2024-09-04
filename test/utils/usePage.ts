@@ -32,6 +32,23 @@ function createProxy(): Proxy {
   const proxy = new Proxy();
   proxy.use(Proxy.wildcard);
 
+  // Block Google phoning home.
+  proxy.onRequest((ctx, callback) => {
+    const host = ctx.clientToProxyRequest.headers.host ?? "";
+    if (/(^|.).google.com/i.test(host)) {
+      // Return 500 errors for any Google requests.
+      ctx.proxyToClientResponse.writeHead(500, {
+        "Content-Type": "text/plain",
+      });
+      ctx.proxyToClientResponse.end(
+        "Internal Server Error: Blocked Google Services",
+      );
+    } else {
+      // Continue processing the request normally if it's not Google.
+      return callback();
+    }
+  });
+
   // The library uses `console.debug()` a lot and it's noisy.
   console.debug = () => {};
 
