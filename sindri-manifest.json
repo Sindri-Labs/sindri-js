@@ -741,12 +741,6 @@
       "enum": ["0.2.0", "0.2.1", "0.2.2"],
       "title": "Plonky2VersionOptions",
       "type": "string"
-    },
-    "ZkevmVersionOptions": {
-      "description": "The supported zkSync Era zkEVM version tags.",
-      "enum": ["latest", "1.4.2", "1.5.0", "prover-v16.3.0"],
-      "title": "ZkevmVersionOptions",
-      "type": "string"
     }
   },
   "anyOf": [
