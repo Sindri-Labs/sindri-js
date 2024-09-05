@@ -34,6 +34,7 @@ export type { JobStatus } from "./models/JobStatus";
 export type { JWTTokenErrorResponse } from "./models/JWTTokenErrorResponse";
 export type { NoirCircuitInfoResponse } from "./models/NoirCircuitInfoResponse";
 export type { ObtainApikeyInput } from "./models/ObtainApikeyInput";
+export type { PagedCircuitInfoResponse } from "./models/PagedCircuitInfoResponse";
 export type { PagedProjectInfoResponse } from "./models/PagedProjectInfoResponse";
 export type { PagedProofInfoResponse } from "./models/PagedProofInfoResponse";
 export type { PasswordChangeInput } from "./models/PasswordChangeInput";
