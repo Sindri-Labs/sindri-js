@@ -15,13 +15,14 @@ RUN if [ "$UID" != "1000" ]; then \
     ; fi
 
 RUN apt-get update
-RUN apt-get install --yes git python3 \
+RUN apt-get install --yes git jq python3 \
     `# Chromium installation dependencies` \
     curl unzip \
     `# Chromium runtime dependencies` \
     libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libgbm1 libasound2 libpangocairo-1.0-0 libxss1 libgtk-3-0
 
 USER node
+WORKDIR /sindri/
 
 # Conditionally install an arm64 build of Chromium for Puppeteer if we're on an arm64 host.
 # This prevents us from having to emulate x86_64 on arm Macs during development to run browser tests.
@@ -34,13 +35,26 @@ RUN if [ "$(uname -m)" = "aarch64" ]; then \
       curl 'https://playwright.azureedge.net/builds/chromium/1129/chromium-linux-arm64.zip' > chromium.zip && \
       unzip chromium.zip && \
       rm -f chromium.zip && \
-      echo 'export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true' >> ~/.bashrc && \
+      echo 'export PUPPETEER_SKIP_DOWNLOAD=true' >> ~/.bashrc && \
       echo 'export CHROME_PATH=/home/node/chrome-linux/chrome' >> ~/.bashrc && \
       echo 'export PUPPETEER_EXECUTABLE_PATH=/home/node/chrome-linux/chrome' >> ~/.bashrc; \
     fi
+# Manually install Puppeteer to install Chrome into ~/.cache/puppeteer/ on amd64.
+# This should install automatically when the container starts, but it doesn't for some reason.
+# It doesn't hurt to cache it in the image anyway, it cuts down on startup time.
+COPY --chown=node:node ./package.json ./package-lock.json /sindri/
+RUN if [ "$(uname -m)" != "aarch64" ]; then \
+      export PUPPETEER_VERSION="$(jq -r '.packages["node_modules/puppeteer"].version' package-lock.json)"; \
+      export TEMP_DIRECTORY="$(mktemp -d)"; \
+      cd "$TEMP_DIRECTORY"; \
+      npm install "puppeteer@${PUPPETEER_VERSION}"; \
+      cd -; \
+      rm -rf "$TEMP_DIRECTORY"; \
+      rm -rf ~/.npm/*; \
+    fi
 
-# Skip installing any node dependencies because we're going to bind mount over `node_modules` anyway.
-# We'll also do a volume mount to persist the npm cache.
+# Skip installing any node dependencies (other than maybe Puppeteer) because we're going
+# to bind mount over `node_modules` anyway. We'll also do a volume mount to persist the npm cache.
 RUN mkdir -p ~/.npm/
 
 # Set up npm to use a non-root directory for global packages.
@@ -53,14 +67,11 @@ RUN npm completion >> ~/.bashrc && \
     echo '# Do not split words on colons in completion:' >> ~/.bashrc && \
     echo 'export COMP_WORDBREAKS=${COMP_WORDBREAKS//:}' >> ~/.bashrc
 
-WORKDIR /sindri/
-
 # Link the `sindri-js` project.
 # We need at least `package.json` and a stub for the CLI to create the symlinks,
 # then we'll bind mount over this with the real project at runtime with docker compose.
 # Running `npm link` requires `patch-package` to be in the PATH as a `postinstall` script,
 # so we create a small stub script to satisfy this requirement and then delete it.
-COPY ./package.json /sindri/package.json
 RUN mkdir -p dist/cli/ && \
     touch dist/cli/index.js && \
     chmod u+x dist/cli/index.js && \
