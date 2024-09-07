@@ -20,11 +20,11 @@
             "Content-Type",
             "text/plain; charset=\"utf-8\"",
             "Date",
-            "Thu, 05 Sep 2024 22:41:07 GMT",
+            "Sat, 07 Sep 2024 16:00:36 GMT",
             "Etag",
-            "\"66d8d3b9-19e\"",
+            "\"66db3af8-19e\"",
             "Last-Modified",
-            "Wed, 04 Sep 2024 21:40:09 GMT",
+            "Fri, 06 Sep 2024 17:25:12 GMT",
             "Server",
             "gunicorn",
             "Vary",
@@ -33,17 +33,17 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "POST",
         "path": "/api/v1/circuit/create",
-        "body": "2d2d2d2d2d2d5765624b6974466f726d426f756e646172793943337a676831767a41376e6d386c440d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2274616773220d0a0d0a66726f6d2d62726f777365722d66696c652d61727261790d0a2d2d2d2d2d2d5765624b6974466f726d426f756e646172793943337a676831767a41376e6d386c440d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d226d657461220d0a0d0a7b7d0d0a2d2d2d2d2d2d5765624b6974466f726d426f756e646172793943337a676831767a41376e6d386c440d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2266696c6573223b2066696c656e616d653d22636972636f6d2d6d756c7469706c696572322e7461722e677a220d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6f637465742d73747265616d0d0a0d0a1f8b0800800092650003ed954b6fe23010c739e7538ca23d0085382f4082e5d4bdf6d47e01635ce2ddc4b66c876a85faddd779f4452bb1d222d8c3fc2e8eff637bec78c6c38461aa9a5675e9842e053729615eaa858b586b1afc3bb167b158b4ade7b88de78b6c90e4b33ccfe3386df424cfb27c00f1197c9fa4b68e1a804bb8fa1fd186ee2a0add5d431ac551bc0a02320e1e0a61a10f0570bcd225751c58c1d92f0baea00e1888e68bc34bf030ea8492a01e8102955bd844c1bdaa0de330bca3861590a41348e3341b2d21289cd37649c85631db875a2414d971e784dc4d9b5b717c4b9e8c68fbfd4e2cf9db895ed6a2fc38754c0082e0f530776f410fc3111c1a230010023f382ba9793d8e153b494b1bf901dedef540485d3ba0ab2fc4cd4751d5ae51d9eacdc1ad92d6192aa47b5995c1f7f5daffb87137fb39089a1328c9a583ca0f84f5fbfd0e47abe02cf7cf3ee77f7b86e8a755f22c1e4ee77f9c2647f99fcd9204f3ff121c421a2ec359380937becdc3e76b6f08b9285fe4bf15726bc4191f8053f99fa5e971fecff339e6ff2538f8da137eb3beae57fe2180f0a5baf64140b526540bb24f7a655a51291eb975d36e4e1b26e1a45945d28a374b7c0ea9ceded7e187dffaddb0de549b7d2b6e643acb3b4d1bb5f7e5fbbe71d3da7646b9229977d627e124b7f6b6adf2dcb40bdedc84be6e5efb8f2208822008822008822008822008822008822008825c873f13581c35002800000d0a2d2d2d2d2d2d5765624b6974466f726d426f756e646172793943337a676831767a41376e6d386c442d2d0d0a",
+        "body": "2d2d2d2d2d2d5765624b6974466f726d426f756e646172797037534b384d59383876615954676e710d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2274616773220d0a0d0a62726f777365722d6372656174652d70726f6f662d6d756c7469706c696572322d636972637569740d0a2d2d2d2d2d2d5765624b6974466f726d426f756e646172797037534b384d59383876615954676e710d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d226d657461220d0a0d0a7b7d0d0a2d2d2d2d2d2d5765624b6974466f726d426f756e646172797037534b384d59383876615954676e710d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2266696c6573223b2066696c656e616d653d22636972636f6d2d6d756c7469706c696572322e7461722e677a220d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6f637465742d73747265616d0d0a0d0a1f8b0800800092650003ed954b6fe23010c739e7538ca23d0085382f4082e5d4bdf6d47e01635ce2ddc4b66c876a85faddd779f4452bb1d222d8c3fc2e8eff637bec78c6c38461aa9a5675e9842e053729615eaa858b586b1afc3bb167b158b4ade7b88de78b6c90e4b33ccfe3386df424cfb27c00f1197c9fa4b68e1a804bb8fa1fd186ee2a0add5d431ac551bc0a02320e1e0a61a10f0570bcd225751c58c1d92f0baea00e1888e68bc34bf030ea8492a01e8102955bd844c1bdaa0de330bca3861590a41348e3341b2d21289cd37649c85631db875a2414d971e784dc4d9b5b717c4b9e8c68fbfd4e2cf9db895ed6a2fc38754c0082e0f530776f410fc3111c1a230010023f382ba9793d8e153b494b1bf901dedef540485d3ba0ab2fc4cd4751d5ae51d9eacdc1ad92d6192aa47b5995c1f7f5daffb87137fb39089a1328c9a583ca0f84f5fbfd0e47abe02cf7cf3ee77f7b86e8a755f22c1e4ee77f9c2647f99fcd9204f3ff121c421a2ec359380937becdc3e76b6f08b9285fe4bf15726bc4191f8053f99fa5e971fecff339e6ff2538f8da137eb3beae57fe2180f0a5baf64140b526540bb24f7a655a51291eb975d36e4e1b26e1a45945d28a374b7c0ea9ceded7e187dffaddb0de549b7d2b6e643acb3b4d1bb5f7e5fbbe71d3da7646b9229977d627e124b7f6b6adf2dcb40bdedc84be6e5efb8f2208822008822008822008822008822008822008825c873f13581c35002800000d0a2d2d2d2d2d2d5765624b6974466f726d426f756e646172797037534b384d59383876615954676e712d2d0d0a",
         "status": 201,
         "response": {
-            "circuit_id": "d5ec9423-95b5-4823-8d80-51acb4fc20fd",
+            "circuit_id": "e660d4cd-5fc8-44a9-ae58-d658bfb5ebb1",
             "circuit_name": "circom-multiplier2",
             "project_name": "circom-multiplier2",
             "circuit_type": "circom",
-            "date_created": "2024-09-05T22:41:07.699Z",
+            "date_created": "2024-09-07T16:00:37.118Z",
             "meta": {},
             "num_proofs": 0,
             "proving_scheme": "groth16",
@@ -94,7 +94,7 @@
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:41:08 GMT",
+            "Sat, 07 Sep 2024 16:00:37 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -109,17 +109,17 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "POST",
         "path": "/api/v1/circuit/create",
-        "body": "2d2d2d2d2d2d5765624b6974466f726d426f756e6461727956725a4565644268426e6e56555349510d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2274616773220d0a0d0a66726f6d2d62726f777365722d66696c652d61727261792d666f722d70726f76652d636972637569740d0a2d2d2d2d2d2d5765624b6974466f726d426f756e6461727956725a4565644268426e6e56555349510d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d226d657461220d0a0d0a7b7d0d0a2d2d2d2d2d2d5765624b6974466f726d426f756e6461727956725a4565644268426e6e56555349510d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2266696c6573223b2066696c656e616d653d22636972636f6d2d6d756c7469706c696572322e7461722e677a220d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6f637465742d73747265616d0d0a0d0a1f8b0800800092650003ed954b6fe23010c739e7538ca23d0085382f4082e5d4bdf6d47e01635ce2ddc4b66c876a85faddd779f4452bb1d222d8c3fc2e8eff637bec78c6c38461aa9a5675e9842e053729615eaa858b586b1afc3bb167b158b4ade7b88de78b6c90e4b33ccfe3386df424cfb27c00f1197c9fa4b68e1a804bb8fa1fd186ee2a0add5d431ac551bc0a02320e1e0a61a10f0570bcd225751c58c1d92f0baea00e1888e68bc34bf030ea8492a01e8102955bd844c1bdaa0de330bca3861590a41348e3341b2d21289cd37649c85631db875a2414d971e784dc4d9b5b717c4b9e8c68fbfd4e2cf9db895ed6a2fc38754c0082e0f530776f410fc3111c1a230010023f382ba9793d8e153b494b1bf901dedef540485d3ba0ab2fc4cd4751d5ae51d9eacdc1ad92d6192aa47b5995c1f7f5daffb87137fb39089a1328c9a583ca0f84f5fbfd0e47abe02cf7cf3ee77f7b86e8a755f22c1e4ee77f9c2647f99fcd9204f3ff121c421a2ec359380937becdc3e76b6f08b9285fe4bf15726bc4191f8053f99fa5e971fecff339e6ff2538f8da137eb3beae57fe2180f0a5baf64140b526540bb24f7a655a51291eb975d36e4e1b26e1a45945d28a374b7c0ea9ceded7e187dffaddb0de549b7d2b6e643acb3b4d1bb5f7e5fbbe71d3da7646b9229977d627e124b7f6b6adf2dcb40bdedc84be6e5efb8f2208822008822008822008822008822008822008825c873f13581c35002800000d0a2d2d2d2d2d2d5765624b6974466f726d426f756e6461727956725a4565644268426e6e56555349512d2d0d0a",
+        "body": "2d2d2d2d2d2d5765624b6974466f726d426f756e6461727971753159424669684d37727a567661410d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2274616773220d0a0d0a66726f6d2d62726f777365722d66696c652d61727261792d666f722d6765742d636972637569740d0a2d2d2d2d2d2d5765624b6974466f726d426f756e6461727971753159424669684d37727a567661410d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d226d657461220d0a0d0a7b7d0d0a2d2d2d2d2d2d5765624b6974466f726d426f756e6461727971753159424669684d37727a567661410d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2266696c6573223b2066696c656e616d653d22636972636f6d2d6d756c7469706c696572322e7461722e677a220d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6f637465742d73747265616d0d0a0d0a1f8b0800800092650003ed954b6fe23010c739e7538ca23d0085382f4082e5d4bdf6d47e01635ce2ddc4b66c876a85faddd779f4452bb1d222d8c3fc2e8eff637bec78c6c38461aa9a5675e9842e053729615eaa858b586b1afc3bb167b158b4ade7b88de78b6c90e4b33ccfe3386df424cfb27c00f1197c9fa4b68e1a804bb8fa1fd186ee2a0add5d431ac551bc0a02320e1e0a61a10f0570bcd225751c58c1d92f0baea00e1888e68bc34bf030ea8492a01e8102955bd844c1bdaa0de330bca3861590a41348e3341b2d21289cd37649c85631db875a2414d971e784dc4d9b5b717c4b9e8c68fbfd4e2cf9db895ed6a2fc38754c0082e0f530776f410fc3111c1a230010023f382ba9793d8e153b494b1bf901dedef540485d3ba0ab2fc4cd4751d5ae51d9eacdc1ad92d6192aa47b5995c1f7f5daffb87137fb39089a1328c9a583ca0f84f5fbfd0e47abe02cf7cf3ee77f7b86e8a755f22c1e4ee77f9c2647f99fcd9204f3ff121c421a2ec359380937becdc3e76b6f08b9285fe4bf15726bc4191f8053f99fa5e971fecff339e6ff2538f8da137eb3beae57fe2180f0a5baf64140b526540bb24f7a655a51291eb975d36e4e1b26e1a45945d28a374b7c0ea9ceded7e187dffaddb0de549b7d2b6e643acb3b4d1bb5f7e5fbbe71d3da7646b9229977d627e124b7f6b6adf2dcb40bdedc84be6e5efb8f2208822008822008822008822008822008822008825c873f13581c35002800000d0a2d2d2d2d2d2d5765624b6974466f726d426f756e6461727971753159424669684d37727a567661412d2d0d0a",
         "status": 201,
         "response": {
-            "circuit_id": "4e67098d-9e85-425e-acdb-9c9048646c22",
+            "circuit_id": "440eab15-88bf-4cc2-83b0-6f060ba2db2a",
             "circuit_name": "circom-multiplier2",
             "project_name": "circom-multiplier2",
             "circuit_type": "circom",
-            "date_created": "2024-09-05T22:41:07.858Z",
+            "date_created": "2024-09-07T16:00:37.222Z",
             "meta": {},
             "num_proofs": 0,
             "proving_scheme": "groth16",
@@ -170,7 +170,7 @@
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:41:08 GMT",
+            "Sat, 07 Sep 2024 16:00:37 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -185,17 +185,17 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "POST",
         "path": "/api/v1/circuit/create",
-        "body": "2d2d2d2d2d2d5765624b6974466f726d426f756e64617279494c42496d45425073794574664946300d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2274616773220d0a0d0a66726f6d2d62726f777365722d66696c652d61727261792d666f722d6765742d636972637569740d0a2d2d2d2d2d2d5765624b6974466f726d426f756e64617279494c42496d45425073794574664946300d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d226d657461220d0a0d0a7b7d0d0a2d2d2d2d2d2d5765624b6974466f726d426f756e64617279494c42496d45425073794574664946300d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2266696c6573223b2066696c656e616d653d22636972636f6d2d6d756c7469706c696572322e7461722e677a220d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6f637465742d73747265616d0d0a0d0a1f8b0800800092650003ed954b6fe23010c739e7538ca23d0085382f4082e5d4bdf6d47e01635ce2ddc4b66c876a85faddd779f4452bb1d222d8c3fc2e8eff637bec78c6c38461aa9a5675e9842e053729615eaa858b586b1afc3bb167b158b4ade7b88de78b6c90e4b33ccfe3386df424cfb27c00f1197c9fa4b68e1a804bb8fa1fd186ee2a0add5d431ac551bc0a02320e1e0a61a10f0570bcd225751c58c1d92f0baea00e1888e68bc34bf030ea8492a01e8102955bd844c1bdaa0de330bca3861590a41348e3341b2d21289cd37649c85631db875a2414d971e784dc4d9b5b717c4b9e8c68fbfd4e2cf9db895ed6a2fc38754c0082e0f530776f410fc3111c1a230010023f382ba9793d8e153b494b1bf901dedef540485d3ba0ab2fc4cd4751d5ae51d9eacdc1ad92d6192aa47b5995c1f7f5daffb87137fb39089a1328c9a583ca0f84f5fbfd0e47abe02cf7cf3ee77f7b86e8a755f22c1e4ee77f9c2647f99fcd9204f3ff121c421a2ec359380937becdc3e76b6f08b9285fe4bf15726bc4191f8053f99fa5e971fecff339e6ff2538f8da137eb3beae57fe2180f0a5baf64140b526540bb24f7a655a51291eb975d36e4e1b26e1a45945d28a374b7c0ea9ceded7e187dffaddb0de549b7d2b6e643acb3b4d1bb5f7e5fbbe71d3da7646b9229977d627e124b7f6b6adf2dcb40bdedc84be6e5efb8f2208822008822008822008822008822008822008825c873f13581c35002800000d0a2d2d2d2d2d2d5765624b6974466f726d426f756e64617279494c42496d45425073794574664946302d2d0d0a",
+        "body": "2d2d2d2d2d2d5765624b6974466f726d426f756e646172797a6278326c4b356244673133734565560d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2274616773220d0a0d0a66726f6d2d62726f777365722d66696c652d61727261792d666f722d6765742d616c6c2d636972637569742d70726f6f66730d0a2d2d2d2d2d2d5765624b6974466f726d426f756e646172797a6278326c4b356244673133734565560d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d226d657461220d0a0d0a7b7d0d0a2d2d2d2d2d2d5765624b6974466f726d426f756e646172797a6278326c4b356244673133734565560d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2266696c6573223b2066696c656e616d653d22636972636f6d2d6d756c7469706c696572322e7461722e677a220d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6f637465742d73747265616d0d0a0d0a1f8b0800800092650003ed954b6fe23010c739e7538ca23d0085382f4082e5d4bdf6d47e01635ce2ddc4b66c876a85faddd779f4452bb1d222d8c3fc2e8eff637bec78c6c38461aa9a5675e9842e053729615eaa858b586b1afc3bb167b158b4ade7b88de78b6c90e4b33ccfe3386df424cfb27c00f1197c9fa4b68e1a804bb8fa1fd186ee2a0add5d431ac551bc0a02320e1e0a61a10f0570bcd225751c58c1d92f0baea00e1888e68bc34bf030ea8492a01e8102955bd844c1bdaa0de330bca3861590a41348e3341b2d21289cd37649c85631db875a2414d971e784dc4d9b5b717c4b9e8c68fbfd4e2cf9db895ed6a2fc38754c0082e0f530776f410fc3111c1a230010023f382ba9793d8e153b494b1bf901dedef540485d3ba0ab2fc4cd4751d5ae51d9eacdc1ad92d6192aa47b5995c1f7f5daffb87137fb39089a1328c9a583ca0f84f5fbfd0e47abe02cf7cf3ee77f7b86e8a755f22c1e4ee77f9c2647f99fcd9204f3ff121c421a2ec359380937becdc3e76b6f08b9285fe4bf15726bc4191f8053f99fa5e971fecff339e6ff2538f8da137eb3beae57fe2180f0a5baf64140b526540bb24f7a655a51291eb975d36e4e1b26e1a45945d28a374b7c0ea9ceded7e187dffaddb0de549b7d2b6e643acb3b4d1bb5f7e5fbbe71d3da7646b9229977d627e124b7f6b6adf2dcb40bdedc84be6e5efb8f2208822008822008822008822008822008822008825c873f13581c35002800000d0a2d2d2d2d2d2d5765624b6974466f726d426f756e646172797a6278326c4b356244673133734565562d2d0d0a",
         "status": 201,
         "response": {
-            "circuit_id": "16c8e5e2-78ce-4905-afd6-65bd43d6beb0",
+            "circuit_id": "a3878be2-c111-4ae1-957a-2a60689df8ed",
             "circuit_name": "circom-multiplier2",
             "project_name": "circom-multiplier2",
             "circuit_type": "circom",
-            "date_created": "2024-09-05T22:41:07.912Z",
+            "date_created": "2024-09-07T16:00:37.231Z",
             "meta": {},
             "num_proofs": 0,
             "proving_scheme": "groth16",
@@ -246,7 +246,7 @@
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:41:08 GMT",
+            "Sat, 07 Sep 2024 16:00:37 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -261,17 +261,17 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "POST",
         "path": "/api/v1/circuit/create",
-        "body": "2d2d2d2d2d2d5765624b6974466f726d426f756e64617279416473645857745542585a6f624a624f0d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2274616773220d0a0d0a62726f777365722d6372656174652d70726f6f662d6d756c7469706c696572322d636972637569740d0a2d2d2d2d2d2d5765624b6974466f726d426f756e64617279416473645857745542585a6f624a624f0d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d226d657461220d0a0d0a7b7d0d0a2d2d2d2d2d2d5765624b6974466f726d426f756e64617279416473645857745542585a6f624a624f0d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2266696c6573223b2066696c656e616d653d22636972636f6d2d6d756c7469706c696572322e7461722e677a220d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6f637465742d73747265616d0d0a0d0a1f8b0800800092650003ed954b6fe23010c739e7538ca23d0085382f4082e5d4bdf6d47e01635ce2ddc4b66c876a85faddd779f4452bb1d222d8c3fc2e8eff637bec78c6c38461aa9a5675e9842e053729615eaa858b586b1afc3bb167b158b4ade7b88de78b6c90e4b33ccfe3386df424cfb27c00f1197c9fa4b68e1a804bb8fa1fd186ee2a0add5d431ac551bc0a02320e1e0a61a10f0570bcd225751c58c1d92f0baea00e1888e68bc34bf030ea8492a01e8102955bd844c1bdaa0de330bca3861590a41348e3341b2d21289cd37649c85631db875a2414d971e784dc4d9b5b717c4b9e8c68fbfd4e2cf9db895ed6a2fc38754c0082e0f530776f410fc3111c1a230010023f382ba9793d8e153b494b1bf901dedef540485d3ba0ab2fc4cd4751d5ae51d9eacdc1ad92d6192aa47b5995c1f7f5daffb87137fb39089a1328c9a583ca0f84f5fbfd0e47abe02cf7cf3ee77f7b86e8a755f22c1e4ee77f9c2647f99fcd9204f3ff121c421a2ec359380937becdc3e76b6f08b9285fe4bf15726bc4191f8053f99fa5e971fecff339e6ff2538f8da137eb3beae57fe2180f0a5baf64140b526540bb24f7a655a51291eb975d36e4e1b26e1a45945d28a374b7c0ea9ceded7e187dffaddb0de549b7d2b6e643acb3b4d1bb5f7e5fbbe71d3da7646b9229977d627e124b7f6b6adf2dcb40bdedc84be6e5efb8f2208822008822008822008822008822008822008825c873f13581c35002800000d0a2d2d2d2d2d2d5765624b6974466f726d426f756e64617279416473645857745542585a6f624a624f2d2d0d0a",
+        "body": "2d2d2d2d2d2d5765624b6974466f726d426f756e64617279747a334e367a727761575939487255300d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2274616773220d0a0d0a66726f6d2d62726f777365722d66696c652d61727261792d666f722d6765742d70726f6f660d0a2d2d2d2d2d2d5765624b6974466f726d426f756e64617279747a334e367a727761575939487255300d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d226d657461220d0a0d0a7b7d0d0a2d2d2d2d2d2d5765624b6974466f726d426f756e64617279747a334e367a727761575939487255300d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2266696c6573223b2066696c656e616d653d22636972636f6d2d6d756c7469706c696572322e7461722e677a220d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6f637465742d73747265616d0d0a0d0a1f8b0800800092650003ed954b6fe23010c739e7538ca23d0085382f4082e5d4bdf6d47e01635ce2ddc4b66c876a85faddd779f4452bb1d222d8c3fc2e8eff637bec78c6c38461aa9a5675e9842e053729615eaa858b586b1afc3bb167b158b4ade7b88de78b6c90e4b33ccfe3386df424cfb27c00f1197c9fa4b68e1a804bb8fa1fd186ee2a0add5d431ac551bc0a02320e1e0a61a10f0570bcd225751c58c1d92f0baea00e1888e68bc34bf030ea8492a01e8102955bd844c1bdaa0de330bca3861590a41348e3341b2d21289cd37649c85631db875a2414d971e784dc4d9b5b717c4b9e8c68fbfd4e2cf9db895ed6a2fc38754c0082e0f530776f410fc3111c1a230010023f382ba9793d8e153b494b1bf901dedef540485d3ba0ab2fc4cd4751d5ae51d9eacdc1ad92d6192aa47b5995c1f7f5daffb87137fb39089a1328c9a583ca0f84f5fbfd0e47abe02cf7cf3ee77f7b86e8a755f22c1e4ee77f9c2647f99fcd9204f3ff121c421a2ec359380937becdc3e76b6f08b9285fe4bf15726bc4191f8053f99fa5e971fecff339e6ff2538f8da137eb3beae57fe2180f0a5baf64140b526540bb24f7a655a51291eb975d36e4e1b26e1a45945d28a374b7c0ea9ceded7e187dffaddb0de549b7d2b6e643acb3b4d1bb5f7e5fbbe71d3da7646b9229977d627e124b7f6b6adf2dcb40bdedc84be6e5efb8f2208822008822008822008822008822008822008825c873f13581c35002800000d0a2d2d2d2d2d2d5765624b6974466f726d426f756e64617279747a334e367a727761575939487255302d2d0d0a",
         "status": 201,
         "response": {
-            "circuit_id": "de52bdd9-9e1b-468c-a06d-240d2e17623d",
+            "circuit_id": "5f8314a1-204f-4dc2-bced-7daaa7fb1d7a",
             "circuit_name": "circom-multiplier2",
             "project_name": "circom-multiplier2",
             "circuit_type": "circom",
-            "date_created": "2024-09-05T22:41:07.879Z",
+            "date_created": "2024-09-07T16:00:37.226Z",
             "meta": {},
             "num_proofs": 0,
             "proving_scheme": "groth16",
@@ -322,7 +322,7 @@
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:41:08 GMT",
+            "Sat, 07 Sep 2024 16:00:37 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -337,17 +337,17 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "POST",
         "path": "/api/v1/circuit/create",
-        "body": "2d2d2d2d2d2d5765624b6974466f726d426f756e64617279626351456f73373542427751624b6c380d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2274616773220d0a0d0a66726f6d2d62726f777365722d66696c652d61727261792d666f722d6765742d70726f6f660d0a2d2d2d2d2d2d5765624b6974466f726d426f756e64617279626351456f73373542427751624b6c380d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d226d657461220d0a0d0a7b7d0d0a2d2d2d2d2d2d5765624b6974466f726d426f756e64617279626351456f73373542427751624b6c380d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2266696c6573223b2066696c656e616d653d22636972636f6d2d6d756c7469706c696572322e7461722e677a220d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6f637465742d73747265616d0d0a0d0a1f8b0800800092650003ed954b6fe23010c739e7538ca23d0085382f4082e5d4bdf6d47e01635ce2ddc4b66c876a85faddd779f4452bb1d222d8c3fc2e8eff637bec78c6c38461aa9a5675e9842e053729615eaa858b586b1afc3bb167b158b4ade7b88de78b6c90e4b33ccfe3386df424cfb27c00f1197c9fa4b68e1a804bb8fa1fd186ee2a0add5d431ac551bc0a02320e1e0a61a10f0570bcd225751c58c1d92f0baea00e1888e68bc34bf030ea8492a01e8102955bd844c1bdaa0de330bca3861590a41348e3341b2d21289cd37649c85631db875a2414d971e784dc4d9b5b717c4b9e8c68fbfd4e2cf9db895ed6a2fc38754c0082e0f530776f410fc3111c1a230010023f382ba9793d8e153b494b1bf901dedef540485d3ba0ab2fc4cd4751d5ae51d9eacdc1ad92d6192aa47b5995c1f7f5daffb87137fb39089a1328c9a583ca0f84f5fbfd0e47abe02cf7cf3ee77f7b86e8a755f22c1e4ee77f9c2647f99fcd9204f3ff121c421a2ec359380937becdc3e76b6f08b9285fe4bf15726bc4191f8053f99fa5e971fecff339e6ff2538f8da137eb3beae57fe2180f0a5baf64140b526540bb24f7a655a51291eb975d36e4e1b26e1a45945d28a374b7c0ea9ceded7e187dffaddb0de549b7d2b6e643acb3b4d1bb5f7e5fbbe71d3da7646b9229977d627e124b7f6b6adf2dcb40bdedc84be6e5efb8f2208822008822008822008822008822008822008825c873f13581c35002800000d0a2d2d2d2d2d2d5765624b6974466f726d426f756e64617279626351456f73373542427751624b6c382d2d0d0a",
+        "body": "2d2d2d2d2d2d5765624b6974466f726d426f756e646172794447647a4f4a637730744951304e59550d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2274616773220d0a0d0a66726f6d2d62726f777365722d66696c652d61727261792d666f722d70726f76652d636972637569740d0a2d2d2d2d2d2d5765624b6974466f726d426f756e646172794447647a4f4a637730744951304e59550d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d226d657461220d0a0d0a7b7d0d0a2d2d2d2d2d2d5765624b6974466f726d426f756e646172794447647a4f4a637730744951304e59550d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2266696c6573223b2066696c656e616d653d22636972636f6d2d6d756c7469706c696572322e7461722e677a220d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6f637465742d73747265616d0d0a0d0a1f8b0800800092650003ed954b6fe23010c739e7538ca23d0085382f4082e5d4bdf6d47e01635ce2ddc4b66c876a85faddd779f4452bb1d222d8c3fc2e8eff637bec78c6c38461aa9a5675e9842e053729615eaa858b586b1afc3bb167b158b4ade7b88de78b6c90e4b33ccfe3386df424cfb27c00f1197c9fa4b68e1a804bb8fa1fd186ee2a0add5d431ac551bc0a02320e1e0a61a10f0570bcd225751c58c1d92f0baea00e1888e68bc34bf030ea8492a01e8102955bd844c1bdaa0de330bca3861590a41348e3341b2d21289cd37649c85631db875a2414d971e784dc4d9b5b717c4b9e8c68fbfd4e2cf9db895ed6a2fc38754c0082e0f530776f410fc3111c1a230010023f382ba9793d8e153b494b1bf901dedef540485d3ba0ab2fc4cd4751d5ae51d9eacdc1ad92d6192aa47b5995c1f7f5daffb87137fb39089a1328c9a583ca0f84f5fbfd0e47abe02cf7cf3ee77f7b86e8a755f22c1e4ee77f9c2647f99fcd9204f3ff121c421a2ec359380937becdc3e76b6f08b9285fe4bf15726bc4191f8053f99fa5e971fecff339e6ff2538f8da137eb3beae57fe2180f0a5baf64140b526540bb24f7a655a51291eb975d36e4e1b26e1a45945d28a374b7c0ea9ceded7e187dffaddb0de549b7d2b6e643acb3b4d1bb5f7e5fbbe71d3da7646b9229977d627e124b7f6b6adf2dcb40bdedc84be6e5efb8f2208822008822008822008822008822008822008825c873f13581c35002800000d0a2d2d2d2d2d2d5765624b6974466f726d426f756e646172794447647a4f4a637730744951304e59552d2d0d0a",
         "status": 201,
         "response": {
-            "circuit_id": "dc4ba711-fe22-4a38-893f-62a0c3aba50f",
+            "circuit_id": "16c3f4b0-0227-467a-8d4c-ad858eb03e45",
             "circuit_name": "circom-multiplier2",
             "project_name": "circom-multiplier2",
             "circuit_type": "circom",
-            "date_created": "2024-09-05T22:41:07.767Z",
+            "date_created": "2024-09-07T16:00:37.340Z",
             "meta": {},
             "num_proofs": 0,
             "proving_scheme": "groth16",
@@ -398,7 +398,7 @@
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:41:08 GMT",
+            "Sat, 07 Sep 2024 16:00:37 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -413,17 +413,17 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "POST",
         "path": "/api/v1/circuit/create",
-        "body": "2d2d2d2d2d2d5765624b6974466f726d426f756e64617279324e54426d4159335231664c413643720d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2274616773220d0a0d0a66726f6d2d62726f777365722d66696c652d61727261792d666f722d6765742d616c6c2d636972637569742d70726f6f66730d0a2d2d2d2d2d2d5765624b6974466f726d426f756e64617279324e54426d4159335231664c413643720d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d226d657461220d0a0d0a7b7d0d0a2d2d2d2d2d2d5765624b6974466f726d426f756e64617279324e54426d4159335231664c413643720d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2266696c6573223b2066696c656e616d653d22636972636f6d2d6d756c7469706c696572322e7461722e677a220d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6f637465742d73747265616d0d0a0d0a1f8b0800800092650003ed954b6fe23010c739e7538ca23d0085382f4082e5d4bdf6d47e01635ce2ddc4b66c876a85faddd779f4452bb1d222d8c3fc2e8eff637bec78c6c38461aa9a5675e9842e053729615eaa858b586b1afc3bb167b158b4ade7b88de78b6c90e4b33ccfe3386df424cfb27c00f1197c9fa4b68e1a804bb8fa1fd186ee2a0add5d431ac551bc0a02320e1e0a61a10f0570bcd225751c58c1d92f0baea00e1888e68bc34bf030ea8492a01e8102955bd844c1bdaa0de330bca3861590a41348e3341b2d21289cd37649c85631db875a2414d971e784dc4d9b5b717c4b9e8c68fbfd4e2cf9db895ed6a2fc38754c0082e0f530776f410fc3111c1a230010023f382ba9793d8e153b494b1bf901dedef540485d3ba0ab2fc4cd4751d5ae51d9eacdc1ad92d6192aa47b5995c1f7f5daffb87137fb39089a1328c9a583ca0f84f5fbfd0e47abe02cf7cf3ee77f7b86e8a755f22c1e4ee77f9c2647f99fcd9204f3ff121c421a2ec359380937becdc3e76b6f08b9285fe4bf15726bc4191f8053f99fa5e971fecff339e6ff2538f8da137eb3beae57fe2180f0a5baf64140b526540bb24f7a655a51291eb975d36e4e1b26e1a45945d28a374b7c0ea9ceded7e187dffaddb0de549b7d2b6e643acb3b4d1bb5f7e5fbbe71d3da7646b9229977d627e124b7f6b6adf2dcb40bdedc84be6e5efb8f2208822008822008822008822008822008822008825c873f13581c35002800000d0a2d2d2d2d2d2d5765624b6974466f726d426f756e64617279324e54426d4159335231664c413643722d2d0d0a",
+        "body": "2d2d2d2d2d2d5765624b6974466f726d426f756e6461727936354851713853776c614234624d4b690d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2274616773220d0a0d0a66726f6d2d62726f777365722d66696c652d61727261790d0a2d2d2d2d2d2d5765624b6974466f726d426f756e6461727936354851713853776c614234624d4b690d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d226d657461220d0a0d0a7b7d0d0a2d2d2d2d2d2d5765624b6974466f726d426f756e6461727936354851713853776c614234624d4b690d0a436f6e74656e742d446973706f736974696f6e3a20666f726d2d646174613b206e616d653d2266696c6573223b2066696c656e616d653d22636972636f6d2d6d756c7469706c696572322e7461722e677a220d0a436f6e74656e742d547970653a206170706c69636174696f6e2f6f637465742d73747265616d0d0a0d0a1f8b0800800092650003ed954b6fe23010c739e7538ca23d0085382f4082e5d4bdf6d47e01635ce2ddc4b66c876a85faddd779f4452bb1d222d8c3fc2e8eff637bec78c6c38461aa9a5675e9842e053729615eaa858b586b1afc3bb167b158b4ade7b88de78b6c90e4b33ccfe3386df424cfb27c00f1197c9fa4b68e1a804bb8fa1fd186ee2a0add5d431ac551bc0a02320e1e0a61a10f0570bcd225751c58c1d92f0baea00e1888e68bc34bf030ea8492a01e8102955bd844c1bdaa0de330bca3861590a41348e3341b2d21289cd37649c85631db875a2414d971e784dc4d9b5b717c4b9e8c68fbfd4e2cf9db895ed6a2fc38754c0082e0f530776f410fc3111c1a230010023f382ba9793d8e153b494b1bf901dedef540485d3ba0ab2fc4cd4751d5ae51d9eacdc1ad92d6192aa47b5995c1f7f5daffb87137fb39089a1328c9a583ca0f84f5fbfd0e47abe02cf7cf3ee77f7b86e8a755f22c1e4ee77f9c2647f99fcd9204f3ff121c421a2ec359380937becdc3e76b6f08b9285fe4bf15726bc4191f8053f99fa5e971fecff339e6ff2538f8da137eb3beae57fe2180f0a5baf64140b526540bb24f7a655a51291eb975d36e4e1b26e1a45945d28a374b7c0ea9ceded7e187dffaddb0de549b7d2b6e643acb3b4d1bb5f7e5fbbe71d3da7646b9229977d627e124b7f6b6adf2dcb40bdedc84be6e5efb8f2208822008822008822008822008822008822008825c873f13581c35002800000d0a2d2d2d2d2d2d5765624b6974466f726d426f756e6461727936354851713853776c614234624d4b692d2d0d0a",
         "status": 201,
         "response": {
-            "circuit_id": "8abdcc1e-e86e-49bf-9c84-1d2ca8f1041d",
+            "circuit_id": "c00ad0d6-0e23-49e2-81cb-cbc11ec0e2a9",
             "circuit_name": "circom-multiplier2",
             "project_name": "circom-multiplier2",
             "circuit_type": "circom",
-            "date_created": "2024-09-05T22:41:07.913Z",
+            "date_created": "2024-09-07T16:00:37.276Z",
             "meta": {},
             "num_proofs": 0,
             "proving_scheme": "groth16",
@@ -474,7 +474,7 @@
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:41:08 GMT",
+            "Sat, 07 Sep 2024 16:00:37 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -489,12 +489,866 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "GET",
         "path": "/api/v1/circuit/list",
         "body": "",
         "status": 200,
         "response": [
+            {
+                "circuit_id": "8abdcc1e-e86e-49bf-9c84-1d2ca8f1041d",
+                "circuit_name": "circom-multiplier2",
+                "project_name": "circom-multiplier2",
+                "circuit_type": "circom",
+                "date_created": "2024-09-05T22:41:07.913Z",
+                "meta": {},
+                "num_proofs": 1,
+                "proving_scheme": "groth16",
+                "public": false,
+                "status": "Ready",
+                "tags": [
+                    "from-file-array",
+                    "sdk-create-proof-multiplier2-circuit",
+                    "from-tarball-for-all-circuit-proofs",
+                    "from-browser-file-array-for-get-proof",
+                    "from-browser-file-array-for-get-all-circuit-proofs",
+                    "from-browser-file-array-for-get-circuit",
+                    "from-tarball",
+                    "browser-create-proof-multiplier2-circuit",
+                    "from-tarball-for-get-proof",
+                    "from-browser-file-array",
+                    "from-tarball-for-get-circuit",
+                    "from-browser-file-array-for-prove-circuit",
+                    "from-directory",
+                    "from-tarball-for-prove-circuit"
+                ],
+                "team": "github-actions-qa",
+                "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
+                "team_slug": "github-actions-qa",
+                "compute_time": "P0DT00H01M57.358381S",
+                "compute_time_sec": 117.358381,
+                "compute_times": {
+                    "total": 117.35838,
+                    "clean_up": 0.01929,
+                    "create_cpp": 0.51075,
+                    "file_setup": 98.72571,
+                    "compile_cpp": 8.78422,
+                    "create_r1cs": 0.04305,
+                    "save_results": 0.957,
+                    "get_r1cs_info": 0.00145,
+                    "groth16_setup": 2.54739,
+                    "export_verification_key": 2.48164,
+                    "download_trusted_setup_file": 0.71257,
+                    "solidity_contract_generation": 2.57531
+                },
+                "file_size": 236740,
+                "queue_time": "P0DT00H00M48.735939S",
+                "queue_time_sec": 48.735939,
+                "uploaded_file_name": "circom-multiplier2.tar.gz",
+                "has_smart_contract_verifier": true,
+                "has_verification_key": true,
+                "verification_key": null,
+                "warnings": null,
+                "error": null,
+                "curve": "bn254",
+                "num_constraints": 1,
+                "num_outputs": 1,
+                "num_private_inputs": 2,
+                "num_public_inputs": 0
+            },
+            {
+                "circuit_id": "16c8e5e2-78ce-4905-afd6-65bd43d6beb0",
+                "circuit_name": "circom-multiplier2",
+                "project_name": "circom-multiplier2",
+                "circuit_type": "circom",
+                "date_created": "2024-09-05T22:41:07.912Z",
+                "meta": {},
+                "num_proofs": 0,
+                "proving_scheme": "groth16",
+                "public": false,
+                "status": "Ready",
+                "tags": [
+                    "from-file-array",
+                    "sdk-create-proof-multiplier2-circuit",
+                    "from-tarball-for-all-circuit-proofs",
+                    "from-browser-file-array-for-get-proof",
+                    "from-browser-file-array-for-get-all-circuit-proofs",
+                    "from-browser-file-array-for-get-circuit",
+                    "from-tarball",
+                    "browser-create-proof-multiplier2-circuit",
+                    "from-tarball-for-get-proof",
+                    "from-browser-file-array",
+                    "from-tarball-for-get-circuit",
+                    "from-browser-file-array-for-prove-circuit",
+                    "from-directory",
+                    "from-tarball-for-prove-circuit"
+                ],
+                "team": "github-actions-qa",
+                "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
+                "team_slug": "github-actions-qa",
+                "compute_time": "P0DT00H00M59.751365S",
+                "compute_time_sec": 59.751365,
+                "compute_times": {
+                    "total": 59.75136,
+                    "clean_up": 0.01248,
+                    "create_cpp": 0.20595,
+                    "file_setup": 49.00677,
+                    "compile_cpp": 5.20872,
+                    "create_r1cs": 0.01351,
+                    "save_results": 0.68246,
+                    "get_r1cs_info": 0.00057,
+                    "groth16_setup": 1.36201,
+                    "export_verification_key": 1.31345,
+                    "download_trusted_setup_file": 0.66055,
+                    "solidity_contract_generation": 1.28491
+                },
+                "file_size": 236740,
+                "queue_time": "P0DT00H00M43.610999S",
+                "queue_time_sec": 43.610999,
+                "uploaded_file_name": "circom-multiplier2.tar.gz",
+                "has_smart_contract_verifier": true,
+                "has_verification_key": true,
+                "verification_key": null,
+                "warnings": null,
+                "error": null,
+                "curve": "bn254",
+                "num_constraints": 1,
+                "num_outputs": 1,
+                "num_private_inputs": 2,
+                "num_public_inputs": 0
+            },
+            {
+                "circuit_id": "de52bdd9-9e1b-468c-a06d-240d2e17623d",
+                "circuit_name": "circom-multiplier2",
+                "project_name": "circom-multiplier2",
+                "circuit_type": "circom",
+                "date_created": "2024-09-05T22:41:07.879Z",
+                "meta": {},
+                "num_proofs": 1,
+                "proving_scheme": "groth16",
+                "public": false,
+                "status": "Ready",
+                "tags": [
+                    "from-file-array",
+                    "sdk-create-proof-multiplier2-circuit",
+                    "from-tarball-for-all-circuit-proofs",
+                    "from-browser-file-array-for-get-proof",
+                    "from-browser-file-array-for-get-all-circuit-proofs",
+                    "from-browser-file-array-for-get-circuit",
+                    "from-tarball",
+                    "browser-create-proof-multiplier2-circuit",
+                    "from-tarball-for-get-proof",
+                    "from-browser-file-array",
+                    "from-tarball-for-get-circuit",
+                    "from-browser-file-array-for-prove-circuit",
+                    "from-directory",
+                    "from-tarball-for-prove-circuit"
+                ],
+                "team": "github-actions-qa",
+                "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
+                "team_slug": "github-actions-qa",
+                "compute_time": "P0DT00H01M57.672425S",
+                "compute_time_sec": 117.672425,
+                "compute_times": {
+                    "total": 117.67242,
+                    "clean_up": 0.01519,
+                    "create_cpp": 0.37908,
+                    "file_setup": 99.24311,
+                    "compile_cpp": 8.7517,
+                    "create_r1cs": 0.02728,
+                    "save_results": 1.0115,
+                    "get_r1cs_info": 0.00098,
+                    "groth16_setup": 2.63244,
+                    "export_verification_key": 2.52325,
+                    "download_trusted_setup_file": 0.66751,
+                    "solidity_contract_generation": 2.42038
+                },
+                "file_size": 236740,
+                "queue_time": "P0DT00H00M46.107827S",
+                "queue_time_sec": 46.107827,
+                "uploaded_file_name": "circom-multiplier2.tar.gz",
+                "has_smart_contract_verifier": true,
+                "has_verification_key": true,
+                "verification_key": null,
+                "warnings": null,
+                "error": null,
+                "curve": "bn254",
+                "num_constraints": 1,
+                "num_outputs": 1,
+                "num_private_inputs": 2,
+                "num_public_inputs": 0
+            },
+            {
+                "circuit_id": "4e67098d-9e85-425e-acdb-9c9048646c22",
+                "circuit_name": "circom-multiplier2",
+                "project_name": "circom-multiplier2",
+                "circuit_type": "circom",
+                "date_created": "2024-09-05T22:41:07.858Z",
+                "meta": {},
+                "num_proofs": 1,
+                "proving_scheme": "groth16",
+                "public": false,
+                "status": "Ready",
+                "tags": [
+                    "from-file-array",
+                    "sdk-create-proof-multiplier2-circuit",
+                    "from-tarball-for-all-circuit-proofs",
+                    "from-browser-file-array-for-get-proof",
+                    "from-browser-file-array-for-get-all-circuit-proofs",
+                    "from-browser-file-array-for-get-circuit",
+                    "from-tarball",
+                    "browser-create-proof-multiplier2-circuit",
+                    "from-tarball-for-get-proof",
+                    "from-browser-file-array",
+                    "from-tarball-for-get-circuit",
+                    "from-browser-file-array-for-prove-circuit",
+                    "from-directory",
+                    "from-tarball-for-prove-circuit"
+                ],
+                "team": "github-actions-qa",
+                "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
+                "team_slug": "github-actions-qa",
+                "compute_time": "P0DT00H01M17.717362S",
+                "compute_time_sec": 77.717362,
+                "compute_times": {
+                    "total": 77.71736,
+                    "clean_up": 0.00888,
+                    "create_cpp": 0.25963,
+                    "file_setup": 63.93251,
+                    "compile_cpp": 6.77938,
+                    "create_r1cs": 0.01479,
+                    "save_results": 0.8971,
+                    "get_r1cs_info": 0.00064,
+                    "groth16_setup": 1.68173,
+                    "export_verification_key": 1.74101,
+                    "download_trusted_setup_file": 0.76279,
+                    "solidity_contract_generation": 1.63891
+                },
+                "file_size": 236740,
+                "queue_time": "P0DT00H00M31.309020S",
+                "queue_time_sec": 31.30902,
+                "uploaded_file_name": "circom-multiplier2.tar.gz",
+                "has_smart_contract_verifier": true,
+                "has_verification_key": true,
+                "verification_key": null,
+                "warnings": null,
+                "error": null,
+                "curve": "bn254",
+                "num_constraints": 1,
+                "num_outputs": 1,
+                "num_private_inputs": 2,
+                "num_public_inputs": 0
+            },
+            {
+                "circuit_id": "62a824b2-1f9c-4eb4-a8a5-fac928ea2fc5",
+                "circuit_name": "circom-multiplier2",
+                "project_name": "circom-multiplier2",
+                "circuit_type": "circom",
+                "date_created": "2024-09-05T22:41:07.847Z",
+                "meta": {},
+                "num_proofs": 1,
+                "proving_scheme": "groth16",
+                "public": false,
+                "status": "Ready",
+                "tags": [
+                    "from-file-array",
+                    "sdk-create-proof-multiplier2-circuit",
+                    "from-tarball-for-all-circuit-proofs",
+                    "from-browser-file-array-for-get-proof",
+                    "from-browser-file-array-for-get-all-circuit-proofs",
+                    "from-browser-file-array-for-get-circuit",
+                    "from-tarball",
+                    "browser-create-proof-multiplier2-circuit",
+                    "from-tarball-for-get-proof",
+                    "from-browser-file-array",
+                    "from-tarball-for-get-circuit",
+                    "from-browser-file-array-for-prove-circuit",
+                    "from-directory",
+                    "from-tarball-for-prove-circuit"
+                ],
+                "team": "github-actions-qa",
+                "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
+                "team_slug": "github-actions-qa",
+                "compute_time": "P0DT00H01M55.348228S",
+                "compute_time_sec": 115.348228,
+                "compute_times": {
+                    "total": 115.34823,
+                    "clean_up": 0.02551,
+                    "create_cpp": 0.48618,
+                    "file_setup": 97.6948,
+                    "compile_cpp": 7.96297,
+                    "create_r1cs": 0.02557,
+                    "save_results": 0.90438,
+                    "get_r1cs_info": 0.00143,
+                    "groth16_setup": 2.59006,
+                    "export_verification_key": 2.56334,
+                    "download_trusted_setup_file": 0.68767,
+                    "solidity_contract_generation": 2.40632
+                },
+                "file_size": 236732,
+                "queue_time": "P0DT00H00M35.890664S",
+                "queue_time_sec": 35.890664,
+                "uploaded_file_name": "circom-multiplier2.tgz",
+                "has_smart_contract_verifier": true,
+                "has_verification_key": true,
+                "verification_key": null,
+                "warnings": null,
+                "error": null,
+                "curve": "bn254",
+                "num_constraints": 1,
+                "num_outputs": 1,
+                "num_private_inputs": 2,
+                "num_public_inputs": 0
+            },
+            {
+                "circuit_id": "db3ce8d8-5915-412c-bd90-a526a7605ba3",
+                "circuit_name": "circom-multiplier2",
+                "project_name": "circom-multiplier2",
+                "circuit_type": "circom",
+                "date_created": "2024-09-05T22:41:07.828Z",
+                "meta": {},
+                "num_proofs": 1,
+                "proving_scheme": "groth16",
+                "public": false,
+                "status": "Ready",
+                "tags": [
+                    "from-file-array",
+                    "sdk-create-proof-multiplier2-circuit",
+                    "from-tarball-for-all-circuit-proofs",
+                    "from-browser-file-array-for-get-proof",
+                    "from-browser-file-array-for-get-all-circuit-proofs",
+                    "from-browser-file-array-for-get-circuit",
+                    "from-tarball",
+                    "browser-create-proof-multiplier2-circuit",
+                    "from-tarball-for-get-proof",
+                    "from-browser-file-array",
+                    "from-tarball-for-get-circuit",
+                    "from-browser-file-array-for-prove-circuit",
+                    "from-directory",
+                    "from-tarball-for-prove-circuit"
+                ],
+                "team": "github-actions-qa",
+                "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
+                "team_slug": "github-actions-qa",
+                "compute_time": "P0DT00H01M55.846127S",
+                "compute_time_sec": 115.846127,
+                "compute_times": {
+                    "total": 115.84613,
+                    "clean_up": 0.01569,
+                    "create_cpp": 0.4932,
+                    "file_setup": 98.55045,
+                    "compile_cpp": 8.29066,
+                    "create_r1cs": 0.03005,
+                    "save_results": 0.84174,
+                    "get_r1cs_info": 0.00107,
+                    "groth16_setup": 2.64952,
+                    "export_verification_key": 2.1235,
+                    "download_trusted_setup_file": 0.66417,
+                    "solidity_contract_generation": 2.18609
+                },
+                "file_size": 236732,
+                "queue_time": "P0DT00H00M52.077951S",
+                "queue_time_sec": 52.077951,
+                "uploaded_file_name": "circom-multiplier2.tgz",
+                "has_smart_contract_verifier": true,
+                "has_verification_key": true,
+                "verification_key": null,
+                "warnings": null,
+                "error": null,
+                "curve": "bn254",
+                "num_constraints": 1,
+                "num_outputs": 1,
+                "num_private_inputs": 2,
+                "num_public_inputs": 0
+            },
+            {
+                "circuit_id": "6e8803f0-36ea-4172-a5ee-930ad7bf89c3",
+                "circuit_name": "circom-multiplier2",
+                "project_name": "circom-multiplier2",
+                "circuit_type": "circom",
+                "date_created": "2024-09-05T22:41:07.799Z",
+                "meta": {},
+                "num_proofs": 1,
+                "proving_scheme": "groth16",
+                "public": false,
+                "status": "Ready",
+                "tags": [
+                    "from-file-array",
+                    "sdk-create-proof-multiplier2-circuit",
+                    "from-tarball-for-all-circuit-proofs",
+                    "from-browser-file-array-for-get-proof",
+                    "from-browser-file-array-for-get-all-circuit-proofs",
+                    "from-browser-file-array-for-get-circuit",
+                    "from-tarball",
+                    "browser-create-proof-multiplier2-circuit",
+                    "from-tarball-for-get-proof",
+                    "from-browser-file-array",
+                    "from-tarball-for-get-circuit",
+                    "from-browser-file-array-for-prove-circuit",
+                    "from-directory",
+                    "from-tarball-for-prove-circuit"
+                ],
+                "team": "github-actions-qa",
+                "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
+                "team_slug": "github-actions-qa",
+                "compute_time": "P0DT00H01M17.615044S",
+                "compute_time_sec": 77.615044,
+                "compute_times": {
+                    "total": 77.61504,
+                    "clean_up": 0.01135,
+                    "create_cpp": 0.2504,
+                    "file_setup": 63.61034,
+                    "compile_cpp": 6.48542,
+                    "create_r1cs": 0.01543,
+                    "save_results": 1.07203,
+                    "get_r1cs_info": 0.00055,
+                    "groth16_setup": 1.90736,
+                    "export_verification_key": 1.81225,
+                    "download_trusted_setup_file": 0.76207,
+                    "solidity_contract_generation": 1.68784
+                },
+                "file_size": 236732,
+                "queue_time": "P0DT00H00M31.444229S",
+                "queue_time_sec": 31.444229,
+                "uploaded_file_name": "circom-multiplier2.tgz",
+                "has_smart_contract_verifier": true,
+                "has_verification_key": true,
+                "verification_key": null,
+                "warnings": null,
+                "error": null,
+                "curve": "bn254",
+                "num_constraints": 1,
+                "num_outputs": 1,
+                "num_private_inputs": 2,
+                "num_public_inputs": 0
+            },
+            {
+                "circuit_id": "dc4ba711-fe22-4a38-893f-62a0c3aba50f",
+                "circuit_name": "circom-multiplier2",
+                "project_name": "circom-multiplier2",
+                "circuit_type": "circom",
+                "date_created": "2024-09-05T22:41:07.767Z",
+                "meta": {},
+                "num_proofs": 1,
+                "proving_scheme": "groth16",
+                "public": false,
+                "status": "Ready",
+                "tags": [
+                    "from-file-array",
+                    "sdk-create-proof-multiplier2-circuit",
+                    "from-tarball-for-all-circuit-proofs",
+                    "from-browser-file-array-for-get-proof",
+                    "from-browser-file-array-for-get-all-circuit-proofs",
+                    "from-browser-file-array-for-get-circuit",
+                    "from-tarball",
+                    "browser-create-proof-multiplier2-circuit",
+                    "from-tarball-for-get-proof",
+                    "from-browser-file-array",
+                    "from-tarball-for-get-circuit",
+                    "from-browser-file-array-for-prove-circuit",
+                    "from-directory",
+                    "from-tarball-for-prove-circuit"
+                ],
+                "team": "github-actions-qa",
+                "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
+                "team_slug": "github-actions-qa",
+                "compute_time": "P0DT00H01M55.379887S",
+                "compute_time_sec": 115.379887,
+                "compute_times": {
+                    "total": 115.37989,
+                    "clean_up": 0.01336,
+                    "create_cpp": 0.4869,
+                    "file_setup": 95.29092,
+                    "compile_cpp": 8.47298,
+                    "create_r1cs": 0.02577,
+                    "save_results": 1.08487,
+                    "get_r1cs_info": 0.00064,
+                    "groth16_setup": 3.21171,
+                    "export_verification_key": 3.11479,
+                    "download_trusted_setup_file": 0.66251,
+                    "solidity_contract_generation": 3.01543
+                },
+                "file_size": 236740,
+                "queue_time": "P0DT00H00M50.185652S",
+                "queue_time_sec": 50.185652,
+                "uploaded_file_name": "circom-multiplier2.tar.gz",
+                "has_smart_contract_verifier": true,
+                "has_verification_key": true,
+                "verification_key": null,
+                "warnings": null,
+                "error": null,
+                "curve": "bn254",
+                "num_constraints": 1,
+                "num_outputs": 1,
+                "num_private_inputs": 2,
+                "num_public_inputs": 0
+            },
+            {
+                "circuit_id": "bf902a65-3999-42a1-85e3-2c5f6be78291",
+                "circuit_name": "circom-multiplier2",
+                "project_name": "circom-multiplier2",
+                "circuit_type": "circom",
+                "date_created": "2024-09-05T22:41:07.763Z",
+                "meta": {},
+                "num_proofs": 1,
+                "proving_scheme": "groth16",
+                "public": false,
+                "status": "Ready",
+                "tags": [
+                    "from-file-array",
+                    "sdk-create-proof-multiplier2-circuit",
+                    "from-tarball-for-all-circuit-proofs",
+                    "from-browser-file-array-for-get-proof",
+                    "from-browser-file-array-for-get-all-circuit-proofs",
+                    "from-browser-file-array-for-get-circuit",
+                    "from-tarball",
+                    "browser-create-proof-multiplier2-circuit",
+                    "from-tarball-for-get-proof",
+                    "from-browser-file-array",
+                    "from-tarball-for-get-circuit",
+                    "from-browser-file-array-for-prove-circuit",
+                    "from-directory",
+                    "from-tarball-for-prove-circuit"
+                ],
+                "team": "github-actions-qa",
+                "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
+                "team_slug": "github-actions-qa",
+                "compute_time": "P0DT00H01M07.024364S",
+                "compute_time_sec": 67.024364,
+                "compute_times": {
+                    "total": 67.02436,
+                    "clean_up": 0.00975,
+                    "create_cpp": 0.22468,
+                    "file_setup": 55.97615,
+                    "compile_cpp": 5.0354,
+                    "create_r1cs": 0.01396,
+                    "save_results": 0.81096,
+                    "get_r1cs_info": 0.00056,
+                    "groth16_setup": 1.46255,
+                    "export_verification_key": 1.35872,
+                    "download_trusted_setup_file": 0.75554,
+                    "solidity_contract_generation": 1.3761
+                },
+                "file_size": 236750,
+                "queue_time": "P0DT00H00M32.272407S",
+                "queue_time_sec": 32.272407,
+                "uploaded_file_name": "circom-multiplier2.tar.gz",
+                "has_smart_contract_verifier": true,
+                "has_verification_key": true,
+                "verification_key": null,
+                "warnings": null,
+                "error": null,
+                "curve": "bn254",
+                "num_constraints": 1,
+                "num_outputs": 1,
+                "num_private_inputs": 2,
+                "num_public_inputs": 0
+            },
+            {
+                "circuit_id": "1b33aaac-7c3c-461b-832f-0e484d583e64",
+                "circuit_name": "circom-multiplier2",
+                "project_name": "circom-multiplier2",
+                "circuit_type": "circom",
+                "date_created": "2024-09-05T22:41:07.758Z",
+                "meta": {},
+                "num_proofs": 0,
+                "proving_scheme": "groth16",
+                "public": false,
+                "status": "Ready",
+                "tags": [
+                    "from-file-array",
+                    "sdk-create-proof-multiplier2-circuit",
+                    "from-tarball-for-all-circuit-proofs",
+                    "from-browser-file-array-for-get-proof",
+                    "from-browser-file-array-for-get-all-circuit-proofs",
+                    "from-browser-file-array-for-get-circuit",
+                    "from-tarball",
+                    "browser-create-proof-multiplier2-circuit",
+                    "from-tarball-for-get-proof",
+                    "from-browser-file-array",
+                    "from-tarball-for-get-circuit",
+                    "from-browser-file-array-for-prove-circuit",
+                    "from-directory",
+                    "from-tarball-for-prove-circuit"
+                ],
+                "team": "github-actions-qa",
+                "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
+                "team_slug": "github-actions-qa",
+                "compute_time": "P0DT00H01M01.815628S",
+                "compute_time_sec": 61.815628,
+                "compute_times": {
+                    "total": 61.81563,
+                    "clean_up": 0.0106,
+                    "create_cpp": 0.19775,
+                    "file_setup": 50.19044,
+                    "compile_cpp": 5.49166,
+                    "create_r1cs": 0.01367,
+                    "save_results": 0.70627,
+                    "get_r1cs_info": 0.0006,
+                    "groth16_setup": 1.51087,
+                    "export_verification_key": 1.52867,
+                    "download_trusted_setup_file": 0.76709,
+                    "solidity_contract_generation": 1.39799
+                },
+                "file_size": 236732,
+                "queue_time": "P0DT00H00M30.193906S",
+                "queue_time_sec": 30.193906,
+                "uploaded_file_name": "circom-multiplier2.tgz",
+                "has_smart_contract_verifier": true,
+                "has_verification_key": true,
+                "verification_key": null,
+                "warnings": null,
+                "error": null,
+                "curve": "bn254",
+                "num_constraints": 1,
+                "num_outputs": 1,
+                "num_private_inputs": 2,
+                "num_public_inputs": 0
+            },
+            {
+                "circuit_id": "2c2c0f4b-e4a7-4289-bf84-19643e0a1b05",
+                "circuit_name": "circom-multiplier2",
+                "project_name": "circom-multiplier2",
+                "circuit_type": "circom",
+                "date_created": "2024-09-05T22:41:07.725Z",
+                "meta": {},
+                "num_proofs": 0,
+                "proving_scheme": "groth16",
+                "public": false,
+                "status": "Ready",
+                "tags": [
+                    "from-file-array",
+                    "sdk-create-proof-multiplier2-circuit",
+                    "from-tarball-for-all-circuit-proofs",
+                    "from-browser-file-array-for-get-proof",
+                    "from-browser-file-array-for-get-all-circuit-proofs",
+                    "from-browser-file-array-for-get-circuit",
+                    "from-tarball",
+                    "browser-create-proof-multiplier2-circuit",
+                    "from-tarball-for-get-proof",
+                    "from-browser-file-array",
+                    "from-tarball-for-get-circuit",
+                    "from-browser-file-array-for-prove-circuit",
+                    "from-directory",
+                    "from-tarball-for-prove-circuit"
+                ],
+                "team": "github-actions-qa",
+                "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
+                "team_slug": "github-actions-qa",
+                "compute_time": "P0DT00H00M57.844099S",
+                "compute_time_sec": 57.844099,
+                "compute_times": {
+                    "total": 57.8441,
+                    "clean_up": 0.0092,
+                    "create_cpp": 0.19995,
+                    "file_setup": 46.707,
+                    "compile_cpp": 5.24363,
+                    "create_r1cs": 0.01428,
+                    "save_results": 0.68228,
+                    "get_r1cs_info": 0.00058,
+                    "groth16_setup": 1.38309,
+                    "export_verification_key": 1.44039,
+                    "download_trusted_setup_file": 0.76422,
+                    "solidity_contract_generation": 1.39948
+                },
+                "file_size": 236732,
+                "queue_time": "P0DT00H00M29.075241S",
+                "queue_time_sec": 29.075241,
+                "uploaded_file_name": "circom-multiplier2.tgz",
+                "has_smart_contract_verifier": true,
+                "has_verification_key": true,
+                "verification_key": null,
+                "warnings": null,
+                "error": null,
+                "curve": "bn254",
+                "num_constraints": 1,
+                "num_outputs": 1,
+                "num_private_inputs": 2,
+                "num_public_inputs": 0
+            },
+            {
+                "circuit_id": "3f4997bd-7622-4cf6-a90c-d2eff61edee9",
+                "circuit_name": "circom-multiplier2",
+                "project_name": "circom-multiplier2",
+                "circuit_type": "circom",
+                "date_created": "2024-09-05T22:41:07.705Z",
+                "meta": {},
+                "num_proofs": 0,
+                "proving_scheme": "groth16",
+                "public": false,
+                "status": "Ready",
+                "tags": [
+                    "from-file-array",
+                    "sdk-create-proof-multiplier2-circuit",
+                    "from-tarball-for-all-circuit-proofs",
+                    "from-browser-file-array-for-get-proof",
+                    "from-browser-file-array-for-get-all-circuit-proofs",
+                    "from-browser-file-array-for-get-circuit",
+                    "from-tarball",
+                    "browser-create-proof-multiplier2-circuit",
+                    "from-tarball-for-get-proof",
+                    "from-browser-file-array",
+                    "from-tarball-for-get-circuit",
+                    "from-browser-file-array-for-prove-circuit",
+                    "from-directory",
+                    "from-tarball-for-prove-circuit"
+                ],
+                "team": "github-actions-qa",
+                "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
+                "team_slug": "github-actions-qa",
+                "compute_time": "P0DT00H01M06.236571S",
+                "compute_time_sec": 66.236571,
+                "compute_times": {
+                    "total": 66.23657,
+                    "clean_up": 0.0107,
+                    "create_cpp": 0.18799,
+                    "file_setup": 55.00395,
+                    "compile_cpp": 5.52328,
+                    "create_r1cs": 0.01432,
+                    "save_results": 0.69425,
+                    "get_r1cs_info": 0.00056,
+                    "groth16_setup": 1.32413,
+                    "export_verification_key": 1.34672,
+                    "download_trusted_setup_file": 0.84692,
+                    "solidity_contract_generation": 1.28376
+                },
+                "file_size": 236750,
+                "queue_time": "P0DT00H00M30.118184S",
+                "queue_time_sec": 30.118184,
+                "uploaded_file_name": "circom-multiplier2.tar.gz",
+                "has_smart_contract_verifier": true,
+                "has_verification_key": true,
+                "verification_key": null,
+                "warnings": null,
+                "error": null,
+                "curve": "bn254",
+                "num_constraints": 1,
+                "num_outputs": 1,
+                "num_private_inputs": 2,
+                "num_public_inputs": 0
+            },
+            {
+                "circuit_id": "2e43fcf6-381a-4084-aa32-e995947cfb2e",
+                "circuit_name": "circom-multiplier2",
+                "project_name": "circom-multiplier2",
+                "circuit_type": "circom",
+                "date_created": "2024-09-05T22:41:07.705Z",
+                "meta": {},
+                "num_proofs": 0,
+                "proving_scheme": "groth16",
+                "public": false,
+                "status": "Ready",
+                "tags": [
+                    "from-file-array",
+                    "sdk-create-proof-multiplier2-circuit",
+                    "from-tarball-for-all-circuit-proofs",
+                    "from-browser-file-array-for-get-proof",
+                    "from-browser-file-array-for-get-all-circuit-proofs",
+                    "from-browser-file-array-for-get-circuit",
+                    "from-tarball",
+                    "browser-create-proof-multiplier2-circuit",
+                    "from-tarball-for-get-proof",
+                    "from-browser-file-array",
+                    "from-tarball-for-get-circuit",
+                    "from-browser-file-array-for-prove-circuit",
+                    "from-directory",
+                    "from-tarball-for-prove-circuit"
+                ],
+                "team": "github-actions-qa",
+                "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
+                "team_slug": "github-actions-qa",
+                "compute_time": "P0DT00H00M49.763115S",
+                "compute_time_sec": 49.763115,
+                "compute_times": {
+                    "total": 49.76311,
+                    "clean_up": 0.00992,
+                    "create_cpp": 0.18047,
+                    "file_setup": 40.28653,
+                    "compile_cpp": 4.38267,
+                    "create_r1cs": 0.0124,
+                    "save_results": 0.82011,
+                    "get_r1cs_info": 0.00052,
+                    "groth16_setup": 1.04643,
+                    "export_verification_key": 1.0729,
+                    "download_trusted_setup_file": 0.87988,
+                    "solidity_contract_generation": 1.07128
+                },
+                "file_size": 236740,
+                "queue_time": "P0DT00H00M27.304018S",
+                "queue_time_sec": 27.304018,
+                "uploaded_file_name": "circom-multiplier2.tar.gz",
+                "has_smart_contract_verifier": true,
+                "has_verification_key": true,
+                "verification_key": null,
+                "warnings": null,
+                "error": null,
+                "curve": "bn254",
+                "num_constraints": 1,
+                "num_outputs": 1,
+                "num_private_inputs": 2,
+                "num_public_inputs": 0
+            },
+            {
+                "circuit_id": "d5ec9423-95b5-4823-8d80-51acb4fc20fd",
+                "circuit_name": "circom-multiplier2",
+                "project_name": "circom-multiplier2",
+                "circuit_type": "circom",
+                "date_created": "2024-09-05T22:41:07.699Z",
+                "meta": {},
+                "num_proofs": 0,
+                "proving_scheme": "groth16",
+                "public": false,
+                "status": "Ready",
+                "tags": [
+                    "from-file-array",
+                    "sdk-create-proof-multiplier2-circuit",
+                    "from-tarball-for-all-circuit-proofs",
+                    "from-browser-file-array-for-get-proof",
+                    "from-browser-file-array-for-get-all-circuit-proofs",
+                    "from-browser-file-array-for-get-circuit",
+                    "from-tarball",
+                    "browser-create-proof-multiplier2-circuit",
+                    "from-tarball-for-get-proof",
+                    "from-browser-file-array",
+                    "from-tarball-for-get-circuit",
+                    "from-browser-file-array-for-prove-circuit",
+                    "from-directory",
+                    "from-tarball-for-prove-circuit"
+                ],
+                "team": "github-actions-qa",
+                "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
+                "team_slug": "github-actions-qa",
+                "compute_time": "P0DT00H01M06.418573S",
+                "compute_time_sec": 66.418573,
+                "compute_times": {
+                    "total": 66.41857,
+                    "clean_up": 0.00996,
+                    "create_cpp": 0.2167,
+                    "file_setup": 55.16305,
+                    "compile_cpp": 5.3346,
+                    "create_r1cs": 0.01363,
+                    "save_results": 0.71749,
+                    "get_r1cs_info": 0.00059,
+                    "groth16_setup": 1.36645,
+                    "export_verification_key": 1.44312,
+                    "download_trusted_setup_file": 0.79374,
+                    "solidity_contract_generation": 1.35925
+                },
+                "file_size": 236740,
+                "queue_time": "P0DT00H00M30.490843S",
+                "queue_time_sec": 30.490843,
+                "uploaded_file_name": "circom-multiplier2.tar.gz",
+                "has_smart_contract_verifier": true,
+                "has_verification_key": true,
+                "verification_key": null,
+                "warnings": null,
+                "error": null,
+                "curve": "bn254",
+                "num_constraints": 1,
+                "num_outputs": 1,
+                "num_private_inputs": 2,
+                "num_public_inputs": 0
+            },
             {
                 "circuit_id": "1defe7a8-dea0-4b8a-9e31-ab6c4f2bfb96",
                 "circuit_name": "circom-multiplier2",
@@ -6668,13 +7522,13 @@
         ],
         "rawHeaders": [
             "Content-Length",
-            "178015",
+            "202444",
             "Content-Type",
             "application/json; charset=utf-8",
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:41:08 GMT",
+            "Sat, 07 Sep 2024 16:00:37 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -6689,205 +7543,13 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "GET",
-        "path": "/api/v1/circuit/d5ec9423-95b5-4823-8d80-51acb4fc20fd/status",
+        "path": "/api/v1/circuit/e660d4cd-5fc8-44a9-ae58-d658bfb5ebb1/status",
         "body": "",
         "status": 200,
         "response": {
-            "circuit_id": "d5ec9423-95b5-4823-8d80-51acb4fc20fd",
-            "status": "Queued"
-        },
-        "rawHeaders": [
-            "Content-Length",
-            "74",
-            "Content-Type",
-            "application/json; charset=utf-8",
-            "Cross-Origin-Opener-Policy",
-            "same-origin",
-            "Date",
-            "Thu, 05 Sep 2024 22:42:08 GMT",
-            "Referrer-Policy",
-            "same-origin",
-            "Server",
-            "openresty",
-            "Vary",
-            "Cookie, origin",
-            "X-Content-Type-Options",
-            "nosniff",
-            "X-Frame-Options",
-            "SAMEORIGIN"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://sindri.app:443",
-        "method": "GET",
-        "path": "/api/v1/circuit/4e67098d-9e85-425e-acdb-9c9048646c22/status",
-        "body": "",
-        "status": 200,
-        "response": {
-            "circuit_id": "4e67098d-9e85-425e-acdb-9c9048646c22",
-            "status": "Queued"
-        },
-        "rawHeaders": [
-            "Content-Length",
-            "74",
-            "Content-Type",
-            "application/json; charset=utf-8",
-            "Cross-Origin-Opener-Policy",
-            "same-origin",
-            "Date",
-            "Thu, 05 Sep 2024 22:42:08 GMT",
-            "Referrer-Policy",
-            "same-origin",
-            "Server",
-            "openresty",
-            "Vary",
-            "Cookie, origin",
-            "X-Content-Type-Options",
-            "nosniff",
-            "X-Frame-Options",
-            "SAMEORIGIN"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://sindri.app:443",
-        "method": "GET",
-        "path": "/api/v1/circuit/16c8e5e2-78ce-4905-afd6-65bd43d6beb0/status",
-        "body": "",
-        "status": 200,
-        "response": {
-            "circuit_id": "16c8e5e2-78ce-4905-afd6-65bd43d6beb0",
-            "status": "Queued"
-        },
-        "rawHeaders": [
-            "Content-Length",
-            "74",
-            "Content-Type",
-            "application/json; charset=utf-8",
-            "Cross-Origin-Opener-Policy",
-            "same-origin",
-            "Date",
-            "Thu, 05 Sep 2024 22:42:08 GMT",
-            "Referrer-Policy",
-            "same-origin",
-            "Server",
-            "openresty",
-            "Vary",
-            "Cookie, origin",
-            "X-Content-Type-Options",
-            "nosniff",
-            "X-Frame-Options",
-            "SAMEORIGIN"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://sindri.app:443",
-        "method": "GET",
-        "path": "/api/v1/circuit/de52bdd9-9e1b-468c-a06d-240d2e17623d/status",
-        "body": "",
-        "status": 200,
-        "response": {
-            "circuit_id": "de52bdd9-9e1b-468c-a06d-240d2e17623d",
-            "status": "Queued"
-        },
-        "rawHeaders": [
-            "Content-Length",
-            "74",
-            "Content-Type",
-            "application/json; charset=utf-8",
-            "Cross-Origin-Opener-Policy",
-            "same-origin",
-            "Date",
-            "Thu, 05 Sep 2024 22:42:08 GMT",
-            "Referrer-Policy",
-            "same-origin",
-            "Server",
-            "openresty",
-            "Vary",
-            "Cookie, origin",
-            "X-Content-Type-Options",
-            "nosniff",
-            "X-Frame-Options",
-            "SAMEORIGIN"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://sindri.app:443",
-        "method": "GET",
-        "path": "/api/v1/circuit/dc4ba711-fe22-4a38-893f-62a0c3aba50f/status",
-        "body": "",
-        "status": 200,
-        "response": {
-            "circuit_id": "dc4ba711-fe22-4a38-893f-62a0c3aba50f",
-            "status": "Queued"
-        },
-        "rawHeaders": [
-            "Content-Length",
-            "74",
-            "Content-Type",
-            "application/json; charset=utf-8",
-            "Cross-Origin-Opener-Policy",
-            "same-origin",
-            "Date",
-            "Thu, 05 Sep 2024 22:42:08 GMT",
-            "Referrer-Policy",
-            "same-origin",
-            "Server",
-            "openresty",
-            "Vary",
-            "Cookie, origin",
-            "X-Content-Type-Options",
-            "nosniff",
-            "X-Frame-Options",
-            "SAMEORIGIN"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://sindri.app:443",
-        "method": "GET",
-        "path": "/api/v1/circuit/8abdcc1e-e86e-49bf-9c84-1d2ca8f1041d/status",
-        "body": "",
-        "status": 200,
-        "response": {
-            "circuit_id": "8abdcc1e-e86e-49bf-9c84-1d2ca8f1041d",
-            "status": "Queued"
-        },
-        "rawHeaders": [
-            "Content-Length",
-            "74",
-            "Content-Type",
-            "application/json; charset=utf-8",
-            "Cross-Origin-Opener-Policy",
-            "same-origin",
-            "Date",
-            "Thu, 05 Sep 2024 22:42:08 GMT",
-            "Referrer-Policy",
-            "same-origin",
-            "Server",
-            "openresty",
-            "Vary",
-            "Cookie, origin",
-            "X-Content-Type-Options",
-            "nosniff",
-            "X-Frame-Options",
-            "SAMEORIGIN"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://sindri.app:443",
-        "method": "GET",
-        "path": "/api/v1/circuit/d5ec9423-95b5-4823-8d80-51acb4fc20fd/status",
-        "body": "",
-        "status": 200,
-        "response": {
-            "circuit_id": "d5ec9423-95b5-4823-8d80-51acb4fc20fd",
+            "circuit_id": "e660d4cd-5fc8-44a9-ae58-d658bfb5ebb1",
             "status": "Ready"
         },
         "rawHeaders": [
@@ -6898,7 +7560,7 @@
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:42:44 GMT",
+            "Sat, 07 Sep 2024 16:01:11 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -6913,17 +7575,17 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "GET",
-        "path": "/api/v1/circuit/d5ec9423-95b5-4823-8d80-51acb4fc20fd/detail?include_verification_key=false",
+        "path": "/api/v1/circuit/e660d4cd-5fc8-44a9-ae58-d658bfb5ebb1/detail?include_verification_key=false",
         "body": "",
         "status": 200,
         "response": {
-            "circuit_id": "d5ec9423-95b5-4823-8d80-51acb4fc20fd",
+            "circuit_id": "e660d4cd-5fc8-44a9-ae58-d658bfb5ebb1",
             "circuit_name": "circom-multiplier2",
             "project_name": "circom-multiplier2",
             "circuit_type": "circom",
-            "date_created": "2024-09-05T22:41:07.699Z",
+            "date_created": "2024-09-07T16:00:37.118Z",
             "meta": {},
             "num_proofs": 0,
             "proving_scheme": "groth16",
@@ -6948,25 +7610,25 @@
             "team": "github-actions-qa",
             "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
             "team_slug": "github-actions-qa",
-            "compute_time": "P0DT00H01M06.418573S",
-            "compute_time_sec": 66.418573,
+            "compute_time": "P0DT00H00M07.958620S",
+            "compute_time_sec": 7.95862,
             "compute_times": {
-                "total": 66.41857,
-                "clean_up": 0.00996,
-                "create_cpp": 0.2167,
-                "file_setup": 55.16305,
-                "compile_cpp": 5.3346,
-                "create_r1cs": 0.01363,
-                "save_results": 0.71749,
-                "get_r1cs_info": 0.00059,
-                "groth16_setup": 1.36645,
-                "export_verification_key": 1.44312,
-                "download_trusted_setup_file": 0.79374,
-                "solidity_contract_generation": 1.35925
+                "total": 7.95862,
+                "clean_up": 0.02651,
+                "create_cpp": 0.09132,
+                "file_setup": 0.38895,
+                "compile_cpp": 3.18206,
+                "create_r1cs": 0.00888,
+                "save_results": 0.70799,
+                "get_r1cs_info": 0.00039,
+                "groth16_setup": 0.79841,
+                "export_verification_key": 0.81458,
+                "download_trusted_setup_file": 1.14622,
+                "solidity_contract_generation": 0.79332
             },
             "file_size": 236740,
-            "queue_time": "P0DT00H00M30.490843S",
-            "queue_time_sec": 30.490843,
+            "queue_time": "P0DT00H00M26.731028S",
+            "queue_time_sec": 26.731028,
             "uploaded_file_name": "circom-multiplier2.tar.gz",
             "has_smart_contract_verifier": true,
             "has_verification_key": true,
@@ -6981,13 +7643,13 @@
         },
         "rawHeaders": [
             "Content-Length",
-            "1743",
+            "1741",
             "Content-Type",
             "application/json; charset=utf-8",
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:42:45 GMT",
+            "Sat, 07 Sep 2024 16:01:11 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -7002,845 +7664,18 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
-        "method": "GET",
-        "path": "/api/v1/circuit/16c8e5e2-78ce-4905-afd6-65bd43d6beb0/status",
-        "body": "",
-        "status": 200,
-        "response": {
-            "circuit_id": "16c8e5e2-78ce-4905-afd6-65bd43d6beb0",
-            "status": "Ready"
-        },
-        "rawHeaders": [
-            "Content-Length",
-            "73",
-            "Content-Type",
-            "application/json; charset=utf-8",
-            "Cross-Origin-Opener-Policy",
-            "same-origin",
-            "Date",
-            "Thu, 05 Sep 2024 22:42:51 GMT",
-            "Referrer-Policy",
-            "same-origin",
-            "Server",
-            "openresty",
-            "Vary",
-            "Cookie, origin",
-            "X-Content-Type-Options",
-            "nosniff",
-            "X-Frame-Options",
-            "SAMEORIGIN"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://sindri.app:443",
-        "method": "GET",
-        "path": "/api/v1/circuit/16c8e5e2-78ce-4905-afd6-65bd43d6beb0/detail?include_verification_key=false",
-        "body": "",
-        "status": 200,
-        "response": {
-            "circuit_id": "16c8e5e2-78ce-4905-afd6-65bd43d6beb0",
-            "circuit_name": "circom-multiplier2",
-            "project_name": "circom-multiplier2",
-            "circuit_type": "circom",
-            "date_created": "2024-09-05T22:41:07.912Z",
-            "meta": {},
-            "num_proofs": 0,
-            "proving_scheme": "groth16",
-            "public": false,
-            "status": "Ready",
-            "tags": [
-                "from-file-array",
-                "sdk-create-proof-multiplier2-circuit",
-                "from-tarball-for-all-circuit-proofs",
-                "from-browser-file-array-for-get-proof",
-                "from-browser-file-array-for-get-all-circuit-proofs",
-                "from-browser-file-array-for-get-circuit",
-                "from-tarball",
-                "browser-create-proof-multiplier2-circuit",
-                "from-tarball-for-get-proof",
-                "from-browser-file-array",
-                "from-tarball-for-get-circuit",
-                "from-browser-file-array-for-prove-circuit",
-                "from-directory",
-                "from-tarball-for-prove-circuit"
-            ],
-            "team": "github-actions-qa",
-            "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
-            "team_slug": "github-actions-qa",
-            "compute_time": "P0DT00H00M59.751365S",
-            "compute_time_sec": 59.751365,
-            "compute_times": {
-                "total": 59.75136,
-                "clean_up": 0.01248,
-                "create_cpp": 0.20595,
-                "file_setup": 49.00677,
-                "compile_cpp": 5.20872,
-                "create_r1cs": 0.01351,
-                "save_results": 0.68246,
-                "get_r1cs_info": 0.00057,
-                "groth16_setup": 1.36201,
-                "export_verification_key": 1.31345,
-                "download_trusted_setup_file": 0.66055,
-                "solidity_contract_generation": 1.28491
-            },
-            "file_size": 236740,
-            "queue_time": "P0DT00H00M43.610999S",
-            "queue_time_sec": 43.610999,
-            "uploaded_file_name": "circom-multiplier2.tar.gz",
-            "has_smart_contract_verifier": true,
-            "has_verification_key": true,
-            "verification_key": null,
-            "warnings": null,
-            "error": null,
-            "curve": "bn254",
-            "num_constraints": 1,
-            "num_outputs": 1,
-            "num_private_inputs": 2,
-            "num_public_inputs": 0
-        },
-        "rawHeaders": [
-            "Content-Length",
-            "1745",
-            "Content-Type",
-            "application/json; charset=utf-8",
-            "Cross-Origin-Opener-Policy",
-            "same-origin",
-            "Date",
-            "Thu, 05 Sep 2024 22:42:52 GMT",
-            "Referrer-Policy",
-            "same-origin",
-            "Server",
-            "openresty",
-            "Vary",
-            "Cookie, origin",
-            "X-Content-Type-Options",
-            "nosniff",
-            "X-Frame-Options",
-            "SAMEORIGIN"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://sindri.app:443",
-        "method": "GET",
-        "path": "/api/v1/circuit/16c8e5e2-78ce-4905-afd6-65bd43d6beb0/detail?include_verification_key=true",
-        "body": "",
-        "status": 200,
-        "response": {
-            "circuit_id": "16c8e5e2-78ce-4905-afd6-65bd43d6beb0",
-            "circuit_name": "circom-multiplier2",
-            "project_name": "circom-multiplier2",
-            "circuit_type": "circom",
-            "date_created": "2024-09-05T22:41:07.912Z",
-            "meta": {},
-            "num_proofs": 0,
-            "proving_scheme": "groth16",
-            "public": false,
-            "status": "Ready",
-            "tags": [
-                "from-file-array",
-                "sdk-create-proof-multiplier2-circuit",
-                "from-tarball-for-all-circuit-proofs",
-                "from-browser-file-array-for-get-proof",
-                "from-browser-file-array-for-get-all-circuit-proofs",
-                "from-browser-file-array-for-get-circuit",
-                "from-tarball",
-                "browser-create-proof-multiplier2-circuit",
-                "from-tarball-for-get-proof",
-                "from-browser-file-array",
-                "from-tarball-for-get-circuit",
-                "from-browser-file-array-for-prove-circuit",
-                "from-directory",
-                "from-tarball-for-prove-circuit"
-            ],
-            "team": "github-actions-qa",
-            "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
-            "team_slug": "github-actions-qa",
-            "compute_time": "P0DT00H00M59.751365S",
-            "compute_time_sec": 59.751365,
-            "compute_times": {
-                "total": 59.75136,
-                "clean_up": 0.01248,
-                "create_cpp": 0.20595,
-                "file_setup": 49.00677,
-                "compile_cpp": 5.20872,
-                "create_r1cs": 0.01351,
-                "save_results": 0.68246,
-                "get_r1cs_info": 0.00057,
-                "groth16_setup": 1.36201,
-                "export_verification_key": 1.31345,
-                "download_trusted_setup_file": 0.66055,
-                "solidity_contract_generation": 1.28491
-            },
-            "file_size": 236740,
-            "queue_time": "P0DT00H00M43.610999S",
-            "queue_time_sec": 43.610999,
-            "uploaded_file_name": "circom-multiplier2.tar.gz",
-            "has_smart_contract_verifier": true,
-            "has_verification_key": true,
-            "verification_key": null,
-            "warnings": null,
-            "error": null,
-            "curve": "bn254",
-            "num_constraints": 1,
-            "num_outputs": 1,
-            "num_private_inputs": 2,
-            "num_public_inputs": 0
-        },
-        "rawHeaders": [
-            "Content-Length",
-            "1745",
-            "Content-Type",
-            "application/json; charset=utf-8",
-            "Cross-Origin-Opener-Policy",
-            "same-origin",
-            "Date",
-            "Thu, 05 Sep 2024 22:42:52 GMT",
-            "Referrer-Policy",
-            "same-origin",
-            "Server",
-            "openresty",
-            "Vary",
-            "Cookie, origin",
-            "X-Content-Type-Options",
-            "nosniff",
-            "X-Frame-Options",
-            "SAMEORIGIN"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://sindri.app:443",
-        "method": "GET",
-        "path": "/api/v1/circuit/4e67098d-9e85-425e-acdb-9c9048646c22/status",
-        "body": "",
-        "status": 200,
-        "response": {
-            "circuit_id": "4e67098d-9e85-425e-acdb-9c9048646c22",
-            "status": "Ready"
-        },
-        "rawHeaders": [
-            "Content-Length",
-            "73",
-            "Content-Type",
-            "application/json; charset=utf-8",
-            "Cross-Origin-Opener-Policy",
-            "same-origin",
-            "Date",
-            "Thu, 05 Sep 2024 22:42:57 GMT",
-            "Referrer-Policy",
-            "same-origin",
-            "Server",
-            "openresty",
-            "Vary",
-            "Cookie, origin",
-            "X-Content-Type-Options",
-            "nosniff",
-            "X-Frame-Options",
-            "SAMEORIGIN"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://sindri.app:443",
-        "method": "GET",
-        "path": "/api/v1/circuit/4e67098d-9e85-425e-acdb-9c9048646c22/detail?include_verification_key=false",
-        "body": "",
-        "status": 200,
-        "response": {
-            "circuit_id": "4e67098d-9e85-425e-acdb-9c9048646c22",
-            "circuit_name": "circom-multiplier2",
-            "project_name": "circom-multiplier2",
-            "circuit_type": "circom",
-            "date_created": "2024-09-05T22:41:07.858Z",
-            "meta": {},
-            "num_proofs": 0,
-            "proving_scheme": "groth16",
-            "public": false,
-            "status": "Ready",
-            "tags": [
-                "from-file-array",
-                "sdk-create-proof-multiplier2-circuit",
-                "from-tarball-for-all-circuit-proofs",
-                "from-browser-file-array-for-get-proof",
-                "from-browser-file-array-for-get-all-circuit-proofs",
-                "from-browser-file-array-for-get-circuit",
-                "from-tarball",
-                "browser-create-proof-multiplier2-circuit",
-                "from-tarball-for-get-proof",
-                "from-browser-file-array",
-                "from-tarball-for-get-circuit",
-                "from-browser-file-array-for-prove-circuit",
-                "from-directory",
-                "from-tarball-for-prove-circuit"
-            ],
-            "team": "github-actions-qa",
-            "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
-            "team_slug": "github-actions-qa",
-            "compute_time": "P0DT00H01M17.717362S",
-            "compute_time_sec": 77.717362,
-            "compute_times": {
-                "total": 77.71736,
-                "clean_up": 0.00888,
-                "create_cpp": 0.25963,
-                "file_setup": 63.93251,
-                "compile_cpp": 6.77938,
-                "create_r1cs": 0.01479,
-                "save_results": 0.8971,
-                "get_r1cs_info": 0.00064,
-                "groth16_setup": 1.68173,
-                "export_verification_key": 1.74101,
-                "download_trusted_setup_file": 0.76279,
-                "solidity_contract_generation": 1.63891
-            },
-            "file_size": 236740,
-            "queue_time": "P0DT00H00M31.309020S",
-            "queue_time_sec": 31.30902,
-            "uploaded_file_name": "circom-multiplier2.tar.gz",
-            "has_smart_contract_verifier": true,
-            "has_verification_key": true,
-            "verification_key": null,
-            "warnings": null,
-            "error": null,
-            "curve": "bn254",
-            "num_constraints": 1,
-            "num_outputs": 1,
-            "num_private_inputs": 2,
-            "num_public_inputs": 0
-        },
-        "rawHeaders": [
-            "Content-Length",
-            "1743",
-            "Content-Type",
-            "application/json; charset=utf-8",
-            "Cross-Origin-Opener-Policy",
-            "same-origin",
-            "Date",
-            "Thu, 05 Sep 2024 22:42:58 GMT",
-            "Referrer-Policy",
-            "same-origin",
-            "Server",
-            "openresty",
-            "Vary",
-            "Cookie, origin",
-            "X-Content-Type-Options",
-            "nosniff",
-            "X-Frame-Options",
-            "SAMEORIGIN"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://sindri.app:443",
-        "method": "POST",
-        "path": "/api/v1/circuit/4e67098d-9e85-425e-acdb-9c9048646c22/prove",
-        "body": "------WebKitFormBoundaryvxLR4Dm8z68ddWxB\r\nContent-Disposition: form-data; name=\"meta\"\r\n\r\n{}\r\n------WebKitFormBoundaryvxLR4Dm8z68ddWxB\r\nContent-Disposition: form-data; name=\"perform_verify\"\r\n\r\nfalse\r\n------WebKitFormBoundaryvxLR4Dm8z68ddWxB\r\nContent-Disposition: form-data; name=\"proof_input\"\r\n\r\n{\"a\":\"5\",\"b\":\"4\"}\r\n------WebKitFormBoundaryvxLR4Dm8z68ddWxB--\r\n",
-        "status": 201,
-        "response": {
-            "proof_id": "f429631b-7ad9-49cd-b6f7-f19c2a035ac3",
-            "circuit_name": "circom-multiplier2",
-            "project_name": "circom-multiplier2",
-            "circuit_id": "4e67098d-9e85-425e-acdb-9c9048646c22",
-            "circuit_type": "circom",
-            "date_created": "2024-09-05T22:42:58.296Z",
-            "meta": {},
-            "perform_verify": false,
-            "status": "Queued",
-            "team": "github-actions-qa",
-            "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
-            "team_slug": "github-actions-qa",
-            "circuit_team": "github-actions-qa",
-            "circuit_team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
-            "circuit_team_slug": "github-actions-qa",
-            "compute_time": null,
-            "compute_time_sec": null,
-            "compute_times": null,
-            "file_size": null,
-            "proof": null,
-            "public": null,
-            "queue_time": null,
-            "queue_time_sec": null,
-            "smart_contract_calldata": null,
-            "has_smart_contract_calldata": false,
-            "has_verification_key": true,
-            "verification_key": null,
-            "warnings": null,
-            "error": null
-        },
-        "rawHeaders": [
-            "Content-Length",
-            "994",
-            "Content-Type",
-            "application/json; charset=utf-8",
-            "Cross-Origin-Opener-Policy",
-            "same-origin",
-            "Date",
-            "Thu, 05 Sep 2024 22:42:58 GMT",
-            "Referrer-Policy",
-            "same-origin",
-            "Server",
-            "openresty",
-            "Vary",
-            "Cookie, origin",
-            "X-Content-Type-Options",
-            "nosniff",
-            "X-Frame-Options",
-            "SAMEORIGIN"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://sindri.app:443",
-        "method": "GET",
-        "path": "/api/v1/circuit/de52bdd9-9e1b-468c-a06d-240d2e17623d/status",
-        "body": "",
-        "status": 200,
-        "response": {
-            "circuit_id": "de52bdd9-9e1b-468c-a06d-240d2e17623d",
-            "status": "Queued"
-        },
-        "rawHeaders": [
-            "Content-Length",
-            "74",
-            "Content-Type",
-            "application/json; charset=utf-8",
-            "Cross-Origin-Opener-Policy",
-            "same-origin",
-            "Date",
-            "Thu, 05 Sep 2024 22:43:10 GMT",
-            "Referrer-Policy",
-            "same-origin",
-            "Server",
-            "openresty",
-            "Vary",
-            "Cookie, origin",
-            "X-Content-Type-Options",
-            "nosniff",
-            "X-Frame-Options",
-            "SAMEORIGIN"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://sindri.app:443",
-        "method": "GET",
-        "path": "/api/v1/circuit/8abdcc1e-e86e-49bf-9c84-1d2ca8f1041d/status",
-        "body": "",
-        "status": 200,
-        "response": {
-            "circuit_id": "8abdcc1e-e86e-49bf-9c84-1d2ca8f1041d",
-            "status": "Queued"
-        },
-        "rawHeaders": [
-            "Content-Length",
-            "74",
-            "Content-Type",
-            "application/json; charset=utf-8",
-            "Cross-Origin-Opener-Policy",
-            "same-origin",
-            "Date",
-            "Thu, 05 Sep 2024 22:43:10 GMT",
-            "Referrer-Policy",
-            "same-origin",
-            "Server",
-            "openresty",
-            "Vary",
-            "Cookie, origin",
-            "X-Content-Type-Options",
-            "nosniff",
-            "X-Frame-Options",
-            "SAMEORIGIN"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://sindri.app:443",
-        "method": "GET",
-        "path": "/api/v1/circuit/dc4ba711-fe22-4a38-893f-62a0c3aba50f/status",
-        "body": "",
-        "status": 200,
-        "response": {
-            "circuit_id": "dc4ba711-fe22-4a38-893f-62a0c3aba50f",
-            "status": "Queued"
-        },
-        "rawHeaders": [
-            "Content-Length",
-            "74",
-            "Content-Type",
-            "application/json; charset=utf-8",
-            "Cross-Origin-Opener-Policy",
-            "same-origin",
-            "Date",
-            "Thu, 05 Sep 2024 22:43:10 GMT",
-            "Referrer-Policy",
-            "same-origin",
-            "Server",
-            "openresty",
-            "Vary",
-            "Cookie, origin",
-            "X-Content-Type-Options",
-            "nosniff",
-            "X-Frame-Options",
-            "SAMEORIGIN"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://sindri.app:443",
-        "method": "GET",
-        "path": "/api/v1/proof/f429631b-7ad9-49cd-b6f7-f19c2a035ac3/status",
-        "body": "",
-        "status": 200,
-        "response": {
-            "proof_id": "f429631b-7ad9-49cd-b6f7-f19c2a035ac3",
-            "status": "Ready"
-        },
-        "rawHeaders": [
-            "Content-Length",
-            "71",
-            "Content-Type",
-            "application/json; charset=utf-8",
-            "Cross-Origin-Opener-Policy",
-            "same-origin",
-            "Date",
-            "Thu, 05 Sep 2024 22:43:50 GMT",
-            "Referrer-Policy",
-            "same-origin",
-            "Server",
-            "openresty",
-            "Vary",
-            "Cookie, origin",
-            "X-Content-Type-Options",
-            "nosniff",
-            "X-Frame-Options",
-            "SAMEORIGIN"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://sindri.app:443",
-        "method": "GET",
-        "path": "/api/v1/proof/f429631b-7ad9-49cd-b6f7-f19c2a035ac3/detail?include_proof=true&include_public=true&include_smart_contract_calldata=false&include_verification_key=true",
-        "body": "",
-        "status": 200,
-        "response": {
-            "proof_id": "f429631b-7ad9-49cd-b6f7-f19c2a035ac3",
-            "circuit_name": "circom-multiplier2",
-            "project_name": "circom-multiplier2",
-            "circuit_id": "4e67098d-9e85-425e-acdb-9c9048646c22",
-            "circuit_type": "circom",
-            "date_created": "2024-09-05T22:42:58.296Z",
-            "meta": {},
-            "perform_verify": false,
-            "status": "Ready",
-            "team": "github-actions-qa",
-            "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
-            "team_slug": "github-actions-qa",
-            "circuit_team": "github-actions-qa",
-            "circuit_team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
-            "circuit_team_slug": "github-actions-qa",
-            "compute_time": "P0DT00H00M06.626211S",
-            "compute_time_sec": 6.626211,
-            "compute_times": {
-                "prove": 5.56664,
-                "total": 6.62621,
-                "clean_up": 0.00527,
-                "file_setup": 0.33994,
-                "save_results": 0.58728,
-                "export_calldata": 0.11583,
-                "generate_witness_c": 0.01124
-            },
-            "file_size": 1351,
-            "proof": {
-                "pi_a": [
-                    "4521671820094598754285019025560123346446906309811258220835771609058887566047",
-                    "10096955531817215131242355769884772901956301341951330465322994223959142588622",
-                    "1"
-                ],
-                "pi_b": [
-                    [
-                        "8435924107902114998950514442603925542464195683185572780102704446778234975192",
-                        "17306802261989812940979717369991162774589300946393592022214957488468489612206"
-                    ],
-                    [
-                        "17494616381813179904907019780393975471544101163914412307483957545143070109349",
-                        "12012339923684520203505187133137443298946153252080138870106814663309334125226"
-                    ],
-                    [
-                        "1",
-                        "0"
-                    ]
-                ],
-                "pi_c": [
-                    "2483815286538748351739159403034939901601448052512765731232602206415229948624",
-                    "13554214721592709816325441229333882209651458890659706228162880637254918122513",
-                    "1"
-                ],
-                "protocol": "groth16"
-            },
-            "public": [
-                "20"
-            ],
-            "queue_time": "P0DT00H00M45.480011S",
-            "queue_time_sec": 45.480011,
-            "smart_contract_calldata": null,
-            "has_smart_contract_calldata": true,
-            "has_verification_key": true,
-            "verification_key": {
-                "protocol": "groth16",
-                "curve": "bn128",
-                "nPublic": 1,
-                "vk_alpha_1": [
-                    "20491192805390485299153009773594534940189261866228447918068658471970481763042",
-                    "9383485363053290200918347156157836566562967994039712273449902621266178545958",
-                    "1"
-                ],
-                "vk_beta_2": [
-                    [
-                        "6375614351688725206403948262868962793625744043794305715222011528459656738731",
-                        "4252822878758300859123897981450591353533073413197771768651442665752259397132"
-                    ],
-                    [
-                        "10505242626370262277552901082094356697409835680220590971873171140371331206856",
-                        "21847035105528745403288232691147584728191162732299865338377159692350059136679"
-                    ],
-                    [
-                        "1",
-                        "0"
-                    ]
-                ],
-                "vk_gamma_2": [
-                    [
-                        "10857046999023057135944570762232829481370756359578518086990519993285655852781",
-                        "11559732032986387107991004021392285783925812861821192530917403151452391805634"
-                    ],
-                    [
-                        "8495653923123431417604973247489272438418190587263600148770280649306958101930",
-                        "4082367875863433681332203403145435568316851327593401208105741076214120093531"
-                    ],
-                    [
-                        "1",
-                        "0"
-                    ]
-                ],
-                "vk_delta_2": [
-                    [
-                        "10857046999023057135944570762232829481370756359578518086990519993285655852781",
-                        "11559732032986387107991004021392285783925812861821192530917403151452391805634"
-                    ],
-                    [
-                        "8495653923123431417604973247489272438418190587263600148770280649306958101930",
-                        "4082367875863433681332203403145435568316851327593401208105741076214120093531"
-                    ],
-                    [
-                        "1",
-                        "0"
-                    ]
-                ],
-                "vk_alphabeta_12": [
-                    [
-                        [
-                            "2029413683389138792403550203267699914886160938906632433982220835551125967885",
-                            "21072700047562757817161031222997517981543347628379360635925549008442030252106"
-                        ],
-                        [
-                            "5940354580057074848093997050200682056184807770593307860589430076672439820312",
-                            "12156638873931618554171829126792193045421052652279363021382169897324752428276"
-                        ],
-                        [
-                            "7898200236362823042373859371574133993780991612861777490112507062703164551277",
-                            "7074218545237549455313236346927434013100842096812539264420499035217050630853"
-                        ]
-                    ],
-                    [
-                        [
-                            "7077479683546002997211712695946002074877511277312570035766170199895071832130",
-                            "10093483419865920389913245021038182291233451549023025229112148274109565435465"
-                        ],
-                        [
-                            "4595479056700221319381530156280926371456704509942304414423590385166031118820",
-                            "19831328484489333784475432780421641293929726139240675179672856274388269393268"
-                        ],
-                        [
-                            "11934129596455521040620786944827826205713621633706285934057045369193958244500",
-                            "8037395052364110730298837004334506829870972346962140206007064471173334027475"
-                        ]
-                    ]
-                ],
-                "IC": [
-                    [
-                        "6819801395408938350212900248749732364821477541620635511814266536599629892365",
-                        "9092252330033992554755034971584864587974280972948086568597554018278609861372",
-                        "1"
-                    ],
-                    [
-                        "17882351432929302592725330552407222299541667716607588771282887857165175611387",
-                        "18907419617206324833977586007131055763810739835484972981819026406579664278293",
-                        "1"
-                    ]
-                ]
-            },
-            "warnings": null,
-            "error": null
-        },
-        "rawHeaders": [
-            "Content-Length",
-            "4559",
-            "Content-Type",
-            "application/json; charset=utf-8",
-            "Cross-Origin-Opener-Policy",
-            "same-origin",
-            "Date",
-            "Thu, 05 Sep 2024 22:43:51 GMT",
-            "Referrer-Policy",
-            "same-origin",
-            "Server",
-            "openresty",
-            "Vary",
-            "Cookie, origin",
-            "X-Content-Type-Options",
-            "nosniff",
-            "X-Frame-Options",
-            "SAMEORIGIN"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://sindri.app:443",
-        "method": "GET",
-        "path": "/api/v1/circuit/de52bdd9-9e1b-468c-a06d-240d2e17623d/status",
-        "body": "",
-        "status": 200,
-        "response": {
-            "circuit_id": "de52bdd9-9e1b-468c-a06d-240d2e17623d",
-            "status": "Ready"
-        },
-        "rawHeaders": [
-            "Content-Length",
-            "73",
-            "Content-Type",
-            "application/json; charset=utf-8",
-            "Cross-Origin-Opener-Policy",
-            "same-origin",
-            "Date",
-            "Thu, 05 Sep 2024 22:43:52 GMT",
-            "Referrer-Policy",
-            "same-origin",
-            "Server",
-            "openresty",
-            "Vary",
-            "Cookie, origin",
-            "X-Content-Type-Options",
-            "nosniff",
-            "X-Frame-Options",
-            "SAMEORIGIN"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://sindri.app:443",
-        "method": "GET",
-        "path": "/api/v1/circuit/de52bdd9-9e1b-468c-a06d-240d2e17623d/detail?include_verification_key=false",
-        "body": "",
-        "status": 200,
-        "response": {
-            "circuit_id": "de52bdd9-9e1b-468c-a06d-240d2e17623d",
-            "circuit_name": "circom-multiplier2",
-            "project_name": "circom-multiplier2",
-            "circuit_type": "circom",
-            "date_created": "2024-09-05T22:41:07.879Z",
-            "meta": {},
-            "num_proofs": 0,
-            "proving_scheme": "groth16",
-            "public": false,
-            "status": "Ready",
-            "tags": [
-                "from-file-array",
-                "sdk-create-proof-multiplier2-circuit",
-                "from-tarball-for-all-circuit-proofs",
-                "from-browser-file-array-for-get-proof",
-                "from-browser-file-array-for-get-all-circuit-proofs",
-                "from-browser-file-array-for-get-circuit",
-                "from-tarball",
-                "browser-create-proof-multiplier2-circuit",
-                "from-tarball-for-get-proof",
-                "from-browser-file-array",
-                "from-tarball-for-get-circuit",
-                "from-browser-file-array-for-prove-circuit",
-                "from-directory",
-                "from-tarball-for-prove-circuit"
-            ],
-            "team": "github-actions-qa",
-            "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
-            "team_slug": "github-actions-qa",
-            "compute_time": "P0DT00H01M57.672425S",
-            "compute_time_sec": 117.672425,
-            "compute_times": {
-                "total": 117.67242,
-                "clean_up": 0.01519,
-                "create_cpp": 0.37908,
-                "file_setup": 99.24311,
-                "compile_cpp": 8.7517,
-                "create_r1cs": 0.02728,
-                "save_results": 1.0115,
-                "get_r1cs_info": 0.00098,
-                "groth16_setup": 2.63244,
-                "export_verification_key": 2.52325,
-                "download_trusted_setup_file": 0.66751,
-                "solidity_contract_generation": 2.42038
-            },
-            "file_size": 236740,
-            "queue_time": "P0DT00H00M46.107827S",
-            "queue_time_sec": 46.107827,
-            "uploaded_file_name": "circom-multiplier2.tar.gz",
-            "has_smart_contract_verifier": true,
-            "has_verification_key": true,
-            "verification_key": null,
-            "warnings": null,
-            "error": null,
-            "curve": "bn254",
-            "num_constraints": 1,
-            "num_outputs": 1,
-            "num_private_inputs": 2,
-            "num_public_inputs": 0
-        },
-        "rawHeaders": [
-            "Content-Length",
-            "1745",
-            "Content-Type",
-            "application/json; charset=utf-8",
-            "Cross-Origin-Opener-Policy",
-            "same-origin",
-            "Date",
-            "Thu, 05 Sep 2024 22:43:52 GMT",
-            "Referrer-Policy",
-            "same-origin",
-            "Server",
-            "openresty",
-            "Vary",
-            "Cookie, origin",
-            "X-Content-Type-Options",
-            "nosniff",
-            "X-Frame-Options",
-            "SAMEORIGIN"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "POST",
         "path": "/api/v1/circuit/circom-multiplier2:browser-create-proof-multiplier2-circuit/prove",
-        "body": "------WebKitFormBoundaryXc2UCABOoIW99dv9\r\nContent-Disposition: form-data; name=\"meta\"\r\n\r\n{}\r\n------WebKitFormBoundaryXc2UCABOoIW99dv9\r\nContent-Disposition: form-data; name=\"perform_verify\"\r\n\r\nfalse\r\n------WebKitFormBoundaryXc2UCABOoIW99dv9\r\nContent-Disposition: form-data; name=\"proof_input\"\r\n\r\n{\"a\":\"5\",\"b\":\"4\"}\r\n------WebKitFormBoundaryXc2UCABOoIW99dv9--\r\n",
+        "body": "------WebKitFormBoundarypU5QABAIPMOFsFo1\r\nContent-Disposition: form-data; name=\"meta\"\r\n\r\n{}\r\n------WebKitFormBoundarypU5QABAIPMOFsFo1\r\nContent-Disposition: form-data; name=\"perform_verify\"\r\n\r\nfalse\r\n------WebKitFormBoundarypU5QABAIPMOFsFo1\r\nContent-Disposition: form-data; name=\"proof_input\"\r\n\r\n{\"a\":\"5\",\"b\":\"4\"}\r\n------WebKitFormBoundarypU5QABAIPMOFsFo1--\r\n",
         "status": 201,
         "response": {
-            "proof_id": "9043fc75-4a7f-4201-aa32-540b50a6e136",
+            "proof_id": "733b61df-6ebb-40f8-93d2-fb450524a0ef",
             "circuit_name": "circom-multiplier2",
             "project_name": "circom-multiplier2",
-            "circuit_id": "de52bdd9-9e1b-468c-a06d-240d2e17623d",
+            "circuit_id": "e660d4cd-5fc8-44a9-ae58-d658bfb5ebb1",
             "circuit_type": "circom",
-            "date_created": "2024-09-05T22:43:52.754Z",
+            "date_created": "2024-09-07T16:01:12.193Z",
             "meta": {},
             "perform_verify": false,
             "status": "Queued",
@@ -7873,7 +7708,7 @@
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:43:52 GMT",
+            "Sat, 07 Sep 2024 16:01:12 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -7888,13 +7723,13 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "GET",
-        "path": "/api/v1/circuit/dc4ba711-fe22-4a38-893f-62a0c3aba50f/status",
+        "path": "/api/v1/circuit/a3878be2-c111-4ae1-957a-2a60689df8ed/status",
         "body": "",
         "status": 200,
         "response": {
-            "circuit_id": "dc4ba711-fe22-4a38-893f-62a0c3aba50f",
+            "circuit_id": "a3878be2-c111-4ae1-957a-2a60689df8ed",
             "status": "Ready"
         },
         "rawHeaders": [
@@ -7905,7 +7740,7 @@
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:43:53 GMT",
+            "Sat, 07 Sep 2024 16:01:13 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -7920,17 +7755,17 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "GET",
-        "path": "/api/v1/circuit/dc4ba711-fe22-4a38-893f-62a0c3aba50f/detail?include_verification_key=false",
+        "path": "/api/v1/circuit/a3878be2-c111-4ae1-957a-2a60689df8ed/detail?include_verification_key=false",
         "body": "",
         "status": 200,
         "response": {
-            "circuit_id": "dc4ba711-fe22-4a38-893f-62a0c3aba50f",
+            "circuit_id": "a3878be2-c111-4ae1-957a-2a60689df8ed",
             "circuit_name": "circom-multiplier2",
             "project_name": "circom-multiplier2",
             "circuit_type": "circom",
-            "date_created": "2024-09-05T22:41:07.767Z",
+            "date_created": "2024-09-07T16:00:37.231Z",
             "meta": {},
             "num_proofs": 0,
             "proving_scheme": "groth16",
@@ -7955,25 +7790,25 @@
             "team": "github-actions-qa",
             "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
             "team_slug": "github-actions-qa",
-            "compute_time": "P0DT00H01M55.379887S",
-            "compute_time_sec": 115.379887,
+            "compute_time": "P0DT00H00M07.539695S",
+            "compute_time_sec": 7.539695,
             "compute_times": {
-                "total": 115.37989,
-                "clean_up": 0.01336,
-                "create_cpp": 0.4869,
-                "file_setup": 95.29092,
-                "compile_cpp": 8.47298,
-                "create_r1cs": 0.02577,
-                "save_results": 1.08487,
-                "get_r1cs_info": 0.00064,
-                "groth16_setup": 3.21171,
-                "export_verification_key": 3.11479,
-                "download_trusted_setup_file": 0.66251,
-                "solidity_contract_generation": 3.01543
+                "total": 7.53969,
+                "clean_up": 0.02525,
+                "create_cpp": 0.09348,
+                "file_setup": 0.37168,
+                "compile_cpp": 3.26375,
+                "create_r1cs": 0.00859,
+                "save_results": 0.62367,
+                "get_r1cs_info": 0.00036,
+                "groth16_setup": 0.75767,
+                "export_verification_key": 0.82496,
+                "download_trusted_setup_file": 0.78144,
+                "solidity_contract_generation": 0.78886
             },
             "file_size": 236740,
-            "queue_time": "P0DT00H00M50.185652S",
-            "queue_time_sec": 50.185652,
+            "queue_time": "P0DT00H00M28.276852S",
+            "queue_time_sec": 28.276852,
             "uploaded_file_name": "circom-multiplier2.tar.gz",
             "has_smart_contract_verifier": true,
             "has_verification_key": true,
@@ -7988,13 +7823,13 @@
         },
         "rawHeaders": [
             "Content-Length",
-            "1746",
+            "1742",
             "Content-Type",
             "application/json; charset=utf-8",
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:43:53 GMT",
+            "Sat, 07 Sep 2024 16:01:14 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -8009,18 +7844,18 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "POST",
-        "path": "/api/v1/circuit/dc4ba711-fe22-4a38-893f-62a0c3aba50f/prove",
-        "body": "------WebKitFormBoundaryveKd7iP4jq1P1TZb\r\nContent-Disposition: form-data; name=\"meta\"\r\n\r\n{}\r\n------WebKitFormBoundaryveKd7iP4jq1P1TZb\r\nContent-Disposition: form-data; name=\"perform_verify\"\r\n\r\nfalse\r\n------WebKitFormBoundaryveKd7iP4jq1P1TZb\r\nContent-Disposition: form-data; name=\"proof_input\"\r\n\r\n{\"a\":\"5\",\"b\":\"4\"}\r\n------WebKitFormBoundaryveKd7iP4jq1P1TZb--\r\n",
+        "path": "/api/v1/circuit/a3878be2-c111-4ae1-957a-2a60689df8ed/prove",
+        "body": "------WebKitFormBoundaryUDUQ2LK4wMyGZ6GR\r\nContent-Disposition: form-data; name=\"meta\"\r\n\r\n{}\r\n------WebKitFormBoundaryUDUQ2LK4wMyGZ6GR\r\nContent-Disposition: form-data; name=\"perform_verify\"\r\n\r\nfalse\r\n------WebKitFormBoundaryUDUQ2LK4wMyGZ6GR\r\nContent-Disposition: form-data; name=\"proof_input\"\r\n\r\n{\"a\":\"5\",\"b\":\"4\"}\r\n------WebKitFormBoundaryUDUQ2LK4wMyGZ6GR--\r\n",
         "status": 201,
         "response": {
-            "proof_id": "bcc355be-b8a9-48ba-b50e-2d4cd994f3a4",
+            "proof_id": "d417885c-bc1c-4b58-8727-000a3c55d1fc",
             "circuit_name": "circom-multiplier2",
             "project_name": "circom-multiplier2",
-            "circuit_id": "dc4ba711-fe22-4a38-893f-62a0c3aba50f",
+            "circuit_id": "a3878be2-c111-4ae1-957a-2a60689df8ed",
             "circuit_type": "circom",
-            "date_created": "2024-09-05T22:43:53.816Z",
+            "date_created": "2024-09-07T16:01:14.248Z",
             "meta": {},
             "perform_verify": false,
             "status": "Queued",
@@ -8053,7 +7888,7 @@
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:43:53 GMT",
+            "Sat, 07 Sep 2024 16:01:14 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -8068,13 +7903,13 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "GET",
-        "path": "/api/v1/circuit/8abdcc1e-e86e-49bf-9c84-1d2ca8f1041d/status",
+        "path": "/api/v1/circuit/5f8314a1-204f-4dc2-bced-7daaa7fb1d7a/status",
         "body": "",
         "status": 200,
         "response": {
-            "circuit_id": "8abdcc1e-e86e-49bf-9c84-1d2ca8f1041d",
+            "circuit_id": "5f8314a1-204f-4dc2-bced-7daaa7fb1d7a",
             "status": "Ready"
         },
         "rawHeaders": [
@@ -8085,7 +7920,7 @@
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:43:54 GMT",
+            "Sat, 07 Sep 2024 16:01:14 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -8100,17 +7935,17 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "GET",
-        "path": "/api/v1/circuit/8abdcc1e-e86e-49bf-9c84-1d2ca8f1041d/detail?include_verification_key=false",
+        "path": "/api/v1/circuit/5f8314a1-204f-4dc2-bced-7daaa7fb1d7a/detail?include_verification_key=false",
         "body": "",
         "status": 200,
         "response": {
-            "circuit_id": "8abdcc1e-e86e-49bf-9c84-1d2ca8f1041d",
+            "circuit_id": "5f8314a1-204f-4dc2-bced-7daaa7fb1d7a",
             "circuit_name": "circom-multiplier2",
             "project_name": "circom-multiplier2",
             "circuit_type": "circom",
-            "date_created": "2024-09-05T22:41:07.913Z",
+            "date_created": "2024-09-07T16:00:37.226Z",
             "meta": {},
             "num_proofs": 0,
             "proving_scheme": "groth16",
@@ -8135,25 +7970,25 @@
             "team": "github-actions-qa",
             "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
             "team_slug": "github-actions-qa",
-            "compute_time": "P0DT00H01M57.358381S",
-            "compute_time_sec": 117.358381,
+            "compute_time": "P0DT00H00M07.989572S",
+            "compute_time_sec": 7.989572,
             "compute_times": {
-                "total": 117.35838,
-                "clean_up": 0.01929,
-                "create_cpp": 0.51075,
-                "file_setup": 98.72571,
-                "compile_cpp": 8.78422,
-                "create_r1cs": 0.04305,
-                "save_results": 0.957,
-                "get_r1cs_info": 0.00145,
-                "groth16_setup": 2.54739,
-                "export_verification_key": 2.48164,
-                "download_trusted_setup_file": 0.71257,
-                "solidity_contract_generation": 2.57531
+                "total": 7.98957,
+                "clean_up": 0.01788,
+                "create_cpp": 0.15596,
+                "file_setup": 0.41288,
+                "compile_cpp": 3.41366,
+                "create_r1cs": 0.01057,
+                "save_results": 0.71536,
+                "get_r1cs_info": 0.00036,
+                "groth16_setup": 0.82019,
+                "export_verification_key": 0.83882,
+                "download_trusted_setup_file": 0.79868,
+                "solidity_contract_generation": 0.80522
             },
             "file_size": 236740,
-            "queue_time": "P0DT00H00M48.735939S",
-            "queue_time_sec": 48.735939,
+            "queue_time": "P0DT00H00M28.756353S",
+            "queue_time_sec": 28.756353,
             "uploaded_file_name": "circom-multiplier2.tar.gz",
             "has_smart_contract_verifier": true,
             "has_verification_key": true,
@@ -8168,13 +8003,13 @@
         },
         "rawHeaders": [
             "Content-Length",
-            "1745",
+            "1742",
             "Content-Type",
             "application/json; charset=utf-8",
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:43:54 GMT",
+            "Sat, 07 Sep 2024 16:01:15 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -8189,18 +8024,18 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "POST",
-        "path": "/api/v1/circuit/8abdcc1e-e86e-49bf-9c84-1d2ca8f1041d/prove",
-        "body": "------WebKitFormBoundary4aLQPzcg0g5jVNcA\r\nContent-Disposition: form-data; name=\"meta\"\r\n\r\n{}\r\n------WebKitFormBoundary4aLQPzcg0g5jVNcA\r\nContent-Disposition: form-data; name=\"perform_verify\"\r\n\r\nfalse\r\n------WebKitFormBoundary4aLQPzcg0g5jVNcA\r\nContent-Disposition: form-data; name=\"proof_input\"\r\n\r\n{\"a\":\"5\",\"b\":\"4\"}\r\n------WebKitFormBoundary4aLQPzcg0g5jVNcA--\r\n",
+        "path": "/api/v1/circuit/5f8314a1-204f-4dc2-bced-7daaa7fb1d7a/prove",
+        "body": "------WebKitFormBoundaryzAPUrKDoP5kUv6pm\r\nContent-Disposition: form-data; name=\"meta\"\r\n\r\n{}\r\n------WebKitFormBoundaryzAPUrKDoP5kUv6pm\r\nContent-Disposition: form-data; name=\"perform_verify\"\r\n\r\nfalse\r\n------WebKitFormBoundaryzAPUrKDoP5kUv6pm\r\nContent-Disposition: form-data; name=\"proof_input\"\r\n\r\n{\"a\":\"5\",\"b\":\"4\"}\r\n------WebKitFormBoundaryzAPUrKDoP5kUv6pm--\r\n",
         "status": 201,
         "response": {
-            "proof_id": "3ba6d52d-7512-4a30-af34-fad7dfea3d0d",
+            "proof_id": "480dfdc4-396a-4af0-9cf6-6c7e128c719e",
             "circuit_name": "circom-multiplier2",
             "project_name": "circom-multiplier2",
-            "circuit_id": "8abdcc1e-e86e-49bf-9c84-1d2ca8f1041d",
+            "circuit_id": "5f8314a1-204f-4dc2-bced-7daaa7fb1d7a",
             "circuit_type": "circom",
-            "date_created": "2024-09-05T22:43:54.843Z",
+            "date_created": "2024-09-07T16:01:15.301Z",
             "meta": {},
             "perform_verify": false,
             "status": "Queued",
@@ -8233,7 +8068,7 @@
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:43:55 GMT",
+            "Sat, 07 Sep 2024 16:01:15 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -8248,24 +8083,24 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "GET",
-        "path": "/api/v1/proof/9043fc75-4a7f-4201-aa32-540b50a6e136/status",
+        "path": "/api/v1/circuit/c00ad0d6-0e23-49e2-81cb-cbc11ec0e2a9/status",
         "body": "",
         "status": 200,
         "response": {
-            "proof_id": "9043fc75-4a7f-4201-aa32-540b50a6e136",
+            "circuit_id": "c00ad0d6-0e23-49e2-81cb-cbc11ec0e2a9",
             "status": "Ready"
         },
         "rawHeaders": [
             "Content-Length",
-            "71",
+            "73",
             "Content-Type",
             "application/json; charset=utf-8",
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:44:01 GMT",
+            "Sat, 07 Sep 2024 16:01:20 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -8280,180 +8115,81 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "GET",
-        "path": "/api/v1/proof/9043fc75-4a7f-4201-aa32-540b50a6e136/detail?include_proof=true&include_public=true&include_smart_contract_calldata=false&include_verification_key=true",
+        "path": "/api/v1/circuit/c00ad0d6-0e23-49e2-81cb-cbc11ec0e2a9/detail?include_verification_key=false",
         "body": "",
         "status": 200,
         "response": {
-            "proof_id": "9043fc75-4a7f-4201-aa32-540b50a6e136",
+            "circuit_id": "c00ad0d6-0e23-49e2-81cb-cbc11ec0e2a9",
             "circuit_name": "circom-multiplier2",
             "project_name": "circom-multiplier2",
-            "circuit_id": "de52bdd9-9e1b-468c-a06d-240d2e17623d",
             "circuit_type": "circom",
-            "date_created": "2024-09-05T22:43:52.754Z",
+            "date_created": "2024-09-07T16:00:37.276Z",
             "meta": {},
-            "perform_verify": false,
+            "num_proofs": 0,
+            "proving_scheme": "groth16",
+            "public": false,
             "status": "Ready",
+            "tags": [
+                "from-file-array",
+                "sdk-create-proof-multiplier2-circuit",
+                "from-tarball-for-all-circuit-proofs",
+                "from-browser-file-array-for-get-proof",
+                "from-browser-file-array-for-get-all-circuit-proofs",
+                "from-browser-file-array-for-get-circuit",
+                "from-tarball",
+                "browser-create-proof-multiplier2-circuit",
+                "from-tarball-for-get-proof",
+                "from-browser-file-array",
+                "from-tarball-for-get-circuit",
+                "from-browser-file-array-for-prove-circuit",
+                "from-directory",
+                "from-tarball-for-prove-circuit"
+            ],
             "team": "github-actions-qa",
             "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
             "team_slug": "github-actions-qa",
-            "circuit_team": "github-actions-qa",
-            "circuit_team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
-            "circuit_team_slug": "github-actions-qa",
-            "compute_time": "P0DT00H00M06.979312S",
-            "compute_time_sec": 6.979312,
+            "compute_time": "P0DT00H00M06.648235S",
+            "compute_time_sec": 6.648235,
             "compute_times": {
-                "prove": 5.62119,
-                "total": 6.97931,
-                "clean_up": 0.00456,
-                "file_setup": 0.78058,
-                "save_results": 0.45201,
-                "export_calldata": 0.1148,
-                "generate_witness_c": 0.00617
+                "total": 6.64824,
+                "clean_up": 0.03317,
+                "create_cpp": 0.08398,
+                "file_setup": 0.28791,
+                "compile_cpp": 3.20229,
+                "create_r1cs": 0.00866,
+                "save_results": 0.67003,
+                "get_r1cs_info": 0.00042,
+                "groth16_setup": 0.74619,
+                "export_verification_key": 0.78389,
+                "download_trusted_setup_file": 0.00074,
+                "solidity_contract_generation": 0.83096
             },
-            "file_size": 1352,
-            "proof": {
-                "pi_a": [
-                    "3255536395940615743153184746698653277374343866066826150903360387530269451393",
-                    "18089095734653089859468943254251166416027250686477214083480567881905914409210",
-                    "1"
-                ],
-                "pi_b": [
-                    [
-                        "12604097392971963782689616010357449750801278736921733353205547909000454219040",
-                        "11203014186598358890335376799316062804187174844085498524532184475724841832347"
-                    ],
-                    [
-                        "20083047621651762442567446158846816616104497207351558635608116746800821185862",
-                        "15872883555937011975577428933694022888811987604748346247504016849423453290266"
-                    ],
-                    [
-                        "1",
-                        "0"
-                    ]
-                ],
-                "pi_c": [
-                    "12774664689111856203831462203811347254193271454138330762014705446008810290372",
-                    "3960911992324815604157977398427486161864124312836797370357490204249086140840",
-                    "1"
-                ],
-                "protocol": "groth16"
-            },
-            "public": [
-                "20"
-            ],
-            "queue_time": "P0DT00H00M01.008297S",
-            "queue_time_sec": 1.008297,
-            "smart_contract_calldata": null,
-            "has_smart_contract_calldata": true,
+            "file_size": 236740,
+            "queue_time": "P0DT00H00M35.390476S",
+            "queue_time_sec": 35.390476,
+            "uploaded_file_name": "circom-multiplier2.tar.gz",
+            "has_smart_contract_verifier": true,
             "has_verification_key": true,
-            "verification_key": {
-                "protocol": "groth16",
-                "curve": "bn128",
-                "nPublic": 1,
-                "vk_alpha_1": [
-                    "20491192805390485299153009773594534940189261866228447918068658471970481763042",
-                    "9383485363053290200918347156157836566562967994039712273449902621266178545958",
-                    "1"
-                ],
-                "vk_beta_2": [
-                    [
-                        "6375614351688725206403948262868962793625744043794305715222011528459656738731",
-                        "4252822878758300859123897981450591353533073413197771768651442665752259397132"
-                    ],
-                    [
-                        "10505242626370262277552901082094356697409835680220590971873171140371331206856",
-                        "21847035105528745403288232691147584728191162732299865338377159692350059136679"
-                    ],
-                    [
-                        "1",
-                        "0"
-                    ]
-                ],
-                "vk_gamma_2": [
-                    [
-                        "10857046999023057135944570762232829481370756359578518086990519993285655852781",
-                        "11559732032986387107991004021392285783925812861821192530917403151452391805634"
-                    ],
-                    [
-                        "8495653923123431417604973247489272438418190587263600148770280649306958101930",
-                        "4082367875863433681332203403145435568316851327593401208105741076214120093531"
-                    ],
-                    [
-                        "1",
-                        "0"
-                    ]
-                ],
-                "vk_delta_2": [
-                    [
-                        "10857046999023057135944570762232829481370756359578518086990519993285655852781",
-                        "11559732032986387107991004021392285783925812861821192530917403151452391805634"
-                    ],
-                    [
-                        "8495653923123431417604973247489272438418190587263600148770280649306958101930",
-                        "4082367875863433681332203403145435568316851327593401208105741076214120093531"
-                    ],
-                    [
-                        "1",
-                        "0"
-                    ]
-                ],
-                "vk_alphabeta_12": [
-                    [
-                        [
-                            "2029413683389138792403550203267699914886160938906632433982220835551125967885",
-                            "21072700047562757817161031222997517981543347628379360635925549008442030252106"
-                        ],
-                        [
-                            "5940354580057074848093997050200682056184807770593307860589430076672439820312",
-                            "12156638873931618554171829126792193045421052652279363021382169897324752428276"
-                        ],
-                        [
-                            "7898200236362823042373859371574133993780991612861777490112507062703164551277",
-                            "7074218545237549455313236346927434013100842096812539264420499035217050630853"
-                        ]
-                    ],
-                    [
-                        [
-                            "7077479683546002997211712695946002074877511277312570035766170199895071832130",
-                            "10093483419865920389913245021038182291233451549023025229112148274109565435465"
-                        ],
-                        [
-                            "4595479056700221319381530156280926371456704509942304414423590385166031118820",
-                            "19831328484489333784475432780421641293929726139240675179672856274388269393268"
-                        ],
-                        [
-                            "11934129596455521040620786944827826205713621633706285934057045369193958244500",
-                            "8037395052364110730298837004334506829870972346962140206007064471173334027475"
-                        ]
-                    ]
-                ],
-                "IC": [
-                    [
-                        "6819801395408938350212900248749732364821477541620635511814266536599629892365",
-                        "9092252330033992554755034971584864587974280972948086568597554018278609861372",
-                        "1"
-                    ],
-                    [
-                        "17882351432929302592725330552407222299541667716607588771282887857165175611387",
-                        "18907419617206324833977586007131055763810739835484972981819026406579664278293",
-                        "1"
-                    ]
-                ]
-            },
+            "verification_key": null,
             "warnings": null,
-            "error": null
+            "error": null,
+            "curve": "bn254",
+            "num_constraints": 1,
+            "num_outputs": 1,
+            "num_private_inputs": 2,
+            "num_public_inputs": 0
         },
         "rawHeaders": [
             "Content-Length",
-            "4558",
+            "1742",
             "Content-Type",
             "application/json; charset=utf-8",
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:44:01 GMT",
+            "Sat, 07 Sep 2024 16:01:20 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -8468,24 +8204,24 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "GET",
-        "path": "/api/v1/proof/3ba6d52d-7512-4a30-af34-fad7dfea3d0d/status",
+        "path": "/api/v1/circuit/16c3f4b0-0227-467a-8d4c-ad858eb03e45/status",
         "body": "",
         "status": 200,
         "response": {
-            "proof_id": "3ba6d52d-7512-4a30-af34-fad7dfea3d0d",
+            "circuit_id": "16c3f4b0-0227-467a-8d4c-ad858eb03e45",
             "status": "Ready"
         },
         "rawHeaders": [
             "Content-Length",
-            "71",
+            "73",
             "Content-Type",
             "application/json; charset=utf-8",
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:44:08 GMT",
+            "Sat, 07 Sep 2024 16:01:21 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -8500,180 +8236,140 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "GET",
-        "path": "/api/v1/proof/3ba6d52d-7512-4a30-af34-fad7dfea3d0d/detail?include_proof=true&include_public=true&include_smart_contract_calldata=false&include_verification_key=true",
+        "path": "/api/v1/circuit/16c3f4b0-0227-467a-8d4c-ad858eb03e45/detail?include_verification_key=false",
         "body": "",
         "status": 200,
         "response": {
-            "proof_id": "3ba6d52d-7512-4a30-af34-fad7dfea3d0d",
+            "circuit_id": "16c3f4b0-0227-467a-8d4c-ad858eb03e45",
             "circuit_name": "circom-multiplier2",
             "project_name": "circom-multiplier2",
-            "circuit_id": "8abdcc1e-e86e-49bf-9c84-1d2ca8f1041d",
             "circuit_type": "circom",
-            "date_created": "2024-09-05T22:43:54.843Z",
+            "date_created": "2024-09-07T16:00:37.340Z",
+            "meta": {},
+            "num_proofs": 0,
+            "proving_scheme": "groth16",
+            "public": false,
+            "status": "Ready",
+            "tags": [
+                "from-file-array",
+                "sdk-create-proof-multiplier2-circuit",
+                "from-tarball-for-all-circuit-proofs",
+                "from-browser-file-array-for-get-proof",
+                "from-browser-file-array-for-get-all-circuit-proofs",
+                "from-browser-file-array-for-get-circuit",
+                "from-tarball",
+                "browser-create-proof-multiplier2-circuit",
+                "from-tarball-for-get-proof",
+                "from-browser-file-array",
+                "from-tarball-for-get-circuit",
+                "from-browser-file-array-for-prove-circuit",
+                "from-directory",
+                "from-tarball-for-prove-circuit"
+            ],
+            "team": "github-actions-qa",
+            "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
+            "team_slug": "github-actions-qa",
+            "compute_time": "P0DT00H00M06.869599S",
+            "compute_time_sec": 6.869599,
+            "compute_times": {
+                "total": 6.8696,
+                "clean_up": 0.01372,
+                "create_cpp": 0.08867,
+                "file_setup": 0.34418,
+                "compile_cpp": 3.30853,
+                "create_r1cs": 0.01095,
+                "save_results": 0.63956,
+                "get_r1cs_info": 0.00053,
+                "groth16_setup": 0.80002,
+                "export_verification_key": 0.84282,
+                "download_trusted_setup_file": 0.00097,
+                "solidity_contract_generation": 0.81965
+            },
+            "file_size": 236740,
+            "queue_time": "P0DT00H00M36.330482S",
+            "queue_time_sec": 36.330482,
+            "uploaded_file_name": "circom-multiplier2.tar.gz",
+            "has_smart_contract_verifier": true,
+            "has_verification_key": true,
+            "verification_key": null,
+            "warnings": null,
+            "error": null,
+            "curve": "bn254",
+            "num_constraints": 1,
+            "num_outputs": 1,
+            "num_private_inputs": 2,
+            "num_public_inputs": 0
+        },
+        "rawHeaders": [
+            "Content-Length",
+            "1741",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Cross-Origin-Opener-Policy",
+            "same-origin",
+            "Date",
+            "Sat, 07 Sep 2024 16:01:21 GMT",
+            "Referrer-Policy",
+            "same-origin",
+            "Server",
+            "openresty",
+            "Vary",
+            "Cookie, origin",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Frame-Options",
+            "SAMEORIGIN"
+        ],
+        "responseIsBinary": false
+    },
+    {
+        "scope": "https://stage.sindri.app:443",
+        "method": "POST",
+        "path": "/api/v1/circuit/16c3f4b0-0227-467a-8d4c-ad858eb03e45/prove",
+        "body": "------WebKitFormBoundaryQlnP0XucwLKu7Ppd\r\nContent-Disposition: form-data; name=\"meta\"\r\n\r\n{}\r\n------WebKitFormBoundaryQlnP0XucwLKu7Ppd\r\nContent-Disposition: form-data; name=\"perform_verify\"\r\n\r\nfalse\r\n------WebKitFormBoundaryQlnP0XucwLKu7Ppd\r\nContent-Disposition: form-data; name=\"proof_input\"\r\n\r\n{\"a\":\"5\",\"b\":\"4\"}\r\n------WebKitFormBoundaryQlnP0XucwLKu7Ppd--\r\n",
+        "status": 201,
+        "response": {
+            "proof_id": "c03afa43-7a67-43a6-9ad9-1a20992a1675",
+            "circuit_name": "circom-multiplier2",
+            "project_name": "circom-multiplier2",
+            "circuit_id": "16c3f4b0-0227-467a-8d4c-ad858eb03e45",
+            "circuit_type": "circom",
+            "date_created": "2024-09-07T16:01:21.334Z",
             "meta": {},
             "perform_verify": false,
-            "status": "Ready",
+            "status": "Queued",
             "team": "github-actions-qa",
             "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
             "team_slug": "github-actions-qa",
             "circuit_team": "github-actions-qa",
             "circuit_team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
             "circuit_team_slug": "github-actions-qa",
-            "compute_time": "P0DT00H00M06.995180S",
-            "compute_time_sec": 6.99518,
-            "compute_times": {
-                "prove": 5.61186,
-                "total": 6.99518,
-                "clean_up": 0.02199,
-                "file_setup": 0.86279,
-                "save_results": 0.3786,
-                "export_calldata": 0.11314,
-                "generate_witness_c": 0.0068
-            },
-            "file_size": 1353,
-            "proof": {
-                "pi_a": [
-                    "5462109360220553949025990831028244036853660989592045617956665471301130156088",
-                    "20372797770245259854646766200650170574593830034831157754173379686058541543073",
-                    "1"
-                ],
-                "pi_b": [
-                    [
-                        "11229835215561100915536977568822862401197533068050874004439666527896963848459",
-                        "19997031569480348490952921753773288838757046250872744808407428611228435139281"
-                    ],
-                    [
-                        "16444354801515951577935306939070854565237779479570598910645250286876728556789",
-                        "12975538950863774458236581792331632372993122386267195771306268482161478827841"
-                    ],
-                    [
-                        "1",
-                        "0"
-                    ]
-                ],
-                "pi_c": [
-                    "16978962181282804643945448087003579250649719553065762770689429909409201479530",
-                    "17851242476584503551341194382960016084240438281312112325648067937056522807983",
-                    "1"
-                ],
-                "protocol": "groth16"
-            },
-            "public": [
-                "20"
-            ],
-            "queue_time": "P0DT00H00M06.792152S",
-            "queue_time_sec": 6.792152,
+            "compute_time": null,
+            "compute_time_sec": null,
+            "compute_times": null,
+            "file_size": null,
+            "proof": null,
+            "public": null,
+            "queue_time": null,
+            "queue_time_sec": null,
             "smart_contract_calldata": null,
-            "has_smart_contract_calldata": true,
+            "has_smart_contract_calldata": false,
             "has_verification_key": true,
-            "verification_key": {
-                "protocol": "groth16",
-                "curve": "bn128",
-                "nPublic": 1,
-                "vk_alpha_1": [
-                    "20491192805390485299153009773594534940189261866228447918068658471970481763042",
-                    "9383485363053290200918347156157836566562967994039712273449902621266178545958",
-                    "1"
-                ],
-                "vk_beta_2": [
-                    [
-                        "6375614351688725206403948262868962793625744043794305715222011528459656738731",
-                        "4252822878758300859123897981450591353533073413197771768651442665752259397132"
-                    ],
-                    [
-                        "10505242626370262277552901082094356697409835680220590971873171140371331206856",
-                        "21847035105528745403288232691147584728191162732299865338377159692350059136679"
-                    ],
-                    [
-                        "1",
-                        "0"
-                    ]
-                ],
-                "vk_gamma_2": [
-                    [
-                        "10857046999023057135944570762232829481370756359578518086990519993285655852781",
-                        "11559732032986387107991004021392285783925812861821192530917403151452391805634"
-                    ],
-                    [
-                        "8495653923123431417604973247489272438418190587263600148770280649306958101930",
-                        "4082367875863433681332203403145435568316851327593401208105741076214120093531"
-                    ],
-                    [
-                        "1",
-                        "0"
-                    ]
-                ],
-                "vk_delta_2": [
-                    [
-                        "10857046999023057135944570762232829481370756359578518086990519993285655852781",
-                        "11559732032986387107991004021392285783925812861821192530917403151452391805634"
-                    ],
-                    [
-                        "8495653923123431417604973247489272438418190587263600148770280649306958101930",
-                        "4082367875863433681332203403145435568316851327593401208105741076214120093531"
-                    ],
-                    [
-                        "1",
-                        "0"
-                    ]
-                ],
-                "vk_alphabeta_12": [
-                    [
-                        [
-                            "2029413683389138792403550203267699914886160938906632433982220835551125967885",
-                            "21072700047562757817161031222997517981543347628379360635925549008442030252106"
-                        ],
-                        [
-                            "5940354580057074848093997050200682056184807770593307860589430076672439820312",
-                            "12156638873931618554171829126792193045421052652279363021382169897324752428276"
-                        ],
-                        [
-                            "7898200236362823042373859371574133993780991612861777490112507062703164551277",
-                            "7074218545237549455313236346927434013100842096812539264420499035217050630853"
-                        ]
-                    ],
-                    [
-                        [
-                            "7077479683546002997211712695946002074877511277312570035766170199895071832130",
-                            "10093483419865920389913245021038182291233451549023025229112148274109565435465"
-                        ],
-                        [
-                            "4595479056700221319381530156280926371456704509942304414423590385166031118820",
-                            "19831328484489333784475432780421641293929726139240675179672856274388269393268"
-                        ],
-                        [
-                            "11934129596455521040620786944827826205713621633706285934057045369193958244500",
-                            "8037395052364110730298837004334506829870972346962140206007064471173334027475"
-                        ]
-                    ]
-                ],
-                "IC": [
-                    [
-                        "6819801395408938350212900248749732364821477541620635511814266536599629892365",
-                        "9092252330033992554755034971584864587974280972948086568597554018278609861372",
-                        "1"
-                    ],
-                    [
-                        "17882351432929302592725330552407222299541667716607588771282887857165175611387",
-                        "18907419617206324833977586007131055763810739835484972981819026406579664278293",
-                        "1"
-                    ]
-                ]
-            },
+            "verification_key": null,
             "warnings": null,
             "error": null
         },
         "rawHeaders": [
             "Content-Length",
-            "4557",
+            "994",
             "Content-Type",
             "application/json; charset=utf-8",
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:44:08 GMT",
+            "Sat, 07 Sep 2024 16:01:21 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -8688,93 +8384,56 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "GET",
-        "path": "/api/v1/circuit/8abdcc1e-e86e-49bf-9c84-1d2ca8f1041d/proofs",
-        "body": "",
-        "status": 200,
-        "response": [
-            {
-                "proof_id": "3ba6d52d-7512-4a30-af34-fad7dfea3d0d",
-                "circuit_name": "circom-multiplier2",
-                "project_name": "circom-multiplier2",
-                "circuit_id": "8abdcc1e-e86e-49bf-9c84-1d2ca8f1041d",
-                "circuit_type": "circom",
-                "date_created": "2024-09-05T22:43:54.843Z",
-                "meta": {},
-                "perform_verify": false,
-                "status": "Ready",
-                "team": "github-actions-qa",
-                "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
-                "team_slug": "github-actions-qa",
-                "circuit_team": "github-actions-qa",
-                "circuit_team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
-                "circuit_team_slug": "github-actions-qa",
-                "compute_time": "P0DT00H00M06.995180S",
-                "compute_time_sec": 6.99518,
-                "compute_times": {
-                    "prove": 5.61186,
-                    "total": 6.99518,
-                    "clean_up": 0.02199,
-                    "file_setup": 0.86279,
-                    "save_results": 0.3786,
-                    "export_calldata": 0.11314,
-                    "generate_witness_c": 0.0068
-                },
-                "file_size": 1353,
-                "proof": null,
-                "public": null,
-                "queue_time": "P0DT00H00M06.792152S",
-                "queue_time_sec": 6.792152,
-                "smart_contract_calldata": null,
-                "has_smart_contract_calldata": true,
-                "has_verification_key": true,
-                "verification_key": null,
-                "warnings": null,
-                "error": null
-            }
-        ],
-        "rawHeaders": [
-            "Content-Length",
-            "1195",
-            "Content-Type",
-            "application/json; charset=utf-8",
-            "Cross-Origin-Opener-Policy",
-            "same-origin",
-            "Date",
-            "Thu, 05 Sep 2024 22:44:08 GMT",
-            "Referrer-Policy",
-            "same-origin",
-            "Server",
-            "openresty",
-            "Vary",
-            "Cookie, origin",
-            "X-Content-Type-Options",
-            "nosniff",
-            "X-Frame-Options",
-            "SAMEORIGIN"
-        ],
-        "responseIsBinary": false
-    },
-    {
-        "scope": "https://sindri.app:443",
-        "method": "GET",
-        "path": "/api/v1/proof/bcc355be-b8a9-48ba-b50e-2d4cd994f3a4/status",
+        "path": "/api/v1/circuit/440eab15-88bf-4cc2-83b0-6f060ba2db2a/status",
         "body": "",
         "status": 200,
         "response": {
-            "proof_id": "bcc355be-b8a9-48ba-b50e-2d4cd994f3a4",
+            "circuit_id": "440eab15-88bf-4cc2-83b0-6f060ba2db2a",
+            "status": "Queued"
+        },
+        "rawHeaders": [
+            "Content-Length",
+            "74",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Cross-Origin-Opener-Policy",
+            "same-origin",
+            "Date",
+            "Sat, 07 Sep 2024 16:01:38 GMT",
+            "Referrer-Policy",
+            "same-origin",
+            "Server",
+            "openresty",
+            "Vary",
+            "Cookie, origin",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Frame-Options",
+            "SAMEORIGIN"
+        ],
+        "responseIsBinary": false
+    },
+    {
+        "scope": "https://stage.sindri.app:443",
+        "method": "GET",
+        "path": "/api/v1/circuit/440eab15-88bf-4cc2-83b0-6f060ba2db2a/status",
+        "body": "",
+        "status": 200,
+        "response": {
+            "circuit_id": "440eab15-88bf-4cc2-83b0-6f060ba2db2a",
             "status": "Ready"
         },
         "rawHeaders": [
             "Content-Length",
-            "71",
+            "73",
             "Content-Type",
             "application/json; charset=utf-8",
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:44:09 GMT",
+            "Sat, 07 Sep 2024 16:02:00 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -8789,180 +8448,81 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "GET",
-        "path": "/api/v1/proof/bcc355be-b8a9-48ba-b50e-2d4cd994f3a4/detail?include_proof=true&include_public=true&include_smart_contract_calldata=false&include_verification_key=true",
+        "path": "/api/v1/circuit/440eab15-88bf-4cc2-83b0-6f060ba2db2a/detail?include_verification_key=false",
         "body": "",
         "status": 200,
         "response": {
-            "proof_id": "bcc355be-b8a9-48ba-b50e-2d4cd994f3a4",
+            "circuit_id": "440eab15-88bf-4cc2-83b0-6f060ba2db2a",
             "circuit_name": "circom-multiplier2",
             "project_name": "circom-multiplier2",
-            "circuit_id": "dc4ba711-fe22-4a38-893f-62a0c3aba50f",
             "circuit_type": "circom",
-            "date_created": "2024-09-05T22:43:53.816Z",
+            "date_created": "2024-09-07T16:00:37.222Z",
             "meta": {},
-            "perform_verify": false,
+            "num_proofs": 0,
+            "proving_scheme": "groth16",
+            "public": false,
             "status": "Ready",
+            "tags": [
+                "from-file-array",
+                "sdk-create-proof-multiplier2-circuit",
+                "from-tarball-for-all-circuit-proofs",
+                "from-browser-file-array-for-get-proof",
+                "from-browser-file-array-for-get-all-circuit-proofs",
+                "from-browser-file-array-for-get-circuit",
+                "from-tarball",
+                "browser-create-proof-multiplier2-circuit",
+                "from-tarball-for-get-proof",
+                "from-browser-file-array",
+                "from-tarball-for-get-circuit",
+                "from-browser-file-array-for-prove-circuit",
+                "from-directory",
+                "from-tarball-for-prove-circuit"
+            ],
             "team": "github-actions-qa",
             "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
             "team_slug": "github-actions-qa",
-            "circuit_team": "github-actions-qa",
-            "circuit_team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
-            "circuit_team_slug": "github-actions-qa",
-            "compute_time": "P0DT00H00M12.930933S",
-            "compute_time_sec": 12.930933,
+            "compute_time": "P0DT00H00M53.409280S",
+            "compute_time_sec": 53.40928,
             "compute_times": {
-                "prove": 11.57557,
-                "total": 12.93093,
-                "clean_up": 0.00507,
-                "file_setup": 0.78947,
-                "save_results": 0.39627,
-                "export_calldata": 0.11892,
-                "generate_witness_c": 0.04564
+                "total": 53.40928,
+                "clean_up": 0.03845,
+                "create_cpp": 0.19658,
+                "file_setup": 42.88611,
+                "compile_cpp": 5.29063,
+                "create_r1cs": 0.01187,
+                "save_results": 0.83326,
+                "get_r1cs_info": 0.00062,
+                "groth16_setup": 1.11517,
+                "export_verification_key": 1.12636,
+                "download_trusted_setup_file": 0.7431,
+                "solidity_contract_generation": 1.16714
             },
-            "file_size": 1347,
-            "proof": {
-                "pi_a": [
-                    "756040042720567647140438138409860870315531114698349714557380994800759474214",
-                    "19039948709538898018144087689852481987574043451693539519996010185468023784545",
-                    "1"
-                ],
-                "pi_b": [
-                    [
-                        "581246963983217313901893537233100914980016890820321392772338648684862509898",
-                        "4886330022978760122349884005065938184640432716126732404848298157154558997379"
-                    ],
-                    [
-                        "21211942396638542309202028717752546665324706436878766350389520365062455614527",
-                        "12260173032877118198309342366858301589875797133227922334698476047229838672043"
-                    ],
-                    [
-                        "1",
-                        "0"
-                    ]
-                ],
-                "pi_c": [
-                    "8941452958986333833326262844015208847918191461816356221339479875569659908191",
-                    "1081250109192707103084741308456190517786246752591598063799596804445016066989",
-                    "1"
-                ],
-                "protocol": "groth16"
-            },
-            "public": [
-                "20"
-            ],
-            "queue_time": "P0DT00H00M02.489426S",
-            "queue_time_sec": 2.489426,
-            "smart_contract_calldata": null,
-            "has_smart_contract_calldata": true,
+            "file_size": 236740,
+            "queue_time": "P0DT00H00M28.734719S",
+            "queue_time_sec": 28.734719,
+            "uploaded_file_name": "circom-multiplier2.tar.gz",
+            "has_smart_contract_verifier": true,
             "has_verification_key": true,
-            "verification_key": {
-                "protocol": "groth16",
-                "curve": "bn128",
-                "nPublic": 1,
-                "vk_alpha_1": [
-                    "20491192805390485299153009773594534940189261866228447918068658471970481763042",
-                    "9383485363053290200918347156157836566562967994039712273449902621266178545958",
-                    "1"
-                ],
-                "vk_beta_2": [
-                    [
-                        "6375614351688725206403948262868962793625744043794305715222011528459656738731",
-                        "4252822878758300859123897981450591353533073413197771768651442665752259397132"
-                    ],
-                    [
-                        "10505242626370262277552901082094356697409835680220590971873171140371331206856",
-                        "21847035105528745403288232691147584728191162732299865338377159692350059136679"
-                    ],
-                    [
-                        "1",
-                        "0"
-                    ]
-                ],
-                "vk_gamma_2": [
-                    [
-                        "10857046999023057135944570762232829481370756359578518086990519993285655852781",
-                        "11559732032986387107991004021392285783925812861821192530917403151452391805634"
-                    ],
-                    [
-                        "8495653923123431417604973247489272438418190587263600148770280649306958101930",
-                        "4082367875863433681332203403145435568316851327593401208105741076214120093531"
-                    ],
-                    [
-                        "1",
-                        "0"
-                    ]
-                ],
-                "vk_delta_2": [
-                    [
-                        "10857046999023057135944570762232829481370756359578518086990519993285655852781",
-                        "11559732032986387107991004021392285783925812861821192530917403151452391805634"
-                    ],
-                    [
-                        "8495653923123431417604973247489272438418190587263600148770280649306958101930",
-                        "4082367875863433681332203403145435568316851327593401208105741076214120093531"
-                    ],
-                    [
-                        "1",
-                        "0"
-                    ]
-                ],
-                "vk_alphabeta_12": [
-                    [
-                        [
-                            "2029413683389138792403550203267699914886160938906632433982220835551125967885",
-                            "21072700047562757817161031222997517981543347628379360635925549008442030252106"
-                        ],
-                        [
-                            "5940354580057074848093997050200682056184807770593307860589430076672439820312",
-                            "12156638873931618554171829126792193045421052652279363021382169897324752428276"
-                        ],
-                        [
-                            "7898200236362823042373859371574133993780991612861777490112507062703164551277",
-                            "7074218545237549455313236346927434013100842096812539264420499035217050630853"
-                        ]
-                    ],
-                    [
-                        [
-                            "7077479683546002997211712695946002074877511277312570035766170199895071832130",
-                            "10093483419865920389913245021038182291233451549023025229112148274109565435465"
-                        ],
-                        [
-                            "4595479056700221319381530156280926371456704509942304414423590385166031118820",
-                            "19831328484489333784475432780421641293929726139240675179672856274388269393268"
-                        ],
-                        [
-                            "11934129596455521040620786944827826205713621633706285934057045369193958244500",
-                            "8037395052364110730298837004334506829870972346962140206007064471173334027475"
-                        ]
-                    ]
-                ],
-                "IC": [
-                    [
-                        "6819801395408938350212900248749732364821477541620635511814266536599629892365",
-                        "9092252330033992554755034971584864587974280972948086568597554018278609861372",
-                        "1"
-                    ],
-                    [
-                        "17882351432929302592725330552407222299541667716607588771282887857165175611387",
-                        "18907419617206324833977586007131055763810739835484972981819026406579664278293",
-                        "1"
-                    ]
-                ]
-            },
+            "verification_key": null,
             "warnings": null,
-            "error": null
+            "error": null,
+            "curve": "bn254",
+            "num_constraints": 1,
+            "num_outputs": 1,
+            "num_private_inputs": 2,
+            "num_public_inputs": 0
         },
         "rawHeaders": [
             "Content-Length",
-            "4557",
+            "1743",
             "Content-Type",
             "application/json; charset=utf-8",
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:44:09 GMT",
+            "Sat, 07 Sep 2024 16:02:00 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
@@ -8977,180 +8537,433 @@
         "responseIsBinary": false
     },
     {
-        "scope": "https://sindri.app:443",
+        "scope": "https://stage.sindri.app:443",
         "method": "GET",
-        "path": "/api/v1/proof/bcc355be-b8a9-48ba-b50e-2d4cd994f3a4/detail?include_proof=true&include_public=true&include_smart_contract_calldata=true&include_verification_key=true",
+        "path": "/api/v1/circuit/440eab15-88bf-4cc2-83b0-6f060ba2db2a/detail?include_verification_key=true",
         "body": "",
         "status": 200,
         "response": {
-            "proof_id": "bcc355be-b8a9-48ba-b50e-2d4cd994f3a4",
+            "circuit_id": "440eab15-88bf-4cc2-83b0-6f060ba2db2a",
             "circuit_name": "circom-multiplier2",
             "project_name": "circom-multiplier2",
-            "circuit_id": "dc4ba711-fe22-4a38-893f-62a0c3aba50f",
             "circuit_type": "circom",
-            "date_created": "2024-09-05T22:43:53.816Z",
+            "date_created": "2024-09-07T16:00:37.222Z",
             "meta": {},
-            "perform_verify": false,
+            "num_proofs": 0,
+            "proving_scheme": "groth16",
+            "public": false,
             "status": "Ready",
+            "tags": [
+                "from-file-array",
+                "sdk-create-proof-multiplier2-circuit",
+                "from-tarball-for-all-circuit-proofs",
+                "from-browser-file-array-for-get-proof",
+                "from-browser-file-array-for-get-all-circuit-proofs",
+                "from-browser-file-array-for-get-circuit",
+                "from-tarball",
+                "browser-create-proof-multiplier2-circuit",
+                "from-tarball-for-get-proof",
+                "from-browser-file-array",
+                "from-tarball-for-get-circuit",
+                "from-browser-file-array-for-prove-circuit",
+                "from-directory",
+                "from-tarball-for-prove-circuit"
+            ],
             "team": "github-actions-qa",
             "team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
             "team_slug": "github-actions-qa",
-            "circuit_team": "github-actions-qa",
-            "circuit_team_avatar_url": "https://gravatar.com/avatar/b51a15f382ac914391a58850ab343b00?s=400&d=identicon&r=x",
-            "circuit_team_slug": "github-actions-qa",
-            "compute_time": "P0DT00H00M12.930933S",
-            "compute_time_sec": 12.930933,
+            "compute_time": "P0DT00H00M53.409280S",
+            "compute_time_sec": 53.40928,
             "compute_times": {
-                "prove": 11.57557,
-                "total": 12.93093,
-                "clean_up": 0.00507,
-                "file_setup": 0.78947,
-                "save_results": 0.39627,
-                "export_calldata": 0.11892,
-                "generate_witness_c": 0.04564
+                "total": 53.40928,
+                "clean_up": 0.03845,
+                "create_cpp": 0.19658,
+                "file_setup": 42.88611,
+                "compile_cpp": 5.29063,
+                "create_r1cs": 0.01187,
+                "save_results": 0.83326,
+                "get_r1cs_info": 0.00062,
+                "groth16_setup": 1.11517,
+                "export_verification_key": 1.12636,
+                "download_trusted_setup_file": 0.7431,
+                "solidity_contract_generation": 1.16714
             },
-            "file_size": 1347,
-            "proof": {
-                "pi_a": [
-                    "756040042720567647140438138409860870315531114698349714557380994800759474214",
-                    "19039948709538898018144087689852481987574043451693539519996010185468023784545",
-                    "1"
-                ],
-                "pi_b": [
-                    [
-                        "581246963983217313901893537233100914980016890820321392772338648684862509898",
-                        "4886330022978760122349884005065938184640432716126732404848298157154558997379"
-                    ],
-                    [
-                        "21211942396638542309202028717752546665324706436878766350389520365062455614527",
-                        "12260173032877118198309342366858301589875797133227922334698476047229838672043"
-                    ],
-                    [
-                        "1",
-                        "0"
-                    ]
-                ],
-                "pi_c": [
-                    "8941452958986333833326262844015208847918191461816356221339479875569659908191",
-                    "1081250109192707103084741308456190517786246752591598063799596804445016066989",
-                    "1"
-                ],
-                "protocol": "groth16"
-            },
-            "public": [
-                "20"
-            ],
-            "queue_time": "P0DT00H00M02.489426S",
-            "queue_time_sec": 2.489426,
-            "smart_contract_calldata": "[\"0x01abe74bc4290845b7946cffa5cf0038f36566746c8e249e8bf8cd465c5e0826\", \"0x2a183aa49f37ed315d75dd76c0b682b4904342e2ac10ef2e214663ad6dddc461\"],[[\"0x0acd9095c155b8c95bba216f1158c9d219e5a9531ab7b98524bbb135907af383\", \"0x0148f9602385149ca48e3f4bf8fcd24551dd29944f4b40bb37bc24417472134a\"],[\"0x1b1b0314386c0b9d5e77ce7f3fa0f32975e01a97f71f5ded52d1f34a9c3fc0ab\", \"0x2ee588b00e6f8d0d6d166cb32326438cffa78adcf53c1fb3cafb77fc94e4dc3f\"]],[\"0x13c4aedb1d9442cb60d20e023790b86003c4d6584575b48a4a191cc43f83905f\", \"0x0263f7438df3146682fdbff2f3be0e7565532bb57d84e1fa0aeda7edfa0a8bad\"],[\"0x0000000000000000000000000000000000000000000000000000000000000014\"]\n",
-            "has_smart_contract_calldata": true,
+            "file_size": 236740,
+            "queue_time": "P0DT00H00M28.734719S",
+            "queue_time_sec": 28.734719,
+            "uploaded_file_name": "circom-multiplier2.tar.gz",
+            "has_smart_contract_verifier": true,
             "has_verification_key": true,
-            "verification_key": {
-                "protocol": "groth16",
-                "curve": "bn128",
-                "nPublic": 1,
-                "vk_alpha_1": [
-                    "20491192805390485299153009773594534940189261866228447918068658471970481763042",
-                    "9383485363053290200918347156157836566562967994039712273449902621266178545958",
-                    "1"
-                ],
-                "vk_beta_2": [
-                    [
-                        "6375614351688725206403948262868962793625744043794305715222011528459656738731",
-                        "4252822878758300859123897981450591353533073413197771768651442665752259397132"
-                    ],
-                    [
-                        "10505242626370262277552901082094356697409835680220590971873171140371331206856",
-                        "21847035105528745403288232691147584728191162732299865338377159692350059136679"
-                    ],
-                    [
-                        "1",
-                        "0"
-                    ]
-                ],
-                "vk_gamma_2": [
-                    [
-                        "10857046999023057135944570762232829481370756359578518086990519993285655852781",
-                        "11559732032986387107991004021392285783925812861821192530917403151452391805634"
-                    ],
-                    [
-                        "8495653923123431417604973247489272438418190587263600148770280649306958101930",
-                        "4082367875863433681332203403145435568316851327593401208105741076214120093531"
-                    ],
-                    [
-                        "1",
-                        "0"
-                    ]
-                ],
-                "vk_delta_2": [
-                    [
-                        "10857046999023057135944570762232829481370756359578518086990519993285655852781",
-                        "11559732032986387107991004021392285783925812861821192530917403151452391805634"
-                    ],
-                    [
-                        "8495653923123431417604973247489272438418190587263600148770280649306958101930",
-                        "4082367875863433681332203403145435568316851327593401208105741076214120093531"
-                    ],
-                    [
-                        "1",
-                        "0"
-                    ]
-                ],
-                "vk_alphabeta_12": [
-                    [
-                        [
-                            "2029413683389138792403550203267699914886160938906632433982220835551125967885",
-                            "21072700047562757817161031222997517981543347628379360635925549008442030252106"
-                        ],
-                        [
-                            "5940354580057074848093997050200682056184807770593307860589430076672439820312",
-                            "12156638873931618554171829126792193045421052652279363021382169897324752428276"
-                        ],
-                        [
-                            "7898200236362823042373859371574133993780991612861777490112507062703164551277",
-                            "7074218545237549455313236346927434013100842096812539264420499035217050630853"
-                        ]
-                    ],
-                    [
-                        [
-                            "7077479683546002997211712695946002074877511277312570035766170199895071832130",
-                            "10093483419865920389913245021038182291233451549023025229112148274109565435465"
-                        ],
-                        [
-                            "4595479056700221319381530156280926371456704509942304414423590385166031118820",
-                            "19831328484489333784475432780421641293929726139240675179672856274388269393268"
-                        ],
-                        [
-                            "11934129596455521040620786944827826205713621633706285934057045369193958244500",
-                            "8037395052364110730298837004334506829870972346962140206007064471173334027475"
-                        ]
-                    ]
-                ],
-                "IC": [
-                    [
-                        "6819801395408938350212900248749732364821477541620635511814266536599629892365",
-                        "9092252330033992554755034971584864587974280972948086568597554018278609861372",
-                        "1"
-                    ],
-                    [
-                        "17882351432929302592725330552407222299541667716607588771282887857165175611387",
-                        "18907419617206324833977586007131055763810739835484972981819026406579664278293",
-                        "1"
-                    ]
-                ]
-            },
+            "verification_key": null,
             "warnings": null,
-            "error": null
+            "error": null,
+            "curve": "bn254",
+            "num_constraints": 1,
+            "num_outputs": 1,
+            "num_private_inputs": 2,
+            "num_public_inputs": 0
         },
         "rawHeaders": [
             "Content-Length",
-            "5211",
+            "1743",
             "Content-Type",
             "application/json; charset=utf-8",
             "Cross-Origin-Opener-Policy",
             "same-origin",
             "Date",
-            "Thu, 05 Sep 2024 22:44:09 GMT",
+            "Sat, 07 Sep 2024 16:02:00 GMT",
+            "Referrer-Policy",
+            "same-origin",
+            "Server",
+            "openresty",
+            "Vary",
+            "Cookie, origin",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Frame-Options",
+            "SAMEORIGIN"
+        ],
+        "responseIsBinary": false
+    },
+    {
+        "scope": "https://stage.sindri.app:443",
+        "method": "GET",
+        "path": "/api/v1/proof/733b61df-6ebb-40f8-93d2-fb450524a0ef/status",
+        "body": "",
+        "status": 200,
+        "response": {
+            "proof_id": "733b61df-6ebb-40f8-93d2-fb450524a0ef",
+            "status": "Queued"
+        },
+        "rawHeaders": [
+            "Content-Length",
+            "72",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Cross-Origin-Opener-Policy",
+            "same-origin",
+            "Date",
+            "Sat, 07 Sep 2024 16:02:12 GMT",
+            "Referrer-Policy",
+            "same-origin",
+            "Server",
+            "openresty",
+            "Vary",
+            "Cookie, origin",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Frame-Options",
+            "SAMEORIGIN"
+        ],
+        "responseIsBinary": false
+    },
+    {
+        "scope": "https://stage.sindri.app:443",
+        "method": "GET",
+        "path": "/api/v1/proof/d417885c-bc1c-4b58-8727-000a3c55d1fc/status",
+        "body": "",
+        "status": 200,
+        "response": {
+            "proof_id": "d417885c-bc1c-4b58-8727-000a3c55d1fc",
+            "status": "Queued"
+        },
+        "rawHeaders": [
+            "Content-Length",
+            "72",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Cross-Origin-Opener-Policy",
+            "same-origin",
+            "Date",
+            "Sat, 07 Sep 2024 16:02:14 GMT",
+            "Referrer-Policy",
+            "same-origin",
+            "Server",
+            "openresty",
+            "Vary",
+            "Cookie, origin",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Frame-Options",
+            "SAMEORIGIN"
+        ],
+        "responseIsBinary": false
+    },
+    {
+        "scope": "https://stage.sindri.app:443",
+        "method": "GET",
+        "path": "/api/v1/proof/480dfdc4-396a-4af0-9cf6-6c7e128c719e/status",
+        "body": "",
+        "status": 200,
+        "response": {
+            "proof_id": "480dfdc4-396a-4af0-9cf6-6c7e128c719e",
+            "status": "Queued"
+        },
+        "rawHeaders": [
+            "Content-Length",
+            "72",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Cross-Origin-Opener-Policy",
+            "same-origin",
+            "Date",
+            "Sat, 07 Sep 2024 16:02:15 GMT",
+            "Referrer-Policy",
+            "same-origin",
+            "Server",
+            "openresty",
+            "Vary",
+            "Cookie, origin",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Frame-Options",
+            "SAMEORIGIN"
+        ],
+        "responseIsBinary": false
+    },
+    {
+        "scope": "https://stage.sindri.app:443",
+        "method": "GET",
+        "path": "/api/v1/proof/c03afa43-7a67-43a6-9ad9-1a20992a1675/status",
+        "body": "",
+        "status": 200,
+        "response": {
+            "proof_id": "c03afa43-7a67-43a6-9ad9-1a20992a1675",
+            "status": "Queued"
+        },
+        "rawHeaders": [
+            "Content-Length",
+            "72",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Cross-Origin-Opener-Policy",
+            "same-origin",
+            "Date",
+            "Sat, 07 Sep 2024 16:02:21 GMT",
+            "Referrer-Policy",
+            "same-origin",
+            "Server",
+            "openresty",
+            "Vary",
+            "Cookie, origin",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Frame-Options",
+            "SAMEORIGIN"
+        ],
+        "responseIsBinary": false
+    },
+    {
+        "scope": "https://stage.sindri.app:443",
+        "method": "GET",
+        "path": "/api/v1/proof/733b61df-6ebb-40f8-93d2-fb450524a0ef/status",
+        "body": "",
+        "status": 200,
+        "response": {
+            "proof_id": "733b61df-6ebb-40f8-93d2-fb450524a0ef",
+            "status": "Queued"
+        },
+        "rawHeaders": [
+            "Content-Length",
+            "72",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Cross-Origin-Opener-Policy",
+            "same-origin",
+            "Date",
+            "Sat, 07 Sep 2024 16:03:14 GMT",
+            "Referrer-Policy",
+            "same-origin",
+            "Server",
+            "openresty",
+            "Vary",
+            "Cookie, origin",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Frame-Options",
+            "SAMEORIGIN"
+        ],
+        "responseIsBinary": false
+    },
+    {
+        "scope": "https://stage.sindri.app:443",
+        "method": "GET",
+        "path": "/api/v1/proof/d417885c-bc1c-4b58-8727-000a3c55d1fc/status",
+        "body": "",
+        "status": 200,
+        "response": {
+            "proof_id": "d417885c-bc1c-4b58-8727-000a3c55d1fc",
+            "status": "Queued"
+        },
+        "rawHeaders": [
+            "Content-Length",
+            "72",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Cross-Origin-Opener-Policy",
+            "same-origin",
+            "Date",
+            "Sat, 07 Sep 2024 16:03:16 GMT",
+            "Referrer-Policy",
+            "same-origin",
+            "Server",
+            "openresty",
+            "Vary",
+            "Cookie, origin",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Frame-Options",
+            "SAMEORIGIN"
+        ],
+        "responseIsBinary": false
+    },
+    {
+        "scope": "https://stage.sindri.app:443",
+        "method": "GET",
+        "path": "/api/v1/proof/480dfdc4-396a-4af0-9cf6-6c7e128c719e/status",
+        "body": "",
+        "status": 200,
+        "response": {
+            "proof_id": "480dfdc4-396a-4af0-9cf6-6c7e128c719e",
+            "status": "Queued"
+        },
+        "rawHeaders": [
+            "Content-Length",
+            "72",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Cross-Origin-Opener-Policy",
+            "same-origin",
+            "Date",
+            "Sat, 07 Sep 2024 16:03:17 GMT",
+            "Referrer-Policy",
+            "same-origin",
+            "Server",
+            "openresty",
+            "Vary",
+            "Cookie, origin",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Frame-Options",
+            "SAMEORIGIN"
+        ],
+        "responseIsBinary": false
+    },
+    {
+        "scope": "https://stage.sindri.app:443",
+        "method": "GET",
+        "path": "/api/v1/proof/c03afa43-7a67-43a6-9ad9-1a20992a1675/status",
+        "body": "",
+        "status": 200,
+        "response": {
+            "proof_id": "c03afa43-7a67-43a6-9ad9-1a20992a1675",
+            "status": "Queued"
+        },
+        "rawHeaders": [
+            "Content-Length",
+            "72",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Cross-Origin-Opener-Policy",
+            "same-origin",
+            "Date",
+            "Sat, 07 Sep 2024 16:03:23 GMT",
+            "Referrer-Policy",
+            "same-origin",
+            "Server",
+            "openresty",
+            "Vary",
+            "Cookie, origin",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Frame-Options",
+            "SAMEORIGIN"
+        ],
+        "responseIsBinary": false
+    },
+    {
+        "scope": "https://stage.sindri.app:443",
+        "method": "GET",
+        "path": "/api/v1/proof/733b61df-6ebb-40f8-93d2-fb450524a0ef/status",
+        "body": "",
+        "status": 200,
+        "response": {
+            "proof_id": "733b61df-6ebb-40f8-93d2-fb450524a0ef",
+            "status": "Queued"
+        },
+        "rawHeaders": [
+            "Content-Length",
+            "72",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Cross-Origin-Opener-Policy",
+            "same-origin",
+            "Date",
+            "Sat, 07 Sep 2024 16:04:15 GMT",
+            "Referrer-Policy",
+            "same-origin",
+            "Server",
+            "openresty",
+            "Vary",
+            "Cookie, origin",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Frame-Options",
+            "SAMEORIGIN"
+        ],
+        "responseIsBinary": false
+    },
+    {
+        "scope": "https://stage.sindri.app:443",
+        "method": "GET",
+        "path": "/api/v1/proof/d417885c-bc1c-4b58-8727-000a3c55d1fc/status",
+        "body": "",
+        "status": 200,
+        "response": {
+            "proof_id": "d417885c-bc1c-4b58-8727-000a3c55d1fc",
+            "status": "Queued"
+        },
+        "rawHeaders": [
+            "Content-Length",
+            "72",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Cross-Origin-Opener-Policy",
+            "same-origin",
+            "Date",
+            "Sat, 07 Sep 2024 16:04:17 GMT",
+            "Referrer-Policy",
+            "same-origin",
+            "Server",
+            "openresty",
+            "Vary",
+            "Cookie, origin",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-Frame-Options",
+            "SAMEORIGIN"
+        ],
+        "responseIsBinary": false
+    },
+    {
+        "scope": "https://stage.sindri.app:443",
+        "method": "GET",
+        "path": "/api/v1/proof/480dfdc4-396a-4af0-9cf6-6c7e128c719e/status",
+        "body": "",
+        "status": 200,
+        "response": {
+            "proof_id": "480dfdc4-396a-4af0-9cf6-6c7e128c719e",
+            "status": "Queued"
+        },
+        "rawHeaders": [
+            "Content-Length",
+            "72",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Cross-Origin-Opener-Policy",
+            "same-origin",
+            "Date",
+            "Sat, 07 Sep 2024 16:04:18 GMT",
             "Referrer-Policy",
             "same-origin",
             "Server",
