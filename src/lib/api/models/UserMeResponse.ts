@@ -9,6 +9,7 @@ import type { TeamDetail } from "./TeamDetail";
  * Details about the currently authenticated user.
  */
 export type UserMeResponse = {
+  id: number;
   first_name: string;
   last_name: string;
   /**
