@@ -29,7 +29,7 @@ export class ApiClient {
   ) {
     this.request = new HttpRequest({
       BASE: config?.BASE ?? "https://sindri.app",
-      VERSION: config?.VERSION ?? "1.12.11",
+      VERSION: config?.VERSION ?? "1.12.12",
       WITH_CREDENTIALS: config?.WITH_CREDENTIALS ?? false,
       CREDENTIALS: config?.CREDENTIALS ?? "include",
       TOKEN: config?.TOKEN,
