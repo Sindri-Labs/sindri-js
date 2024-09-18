@@ -11,5 +11,6 @@ export type CircuitType =
   | "circom"
   | "gnark"
   | "halo2"
+  | "jolt"
   | "noir"
   | "plonky2";

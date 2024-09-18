@@ -31,6 +31,7 @@ export type { GnarkCircuitInfoResponse } from "./models/GnarkCircuitInfoResponse
 export type { Halo2CircuitInfoResponse } from "./models/Halo2CircuitInfoResponse";
 export type { Input } from "./models/Input";
 export type { JobStatus } from "./models/JobStatus";
+export type { JoltCircuitInfoResponse } from "./models/JoltCircuitInfoResponse";
 export type { JWTTokenErrorResponse } from "./models/JWTTokenErrorResponse";
 export type { NoirCircuitInfoResponse } from "./models/NoirCircuitInfoResponse";
 export type { ObtainApikeyInput } from "./models/ObtainApikeyInput";

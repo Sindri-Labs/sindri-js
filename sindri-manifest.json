@@ -581,6 +581,110 @@
       "title": "Halo2TranscriptHashOptions",
       "type": "string"
     },
+    "JoltCommitmentSchemeOptions": {
+      "description": "The supported Jolt commitment schemes.",
+      "enum": ["hyrax", "hyperKZG", "zeromorph"],
+      "title": "JoltCommitmentSchemeOptions",
+      "type": "string"
+    },
+    "JoltProvingSchemeOptions": {
+      "const": "jolt",
+      "description": "The supported Jolt proving schemes.",
+      "enum": ["jolt"],
+      "title": "JoltProvingSchemeOptions",
+      "type": "string"
+    },
+    "JoltSindriManifest": {
+      "additionalProperties": false,
+      "description": "Sindri Manifest for Jolt guest code.",
+      "properties": {
+        "circuitType": {
+          "const": "jolt",
+          "description": "The (frontend) development framework that your circuit is written with.",
+          "enum": ["jolt"],
+          "title": "Circuit Type",
+          "type": "string"
+        },
+        "name": {
+          "description": "The circuit name used to uniquely identify the circuit within your organization. Similar to a GitHub project name or a Docker image name.",
+          "error_messages": {
+            "pattern": "`name` must be a valid slug."
+          },
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "title": "Circuit Name",
+          "type": "string"
+        },
+        "joltVersion": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/JoltVersionOptions"
+            }
+          ],
+          "default": "0.1.0",
+          "description": "Jolt compiler version (defaults to `0.1.0`)."
+        },
+        "packageName": {
+          "description": "The name of the Rust package containing your circuit.",
+          "error_messages": {
+            "pattern": "`packageName` must be a valid Rust crate name."
+          },
+          "pattern": "^[a-z0-9_]+(?:-[a-z0-9_]+)*$",
+          "title": "Rust Package Name",
+          "type": "string"
+        },
+        "stdEnabled": {
+          "description": "Whether the standard library is enabled.",
+          "title": "Standard Library Enabled",
+          "type": "boolean"
+        },
+        "commitmentScheme": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/JoltCommitmentSchemeOptions"
+            }
+          ],
+          "default": "hyrax",
+          "description": "The commitment scheme used in the circuit.",
+          "title": "Commitment Scheme"
+        },
+        "provingScheme": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/JoltProvingSchemeOptions"
+            }
+          ],
+          "default": "jolt",
+          "description": "Jolt proving scheme defaults to `jolt`."
+        },
+        "guestFunction": {
+          "description": "The guest function name used in the guest code.",
+          "title": "Guest Functions",
+          "type": "string"
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": ["https://sindri.app/api/v1/sindri-manifest-schema.json"]
+        }
+      },
+      "required": [
+        "circuitType",
+        "name",
+        "packageName",
+        "stdEnabled",
+        "guestFunction"
+      ],
+      "title": "Sindri Manifest for Jolt guest code",
+      "type": "object"
+    },
+    "JoltVersionOptions": {
+      "const": "0.1.0",
+      "description": "The supported Jolt framework versions.",
+      "enum": ["0.1.0"],
+      "title": "JoltVersionOptions",
+      "type": "string"
+    },
     "NoirCurveOptions": {
       "const": "bn254",
       "description": "The supported Noir curves.",
@@ -761,6 +865,9 @@
     },
     {
       "$ref": "#/$defs/Halo2PSEV030SindriManifest"
+    },
+    {
+      "$ref": "#/$defs/JoltSindriManifest"
     },
     {
       "$ref": "#/$defs/NoirSindriManifest"
