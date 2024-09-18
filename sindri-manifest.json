@@ -583,7 +583,7 @@
     },
     "JoltCommitmentSchemeOptions": {
       "description": "The supported Jolt commitment schemes.",
-      "enum": ["hyrax", "hyperKZG", "zeromorph"],
+      "enum": ["hyrax", "hyperkzg", "zeromorph"],
       "title": "JoltCommitmentSchemeOptions",
       "type": "string"
     },
