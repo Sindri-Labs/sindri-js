@@ -619,6 +619,9 @@ export class InternalService {
       path: {
         team_name: teamName,
       },
+      errors: {
+        404: `Not Found`,
+      },
     });
   }
 
