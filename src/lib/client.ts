@@ -55,7 +55,7 @@ export type CircuitInfoResponse =
   | Plonky2CircuitInfoResponse;
 
 // Re-export other internal types.
-export type { Logger, LogLevel, Meta };
+export type { Logger, LogLevel, Meta, RertyOptions };
 
 /**
  * The options for authenticating with the API.
