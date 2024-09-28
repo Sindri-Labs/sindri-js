@@ -5,12 +5,15 @@
 import type { ActionResponse } from "../models/ActionResponse";
 import type { CircuitInfoResponse } from "../models/CircuitInfoResponse";
 import type { CircuitStatusResponse } from "../models/CircuitStatusResponse";
-import type { JobStatus } from "../models/JobStatus";
 import type { PagedCircuitInfoResponse } from "../models/PagedCircuitInfoResponse";
 import type { PagedProjectInfoResponse } from "../models/PagedProjectInfoResponse";
 import type { PagedProofInfoResponse } from "../models/PagedProofInfoResponse";
+import type { PasswordChangeInput } from "../models/PasswordChangeInput";
 import type { ProjectInfoResponse } from "../models/ProjectInfoResponse";
+import type { ProjectListInput } from "../models/ProjectListInput";
+import type { ProjectSettingsInput } from "../models/ProjectSettingsInput";
 import type { ProofInfoResponse } from "../models/ProofInfoResponse";
+import type { ProofListInput } from "../models/ProofListInput";
 import type { ProofStatusResponse } from "../models/ProofStatusResponse";
 import type { SmartContractVerifierResponse } from "../models/SmartContractVerifierResponse";
 import type { TeamDetail } from "../models/TeamDetail";
@@ -231,21 +234,18 @@ export class InternalService {
   /**
    * Project List
    * List all projects meeting filter criteria.
-   * @param formData
+   * @param requestBody
    * @returns ProjectInfoResponse OK
    * @throws ApiError
    */
-  public projectList(formData: {
-    /**
-     * Return projects owned by this team.
-     */
-    team_name?: string | null;
-  }): CancelablePromise<Array<ProjectInfoResponse>> {
+  public projectList(
+    requestBody: ProjectListInput,
+  ): CancelablePromise<Array<ProjectInfoResponse>> {
     return this.httpRequest.request({
       method: "POST",
       url: "/api/v1/project/list",
-      formData: formData,
-      mediaType: "application/x-www-form-urlencoded",
+      body: requestBody,
+      mediaType: "application/json",
       errors: {
         404: `Not Found`,
         500: `Internal Server Error`,
@@ -256,19 +256,14 @@ export class InternalService {
   /**
    * Project List
    * List all projects meeting filter criteria.
-   * @param formData
+   * @param requestBody
    * @param limit The number of projects to return.
    * @param offset The number of projects to skip.
    * @returns PagedProjectInfoResponse OK
    * @throws ApiError
    */
   public projectListPaginated(
-    formData: {
-      /**
-       * Return projects owned by this team.
-       */
-      team_name?: string | null;
-    },
+    requestBody: ProjectListInput,
     limit: number = 100,
     offset?: number,
   ): CancelablePromise<PagedProjectInfoResponse> {
@@ -279,8 +274,8 @@ export class InternalService {
         limit: limit,
         offset: offset,
       },
-      formData: formData,
-      mediaType: "application/x-www-form-urlencoded",
+      body: requestBody,
+      mediaType: "application/json",
       errors: {
         404: `Not Found`,
         500: `Internal Server Error`,
@@ -354,22 +349,13 @@ export class InternalService {
    * Update Project Settings
    * Update project settings.
    * @param projectName The name of a project associated with the team.
-   * @param formData
+   * @param requestBody
    * @returns ProjectInfoResponse OK
    * @throws ApiError
    */
   public projectSettings(
     projectName: string,
-    formData: {
-      /**
-       * Whether the project is public.
-       */
-      is_public?: boolean | null;
-      /**
-       * The name of the project.
-       */
-      name?: string | null;
-    },
+    requestBody: ProjectSettingsInput,
   ): CancelablePromise<ProjectInfoResponse> {
     return this.httpRequest.request({
       method: "POST",
@@ -377,8 +363,8 @@ export class InternalService {
       path: {
         project_name: projectName,
       },
-      formData: formData,
-      mediaType: "application/x-www-form-urlencoded",
+      body: requestBody,
+      mediaType: "application/json",
       errors: {
         404: `Not Found`,
         422: `Unprocessable Entity`,
@@ -450,25 +436,18 @@ export class InternalService {
   /**
    * Change Password
    * Change user password. Requires JWT authentication.
-   * @param formData
+   * @param requestBody
    * @returns ActionResponse OK
    * @throws ApiError
    */
-  public passwordChangeWithJwtAuth(formData: {
-    /**
-     * Old password.
-     */
-    old_password: string;
-    /**
-     * New password.
-     */
-    new_password: string;
-  }): CancelablePromise<ActionResponse> {
+  public passwordChangeWithJwtAuth(
+    requestBody: PasswordChangeInput,
+  ): CancelablePromise<ActionResponse> {
     return this.httpRequest.request({
       method: "POST",
       url: "/api/v1/password/change",
-      formData: formData,
-      mediaType: "application/x-www-form-urlencoded",
+      body: requestBody,
+      mediaType: "application/json",
       errors: {
         422: `Unprocessable Entity`,
       },
@@ -478,29 +457,18 @@ export class InternalService {
   /**
    * Proof List
    * List proofs for the requesting team.
-   * @param formData
+   * @param requestBody
    * @returns ProofInfoResponse OK
    * @throws ApiError
    */
-  public proofList(formData: {
-    /**
-     * Return proofs created after this date.
-     */
-    date_created_after?: string | null;
-    /**
-     * Return proofs created before this date.
-     */
-    date_created_before?: string | null;
-    /**
-     * Return proofs with this job status.
-     */
-    status?: JobStatus | null;
-  }): CancelablePromise<Array<ProofInfoResponse>> {
+  public proofList(
+    requestBody: ProofListInput,
+  ): CancelablePromise<Array<ProofInfoResponse>> {
     return this.httpRequest.request({
       method: "POST",
       url: "/api/v1/proof/list",
-      formData: formData,
-      mediaType: "application/x-www-form-urlencoded",
+      body: requestBody,
+      mediaType: "application/json",
       errors: {
         500: `Internal Server Error`,
       },
@@ -510,27 +478,14 @@ export class InternalService {
   /**
    * Proof List
    * List proofs for the requesting team.
-   * @param formData
+   * @param requestBody
    * @param limit The number of proofs to return.
    * @param offset The number of proofs to skip.
    * @returns PagedProofInfoResponse OK
    * @throws ApiError
    */
   public proofListPaginated(
-    formData: {
-      /**
-       * Return proofs created after this date.
-       */
-      date_created_after?: string | null;
-      /**
-       * Return proofs created before this date.
-       */
-      date_created_before?: string | null;
-      /**
-       * Return proofs with this job status.
-       */
-      status?: JobStatus | null;
-    },
+    requestBody: ProofListInput,
     limit: number = 100,
     offset?: number,
   ): CancelablePromise<PagedProofInfoResponse> {
@@ -541,8 +496,8 @@ export class InternalService {
         limit: limit,
         offset: offset,
       },
-      formData: formData,
-      mediaType: "application/x-www-form-urlencoded",
+      body: requestBody,
+      mediaType: "application/json",
       errors: {
         500: `Internal Server Error`,
       },
