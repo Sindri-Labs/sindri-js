@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { ActionResponse } from "../models/ActionResponse";
 import type { CircuitInfoResponse } from "../models/CircuitInfoResponse";
+import type { CircuitProveInput } from "../models/CircuitProveInput";
 import type { ProofInfoResponse } from "../models/ProofInfoResponse";
 
 import type { CancelablePromise } from "../core/CancelablePromise";
@@ -188,30 +189,13 @@ export class CircuitsService {
    * 5. `<TEAM_NAME>/<CIRCUIT_NAME>:<TAG>` - The name of a circuit owned by a specified team and an
    * explicit tag. This corresponds to the most recent compilation of the team's circuit with the
    * specified tag.
-   * @param formData
+   * @param requestBody
    * @returns ProofInfoResponse Created
    * @throws ApiError
    */
   public proofCreate(
     circuitId: string,
-    formData: {
-      /**
-       * An arbitrary mapping of metadata keys to string values. This can be used to track additional information about the proof such as an ID from an external system.
-       */
-      meta?: Record<string, string>;
-      /**
-       * A string representing proof input which may be formatted as JSON for any framework. Noir circuits optionally accept TOML formatted proof input.
-       */
-      proof_input: string;
-      /**
-       * A boolean indicating whether to perform an internal verification check during the proof creation.
-       */
-      perform_verify?: boolean;
-      /**
-       * Internal prover implementation setting.
-       */
-      prover_implementation?: string;
-    },
+    requestBody: CircuitProveInput,
   ): CancelablePromise<ProofInfoResponse> {
     return this.httpRequest.request({
       method: "POST",
@@ -219,8 +203,8 @@ export class CircuitsService {
       path: {
         circuit_id: circuitId,
       },
-      formData: formData,
-      mediaType: "application/x-www-form-urlencoded",
+      body: requestBody,
+      mediaType: "application/json",
       errors: {
         400: `Bad Request`,
         404: `Not Found`,
