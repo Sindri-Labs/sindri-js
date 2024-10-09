@@ -643,7 +643,7 @@
               "$ref": "#/$defs/JoltCommitmentSchemeOptions"
             }
           ],
-          "default": "hyrax",
+          "default": "hyperkzg",
           "description": "The commitment scheme used in the circuit.",
           "title": "Commitment Scheme"
         },
