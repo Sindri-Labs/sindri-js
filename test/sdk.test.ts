@@ -1,15 +1,20 @@
 import { File } from "buffer";
 import fs from "fs/promises";
 import path from "path";
+import process from "node:process";
 
 import axios from "axios";
 import MockDate from "mockdate";
-import sharp from "sharp";
 
 import sindri from "lib";
 
 import { dataDirectory } from "test/utils";
 import { test, useNock } from "test/utils/useNock";
+
+// Sharp is not available in Node.js 19, so we skip any sharp-related if it's not available.
+const sharp = ["19"].includes(process.versions.node.split(".")[0] ?? "")
+  ? null
+  : require("sharp");
 
 useNock();
 
@@ -162,7 +167,7 @@ test("prove circuit", async (t) => {
   t.truthy(proof?.proof_id);
 });
 
-test("upload avatar image", async (t) => {
+(sharp ? test : test.skip)("upload avatar image", async (t) => {
   // Hack in fixed headers so nock can match the request.
   const oldHeaders = sindri._clientConfig.HEADERS;
   sindri._clientConfig.HEADERS = {
