@@ -162,7 +162,7 @@ test("prove circuit", async (t) => {
   t.truthy(proof?.proof_id);
 });
 
-test.only("upload avatar image", async (t) => {
+test("upload avatar image", async (t) => {
   // Create a 1x1 red image to upload.
   const redImageBuffer = await sharp({
     create: {
