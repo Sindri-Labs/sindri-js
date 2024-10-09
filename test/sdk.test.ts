@@ -11,7 +11,7 @@ import sindri from "lib";
 import { dataDirectory } from "test/utils";
 import { test, useNock } from "test/utils/useNock";
 
-// Sharp is not available in Node.js 19, so we skip any sharp-related if it's not available.
+// Sharp is not available in Node.js 19, so we skip any sharp-related tests if it's not available.
 const sharp = ["19"].includes(process.versions.node.split(".")[0] ?? "")
   ? null
   : require("sharp");
