@@ -182,8 +182,8 @@ test("prove circuit", async (t) => {
       create: {
         width: 1,
         height: 1,
-        channels: 3, // RGB
-        background: { r: 255, g: 0, b: 0 }, // Red color
+        channels: 3,
+        background: { r: 255, g: 0, b: 0 },
       },
     })
       .png({ compressionLevel: 0, effort: 1 })
