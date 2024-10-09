@@ -181,7 +181,7 @@ test("upload avatar image", async (t) => {
         background: { r: 255, g: 0, b: 0 }, // Red color
       },
     })
-      .png()
+      .png({ compressionLevel: 0, effort: 1 })
       .toBuffer();
     const imageFile = new File([redImageBuffer], "red-1x1.png") as Blob;
 
