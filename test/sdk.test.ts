@@ -163,42 +163,55 @@ test("prove circuit", async (t) => {
 });
 
 test("upload avatar image", async (t) => {
-  // Create a 1x1 red image to upload.
-  const redImageBuffer = await sharp({
-    create: {
-      width: 1,
-      height: 1,
-      channels: 3, // RGB
-      background: { r: 255, g: 0, b: 0 }, // Red color
-    },
-  })
-    .png()
-    .toBuffer();
-  const imageFile = new File([redImageBuffer], "red-1x1.png") as Blob;
+  // Hack in fixed headers so nock can match the request.
+  const oldHeaders = sindri._clientConfig.HEADERS;
+  sindri._clientConfig.HEADERS = {
+    ...oldHeaders,
+    "Content-Type":
+      "multipart/form-data; boundary=----WebKitFormBoundary1234567890UploadAvatarImage",
+  };
 
-  // Upload the avatar image.
-  const { team } = await sindri._client.internal.teamAvatarUpload({
-    files: [imageFile],
-  });
-  t.truthy(team);
-  t.truthy(team.avatar_url);
-  t.notRegex(
-    team.avatar_url,
-    /gravatar/,
-    "Avatar URL should not be a Gravatar.",
-  );
+  try {
+    // Create a 1x1 red image to upload.
+    const redImageBuffer = await sharp({
+      create: {
+        width: 1,
+        height: 1,
+        channels: 3, // RGB
+        background: { r: 255, g: 0, b: 0 }, // Red color
+      },
+    })
+      .png()
+      .toBuffer();
+    const imageFile = new File([redImageBuffer], "red-1x1.png") as Blob;
 
-  // Download the avatar image and verify that it's a 1x1 red pixel.
-  const response = await axios({
-    url: team.avatar_url,
-    responseType: "arraybuffer",
-  });
-  const image = await sharp(response.data)
-    .raw()
-    .toBuffer({ resolveWithObject: true });
-  // Grab the first three bytes (R, G, B) of the image to check the color.
-  const [r, g, b] = image.data;
-  t.is(r, 255);
-  t.is(g, 0);
-  t.is(b, 0);
+    // Upload the avatar image.
+    const { team } = await sindri._client.internal.teamAvatarUpload({
+      files: [imageFile],
+    });
+    t.truthy(team);
+    t.truthy(team.avatar_url);
+    t.notRegex(
+      team.avatar_url,
+      /gravatar/,
+      "Avatar URL should not be a Gravatar.",
+    );
+
+    // Download the avatar image and verify that it's a 1x1 red pixel.
+    const response = await axios({
+      url: team.avatar_url,
+      responseType: "arraybuffer",
+    });
+    const image = await sharp(response.data)
+      .raw()
+      .toBuffer({ resolveWithObject: true });
+    // Grab the first three bytes (R, G, B) of the image to check the color.
+    const [r, g, b] = image.data;
+    t.is(r, 255);
+    t.is(g, 0);
+    t.is(b, 0);
+  } finally {
+    // Restore the original headers.
+    sindri._clientConfig.HEADERS = oldHeaders;
+  }
 });
