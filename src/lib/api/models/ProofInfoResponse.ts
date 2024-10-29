@@ -47,6 +47,10 @@ export type ProofInfoResponse = {
    */
   status: JobStatus;
   /**
+   * The status of proof verification.
+   */
+  verified: boolean | null;
+  /**
    * The name of the team that owns this proof.
    */
   team: string;
