@@ -12,9 +12,9 @@ export type CircuitProveInput = {
    */
   meta?: Record<string, string>;
   /**
-   * A string representing proof input which may be formatted as JSON for any framework. Noir circuits optionally accept TOML formatted proof input.
+   * An object mapping proof input variable names to their values. Can be a raw JSON object or a string serialized as JSON or TOML.
    */
-  proof_input: string;
+  proof_input: Record<string, any> | string;
   /**
    * A boolean indicating whether to perform an internal verification check during the proof creation.
    */
