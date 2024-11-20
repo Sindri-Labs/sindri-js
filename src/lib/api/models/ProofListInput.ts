@@ -18,6 +18,10 @@ export type ProofListInput = {
    */
   date_created_before?: string | null;
   /**
+   * Return proofs for this project.
+   */
+  project_name?: string | null;
+  /**
    * Return proofs with this job status.
    */
   status?: JobStatus | null;
