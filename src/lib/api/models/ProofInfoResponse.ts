@@ -47,6 +47,10 @@ export type ProofInfoResponse = {
    */
   status: JobStatus;
   /**
+   * The job is finished processing and waiting/polling can be terminated.
+   */
+  finished_processing: boolean;
+  /**
    * The status of proof verification.
    */
   verified: boolean | null;

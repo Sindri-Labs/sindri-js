@@ -50,6 +50,10 @@ export type CircomCircuitInfoResponse = {
    */
   status: JobStatus;
   /**
+   * The job is finished processing and waiting/polling can be terminated.
+   */
+  finished_processing: boolean;
+  /**
    * Tags for the circuit.
    */
   tags: Array<string>;

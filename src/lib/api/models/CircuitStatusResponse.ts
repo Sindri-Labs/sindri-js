@@ -17,4 +17,8 @@ export type CircuitStatusResponse = {
    * The status of the circuit job.
    */
   status: JobStatus;
+  /**
+   * The job is finished processing and waiting/polling can be terminated.
+   */
+  finished_processing: boolean;
 };

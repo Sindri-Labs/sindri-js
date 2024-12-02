@@ -17,4 +17,8 @@ export type ProofStatusResponse = {
    * The status of the proof job.
    */
   status: JobStatus;
+  /**
+   * The job is finished processing and waiting/polling can be terminated.
+   */
+  finished_processing: boolean;
 };
