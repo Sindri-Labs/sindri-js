@@ -61,18 +61,20 @@ export const initCommand = new Command()
         return true;
       },
     });
-    const circuitType: "circom" | "gnark" | "halo2" | "jolt" | "noir" | "sp1" = await select({
-      message: "Proving Framework:",
-      default: "circom",
-      choices: [
-        { name: "Circom", value: "circom" },
-        { name: "Gnark", value: "gnark" },
-        { name: "Halo2", value: "halo2" },
-        { name: "Jolt", value: "jolt" },
-        { name: "Noir", value: "noir" },
-        { name: "SP1", value: "sp1" },
-      ],
-    });
+    const circuitType: "circom" | "gnark" | "halo2" | "jolt" | "noir" | "plonky2" | "sp1" =
+      await select({
+        message: "Proving Framework:",
+        default: "circom",
+        choices: [
+          { name: "Circom", value: "circom" },
+          { name: "Gnark", value: "gnark" },
+          { name: "Halo2", value: "halo2" },
+          { name: "Jolt", value: "jolt" },
+          { name: "Noir", value: "noir" },
+          { name: "Plonky2", value: "plonky2" },
+          { name: "SP1", value: "sp1" },
+        ],
+      });
     const context: object = { circuitName, circuitType };
     let templateDirectory: string = circuitType;
 
@@ -306,6 +308,51 @@ export const initCommand = new Command()
         packageName,
         noirVersion,
         provingScheme,
+      });
+    } else if (circuitType === "plonky2") {
+      const packageName = await input({
+        message: "Plonky2 Package Name:",
+        default: circuitName
+          .toLowerCase()
+          .replace(/[- ]/g, "_")
+          .replace(/[^a-zA-Z0-9_]+/, "")
+          .replace(/_+/g, "_"),
+        validate: (input): boolean | string => {
+          if (input.length === 0) {
+            return "You must specify a package name.";
+          }
+          if (!/^[a-zA-Z0-9_]+$/.test(input)) {
+            return "Package names must only contain alphanumeric characters and underscores.";
+          }
+          return true;
+        },
+      });
+      const structName = await input({
+        message: "Full path to circuit struct:",
+        default: "Circuit",
+        validate: (input): boolean | string => {
+          if (!/^[A-Z][A-Za-z0-9_]*$/.test(input)) {
+            return (
+              "Struct name must begin with an uppercase letter and contain only " +
+              "alphanumeric characters and underscores."
+            );
+          }
+          return true;
+        },
+      });
+      const plonky2Version: "0.2.0" | "0.2.1" | "0.2.2" = await select({
+        message: "Plonky2 Version:",
+        default: "0.2.2",
+        choices: [
+          { name: "0.2.0", value: "0.2.0" },
+          { name: "0.2.1", value: "0.2.1" },
+          { name: "0.2.2", value: "0.2.2" },
+        ],
+      });
+      Object.assign(context, {
+        packageName,
+        plonky2Version,
+        structName,
       });
     } else if (circuitType === "sp1") {
       const provingScheme: | "core" | "compressed" | "groth16" | "plonk" = await select({

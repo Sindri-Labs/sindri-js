@@ -1,0 +1,8 @@
+{
+  "name": "{{ circuitName }}",
+  "circuitType": "plonky2",
+  "structName": "{{ packageName }}::{{ structName }}",
+  "plonky2Version": "{{ plonky2Version }}",
+  "provingScheme": "plonky2",
+  "packageName": "{{ packageName }}"
+}
