@@ -52,6 +52,7 @@ export type { ProofListInput } from "./models/ProofListInput";
 export type { ProofStatusResponse } from "./models/ProofStatusResponse";
 export type { Schema } from "./models/Schema";
 export type { SmartContractVerifierResponse } from "./models/SmartContractVerifierResponse";
+export type { Sp1CircuitInfoResponse } from "./models/Sp1CircuitInfoResponse";
 export type { TeamDetail } from "./models/TeamDetail";
 export type { TeamDoesNotExistResponse } from "./models/TeamDoesNotExistResponse";
 export type { TeamMeResponse } from "./models/TeamMeResponse";

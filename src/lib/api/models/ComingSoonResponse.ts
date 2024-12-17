@@ -7,5 +7,6 @@
  * Response for NotImplementedError
  */
 export type ComingSoonResponse = {
+  exception_id?: string;
   message?: string;
 };
