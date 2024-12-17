@@ -9,6 +9,7 @@
  */
 export type TeamDoesNotExistResponse = {
   error: string;
-  team_name: string;
+  exception_id?: string;
   message: string;
+  team_name: string;
 };

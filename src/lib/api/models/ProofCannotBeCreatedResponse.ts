@@ -9,5 +9,6 @@
  */
 export type ProofCannotBeCreatedResponse = {
   error: string;
+  exception_id?: string;
   message?: string;
 };

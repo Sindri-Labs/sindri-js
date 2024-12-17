@@ -10,6 +10,7 @@ import type { Halo2CircuitInfoResponse } from "./Halo2CircuitInfoResponse";
 import type { JoltCircuitInfoResponse } from "./JoltCircuitInfoResponse";
 import type { NoirCircuitInfoResponse } from "./NoirCircuitInfoResponse";
 import type { Plonky2CircuitInfoResponse } from "./Plonky2CircuitInfoResponse";
+import type { Sp1CircuitInfoResponse } from "./Sp1CircuitInfoResponse";
 
 /**
  * Response for getting circuit info.
@@ -21,4 +22,5 @@ export type CircuitInfoResponse =
   | GnarkCircuitInfoResponse
   | JoltCircuitInfoResponse
   | NoirCircuitInfoResponse
-  | Plonky2CircuitInfoResponse;
+  | Plonky2CircuitInfoResponse
+  | Sp1CircuitInfoResponse;

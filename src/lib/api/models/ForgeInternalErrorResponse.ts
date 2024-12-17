@@ -7,6 +7,6 @@
  * Response for ForgeInternalError
  */
 export type ForgeInternalErrorResponse = {
-  error: string;
+  exception_id?: string;
   message?: string;
 };

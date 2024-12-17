@@ -8,5 +8,6 @@
  */
 export type ForgeInvalidUploadResponse = {
   error: string;
+  exception_id?: string;
   message?: string;
 };

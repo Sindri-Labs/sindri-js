@@ -4,6 +4,8 @@
 /* eslint-disable */
 
 export type ValidationErrorResponse = {
+  error: string;
+  exception_id?: string;
   location: string;
   message: string;
 };

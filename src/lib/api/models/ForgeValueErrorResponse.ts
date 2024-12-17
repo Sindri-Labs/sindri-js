@@ -8,5 +8,6 @@
  */
 export type ForgeValueErrorResponse = {
   error: string;
+  exception_id?: string;
   message?: string;
 };

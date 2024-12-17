@@ -9,6 +9,7 @@
  */
 export type ProofDoesNotExistResponse = {
   error: string;
-  proof_id: string;
+  exception_id?: string;
   message: string;
+  proof_id: string;
 };

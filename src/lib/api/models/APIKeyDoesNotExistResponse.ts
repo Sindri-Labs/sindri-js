@@ -10,5 +10,6 @@
 export type APIKeyDoesNotExistResponse = {
   apikey_id: string;
   error: string;
+  exception_id?: string;
   message: string;
 };
