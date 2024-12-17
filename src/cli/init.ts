@@ -61,20 +61,26 @@ export const initCommand = new Command()
         return true;
       },
     });
-    const circuitType: "circom" | "gnark" | "halo2" | "jolt" | "noir" | "plonky2" | "sp1" =
-      await select({
-        message: "Proving Framework:",
-        default: "circom",
-        choices: [
-          { name: "Circom", value: "circom" },
-          { name: "Gnark", value: "gnark" },
-          { name: "Halo2", value: "halo2" },
-          { name: "Jolt", value: "jolt" },
-          { name: "Noir", value: "noir" },
-          { name: "Plonky2", value: "plonky2" },
-          { name: "SP1", value: "sp1" },
-        ],
-      });
+    const circuitType:
+      | "circom"
+      | "gnark"
+      | "halo2"
+      | "jolt"
+      | "noir"
+      | "plonky2"
+      | "sp1" = await select({
+      message: "Proving Framework:",
+      default: "circom",
+      choices: [
+        { name: "Circom", value: "circom" },
+        { name: "Gnark", value: "gnark" },
+        { name: "Halo2", value: "halo2" },
+        { name: "Jolt", value: "jolt" },
+        { name: "Noir", value: "noir" },
+        { name: "Plonky2", value: "plonky2" },
+        { name: "SP1", value: "sp1" },
+      ],
+    });
     const context: object = { circuitName, circuitType };
     let templateDirectory: string = circuitType;
 
@@ -252,7 +258,7 @@ export const initCommand = new Command()
           return true;
         },
       });
-      const commitmentScheme: | "hyperkzg" | "zeromorph" = await select({
+      const commitmentScheme: "hyperkzg" | "zeromorph" = await select({
         message: "Commitment Scheme:",
         default: "hyperkzg",
         choices: [
@@ -260,7 +266,7 @@ export const initCommand = new Command()
           { name: "HyperKZG", value: "hyperkzg" },
         ],
       });
-      const stdEnabled:| boolean = await confirm({
+      const stdEnabled: boolean = await confirm({
         message: "Use Rust standard library:",
         default: true,
       });
@@ -355,16 +361,17 @@ export const initCommand = new Command()
         structName,
       });
     } else if (circuitType === "sp1") {
-      const provingScheme: | "core" | "compressed" | "groth16" | "plonk" = await select({
-        message: "Proving Scheme:",
-        default: "groth16",
-        choices: [
-          { name: "Core", value: "core" },
-          { name: "Compressed", value: "compressed" },
-          { name: "Groth16", value: "groth16" },
-          { name: "Plonk", value: "plonk" },
-        ],
-      });
+      const provingScheme: "core" | "compressed" | "groth16" | "plonk" =
+        await select({
+          message: "Proving Scheme:",
+          default: "groth16",
+          choices: [
+            { name: "Core", value: "core" },
+            { name: "Compressed", value: "compressed" },
+            { name: "Groth16", value: "groth16" },
+            { name: "Plonk", value: "plonk" },
+          ],
+        });
       Object.assign(context, {
         provingScheme,
       });
