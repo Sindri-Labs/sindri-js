@@ -5,7 +5,7 @@
   "commitmentScheme": "zeromorph",
   "joltVersion": "0.1.0",
   "provingScheme": "jolt",
-  "stdEnabled": "{{ stdEnabled }}",
+  "stdEnabled": {{ stdEnabled }},
   "packageName": "{{ packageName }}",
   "guestFunction": "compare_x_y"
 }

@@ -2,8 +2,8 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct Input {
-    pub x: u32,
-    pub y: u32,
+    pub x: i64,
+    pub y: i64,
 }
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Output {
