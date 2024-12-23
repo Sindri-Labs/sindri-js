@@ -12,5 +12,5 @@ guest = []
 
 [dependencies]
 jolt = { package = "jolt-sdk", git = "https://github.com/a16z/jolt", rev="55c577f5a859eee843fd88d1d14bd2127b3ddd1d"{% if stdEnabled %}, features = ["guest-std"]{% endif %} }
-serde = { version = "1.0", "features = ["derive"]{% if not stdEnabled %}, default-features = false{% endif %} }
+serde = { version = "1.0", features = ["derive"]{% if not stdEnabled %}, default-features = false{% endif %} }
 
