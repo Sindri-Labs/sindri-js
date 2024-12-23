@@ -9,6 +9,7 @@
  */
 export type ProjectDoesNotExistResponse = {
   error: string;
-  project_id: string;
+  exception_id?: string;
   message: string;
+  project_id: string;
 };

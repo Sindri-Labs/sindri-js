@@ -845,6 +845,68 @@
       "enum": ["0.2.0", "0.2.1", "0.2.2"],
       "title": "Plonky2VersionOptions",
       "type": "string"
+    },
+    "Sp1ProvingSchemeOptions": {
+      "description": "The supported SP1 proving schemes.",
+      "enum": ["core", "compressed", "plonk", "groth16"],
+      "title": "Sp1ProvingSchemeOptions",
+      "type": "string"
+    },
+    "Sp1SindriManifest": {
+      "additionalProperties": false,
+      "description": "Sindri Manifest for SP1 program guest code.",
+      "properties": {
+        "circuitType": {
+          "const": "sp1",
+          "description": "The (frontend) development framework that your circuit is written with.",
+          "enum": ["sp1"],
+          "title": "Circuit Type",
+          "type": "string"
+        },
+        "name": {
+          "description": "The circuit name used to uniquely identify the circuit within your organization. Similar to a GitHub project name or a Docker image name.",
+          "error_messages": {
+            "pattern": "`name` must be a valid slug."
+          },
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "title": "Circuit Name",
+          "type": "string"
+        },
+        "provingScheme": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Sp1ProvingSchemeOptions"
+            }
+          ],
+          "default": "core",
+          "description": "The default SP1 proof type returned to the user is `core`."
+        },
+        "sp1Version": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Sp1VersionOptions"
+            }
+          ],
+          "default": "3.0.0",
+          "description": "SP1 version defaults to '3.0.0'"
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": ["https://sindri.app/api/v1/sindri-manifest-schema.json"]
+        }
+      },
+      "required": ["circuitType", "name"],
+      "title": "Sindri Manifest for SP1 guest code",
+      "type": "object"
+    },
+    "Sp1VersionOptions": {
+      "const": "3.0.0",
+      "description": "The supported SP1 zkVM versions.",
+      "enum": ["3.0.0"],
+      "title": "Sp1VersionOptions",
+      "type": "string"
     }
   },
   "anyOf": [
@@ -874,6 +936,9 @@
     },
     {
       "$ref": "#/$defs/Plonky2SindriManifest"
+    },
+    {
+      "$ref": "#/$defs/Sp1SindriManifest"
     }
   ],
   "description": "Sindri Manifest file schema for `sindri.json` files.",

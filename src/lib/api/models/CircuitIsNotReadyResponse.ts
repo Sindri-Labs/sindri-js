@@ -8,7 +8,8 @@
  * Error: The circuit is not ready to accept proofs
  */
 export type CircuitIsNotReadyResponse = {
-  error: string;
   circuit_id: string;
+  error: string;
+  exception_id?: string;
   message?: string;
 };

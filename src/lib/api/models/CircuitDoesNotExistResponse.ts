@@ -9,6 +9,7 @@
  */
 export type CircuitDoesNotExistResponse = {
   error: string;
+  exception_id?: string;
   circuit_id: string;
   message: string;
 };

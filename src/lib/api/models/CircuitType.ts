@@ -13,4 +13,5 @@ export type CircuitType =
   | "halo2"
   | "jolt"
   | "noir"
-  | "plonky2";
+  | "plonky2"
+  | "sp1";
