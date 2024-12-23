@@ -4,9 +4,9 @@
 /* eslint-disable */
 
 /**
- * Response for NotImplementedError
+ * Details about a team member.
  */
-export type ComingSoonResponse = {
-  exception_id?: string;
-  message?: string;
+export type TeamMemberDetail = {
+  email: string;
+  username: string;
 };

@@ -8,6 +8,7 @@
  * Error: User does not exist or password is incorrect.
  */
 export type APIKeyErrorResponse = {
-  username: string;
+  exception_id?: string;
   message?: string;
+  username: string;
 };

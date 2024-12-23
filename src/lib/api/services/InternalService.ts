@@ -12,11 +12,14 @@ import type { PasswordChangeInput } from "../models/PasswordChangeInput";
 import type { ProjectInfoResponse } from "../models/ProjectInfoResponse";
 import type { ProjectListInput } from "../models/ProjectListInput";
 import type { ProjectSettingsInput } from "../models/ProjectSettingsInput";
+import type { ProofHistogramInput } from "../models/ProofHistogramInput";
+import type { ProofHistogramResponse } from "../models/ProofHistogramResponse";
 import type { ProofInfoResponse } from "../models/ProofInfoResponse";
 import type { ProofListInput } from "../models/ProofListInput";
 import type { ProofStatusResponse } from "../models/ProofStatusResponse";
 import type { SmartContractVerifierResponse } from "../models/SmartContractVerifierResponse";
 import type { TeamDetail } from "../models/TeamDetail";
+import type { TeamMembersResponse } from "../models/TeamMembersResponse";
 import type { TeamMeResponse } from "../models/TeamMeResponse";
 import type { UserMeResponse } from "../models/UserMeResponse";
 
@@ -455,6 +458,27 @@ export class InternalService {
   }
 
   /**
+   * Proof Histogram
+   * Get histogram data for a team's proofs.
+   * @param requestBody
+   * @returns ProofHistogramResponse OK
+   * @throws ApiError
+   */
+  public proofHistogram(
+    requestBody: ProofHistogramInput,
+  ): CancelablePromise<ProofHistogramResponse> {
+    return this.httpRequest.request({
+      method: "POST",
+      url: "/api/v1/proof/histogram",
+      body: requestBody,
+      mediaType: "application/json",
+      errors: {
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
    * Proof List
    * List proofs for the requesting team.
    * @param requestBody
@@ -563,16 +587,16 @@ export class InternalService {
   /**
    * Team Detail
    * Return details for the specified team
-   * @param teamName
+   * @param teamSlug
    * @returns TeamDetail OK
    * @throws ApiError
    */
-  public teamDetail(teamName: string): CancelablePromise<TeamDetail> {
+  public teamDetail(teamSlug: string): CancelablePromise<TeamDetail> {
     return this.httpRequest.request({
       method: "GET",
-      url: "/api/v1/team/{team_name}/detail",
+      url: "/api/v1/team/{team_slug}/detail",
       path: {
-        team_name: teamName,
+        team_slug: teamSlug,
       },
       errors: {
         404: `Not Found`,
@@ -590,6 +614,33 @@ export class InternalService {
     return this.httpRequest.request({
       method: "GET",
       url: "/api/v1/team/me",
+    });
+  }
+
+  /**
+   * Team Members
+   * Return member list for the specified team
+   * @param teamSlug
+   * @param sindriTeamId Required for Sindri JWT authentication.
+   * @returns TeamMembersResponse OK
+   * @throws ApiError
+   */
+  public teamMembers(
+    teamSlug: string,
+    sindriTeamId?: string | null,
+  ): CancelablePromise<TeamMembersResponse> {
+    return this.httpRequest.request({
+      method: "GET",
+      url: "/api/v1/team/{team_slug}/members",
+      path: {
+        team_slug: teamSlug,
+      },
+      headers: {
+        "Sindri-Team-Id": sindriTeamId,
+      },
+      errors: {
+        404: `Not Found`,
+      },
     });
   }
 

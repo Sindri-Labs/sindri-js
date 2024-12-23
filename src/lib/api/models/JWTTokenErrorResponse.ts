@@ -8,6 +8,7 @@
  * Error: User does not exist or password is incorrect.
  */
 export type JWTTokenErrorResponse = {
-  username: string;
   detail?: string;
+  exception_id?: string;
+  username: string;
 };

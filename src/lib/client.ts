@@ -20,6 +20,7 @@ import type {
   Plonky2CircuitInfoResponse,
   ProofInfoResponse,
   ProofStatusResponse,
+  Sp1CircuitInfoResponse,
 } from "lib/api";
 import { Config } from "lib/config";
 import { createLogger, type Logger, type LogLevel } from "lib/logging";
@@ -44,6 +45,7 @@ export type {
   NoirCircuitInfoResponse,
   Plonky2CircuitInfoResponse,
   ProofInfoResponse,
+  Sp1CircuitInfoResponse,
 };
 export type CircuitInfoResponse =
   | BoojumCircuitInfoResponse
@@ -52,7 +54,8 @@ export type CircuitInfoResponse =
   | JoltCircuitInfoResponse
   | GnarkCircuitInfoResponse
   | NoirCircuitInfoResponse
-  | Plonky2CircuitInfoResponse;
+  | Plonky2CircuitInfoResponse
+  | Sp1CircuitInfoResponse;
 
 // Re-export other internal types.
 export type { Logger, LogLevel, Meta, RetryOptions };
