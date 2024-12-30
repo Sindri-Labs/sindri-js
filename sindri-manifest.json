@@ -872,6 +872,16 @@
           "title": "Circuit Name",
           "type": "string"
         },
+        "elfPath": {
+          "default": "",
+          "description": "The relative path to a RISC-V executable (compiled with the succinct Rust toolchain) if uploading an ELF. Otherwise, leave the field empty to opt for Sindri to compile your guest code. Defaults to empty field.",
+          "error_messages": {
+            "pattern": "`elf_path` must be an empty string or a valid relative path."
+          },
+          "pattern": "^([^/].*|)$",
+          "title": "Elf Path",
+          "type": "string"
+        },
         "provingScheme": {
           "allOf": [
             {
