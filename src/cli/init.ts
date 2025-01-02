@@ -245,15 +245,19 @@ export const initCommand = new Command()
         message: "Jolt Package Name:",
         default: circuitName
           .toLowerCase()
-          .replace(/[- ]/g, "_")
-          .replace(/[^a-zA-Z0-9_]+/, "")
-          .replace(/_+/g, "_"),
+          .replace(/^[^a-z0-9_]+/, "_")
+          .replace(/_+/g, "_")
+          .replace(/-+/g, "-"),
         validate: (input): boolean | string => {
           if (input.length === 0) {
             return "You must specify a package name.";
           }
-          if (!/^[a-zA-Z0-9_]+$/.test(input)) {
-            return "Package names must only contain alphanumeric characters and underscores.";
+          if (!/^[a-z0-9_]+(?:-[a-z0-9_]+)*$/.test(input)) {
+            return (
+              "Package names must begin with a lowercase letter, number, or underscore, and only " +
+              "be followed by lowercase or numeric characters and underscores (optionally " +
+              "separated by hyphens)."
+            );
           }
           return true;
         },
