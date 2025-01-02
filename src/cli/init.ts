@@ -262,8 +262,8 @@ export const initCommand = new Command()
         message: "Commitment Scheme:",
         default: "hyperkzg",
         choices: [
-          { name: "Zeromorph", value: "zeromorph" },
           { name: "HyperKZG", value: "hyperkzg" },
+          { name: "Zeromorph", value: "zeromorph" },
         ],
       });
       const stdEnabled: boolean = await confirm({
