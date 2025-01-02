@@ -177,7 +177,7 @@ export const initCommand = new Command()
         message: "Halo2 Package Name:",
         default: circuitName
           .toLowerCase()
-          .replace(/^[^a-z0-9_]+/, "_")
+          .replace(/[^a-z0-9_]+/, "_")
           .replace(/_+/g, "_")
           .replace(/-+/g, "-"),
         validate: (input): boolean | string => {
@@ -188,7 +188,7 @@ export const initCommand = new Command()
             return (
               "Package names must begin with a lowercase letter, number, or underscore, and only " +
               "be followed by lowercase or numeric characters and underscores (optionally " +
-              "separated hyphens)."
+              "separated by hyphens)."
             );
           }
           return true;
@@ -245,7 +245,7 @@ export const initCommand = new Command()
         message: "Jolt Package Name:",
         default: circuitName
           .toLowerCase()
-          .replace(/^[^a-z0-9_]+/, "_")
+          .replace(/[^a-z0-9_]+/, "_")
           .replace(/_+/g, "_")
           .replace(/-+/g, "-"),
         validate: (input): boolean | string => {
