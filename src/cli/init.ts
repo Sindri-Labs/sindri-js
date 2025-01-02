@@ -61,18 +61,26 @@ export const initCommand = new Command()
         return true;
       },
     });
-    const circuitType: "circom" | "gnark" | "halo2" | "noir" | "plonky2" =
-      await select({
-        message: "Proving Framework:",
-        default: "circom",
-        choices: [
-          { name: "Circom", value: "circom" },
-          { name: "Gnark", value: "gnark" },
-          { name: "Halo2", value: "halo2" },
-          { name: "Noir", value: "noir" },
-          { name: "Plonky2", value: "plonky2" },
-        ],
-      });
+    const circuitType:
+      | "circom"
+      | "gnark"
+      | "halo2"
+      | "jolt"
+      | "noir"
+      | "plonky2"
+      | "sp1" = await select({
+      message: "Proving Framework:",
+      default: "circom",
+      choices: [
+        { name: "Circom", value: "circom" },
+        { name: "Gnark", value: "gnark" },
+        { name: "Halo2", value: "halo2" },
+        { name: "Jolt", value: "jolt" },
+        { name: "Noir", value: "noir" },
+        { name: "Plonky2", value: "plonky2" },
+        { name: "SP1", value: "sp1" },
+      ],
+    });
     const context: object = { circuitName, circuitType };
     let templateDirectory: string = circuitType;
 
@@ -169,7 +177,7 @@ export const initCommand = new Command()
         message: "Halo2 Package Name:",
         default: circuitName
           .toLowerCase()
-          .replace(/^[^a-z0-9_]+/, "_")
+          .replace(/[^a-z0-9_]+/, "_")
           .replace(/_+/g, "_")
           .replace(/-+/g, "-"),
         validate: (input): boolean | string => {
@@ -180,7 +188,7 @@ export const initCommand = new Command()
             return (
               "Package names must begin with a lowercase letter, number, or underscore, and only " +
               "be followed by lowercase or numeric characters and underscores (optionally " +
-              "separated hyphens)."
+              "separated by hyphens)."
             );
           }
           return true;
@@ -231,6 +239,46 @@ export const initCommand = new Command()
         packageName,
         threadBuilder,
       });
+    } else if (circuitType === "jolt") {
+      // Jolt.
+      const packageName = await input({
+        message: "Jolt Package Name:",
+        default: circuitName
+          .toLowerCase()
+          .replace(/[^a-z0-9_]+/, "_")
+          .replace(/_+/g, "_")
+          .replace(/-+/g, "-"),
+        validate: (input): boolean | string => {
+          if (input.length === 0) {
+            return "You must specify a package name.";
+          }
+          if (!/^[a-z0-9_]+(?:-[a-z0-9_]+)*$/.test(input)) {
+            return (
+              "Package names must begin with a lowercase letter, number, or underscore, and only " +
+              "be followed by lowercase or numeric characters and underscores (optionally " +
+              "separated by hyphens)."
+            );
+          }
+          return true;
+        },
+      });
+      const commitmentScheme: "hyperkzg" | "zeromorph" = await select({
+        message: "Commitment Scheme:",
+        default: "hyperkzg",
+        choices: [
+          { name: "HyperKZG", value: "hyperkzg" },
+          { name: "Zeromorph", value: "zeromorph" },
+        ],
+      });
+      const stdEnabled: boolean = await confirm({
+        message: "Use Rust standard library:",
+        default: true,
+      });
+      Object.assign(context, {
+        commitmentScheme,
+        packageName,
+        stdEnabled,
+      });
     } else if (circuitType === "noir") {
       const packageName = await input({
         message: "Noir Package Name:",
@@ -276,15 +324,19 @@ export const initCommand = new Command()
         message: "Plonky2 Package Name:",
         default: circuitName
           .toLowerCase()
-          .replace(/[- ]/g, "_")
-          .replace(/[^a-zA-Z0-9_]+/, "")
-          .replace(/_+/g, "_"),
+          .replace(/[^a-z0-9_]+/, "_")
+          .replace(/_+/g, "_")
+          .replace(/-+/g, "-"),
         validate: (input): boolean | string => {
           if (input.length === 0) {
             return "You must specify a package name.";
           }
-          if (!/^[a-zA-Z0-9_]+$/.test(input)) {
-            return "Package names must only contain alphanumeric characters and underscores.";
+          if (!/^[a-z0-9_]+(?:-[a-z0-9_]+)*$/.test(input)) {
+            return (
+              "Package names must begin with a lowercase letter, number, or underscore, and only " +
+              "be followed by lowercase or numeric characters and underscores (optionally " +
+              "separated by hyphens)."
+            );
           }
           return true;
         },
@@ -315,6 +367,21 @@ export const initCommand = new Command()
         packageName,
         plonky2Version,
         structName,
+      });
+    } else if (circuitType === "sp1") {
+      const provingScheme: "core" | "compressed" | "groth16" | "plonk" =
+        await select({
+          message: "Proving Scheme:",
+          default: "groth16",
+          choices: [
+            { name: "Compressed", value: "compressed" },
+            { name: "Core", value: "core" },
+            { name: "Groth16", value: "groth16" },
+            { name: "Plonk", value: "plonk" },
+          ],
+        });
+      Object.assign(context, {
+        provingScheme,
       });
     } else {
       sindri.logger.fatal(`Sorry, ${circuitType} is not yet supported.`);

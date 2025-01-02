@@ -1,0 +1,11 @@
+{
+  "$schema": "https://sindri.app/api/v1/sindri-manifest-schema.json",
+  "name": "{{ circuitName }}",
+  "circuitType": "jolt",
+  "commitmentScheme": "{{ commitmentScheme }}",
+  "joltVersion": "0.1.0",
+  "provingScheme": "jolt",
+  "stdEnabled": {{ stdEnabled }},
+  "packageName": "{{ packageName }}",
+  "guestFunction": "compare_x_y"
+}
