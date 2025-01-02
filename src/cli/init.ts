@@ -366,8 +366,8 @@ export const initCommand = new Command()
           message: "Proving Scheme:",
           default: "groth16",
           choices: [
-            { name: "Core", value: "core" },
             { name: "Compressed", value: "compressed" },
+            { name: "Core", value: "core" },
             { name: "Groth16", value: "groth16" },
             { name: "Plonk", value: "plonk" },
           ],
