@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         version: [18, 19, 20, 21, 22]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -71,7 +71,7 @@ jobs:
           npm run test:fast
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     needs: [lint-and-test]
     steps:
