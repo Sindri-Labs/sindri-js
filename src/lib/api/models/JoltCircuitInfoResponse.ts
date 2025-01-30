@@ -59,12 +59,17 @@ export type JoltCircuitInfoResponse = {
   tags: Array<string>;
   /**
    * The name of the team that owns this circuit.
+   * @deprecated
    */
   team: string;
   /**
    * URL for the avatar image of the team that owns this circuit.
    */
   team_avatar_url: string;
+  /**
+   * The name of the team that owns this circuit.
+   */
+  team_name: string;
   /**
    * The slug of the team that owns this circuit.
    */

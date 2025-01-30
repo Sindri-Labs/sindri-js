@@ -402,86 +402,6 @@
       "title": "Halo2CurveOptions",
       "type": "string"
     },
-    "Halo2DelphinusSindriManifest": {
-      "additionalProperties": false,
-      "description": "Sindri Manifest for Delphinus circuits built with the Halo2 framework.",
-      "properties": {
-        "circuitType": {
-          "const": "halo2",
-          "description": "The (frontend) development framework that your circuit is written with.",
-          "enum": ["halo2"],
-          "title": "Circuit Type",
-          "type": "string"
-        },
-        "name": {
-          "description": "The circuit name used to uniquely identify the circuit within your organization. Similar to a GitHub project name or a Docker image name.",
-          "error_messages": {
-            "pattern": "`name` must be a valid slug."
-          },
-          "pattern": "^[a-zA-Z0-9_-]+$",
-          "title": "Circuit Name",
-          "type": "string"
-        },
-        "curve": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/Halo2CurveOptions"
-            }
-          ],
-          "default": "bn254",
-          "description": "The curve over which the proof is executed.",
-          "title": "Proving Curve"
-        },
-        "degree": {
-          "description": "Specifies that the circuit will have 2^degree rows.",
-          "title": "Degree",
-          "type": "integer"
-        },
-        "halo2Version": {
-          "const": "delphinus",
-          "description": "The Halo2 frontend that your circuit is written with.",
-          "enum": ["delphinus"],
-          "title": "Halo2 Version",
-          "type": "string"
-        },
-        "provingScheme": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/Halo2ProvingSchemeOptions"
-            }
-          ],
-          "default": "shplonk",
-          "description": "The backend proving scheme. Defaults to shplonk."
-        },
-        "circuitDataFilename": {
-          "default": "",
-          "description": "Path to circuit data, e.g. `host.{circuit}.circuit.data`. If left empty, circuit data from mock trusted setup provided. Defaults to empty string (i.e. no circuit data.)",
-          "title": "Circuit Data Filename",
-          "type": "string"
-        },
-        "trustedSetupFilename": {
-          "default": "",
-          "description": "Path to trusted setup parameters, e.g. `K22.params`. If left empty, mock trusted setup is provided. Defaults to empty string (i.e. no trusted setup.)",
-          "title": "Trusted Setup Filename",
-          "type": "string"
-        },
-        "verificationKeyFilename": {
-          "default": "",
-          "description": "Path to verification key, e.g. `host.{circuit}.circuit.data.vkey.data`. If left empty, verification key from mock trusted setup provided. Defaults to empty string (i.e. no verification key.)",
-          "title": "Verification Key Filename",
-          "type": "string"
-        },
-        "$schema": {
-          "type": "string",
-          "title": "Sindri Manifest JSON Schema URL",
-          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
-          "examples": ["https://sindri.app/api/v1/sindri-manifest-schema.json"]
-        }
-      },
-      "required": ["circuitType", "name", "degree", "halo2Version"],
-      "title": "Sindri Manifest for Delphinus Halo2 Circuits",
-      "type": "object"
-    },
     "Halo2PSEV030SindriManifest": {
       "additionalProperties": false,
       "description": "Sindri Manifest for PSE v0.3.0 circuits built with the Halo2 framework.",
@@ -579,6 +499,67 @@
       "description": "The supported Halo2 hash functions.",
       "enum": ["blake2b", "keccak256", "poseidon"],
       "title": "Halo2TranscriptHashOptions",
+      "type": "string"
+    },
+    "HermezProvingSchemeOptions": {
+      "description": "The supported Polygon Hermez proving schemes.",
+      "enum": ["batch", "aggregation", "final"],
+      "title": "HermezProvingSchemeOptions",
+      "type": "string"
+    },
+    "HermezSindriManifest": {
+      "additionalProperties": false,
+      "description": "Sindri Manifest for Polygon Hermez zkEVM circuits.",
+      "properties": {
+        "circuitType": {
+          "const": "hermez",
+          "description": "The (frontend) development framework that your circuit is written with.",
+          "enum": ["hermez"],
+          "title": "Circuit Type",
+          "type": "string"
+        },
+        "name": {
+          "description": "The circuit name used to uniquely identify the circuit within your organization. Similar to a GitHub project name or a Docker image name.",
+          "error_messages": {
+            "pattern": "`name` must be a valid slug."
+          },
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "title": "Circuit Name",
+          "type": "string"
+        },
+        "provingScheme": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/HermezProvingSchemeOptions"
+            }
+          ],
+          "default": "batch",
+          "description": "The Polygon Hermez proof type returned to the user (defaults to `batch`)."
+        },
+        "zkevmVersion": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/HermezZkevmVersionOptions"
+            }
+          ],
+          "default": "latest",
+          "description": "The Polygon Hermez zkEVM version (defaults to `latest`)."
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": ["https://sindri.app/api/v1/sindri-manifest-schema.json"]
+        }
+      },
+      "required": ["circuitType", "name"],
+      "title": "Sindri Manifest for Polygon Hermez zkEVM circuits",
+      "type": "object"
+    },
+    "HermezZkevmVersionOptions": {
+      "description": "The supported zkSync Era zkEVM version tags.",
+      "enum": ["latest", "v8.0.0-rc.16-fork.12"],
+      "title": "HermezZkevmVersionOptions",
       "type": "string"
     },
     "JoltCommitmentSchemeOptions": {
@@ -933,10 +914,10 @@
       "$ref": "#/$defs/Halo2AxiomV030SindriManifest"
     },
     {
-      "$ref": "#/$defs/Halo2DelphinusSindriManifest"
+      "$ref": "#/$defs/Halo2PSEV030SindriManifest"
     },
     {
-      "$ref": "#/$defs/Halo2PSEV030SindriManifest"
+      "$ref": "#/$defs/HermezSindriManifest"
     },
     {
       "$ref": "#/$defs/JoltSindriManifest"

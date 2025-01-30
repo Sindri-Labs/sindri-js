@@ -4,9 +4,9 @@
 /* eslint-disable */
 
 /**
- * Response for ForgeInvalidUploadError
+ * Response for SindriValueError
  */
-export type ForgeInvalidUploadResponse = {
+export type SindriValueErrorResponse = {
   error: string;
   exception_id?: string;
   message?: string;
