@@ -4,10 +4,9 @@
 /* eslint-disable */
 
 /**
- * Response for ForgeValueError
+ * Response for SindriInternalError
  */
-export type ForgeValueErrorResponse = {
-  error: string;
+export type SindriInternalErrorResponse = {
   exception_id?: string;
   message?: string;
 };

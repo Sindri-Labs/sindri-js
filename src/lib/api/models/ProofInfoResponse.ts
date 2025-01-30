@@ -56,12 +56,17 @@ export type ProofInfoResponse = {
   verified: boolean | null;
   /**
    * The name of the team that owns this proof.
+   * @deprecated
    */
   team: string;
   /**
    * URL for the avatar image of the team that owns this proof.
    */
   team_avatar_url: string;
+  /**
+   * The name of the team that owns this proof.
+   */
+  team_name: string;
   /**
    * The slug of the team that owns this proof.
    */

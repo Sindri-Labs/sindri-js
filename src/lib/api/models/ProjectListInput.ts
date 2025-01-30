@@ -9,6 +9,11 @@
 export type ProjectListInput = {
   /**
    * Return projects owned by this team.
+   * @deprecated
    */
   team_name?: string | null;
+  /**
+   * Return projects owned by this team.
+   */
+  team_slug?: string | null;
 };

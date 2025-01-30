@@ -6,9 +6,9 @@
 import type { JobStatus } from "./JobStatus";
 
 /**
- * Response for getting Boojum circuit info.
+ * Response for getting Polygon Hermez circuit info.
  */
-export type BoojumCircuitInfoResponse = {
+export type HermezCircuitInfoResponse = {
   /**
    * A unique identifier generated for the circuit. UUID4 format.
    */
@@ -24,7 +24,7 @@ export type BoojumCircuitInfoResponse = {
   /**
    * The development framework used to write the circuit. This is specified during creation in the included sindri.json file.
    */
-  circuit_type: "boojum";
+  circuit_type: "hermez";
   /**
    * The UTC datetime the circuit was uploaded in ISO8601 format.
    */
@@ -123,11 +123,7 @@ export type BoojumCircuitInfoResponse = {
    */
   error: string | null;
   /**
-   * The field over which proofs take place.
-   */
-  field: string | null;
-  /**
-   * The zkSync Era zkEVM version tag.
+   * The Polygon Hermez zkEVM version tag.
    */
   zkevm_version: string | null;
 };
