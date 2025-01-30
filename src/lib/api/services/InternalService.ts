@@ -18,9 +18,12 @@ import type { ProofInfoResponse } from "../models/ProofInfoResponse";
 import type { ProofListInput } from "../models/ProofListInput";
 import type { ProofStatusResponse } from "../models/ProofStatusResponse";
 import type { SmartContractVerifierResponse } from "../models/SmartContractVerifierResponse";
+import type { TeamCreateInput } from "../models/TeamCreateInput";
 import type { TeamDetail } from "../models/TeamDetail";
+import type { TeamInviteInput } from "../models/TeamInviteInput";
 import type { TeamMembersResponse } from "../models/TeamMembersResponse";
 import type { TeamMeResponse } from "../models/TeamMeResponse";
+import type { TeamRemoveMemberInput } from "../models/TeamRemoveMemberInput";
 import type { UserMeResponse } from "../models/UserMeResponse";
 
 import type { CancelablePromise } from "../core/CancelablePromise";
@@ -585,6 +588,33 @@ export class InternalService {
   }
 
   /**
+   * Create Team
+   * Create a new team
+   * @param requestBody
+   * @param sindriTeamId Required for Sindri JWT authentication.
+   * @returns TeamDetail Created
+   * @throws ApiError
+   */
+  public teamCreate(
+    requestBody: TeamCreateInput,
+    sindriTeamId?: string | null,
+  ): CancelablePromise<TeamDetail> {
+    return this.httpRequest.request({
+      method: "POST",
+      url: "/api/v1/team/create",
+      headers: {
+        "Sindri-Team-Id": sindriTeamId,
+      },
+      body: requestBody,
+      mediaType: "application/json",
+      errors: {
+        400: `Bad Request`,
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
    * Team Detail
    * Return details for the specified team
    * @param teamSlug
@@ -601,6 +631,29 @@ export class InternalService {
       errors: {
         404: `Not Found`,
       },
+    });
+  }
+
+  /**
+   * Team Invite
+   * Invite an email address to join the specified team
+   * @param requestBody
+   * @param sindriTeamId Required for Sindri JWT authentication.
+   * @returns any OK
+   * @throws ApiError
+   */
+  public teamInvite(
+    requestBody: TeamInviteInput,
+    sindriTeamId?: string | null,
+  ): CancelablePromise<any> {
+    return this.httpRequest.request({
+      method: "POST",
+      url: "/api/v1/team/invite",
+      headers: {
+        "Sindri-Team-Id": sindriTeamId,
+      },
+      body: requestBody,
+      mediaType: "application/json",
     });
   }
 
@@ -639,6 +692,33 @@ export class InternalService {
         "Sindri-Team-Id": sindriTeamId,
       },
       errors: {
+        404: `Not Found`,
+      },
+    });
+  }
+
+  /**
+   * Team Remove Member
+   * Remove a user from the specified team. Revokes all team API keys if the removed user was the last team member.
+   * @param requestBody
+   * @param sindriTeamId Required for Sindri JWT authentication.
+   * @returns any OK
+   * @throws ApiError
+   */
+  public teamRemoveMember(
+    requestBody: TeamRemoveMemberInput,
+    sindriTeamId?: string | null,
+  ): CancelablePromise<any> {
+    return this.httpRequest.request({
+      method: "POST",
+      url: "/api/v1/team/remove-member",
+      headers: {
+        "Sindri-Team-Id": sindriTeamId,
+      },
+      body: requestBody,
+      mediaType: "application/json",
+      errors: {
+        403: `Forbidden`,
         404: `Not Found`,
       },
     });

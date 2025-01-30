@@ -4,9 +4,10 @@
 /* eslint-disable */
 
 /**
- * Response for ForgeInternalError
+ * Response for SindriInvalidUploadError
  */
-export type ForgeInternalErrorResponse = {
+export type SindriInvalidUploadResponse = {
+  error: string;
   exception_id?: string;
   message?: string;
 };
