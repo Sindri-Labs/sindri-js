@@ -14,6 +14,7 @@ import type {
   CircomCircuitInfoResponse,
   CircuitStatusResponse,
   GnarkCircuitInfoResponse,
+  HermezCircuitInfoResponse,
   Halo2CircuitInfoResponse,
   JoltCircuitInfoResponse,
   NoirCircuitInfoResponse,
@@ -40,6 +41,7 @@ export type {
   CircuitType,
   GnarkCircuitInfoResponse,
   Halo2CircuitInfoResponse,
+  HermezCircuitInfoResponse,
   JoltCircuitInfoResponse,
   JobStatus,
   NoirCircuitInfoResponse,
@@ -51,6 +53,7 @@ export type CircuitInfoResponse =
   | BoojumCircuitInfoResponse
   | CircomCircuitInfoResponse
   | Halo2CircuitInfoResponse
+  | HermezCircuitInfoResponse
   | JoltCircuitInfoResponse
   | GnarkCircuitInfoResponse
   | NoirCircuitInfoResponse
