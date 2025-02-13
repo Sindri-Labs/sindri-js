@@ -15,4 +15,5 @@ export type CircuitType =
   | "jolt"
   | "noir"
   | "plonky2"
+  | "snarkvm"
   | "sp1";

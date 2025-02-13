@@ -827,6 +827,73 @@
       "title": "Plonky2VersionOptions",
       "type": "string"
     },
+    "SnarkVmNetworkOptions": {
+      "description": "The supported SnarkVM network options",
+      "enum": ["mainnet", "testnet"],
+      "title": "SnarkVmNetworkOptions",
+      "type": "string"
+    },
+    "SnarkVmProvingSchemeOptions": {
+      "const": "snarkvm",
+      "description": "The supported SnarkVM proving scheme options",
+      "enum": ["snarkvm"],
+      "title": "SnarkVmProvingSchemeOptions",
+      "type": "string"
+    },
+    "SnarkVmSindriManifest": {
+      "additionalProperties": false,
+      "description": "Sindri Manifest for SnarkVM program guest code.",
+      "properties": {
+        "circuitType": {
+          "const": "snarkvm",
+          "description": "The (frontend) development framework that your circuit is written with.",
+          "enum": ["snarkvm"],
+          "title": "Circuit Type",
+          "type": "string"
+        },
+        "name": {
+          "description": "The circuit name used to uniquely identify the circuit within your organization. Similar to a GitHub project name or a Docker image name.",
+          "error_messages": {
+            "pattern": "`name` must be a valid slug."
+          },
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "title": "Circuit Name",
+          "type": "string"
+        },
+        "functionName": {
+          "description": "Main aleo function name",
+          "title": "Function Name",
+          "type": "string"
+        },
+        "network": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SnarkVmNetworkOptions"
+            }
+          ],
+          "default": "mainnet",
+          "description": "SnarkVM network defaults to `mainnet`."
+        },
+        "provingScheme": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SnarkVmProvingSchemeOptions"
+            }
+          ],
+          "default": "snarkvm",
+          "description": "SnarkVM proving scheme defaults to `snarkvm`."
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": ["https://sindri.app/api/v1/sindri-manifest-schema.json"]
+        }
+      },
+      "required": ["circuitType", "name", "functionName"],
+      "title": "Sindri Manifest for SnarkVM guest code",
+      "type": "object"
+    },
     "Sp1ProvingSchemeOptions": {
       "description": "The supported SP1 proving schemes.",
       "enum": ["core", "compressed", "plonk", "groth16"],
@@ -927,6 +994,9 @@
     },
     {
       "$ref": "#/$defs/Plonky2SindriManifest"
+    },
+    {
+      "$ref": "#/$defs/SnarkVmSindriManifest"
     },
     {
       "$ref": "#/$defs/Sp1SindriManifest"

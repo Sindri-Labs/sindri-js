@@ -55,6 +55,7 @@ export type { SindriInternalErrorResponse } from "./models/SindriInternalErrorRe
 export type { SindriInvalidUploadResponse } from "./models/SindriInvalidUploadResponse";
 export type { SindriValueErrorResponse } from "./models/SindriValueErrorResponse";
 export type { SmartContractVerifierResponse } from "./models/SmartContractVerifierResponse";
+export type { SnarkvmCircuitInfoResponse } from "./models/SnarkvmCircuitInfoResponse";
 export type { Sp1CircuitInfoResponse } from "./models/Sp1CircuitInfoResponse";
 export type { TeamCreateInput } from "./models/TeamCreateInput";
 export type { TeamDetail } from "./models/TeamDetail";

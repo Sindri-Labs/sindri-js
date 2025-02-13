@@ -639,13 +639,13 @@ export class InternalService {
    * Invite an email address to join the specified team
    * @param requestBody
    * @param sindriTeamId Required for Sindri JWT authentication.
-   * @returns any OK
+   * @returns ActionResponse OK
    * @throws ApiError
    */
   public teamInvite(
     requestBody: TeamInviteInput,
     sindriTeamId?: string | null,
-  ): CancelablePromise<any> {
+  ): CancelablePromise<ActionResponse> {
     return this.httpRequest.request({
       method: "POST",
       url: "/api/v1/team/invite",
@@ -702,13 +702,13 @@ export class InternalService {
    * Remove a user from the specified team. Revokes all team API keys if the removed user was the last team member.
    * @param requestBody
    * @param sindriTeamId Required for Sindri JWT authentication.
-   * @returns any OK
+   * @returns ActionResponse OK
    * @throws ApiError
    */
   public teamRemoveMember(
     requestBody: TeamRemoveMemberInput,
     sindriTeamId?: string | null,
-  ): CancelablePromise<any> {
+  ): CancelablePromise<ActionResponse> {
     return this.httpRequest.request({
       method: "POST",
       url: "/api/v1/team/remove-member",
