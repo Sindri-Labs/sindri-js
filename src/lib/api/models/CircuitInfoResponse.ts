@@ -11,6 +11,7 @@ import type { HermezCircuitInfoResponse } from "./HermezCircuitInfoResponse";
 import type { JoltCircuitInfoResponse } from "./JoltCircuitInfoResponse";
 import type { NoirCircuitInfoResponse } from "./NoirCircuitInfoResponse";
 import type { Plonky2CircuitInfoResponse } from "./Plonky2CircuitInfoResponse";
+import type { SnarkvmCircuitInfoResponse } from "./SnarkvmCircuitInfoResponse";
 import type { Sp1CircuitInfoResponse } from "./Sp1CircuitInfoResponse";
 
 /**
@@ -25,4 +26,5 @@ export type CircuitInfoResponse =
   | JoltCircuitInfoResponse
   | NoirCircuitInfoResponse
   | Plonky2CircuitInfoResponse
+  | SnarkvmCircuitInfoResponse
   | Sp1CircuitInfoResponse;

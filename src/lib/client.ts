@@ -21,6 +21,7 @@ import type {
   Plonky2CircuitInfoResponse,
   ProofInfoResponse,
   ProofStatusResponse,
+  SnarkvmCircuitInfoResponse,
   Sp1CircuitInfoResponse,
 } from "lib/api";
 import { Config } from "lib/config";
@@ -47,6 +48,7 @@ export type {
   NoirCircuitInfoResponse,
   Plonky2CircuitInfoResponse,
   ProofInfoResponse,
+  SnarkvmCircuitInfoResponse,
   Sp1CircuitInfoResponse,
 };
 export type CircuitInfoResponse =
@@ -58,6 +60,7 @@ export type CircuitInfoResponse =
   | GnarkCircuitInfoResponse
   | NoirCircuitInfoResponse
   | Plonky2CircuitInfoResponse
+  | SnarkvmCircuitInfoResponse
   | Sp1CircuitInfoResponse;
 
 // Re-export other internal types.
