@@ -16,15 +16,20 @@ export class AuthorizationService {
    * Generate API Key
    * Generates a long-term API Key from your account's username and password.
    * @param requestBody
+   * @param sindriTeamId Optional. Team ID for the API key.
    * @returns APIKeyResponse OK
    * @throws ApiError
    */
   public apikeyGenerate(
     requestBody: ObtainApikeyInput,
+    sindriTeamId?: string | null,
   ): CancelablePromise<APIKeyResponse> {
     return this.httpRequest.request({
       method: "POST",
       url: "/api/apikey/generate",
+      headers: {
+        "Sindri-Team-Id": sindriTeamId,
+      },
       body: requestBody,
       mediaType: "application/json",
       errors: {
