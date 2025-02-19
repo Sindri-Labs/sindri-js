@@ -945,8 +945,8 @@
               "$ref": "#/$defs/Sp1VersionOptions"
             }
           ],
-          "default": "3.0.0",
-          "description": "SP1 version defaults to '3.0.0'"
+          "default": "4.0.0",
+          "description": "SP1 version defaults to '4.0.0'"
         },
         "$schema": {
           "type": "string",
@@ -960,9 +960,8 @@
       "type": "object"
     },
     "Sp1VersionOptions": {
-      "const": "3.0.0",
       "description": "The supported SP1 zkVM versions.",
-      "enum": ["3.0.0"],
+      "enum": ["3.0.0", "4.0.0"],
       "title": "Sp1VersionOptions",
       "type": "string"
     }
