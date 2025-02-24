@@ -609,6 +609,7 @@ export class InternalService {
       mediaType: "application/json",
       errors: {
         400: `Bad Request`,
+        409: `Conflict`,
         500: `Internal Server Error`,
       },
     });
