@@ -57,6 +57,7 @@ export type { SindriValueErrorResponse } from "./models/SindriValueErrorResponse
 export type { SmartContractVerifierResponse } from "./models/SmartContractVerifierResponse";
 export type { SnarkvmCircuitInfoResponse } from "./models/SnarkvmCircuitInfoResponse";
 export type { Sp1CircuitInfoResponse } from "./models/Sp1CircuitInfoResponse";
+export type { TeamAlreadyExistsResponse } from "./models/TeamAlreadyExistsResponse";
 export type { TeamCreateInput } from "./models/TeamCreateInput";
 export type { TeamDetail } from "./models/TeamDetail";
 export type { TeamDoesNotExistResponse } from "./models/TeamDoesNotExistResponse";
