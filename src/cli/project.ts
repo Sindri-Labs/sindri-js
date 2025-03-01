@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 import { Command } from "@commander-js/extra-typings";
+import { confirm } from "@inquirer/prompts";
 
 import { findFileUpwards } from "cli/utils";
 import sindri from "lib";
@@ -115,18 +116,33 @@ const projectDeleteCommand = new Command()
     "-a, --all",
     "Delete *all* projects. Overrides the `--name` and directory options.",
   )
+  .option("-f, --force", "Skip the confirmation prompt.")
   .option(
     "-n, --name <name>",
     "The name of the project to delete. Overrides the directory option.",
   )
   .argument("[directory]", "The location of the Sindri project to delete.", ".")
-  .action(async (directory, { all, name }) => {
+  .action(async (directory, { all, force, name }) => {
     // Check that the API client is authorized.
     if (!sindri.apiKey || !sindri.baseUrl) {
       sindri.logger.warn("You must login first with `sindri login`.");
       return process.exit(1);
     }
 
+    // Ask the user for confirmation.
+    if (!force) {
+      const userConfirmed = await confirm({
+        message:
+          "This will permanently delete the project(s) and any associated proofs. Proceed?",
+        default: true,
+      });
+      if (!userConfirmed) {
+        sindri.logger.warn("Aborting. No projects were deleted.");
+        return;
+      }
+    }
+
+    // Perform the deletion.
     let deletedCount = 0;
     if (!all) {
       name = name || findProjectName(directory);
