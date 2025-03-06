@@ -11,6 +11,7 @@ import { deployCommand } from "cli/deploy";
 import { lintCommand } from "cli/lint";
 import { loginCommand } from "cli/login";
 import { logoutCommand } from "cli/logout";
+import { projectCommand } from "cli/project";
 import { proofCommand } from "cli/proof";
 import { whoamiCommand } from "cli/whoami";
 import { loadPackageJson } from "cli/utils";
@@ -38,6 +39,7 @@ export const program = new Command()
   .addCommand(lintCommand)
   .addCommand(loginCommand)
   .addCommand(logoutCommand)
+  .addCommand(projectCommand)
   .addCommand(proofCommand)
   .addCommand(whoamiCommand)
   // Parse the base command options and respond to them before invoking the subcommand.
