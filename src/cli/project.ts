@@ -74,6 +74,7 @@ function findProjectName(directory: string): string {
 }
 
 async function getSomeProjectNames(teamName: string): Promise<string[]> {
+  // Used as an efficient iterator for `projectDeleteCommand`.
   try {
     const projects = await sindri._client.internal.projectListPaginated({
       team_name: teamName,
