@@ -147,6 +147,7 @@ const projectDeleteCommand = new Command()
     if (!all) {
       name = name || findProjectName(directory);
       await deleteProject(name);
+      deletedCount++;
     } else {
       const teamName = await getTeamName();
       while (true) {
