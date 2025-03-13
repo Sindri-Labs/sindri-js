@@ -829,7 +829,7 @@
     },
     "SnarkVmNetworkOptions": {
       "description": "The supported SnarkVM network options",
-      "enum": ["mainnet", "testnet"],
+      "enum": ["mainnet", "testnet", "canary"],
       "title": "SnarkVmNetworkOptions",
       "type": "string"
     },
