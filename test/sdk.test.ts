@@ -122,6 +122,7 @@ test("get all circuits", async (t) => {
   t.truthy(circuits[0]?.circuit_id);
 });
 
+// DELETE ME
 test("get circuit", async (t) => {
   // Compile a circuit.
   const circuitTarballDirectory = path.join(
