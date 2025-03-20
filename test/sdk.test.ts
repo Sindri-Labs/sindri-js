@@ -105,10 +105,22 @@ test("get all circuit proofs", async (t) => {
 });
 
 test("get all circuits", async (t) => {
+  // Compile a circuit.
+  const circuitTarballDirectory = path.join(
+    dataDirectory,
+    "circom-multiplier2.tgz",
+  );
+  const circuit = await sindri.createCircuit(circuitTarballDirectory, [
+    "from-tarball-for-get-all-circuits",
+  ]);
+  t.truthy(circuit?.circuit_id);
+
+  // Check that we can retrieve the circuit.
   const circuits = await sindri.getAllCircuits();
   t.true(Array.isArray(circuits));
   t.true(circuits.length > 0);
   t.truthy(circuits[0]?.circuit_id);
+  t.true(circuits.some((c) => c.circuit_id === circuit.circuit_id));
 });
 
 test("get circuit", async (t) => {
