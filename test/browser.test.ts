@@ -184,6 +184,7 @@ test("get all circuits", async (t) => {
       "from-browser-file-array-for-get-all-circuits",
     ]);
   }, fileData);
+  t.truthy(circuit?.circuit_id);
 
   // Check that we can retrieve the circuit.
   const circuits = await t.context.page.evaluate(async () =>
