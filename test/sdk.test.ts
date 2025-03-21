@@ -105,6 +105,17 @@ test("get all circuit proofs", async (t) => {
 });
 
 test("get all circuits", async (t) => {
+  // Compile a circuit.
+  const circuitTarballDirectory = path.join(
+    dataDirectory,
+    "circom-multiplier2.tgz",
+  );
+  const circuit = await sindri.createCircuit(circuitTarballDirectory, [
+    "from-tarball-for-get-all-circuits",
+  ]);
+  t.truthy(circuit?.circuit_id);
+
+  // Check that we can retrieve the circuit.
   const circuits = await sindri.getAllCircuits();
   t.true(Array.isArray(circuits));
   t.true(circuits.length > 0);
@@ -168,55 +179,42 @@ test("prove circuit", async (t) => {
 });
 
 (sharp ? test : test.skip)("upload avatar image", async (t) => {
-  // Hack in fixed headers so nock can match the request.
-  const oldHeaders = sindri._clientConfig.HEADERS;
-  sindri._clientConfig.HEADERS = {
-    ...oldHeaders,
-    "Content-Type":
-      "multipart/form-data; boundary=----WebKitFormBoundary1234567890UploadAvatarImage",
-  };
+  // Create a 1x1 red image to upload.
+  const redImageBuffer = await sharp({
+    create: {
+      width: 1,
+      height: 1,
+      channels: 3,
+      background: { r: 255, g: 0, b: 0 },
+    },
+  })
+    .png({ compressionLevel: 0, effort: 1 })
+    .toBuffer();
+  const imageFile = new File([redImageBuffer], "red-1x1.png") as Blob;
 
-  try {
-    // Create a 1x1 red image to upload.
-    const redImageBuffer = await sharp({
-      create: {
-        width: 1,
-        height: 1,
-        channels: 3,
-        background: { r: 255, g: 0, b: 0 },
-      },
-    })
-      .png({ compressionLevel: 0, effort: 1 })
-      .toBuffer();
-    const imageFile = new File([redImageBuffer], "red-1x1.png") as Blob;
+  // Upload the avatar image.
+  const { team } = await sindri._client.internal.teamAvatarUpload({
+    files: [imageFile],
+  });
+  t.truthy(team);
+  t.truthy(team.avatar_url);
+  t.notRegex(
+    team.avatar_url,
+    /gravatar/,
+    "Avatar URL should not be a Gravatar.",
+  );
 
-    // Upload the avatar image.
-    const { team } = await sindri._client.internal.teamAvatarUpload({
-      files: [imageFile],
-    });
-    t.truthy(team);
-    t.truthy(team.avatar_url);
-    t.notRegex(
-      team.avatar_url,
-      /gravatar/,
-      "Avatar URL should not be a Gravatar.",
-    );
-
-    // Download the avatar image and verify that it's a 1x1 red pixel.
-    const response = await axios({
-      url: team.avatar_url,
-      responseType: "arraybuffer",
-    });
-    const image = await sharp(response.data)
-      .raw()
-      .toBuffer({ resolveWithObject: true });
-    // Grab the first three bytes (R, G, B) of the image to check the color.
-    const [r, g, b] = image.data;
-    t.is(r, 255);
-    t.is(g, 0);
-    t.is(b, 0);
-  } finally {
-    // Restore the original headers.
-    sindri._clientConfig.HEADERS = oldHeaders;
-  }
+  // Download the avatar image and verify that it's a 1x1 red pixel.
+  const response = await axios({
+    url: team.avatar_url,
+    responseType: "arraybuffer",
+  });
+  const image = await sharp(response.data)
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  // Grab the first three bytes (R, G, B) of the image to check the color.
+  const [r, g, b] = image.data;
+  t.is(r, 255);
+  t.is(g, 0);
+  t.is(b, 0);
 });

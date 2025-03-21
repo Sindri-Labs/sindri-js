@@ -10,7 +10,13 @@ type MultipartInput = {
   data: Buffer;
 };
 
-const boundaryRegex = /----WebKitFormBoundary................/;
+// The form boundaries are randomized for security reasons, so we use a regex to find them. These
+// might break in future axios or chromium versions if the formats change. Here are examples of the
+// boundaries that they generate:
+//   * `----WebKitFormBoundary0buQ8d6EhWcs9X9d`
+//   * `axios-1.6.8-boundary-4FWEgytYyXdg_JzLZ-voa_ci6`
+const boundaryRegex =
+  /(?:----WebKitFormBoundary.{16}|axios-.\..\..-boundary-.{25})/;
 const parseTarball = makeSynchronous(
   async (buffer: Buffer): Promise<{ [path: string]: Buffer }> =>
     new Promise((resolve) => {

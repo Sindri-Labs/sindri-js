@@ -553,21 +553,9 @@ export class SindriClient {
       }
     }
 
-    // We need to shuffle in a hard-coded form boundary for tests to be deterministic.
-    // Note that it's important the boundary matches the Chrome format because the test runner
-    // checks payloads for this format in order to compare non-deterministic gzips.
-    // TODO: These header changes are global, we need to make them local to this request.
-    const oldHeaders = this._clientConfig.HEADERS;
-    this._clientConfig.HEADERS = {
-      ...oldHeaders,
-      "Content-Type":
-        "multipart/form-data; boundary=----WebKitFormBoundary0buQ8d6EhWcs9X9d",
-    };
-    const createResponsePromise = this._client.circuits.circuitCreate(
+    const createResponse = await this._client.circuits.circuitCreate(
       formData as NodeFormData,
     );
-    const createResponse = await createResponsePromise;
-    this._clientConfig.HEADERS = oldHeaders;
     const circuitId = createResponse.circuit_id;
 
     while (true) {

@@ -164,6 +164,29 @@ test("get all circuit proofs", async (t) => {
 });
 
 test("get all circuits", async (t) => {
+  // Compile a circuit.
+  const circuitDirectory = path.join(dataDirectory, "circom-multiplier2");
+  const fileNames = await fs.readdir(circuitDirectory);
+  const fileData = await Promise.all(
+    fileNames.map(async (fileName) => ({
+      content: await fs.readFile(
+        path.join(circuitDirectory, fileName),
+        "utf-8",
+      ),
+      fileName,
+    })),
+  );
+  const circuit = await t.context.page.evaluate(async (fileData) => {
+    const files = fileData.map(
+      ({ content, fileName }) => new File([content], fileName),
+    );
+    return await sindri.createCircuit(files, [
+      "from-browser-file-array-for-get-all-circuits",
+    ]);
+  }, fileData);
+  t.truthy(circuit?.circuit_id);
+
+  // Check that we can retrieve the circuit.
   const circuits = await t.context.page.evaluate(async () =>
     sindri.getAllCircuits(),
   );
