@@ -185,7 +185,7 @@ test("prove circuit", async (t) => {
   sindri._clientConfig.HEADERS = {
     ...oldHeaders,
     "Content-Type":
-      "multipart/form-data; boundary=----WebKitFormBoundary0buQ8d6EhWcs9X9d",
+      "multipart/form-data; boundary=----WebKitFormBoundary1234567890UploadAvatarImage",
   };
 
   try {
