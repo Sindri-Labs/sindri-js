@@ -20,11 +20,11 @@ function sanitizeError(error: Error): Error {
  * so that the errors can be serialized. The Ava test config is setup to automatically load and run
  * this patch in the test workers.
  */
-export function patchAxios() {
+export function makeAxiosErrorsSerializable() {
   axios.interceptors.response.use(
     (response) => response,
     (error) => Promise.reject(sanitizeError(error)),
   );
 }
 
-export default patchAxios;
+export default makeAxiosErrorsSerializable;
