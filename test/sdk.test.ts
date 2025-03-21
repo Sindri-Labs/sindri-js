@@ -205,7 +205,7 @@ test("prove circuit", async (t) => {
     sindri._clientConfig.HEADERS = {
       ...oldHeaders,
       "Content-Type":
-        "multipart/form-data; boundary=----WebKitFormBoundary1234567890UploadAvatarImage",
+        "multipart/form-data; boundary=----WebKitFormBoundary0buQ8d6EhWcs9X9d",
     };
     const teamAvatarUploadPromise = sindri._client.internal.teamAvatarUpload({
       files: [imageFile],
