@@ -566,8 +566,8 @@ export class SindriClient {
     const createResponsePromise = this._client.circuits.circuitCreate(
       formData as NodeFormData,
     );
-    const createResponse = await createResponsePromise;
     this._clientConfig.HEADERS = oldHeaders;
+    const createResponse = await createResponsePromise;
     const circuitId = createResponse.circuit_id;
 
     while (true) {
