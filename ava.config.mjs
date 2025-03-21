@@ -33,6 +33,7 @@ export default {
     ts: "module",
   },
   files: ["test/**/*.test.ts"],
+  require: ["test/utils/makeAxiosErrorsSerializable.ts"],
   timeout,
   // Use child processes instead of threads because notch isn't thread safe.
   workerThreads: false,
