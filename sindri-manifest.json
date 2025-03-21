@@ -829,7 +829,7 @@
     },
     "SnarkVmNetworkOptions": {
       "description": "The supported SnarkVM network options",
-      "enum": ["mainnet", "testnet"],
+      "enum": ["mainnet", "testnet", "canary"],
       "title": "SnarkVmNetworkOptions",
       "type": "string"
     },
@@ -928,6 +928,16 @@
           },
           "pattern": "^([^/].*|)$",
           "title": "Elf Path",
+          "type": "string"
+        },
+        "packageName": {
+          "default": "",
+          "description": "The name of the Rust package containing the Sp1 program code.",
+          "error_messages": {
+            "pattern": "`packageName` must be a valid Rust crate name."
+          },
+          "pattern": "^[a-z0-9_]+(?:-[a-z0-9_]+)*$",
+          "title": "SP1 Package Name",
           "type": "string"
         },
         "provingScheme": {
