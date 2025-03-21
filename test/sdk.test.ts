@@ -180,13 +180,8 @@ test("prove circuit", async (t) => {
 });
 
 (sharp ? test : test.skip)("upload avatar image", async (t) => {
-  // Hack in fixed headers so nock can match the request.
+  // Store the original headers so we can restore them later... we're gonna mess with them.
   const oldHeaders = sindri._clientConfig.HEADERS;
-  sindri._clientConfig.HEADERS = {
-    ...oldHeaders,
-    "Content-Type":
-      "multipart/form-data; boundary=----WebKitFormBoundary1234567890UploadAvatarImage",
-  };
 
   try {
     // Create a 1x1 red image to upload.
@@ -203,9 +198,20 @@ test("prove circuit", async (t) => {
     const imageFile = new File([redImageBuffer], "red-1x1.png") as Blob;
 
     // Upload the avatar image.
-    const { team } = await sindri._client.internal.teamAvatarUpload({
+    // Hack in fixed headers so nock can match the request deterministically. We importantly need to
+    // do this and restore them without any awaiting because if we yield the even loop, then it
+    // creates a race condition with other parallel tests that might also be futzing with the
+    // `Content-Type` header for the same reason.
+    sindri._clientConfig.HEADERS = {
+      ...oldHeaders,
+      "Content-Type":
+        "multipart/form-data; boundary=----WebKitFormBoundary1234567890UploadAvatarImage",
+    };
+    const teamAvatarUploadPromise = sindri._client.internal.teamAvatarUpload({
       files: [imageFile],
     });
+    sindri._clientConfig.HEADERS = oldHeaders;
+    const { team } = await teamAvatarUploadPromise;
     t.truthy(team);
     t.truthy(team.avatar_url);
     t.notRegex(
@@ -228,7 +234,7 @@ test("prove circuit", async (t) => {
     t.is(g, 0);
     t.is(b, 0);
   } finally {
-    // Restore the original headers.
+    // Restore the original headers (we might have already, but just in case).
     sindri._clientConfig.HEADERS = oldHeaders;
   }
 });
