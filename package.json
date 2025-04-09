@@ -48,6 +48,7 @@
   },
   "scripts": {
     "build": "rm -rf dist/* && NODE_ENV=production tsup",
+    "build:no-types": "export TSUP_DTS=false && npm run build",
     "build:watch": "rm -rf dist/* && NODE_ENV=development tsup --watch",
     "download-sindri-manifest-schema": "export SINDRI_BASE_URL=${SINDRI_BASE_URL:-https://sindri.app} && nwget ${SINDRI_BASE_URL:-https://sindri.app}/api/v1/sindri-manifest-schema.json -O sindri-manifest.json && sed -i -E 's#\"https?://[^/]+/api/#\\\"https://sindri.app/api/#g' sindri-manifest.json && prettier --write sindri-manifest.json",
     "download-sindri-manifest-schema:dev": "export SINDRI_BASE_URL=http://localhost:8000 && npm run download-sindri-manifest-schema",
