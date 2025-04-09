@@ -10,6 +10,7 @@ import type { Halo2CircuitInfoResponse } from "./Halo2CircuitInfoResponse";
 import type { HermezCircuitInfoResponse } from "./HermezCircuitInfoResponse";
 import type { JoltCircuitInfoResponse } from "./JoltCircuitInfoResponse";
 import type { NoirCircuitInfoResponse } from "./NoirCircuitInfoResponse";
+import type { OpenvmCircuitInfoResponse } from "./OpenvmCircuitInfoResponse";
 import type { Plonky2CircuitInfoResponse } from "./Plonky2CircuitInfoResponse";
 import type { SnarkvmCircuitInfoResponse } from "./SnarkvmCircuitInfoResponse";
 import type { Sp1CircuitInfoResponse } from "./Sp1CircuitInfoResponse";
@@ -25,6 +26,7 @@ export type CircuitInfoResponse =
   | GnarkCircuitInfoResponse
   | JoltCircuitInfoResponse
   | NoirCircuitInfoResponse
+  | OpenvmCircuitInfoResponse
   | Plonky2CircuitInfoResponse
   | SnarkvmCircuitInfoResponse
   | Sp1CircuitInfoResponse;

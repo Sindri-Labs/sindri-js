@@ -33,6 +33,7 @@ export type { JoltCircuitInfoResponse } from "./models/JoltCircuitInfoResponse";
 export type { JWTTokenErrorResponse } from "./models/JWTTokenErrorResponse";
 export type { NoirCircuitInfoResponse } from "./models/NoirCircuitInfoResponse";
 export type { ObtainApikeyInput } from "./models/ObtainApikeyInput";
+export type { OpenvmCircuitInfoResponse } from "./models/OpenvmCircuitInfoResponse";
 export type { PagedCircuitInfoResponse } from "./models/PagedCircuitInfoResponse";
 export type { PagedProjectInfoResponse } from "./models/PagedProjectInfoResponse";
 export type { PagedProofInfoResponse } from "./models/PagedProofInfoResponse";
