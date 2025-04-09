@@ -18,6 +18,7 @@ import type {
   Halo2CircuitInfoResponse,
   JoltCircuitInfoResponse,
   NoirCircuitInfoResponse,
+  OpenvmCircuitInfoResponse,
   Plonky2CircuitInfoResponse,
   ProofInfoResponse,
   ProofStatusResponse,
@@ -46,6 +47,7 @@ export type {
   JoltCircuitInfoResponse,
   JobStatus,
   NoirCircuitInfoResponse,
+  OpenvmCircuitInfoResponse,
   Plonky2CircuitInfoResponse,
   ProofInfoResponse,
   SnarkvmCircuitInfoResponse,
@@ -59,6 +61,7 @@ export type CircuitInfoResponse =
   | JoltCircuitInfoResponse
   | GnarkCircuitInfoResponse
   | NoirCircuitInfoResponse
+  | OpenvmCircuitInfoResponse
   | Plonky2CircuitInfoResponse
   | SnarkvmCircuitInfoResponse
   | Sp1CircuitInfoResponse;
