@@ -73,6 +73,7 @@
     "test": "npm run build && npm run test:fast",
     "test:fast": "tsx ./node_modules/.bin/ava",
     "test:record": "NOCK_BACK_MODE=update npm run test",
+    "test:record:fast": "export NOCK_BACK_MODE=update && npm run test:fast",
     "test:watch": "NODE_ENV=development NOCK_BACK_MODE=dryrun nodemon --watch src/ --watch test/ --ext js,cjs,mjs,ts,cts,mts --exec 'tsup --silent && tsx ./node_modules/.bin/ava'",
     "type-check": "tsc --noEmit",
     "/***** Hooks *****/": "",
