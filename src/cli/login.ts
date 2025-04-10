@@ -94,15 +94,14 @@ export const loginCommand = new Command()
       }
 
       // Generate an API key.
-      sindri._clientConfig.HEADERS = {
-        ...sindri._clientConfig.HEADERS,
-        "Sindri-Team-Id": `${teamId}`,
-      };
-      const apiKeyResult = await sindri._client.authorization.apikeyGenerate({
-        username,
-        password,
-        name,
-      });
+      const apiKeyResult = await sindri._client.authorization.apikeyGenerate(
+        {
+          username,
+          password,
+          name,
+        },
+        `${teamId}`,
+      );
       const apiKey = apiKeyResult.api_key;
       const apiKeyId = apiKeyResult.id;
       const apiKeyName = apiKeyResult.name;
