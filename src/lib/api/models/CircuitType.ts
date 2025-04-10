@@ -14,6 +14,7 @@ export type CircuitType =
   | "hermez"
   | "jolt"
   | "noir"
+  | "openvm"
   | "plonky2"
   | "snarkvm"
   | "sp1";

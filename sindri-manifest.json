@@ -495,6 +495,86 @@
       "title": "Halo2ProvingSchemeOptions",
       "type": "string"
     },
+    "Halo2ScrollSindriManifest": {
+      "additionalProperties": false,
+      "description": "Sindri Manifest for Scroll circuits built with the Halo2 framework.",
+      "properties": {
+        "circuitType": {
+          "const": "halo2",
+          "description": "The (frontend) development framework that your circuit is written with.",
+          "enum": ["halo2"],
+          "title": "Circuit Type",
+          "type": "string"
+        },
+        "name": {
+          "description": "The circuit name used to uniquely identify the circuit within your organization. Similar to a GitHub project name or a Docker image name.",
+          "error_messages": {
+            "pattern": "`name` must be a valid slug."
+          },
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "title": "Circuit Name",
+          "type": "string"
+        },
+        "curve": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Halo2CurveOptions"
+            }
+          ],
+          "default": "bn254",
+          "description": "The curve over which the proof is executed.",
+          "title": "Proving Curve"
+        },
+        "degree": {
+          "description": "Specifies that the circuit will have 2^degree rows.",
+          "title": "Degree",
+          "type": "integer"
+        },
+        "halo2Version": {
+          "const": "scroll",
+          "description": "The Halo2 frontend that your circuit is written with.",
+          "enum": ["scroll"],
+          "title": "Halo2 Version",
+          "type": "string"
+        },
+        "provingScheme": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Halo2ProvingSchemeOptions"
+            }
+          ],
+          "default": "shplonk",
+          "description": "The backend proving scheme. Defaults to shplonk."
+        },
+        "circuitLevel": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ScrollCircuitLevelOptions"
+            }
+          ],
+          "default": "chunk",
+          "description": "The circuit level from the multi-level scroll-prover. Defaults to `chunk`"
+        },
+        "zkevmVersion": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ScrollZkevmVersionOptions"
+            }
+          ],
+          "default": "latest",
+          "description": "The supported Scroll zkEVM version."
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": ["https://sindri.app/api/v1/sindri-manifest-schema.json"]
+        }
+      },
+      "required": ["circuitType", "name", "degree", "halo2Version"],
+      "title": "Sindri Manifest for Scroll Halo2 Circuits",
+      "type": "object"
+    },
     "Halo2TranscriptHashOptions": {
       "description": "The supported Halo2 hash functions.",
       "enum": ["blake2b", "keccak256", "poseidon"],
@@ -757,6 +837,69 @@
       "title": "NoirVersionOptions",
       "type": "string"
     },
+    "OpenvmProvingSchemeOptions": {
+      "const": "root",
+      "description": "The supported OpenVM proving schemes.",
+      "enum": ["root"],
+      "title": "OpenvmProvingSchemeOptions",
+      "type": "string"
+    },
+    "OpenvmSindriManifest": {
+      "additionalProperties": false,
+      "description": "Sindri Manifest for OpenVM circuits.",
+      "properties": {
+        "circuitType": {
+          "const": "openvm",
+          "description": "The (frontend) development framework that your circuit is written with.",
+          "enum": ["openvm"],
+          "title": "Circuit Type",
+          "type": "string"
+        },
+        "name": {
+          "description": "The circuit name used to uniquely identify the circuit within your organization. Similar to a GitHub project name or a Docker image name.",
+          "error_messages": {
+            "pattern": "`name` must be a valid slug."
+          },
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "title": "Circuit Name",
+          "type": "string"
+        },
+        "provingScheme": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/OpenvmProvingSchemeOptions"
+            }
+          ],
+          "default": "root",
+          "description": "OpenVM proving scheme defaults to 'root'"
+        },
+        "openvmVersion": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/OpenvmVersionOptions"
+            }
+          ],
+          "default": "scroll",
+          "description": "OpenVM version defaults to 'scroll'"
+        },
+        "$schema": {
+          "type": "string",
+          "title": "Sindri Manifest JSON Schema URL",
+          "description": "The URL pointing to a Sindri JSON Manifest schema definition.",
+          "examples": ["https://sindri.app/api/v1/sindri-manifest-schema.json"]
+        }
+      },
+      "required": ["circuitType", "name"],
+      "title": "Sindri Manifest for OpenVM Circuits",
+      "type": "object"
+    },
+    "OpenvmVersionOptions": {
+      "const": "scroll",
+      "description": "The supported OpenVM versions.",
+      "enum": ["scroll"],
+      "title": "OpenvmVersionOptions",
+      "type": "string"
+    },
     "Plonky2SindriManifest": {
       "additionalProperties": false,
       "description": "Sindri Manifest for Plonky2 circuits.",
@@ -825,6 +968,18 @@
       "description": "The supported Plonky2 framework versions.",
       "enum": ["0.2.0", "0.2.1", "0.2.2"],
       "title": "Plonky2VersionOptions",
+      "type": "string"
+    },
+    "ScrollCircuitLevelOptions": {
+      "description": "The circuit level from the multi-level scroll-prover.",
+      "enum": ["chunk", "batch", "bundle"],
+      "title": "ScrollCircuitLevelOptions",
+      "type": "string"
+    },
+    "ScrollZkevmVersionOptions": {
+      "description": "The supported Scroll zkEVM version tags.",
+      "enum": ["latest", "v0.12.0", "v0.13.1"],
+      "title": "ScrollZkevmVersionOptions",
       "type": "string"
     },
     "SnarkVmNetworkOptions": {
@@ -993,6 +1148,9 @@
       "$ref": "#/$defs/Halo2PSEV030SindriManifest"
     },
     {
+      "$ref": "#/$defs/Halo2ScrollSindriManifest"
+    },
+    {
       "$ref": "#/$defs/HermezSindriManifest"
     },
     {
@@ -1000,6 +1158,9 @@
     },
     {
       "$ref": "#/$defs/NoirSindriManifest"
+    },
+    {
+      "$ref": "#/$defs/OpenvmSindriManifest"
     },
     {
       "$ref": "#/$defs/Plonky2SindriManifest"
