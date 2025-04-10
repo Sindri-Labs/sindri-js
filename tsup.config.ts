@@ -3,12 +3,13 @@ import { defineConfig } from "tsup";
 
 process.env.NODE_ENV = process.env.NODE_ENV || "production";
 process.env.VERSION = process.env.VERSION || "0.0.0";
+const dts = (process.env.TSUP_DTS ?? "true") !== "false";
 
 export default defineConfig([
   // SDK for NodeJS.
   {
     cjsInterop: true,
-    dts: true,
+    dts,
     entry: ["src/lib/index.ts"],
     env: {
       NODE_ENV: process.env.NODE_ENV,
@@ -26,7 +27,7 @@ export default defineConfig([
   },
   // SDK for Browser.
   {
-    dts: true,
+    dts,
     entry: ["src/lib/index.ts"],
     env: {
       BROWSER_BUILD: "true",
@@ -62,7 +63,7 @@ export default defineConfig([
   // CLI Tool.
   {
     bundle: true,
-    dts: true,
+    dts,
     entry: ["src/cli/index.ts"],
     env: {
       NODE_ENV: process.env.NODE_ENV,
