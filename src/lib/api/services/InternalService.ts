@@ -24,6 +24,7 @@ import type { TeamInviteInput } from "../models/TeamInviteInput";
 import type { TeamMembersResponse } from "../models/TeamMembersResponse";
 import type { TeamMeResponse } from "../models/TeamMeResponse";
 import type { TeamRemoveMemberInput } from "../models/TeamRemoveMemberInput";
+import type { TeamSettingsInput } from "../models/TeamSettingsInput";
 import type { UserMeResponse } from "../models/UserMeResponse";
 
 import type { CancelablePromise } from "../core/CancelablePromise";
@@ -721,6 +722,29 @@ export class InternalService {
       errors: {
         403: `Forbidden`,
         404: `Not Found`,
+      },
+    });
+  }
+
+  /**
+   * Update Team Settings
+   * Update team settings.
+   * @param requestBody
+   * @returns TeamDetail OK
+   * @throws ApiError
+   */
+  public teamSettings(
+    requestBody: TeamSettingsInput,
+  ): CancelablePromise<TeamDetail> {
+    return this.httpRequest.request({
+      method: "POST",
+      url: "/api/v1/team/settings",
+      body: requestBody,
+      mediaType: "application/json",
+      errors: {
+        404: `Not Found`,
+        422: `Unprocessable Entity`,
+        500: `Internal Server Error`,
       },
     });
   }

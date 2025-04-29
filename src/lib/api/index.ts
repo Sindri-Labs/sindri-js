@@ -67,6 +67,7 @@ export type { TeamMemberDetail } from "./models/TeamMemberDetail";
 export type { TeamMembersResponse } from "./models/TeamMembersResponse";
 export type { TeamMeResponse } from "./models/TeamMeResponse";
 export type { TeamRemoveMemberInput } from "./models/TeamRemoveMemberInput";
+export type { TeamSettingsInput } from "./models/TeamSettingsInput";
 export type { TokenObtainPairInputSchema } from "./models/TokenObtainPairInputSchema";
 export type { TokenObtainPairOutputSchema } from "./models/TokenObtainPairOutputSchema";
 export type { TokenRefreshInputSchema } from "./models/TokenRefreshInputSchema";

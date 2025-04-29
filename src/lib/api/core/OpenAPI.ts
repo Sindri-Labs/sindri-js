@@ -27,7 +27,7 @@ export type OpenAPIConfig = {
 
 export const OpenAPI: OpenAPIConfig = {
   BASE: "https://sindri.app",
-  VERSION: "1.17.15",
+  VERSION: "1.17.17",
   WITH_CREDENTIALS: false,
   CREDENTIALS: "include",
   TOKEN: undefined,
