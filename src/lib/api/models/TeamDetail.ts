@@ -16,6 +16,10 @@ export type TeamDetail = {
    */
   date_created: string;
   description: string;
+  /**
+   * The URL for the team's github account.
+   */
+  github_url: string;
   id: number;
   /**
    * Whether the team is a personal team.
@@ -41,6 +45,10 @@ export type TeamDetail = {
    * The slug for the team (used for routing).
    */
   slug: string;
+  /**
+   * The URL for the team's Twitter account.
+   */
+  twitter_url: string;
   /**
    * The URL for the team's website.
    */
