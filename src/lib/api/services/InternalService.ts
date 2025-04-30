@@ -24,6 +24,8 @@ import type { TeamInviteInput } from "../models/TeamInviteInput";
 import type { TeamMembersResponse } from "../models/TeamMembersResponse";
 import type { TeamMeResponse } from "../models/TeamMeResponse";
 import type { TeamRemoveMemberInput } from "../models/TeamRemoveMemberInput";
+import type { TeamSettingsInput } from "../models/TeamSettingsInput";
+import type { UserLoginInput } from "../models/UserLoginInput";
 import type { UserMeResponse } from "../models/UserMeResponse";
 
 import type { CancelablePromise } from "../core/CancelablePromise";
@@ -441,7 +443,7 @@ export class InternalService {
 
   /**
    * Change Password
-   * Change user password. Requires JWT authentication.
+   * Change user password. Requires user authentication.
    * @param requestBody
    * @returns ActionResponse OK
    * @throws ApiError
@@ -726,12 +728,70 @@ export class InternalService {
   }
 
   /**
+   * Update Team Settings
+   * Update team settings.
+   * @param requestBody
+   * @returns TeamDetail OK
+   * @throws ApiError
+   */
+  public teamSettings(
+    requestBody: TeamSettingsInput,
+  ): CancelablePromise<TeamDetail> {
+    return this.httpRequest.request({
+      method: "POST",
+      url: "/api/v1/team/settings",
+      body: requestBody,
+      mediaType: "application/json",
+      errors: {
+        404: `Not Found`,
+        422: `Unprocessable Entity`,
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
+   * Login User
+   * Login a user.
+   * @param requestBody
+   * @returns ActionResponse OK
+   * @throws ApiError
+   */
+  public userLogin(
+    requestBody: UserLoginInput,
+  ): CancelablePromise<ActionResponse> {
+    return this.httpRequest.request({
+      method: "POST",
+      url: "/api/v1/user/login",
+      body: requestBody,
+      mediaType: "application/json",
+      errors: {
+        401: `Unauthorized`,
+        403: `Forbidden`,
+      },
+    });
+  }
+
+  /**
+   * Logout User
+   * Logout a user.
+   * @returns ActionResponse OK
+   * @throws ApiError
+   */
+  public userLogout(): CancelablePromise<ActionResponse> {
+    return this.httpRequest.request({
+      method: "POST",
+      url: "/api/v1/user/logout",
+    });
+  }
+
+  /**
    * User Me
-   * Obtain user details. Requires JWT authentication.
+   * Obtain user details. Requires user authentication.
    * @returns UserMeResponse OK
    * @throws ApiError
    */
-  public userMeWithJwtAuth(): CancelablePromise<UserMeResponse> {
+  public userMe(): CancelablePromise<UserMeResponse> {
     return this.httpRequest.request({
       method: "GET",
       url: "/api/v1/user/me",
