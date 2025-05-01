@@ -82,7 +82,7 @@ export const loginCommand = new Command()
       // Fetch their teams and have the user select one.
       const userResult = await sindri._client.internal.userMeWithJwtAuth();
       const teamId = await select({
-        message: "Select a Organization:",
+        message: "Select an Organization:",
         choices: userResult.teams.map(({ id, slug }) => ({
           name: slug,
           value: id,
