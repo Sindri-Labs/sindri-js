@@ -36,6 +36,38 @@
           "title": "Circuit Name",
           "type": "string"
         },
+        "homepage": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of the homepage for your team or project.",
+          "title": "Homepage"
+        },
+        "repository": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of a code repository for your project.",
+          "title": "Repository"
+        },
         "circuitPath": {
           "default": "./circuit.circom",
           "description": "Path to a `.circom` circuit file with a main component (defaults to `./circuit.circom`).",
@@ -136,6 +168,38 @@
           "title": "Circuit Name",
           "type": "string"
         },
+        "homepage": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of the homepage for your team or project.",
+          "title": "Homepage"
+        },
+        "repository": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of a code repository for your project.",
+          "title": "Repository"
+        },
         "circuitStructName": {
           "description": "The name of the Go struct which defines your circuit inputs.",
           "error_messages": {
@@ -234,6 +298,38 @@
           "title": "Circuit Name",
           "type": "string"
         },
+        "homepage": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of the homepage for your team or project.",
+          "title": "Homepage"
+        },
+        "repository": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of a code repository for your project.",
+          "title": "Repository"
+        },
         "curve": {
           "allOf": [
             {
@@ -320,6 +416,38 @@
           "pattern": "^[a-zA-Z0-9_-]+$",
           "title": "Circuit Name",
           "type": "string"
+        },
+        "homepage": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of the homepage for your team or project.",
+          "title": "Homepage"
+        },
+        "repository": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of a code repository for your project.",
+          "title": "Repository"
         },
         "curve": {
           "allOf": [
@@ -422,6 +550,38 @@
           "title": "Circuit Name",
           "type": "string"
         },
+        "homepage": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of the homepage for your team or project.",
+          "title": "Homepage"
+        },
+        "repository": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of a code repository for your project.",
+          "title": "Repository"
+        },
         "curve": {
           "allOf": [
             {
@@ -515,6 +675,38 @@
           "title": "Circuit Name",
           "type": "string"
         },
+        "homepage": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of the homepage for your team or project.",
+          "title": "Homepage"
+        },
+        "repository": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of a code repository for your project.",
+          "title": "Repository"
+        },
         "curve": {
           "allOf": [
             {
@@ -607,6 +799,38 @@
           "title": "Circuit Name",
           "type": "string"
         },
+        "homepage": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of the homepage for your team or project.",
+          "title": "Homepage"
+        },
+        "repository": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of a code repository for your project.",
+          "title": "Repository"
+        },
         "provingScheme": {
           "allOf": [
             {
@@ -674,6 +898,38 @@
           "pattern": "^[a-zA-Z0-9_-]+$",
           "title": "Circuit Name",
           "type": "string"
+        },
+        "homepage": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of the homepage for your team or project.",
+          "title": "Homepage"
+        },
+        "repository": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of a code repository for your project.",
+          "title": "Repository"
         },
         "joltVersion": {
           "allOf": [
@@ -780,6 +1036,38 @@
           "title": "Circuit Name",
           "type": "string"
         },
+        "homepage": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of the homepage for your team or project.",
+          "title": "Homepage"
+        },
+        "repository": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of a code repository for your project.",
+          "title": "Repository"
+        },
         "curve": {
           "allOf": [
             {
@@ -864,6 +1152,38 @@
           "title": "Circuit Name",
           "type": "string"
         },
+        "homepage": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of the homepage for your team or project.",
+          "title": "Homepage"
+        },
+        "repository": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of a code repository for your project.",
+          "title": "Repository"
+        },
         "provingScheme": {
           "allOf": [
             {
@@ -919,6 +1239,38 @@
           "pattern": "^[a-zA-Z0-9_-]+$",
           "title": "Circuit Name",
           "type": "string"
+        },
+        "homepage": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of the homepage for your team or project.",
+          "title": "Homepage"
+        },
+        "repository": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of a code repository for your project.",
+          "title": "Repository"
         },
         "structName": {
           "description": "The path to your circuit struct definition. (*e.g.* `my-package::my_file::MyCircuitStruct`).",
@@ -1015,6 +1367,38 @@
           "title": "Circuit Name",
           "type": "string"
         },
+        "homepage": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of the homepage for your team or project.",
+          "title": "Homepage"
+        },
+        "repository": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of a code repository for your project.",
+          "title": "Repository"
+        },
         "functionName": {
           "description": "Main aleo function name",
           "title": "Function Name",
@@ -1075,6 +1459,38 @@
           "title": "Circuit Name",
           "type": "string"
         },
+        "homepage": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of the homepage for your team or project.",
+          "title": "Homepage"
+        },
+        "repository": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The URL of a code repository for your project.",
+          "title": "Repository"
+        },
         "elfPath": {
           "default": "",
           "description": "The relative path to a RISC-V executable (compiled with the succinct Rust toolchain) if uploading an ELF. Otherwise, leave the field empty to opt for Sindri to compile your guest code. Defaults to empty field.",
@@ -1126,7 +1542,7 @@
     },
     "Sp1VersionOptions": {
       "description": "The supported SP1 zkVM versions.",
-      "enum": ["3.0.0", "4.0.0"],
+      "enum": ["3.0.0", "4.0.0", "4.1.3"],
       "title": "Sp1VersionOptions",
       "type": "string"
     }

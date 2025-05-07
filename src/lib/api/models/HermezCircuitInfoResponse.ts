@@ -30,6 +30,10 @@ export type HermezCircuitInfoResponse = {
    */
   date_created: string;
   /**
+   * The URL of the homepage for the team or project.
+   */
+  homepage: string | null;
+  /**
    * Metadata keys and values for the circuit that were specified at creation time.
    */
   meta: Record<string, string>;
@@ -45,6 +49,10 @@ export type HermezCircuitInfoResponse = {
    * Whether the circuit is public. Public circuits can be used by any user.
    */
   public: boolean;
+  /**
+   * The URL of a code repository for the circuit.
+   */
+  repository: string | null;
   /**
    * The status of the circuit job.
    */

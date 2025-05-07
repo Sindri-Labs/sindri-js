@@ -18,6 +18,10 @@ export type ProjectInfoResponse = {
    */
   is_public: boolean;
   /**
+   * Labels for the project.
+   */
+  labels: Array<string>;
+  /**
    * The most recent circuit tagged "latest" or the most recently created circuit if no circuit is tagged "latest".
    */
   latest_circuit?: ProjectLatestCircuitResponse | null;

@@ -15,4 +15,8 @@ export type ProjectSettingsInput = {
    * The name of the project.
    */
   name?: string | null;
+  /**
+   * List of labels to associate with the project.
+   */
+  labels?: Array<string> | null;
 };
