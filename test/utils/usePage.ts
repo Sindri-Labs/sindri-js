@@ -117,6 +117,9 @@ export const usePage = async ({
         `--proxy-server=http://localhost:${proxyPort}`,
         // Disable CORS because they don't play back correctly with Nock and the proxy.
         "--disable-web-security",
+	// Disable GPU to address protocol timeouts on CI. See:
+	// * https://github.com/puppeteer/puppeteer/issues/12637#issuecomment-2264825922
+	"--disable-gpu",
       ],
     });
 
