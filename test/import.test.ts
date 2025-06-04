@@ -20,7 +20,7 @@ const requireCjs = async (
     // Necessary for the browser tests.
     global.window = {};
 
-    // Use flatted for better handling of non-JSON content, circular referecnes, etc.
+    // Use flatted for better handling of non-JSON content, circular references, etc.
     const { stringify } = require("flatted");
 
     const module = require("${moduleFullPath}");
