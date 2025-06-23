@@ -121,6 +121,7 @@ export const usePage = async ({
         // * https://github.com/puppeteer/puppeteer/issues/12637#issuecomment-2264825922
         "--disable-gpu",
       ],
+      protocolTimeout: 30 * 60 * 1000,
     });
 
     // Start recording, and only allow connections to likely API endpoints.
