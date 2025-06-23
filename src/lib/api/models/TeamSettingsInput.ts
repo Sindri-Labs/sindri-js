@@ -14,7 +14,7 @@ export type TeamSettingsInput = {
   /**
    * The URL for the team's github account. This is displayed on the team page.
    */
-  github_url?: string;
+  github_url?: string | null;
   /**
    * The URL for the team's Twitter account. This is displayed on the team page.
    */

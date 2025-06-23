@@ -41,6 +41,27 @@ export class AuthorizationService {
   }
 
   /**
+   * API Key Delete
+   * Delete a specific API key.
+   * @param apikeyId The UUID4 identifier associated with this API Key.
+   * @returns ActionResponse OK
+   * @throws ApiError
+   */
+  public apikeyDelete(apikeyId: string): CancelablePromise<ActionResponse> {
+    return this.httpRequest.request({
+      method: "DELETE",
+      url: "/api/v1/apikey/{apikey_id}/delete",
+      path: {
+        apikey_id: apikeyId,
+      },
+      errors: {
+        404: `Not Found`,
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
    * API Key Generate
    * Generate an API key for the requesting team.
    * @param name An optional name or tag to assign to the generated API Key.
@@ -73,27 +94,6 @@ export class AuthorizationService {
       method: "GET",
       url: "/api/v1/apikey/list",
       errors: {
-        500: `Internal Server Error`,
-      },
-    });
-  }
-
-  /**
-   * API Key Delete
-   * Delete a specific API key.
-   * @param apikeyId The UUID4 identifier associated with this API Key.
-   * @returns ActionResponse OK
-   * @throws ApiError
-   */
-  public apikeyDelete(apikeyId: string): CancelablePromise<ActionResponse> {
-    return this.httpRequest.request({
-      method: "DELETE",
-      url: "/api/v1/apikey/{apikey_id}/delete",
-      path: {
-        apikey_id: apikeyId,
-      },
-      errors: {
-        404: `Not Found`,
         500: `Internal Server Error`,
       },
     });
