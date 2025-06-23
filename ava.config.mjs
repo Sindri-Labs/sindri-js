@@ -22,7 +22,7 @@ if (process.env.TEST_TIMEOUT) {
       process.env.NOCK_BACK_MODE ?? "lockdown",
     )
   ) {
-    timeout = "10m";
+    timeout = "30m";
   } else {
     timeout = "60s";
   }
