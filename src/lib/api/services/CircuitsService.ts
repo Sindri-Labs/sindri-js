@@ -50,16 +50,33 @@ export class CircuitsService {
   }
 
   /**
-   * Circuit List
-   * List all circuits owned by team.
-   * @returns CircuitInfoResponse OK
+   * Delete Circuit
+   * Delete a circuit.
+   * @param circuitId The circuit identifer of the circuit.
+   * This can take one of the following forms:
+   *
+   * 1. `<CIRCUIT_ID>` - The unique UUID4 ID for an exact version of a compiled circuit.
+   * 2. `<CIRCUIT_NAME>` - The name of a circuit owned by the authenticated team. This will default to
+   * the most recent version of the circuit tagged as `latest`.
+   * 3. `<CIRCUIT_NAME>:<TAG>` - The name of a circuit owned by the authenticated team and an explicit
+   * tag. This corresponds to the most recent compilation of the circuit with the specified tag.
+   * 4. `<TEAM_NAME>/<CIRCUIT_NAME>` - The name of a circuit owned by the specified team.  This will
+   * default to the most recent version of the circuit tagged as `latest`.
+   * 5. `<TEAM_NAME>/<CIRCUIT_NAME>:<TAG>` - The name of a circuit owned by a specified team and an
+   * explicit tag. This corresponds to the most recent compilation of the team's circuit with the
+   * specified tag.
+   * @returns ActionResponse OK
    * @throws ApiError
    */
-  public circuitList(): CancelablePromise<Array<CircuitInfoResponse>> {
+  public circuitDelete(circuitId: string): CancelablePromise<ActionResponse> {
     return this.httpRequest.request({
-      method: "GET",
-      url: "/api/v1/circuit/list",
+      method: "DELETE",
+      url: "/api/v1/circuit/{circuit_id}/delete",
+      path: {
+        circuit_id: circuitId,
+      },
       errors: {
+        404: `Not Found`,
         500: `Internal Server Error`,
       },
     });
@@ -106,33 +123,16 @@ export class CircuitsService {
   }
 
   /**
-   * Delete Circuit
-   * Delete a circuit.
-   * @param circuitId The circuit identifer of the circuit.
-   * This can take one of the following forms:
-   *
-   * 1. `<CIRCUIT_ID>` - The unique UUID4 ID for an exact version of a compiled circuit.
-   * 2. `<CIRCUIT_NAME>` - The name of a circuit owned by the authenticated team. This will default to
-   * the most recent version of the circuit tagged as `latest`.
-   * 3. `<CIRCUIT_NAME>:<TAG>` - The name of a circuit owned by the authenticated team and an explicit
-   * tag. This corresponds to the most recent compilation of the circuit with the specified tag.
-   * 4. `<TEAM_NAME>/<CIRCUIT_NAME>` - The name of a circuit owned by the specified team.  This will
-   * default to the most recent version of the circuit tagged as `latest`.
-   * 5. `<TEAM_NAME>/<CIRCUIT_NAME>:<TAG>` - The name of a circuit owned by a specified team and an
-   * explicit tag. This corresponds to the most recent compilation of the team's circuit with the
-   * specified tag.
-   * @returns ActionResponse OK
+   * Circuit List
+   * List all circuits owned by team.
+   * @returns CircuitInfoResponse OK
    * @throws ApiError
    */
-  public circuitDelete(circuitId: string): CancelablePromise<ActionResponse> {
+  public circuitList(): CancelablePromise<Array<CircuitInfoResponse>> {
     return this.httpRequest.request({
-      method: "DELETE",
-      url: "/api/v1/circuit/{circuit_id}/delete",
-      path: {
-        circuit_id: circuitId,
-      },
+      method: "GET",
+      url: "/api/v1/circuit/list",
       errors: {
-        404: `Not Found`,
         500: `Internal Server Error`,
       },
     });

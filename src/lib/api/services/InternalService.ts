@@ -40,6 +40,40 @@ export class InternalService {
   constructor(public readonly httpRequest: BaseHttpRequest) {}
 
   /**
+   * Change Password
+   * Change user password. Requires user authentication.
+   * @param requestBody
+   * @returns ActionResponse OK
+   * @throws ApiError
+   */
+  public passwordChangeWithJwtAuth(
+    requestBody: PasswordChangeInput,
+  ): CancelablePromise<ActionResponse> {
+    return this.httpRequest.request({
+      method: "POST",
+      url: "/api/v1/password/change",
+      body: requestBody,
+      mediaType: "application/json",
+      errors: {
+        422: `Unprocessable Entity`,
+      },
+    });
+  }
+
+  /**
+   * Sindri Manifest Schema
+   * Return Sindri manifest schema as JSON.
+   * @returns any OK
+   * @throws ApiError
+   */
+  public sindriManifestSchema(): CancelablePromise<Record<string, any>> {
+    return this.httpRequest.request({
+      method: "GET",
+      url: "/api/v1/sindri-manifest-schema.json",
+    });
+  }
+
+  /**
    * Circuit File Download
    * Obtain circuit file(s).
    * @param circuitId The circuit identifer of the circuit.
@@ -117,6 +151,145 @@ export class InternalService {
       query: {
         limit: limit,
         offset: offset,
+      },
+      errors: {
+        404: `Not Found`,
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
+   * Circuit Smart Contract Verifier
+   * Get smart contract verifier for existing circuit
+   * @param circuitId The circuit identifer of the circuit.
+   * This can take one of the following forms:
+   *
+   * 1. `<CIRCUIT_ID>` - The unique UUID4 ID for an exact version of a compiled circuit.
+   * 2. `<CIRCUIT_NAME>` - The name of a circuit owned by the authenticated team. This will default to
+   * the most recent version of the circuit tagged as `latest`.
+   * 3. `<CIRCUIT_NAME>:<TAG>` - The name of a circuit owned by the authenticated team and an explicit
+   * tag. This corresponds to the most recent compilation of the circuit with the specified tag.
+   * 4. `<TEAM_NAME>/<CIRCUIT_NAME>` - The name of a circuit owned by the specified team.  This will
+   * default to the most recent version of the circuit tagged as `latest`.
+   * 5. `<TEAM_NAME>/<CIRCUIT_NAME>:<TAG>` - The name of a circuit owned by a specified team and an
+   * explicit tag. This corresponds to the most recent compilation of the team's circuit with the
+   * specified tag.
+   * @returns SmartContractVerifierResponse OK
+   * @throws ApiError
+   */
+  public circuitSmartContractVerifier(
+    circuitId: string,
+  ): CancelablePromise<SmartContractVerifierResponse> {
+    return this.httpRequest.request({
+      method: "GET",
+      url: "/api/v1/circuit/{circuit_id}/smart_contract_verifier",
+      path: {
+        circuit_id: circuitId,
+      },
+      errors: {
+        404: `Not Found`,
+        409: `Conflict`,
+        500: `Internal Server Error`,
+        501: `Not Implemented`,
+      },
+    });
+  }
+
+  /**
+   * Circuit Status
+   * Get status for a specific circuit.
+   * @param circuitId The UUID4 identifier associated with this circuit.
+   * @returns CircuitStatusResponse OK
+   * @throws ApiError
+   */
+  public circuitStatus(
+    circuitId: string,
+  ): CancelablePromise<CircuitStatusResponse> {
+    return this.httpRequest.request({
+      method: "GET",
+      url: "/api/v1/circuit/{circuit_id}/status",
+      path: {
+        circuit_id: circuitId,
+      },
+      errors: {
+        404: `Not Found`,
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
+   * Project List
+   * List all projects meeting filter criteria.
+   * @param requestBody
+   * @returns ProjectInfoResponse OK
+   * @throws ApiError
+   */
+  public projectList(
+    requestBody: ProjectListInput,
+  ): CancelablePromise<Array<ProjectInfoResponse>> {
+    return this.httpRequest.request({
+      method: "POST",
+      url: "/api/v1/project/list",
+      body: requestBody,
+      mediaType: "application/json",
+      errors: {
+        404: `Not Found`,
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
+   * Project List
+   * List all projects meeting filter criteria.
+   * @param requestBody
+   * @param limit The number of projects to return.
+   * @param offset The number of projects to skip.
+   * @returns PagedProjectInfoResponse OK
+   * @throws ApiError
+   */
+  public projectListPaginated(
+    requestBody: ProjectListInput,
+    limit: number = 100,
+    offset?: number,
+  ): CancelablePromise<PagedProjectInfoResponse> {
+    return this.httpRequest.request({
+      method: "POST",
+      url: "/api/v1/project/list/paginated",
+      query: {
+        limit: limit,
+        offset: offset,
+      },
+      body: requestBody,
+      mediaType: "application/json",
+      errors: {
+        404: `Not Found`,
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
+   * Project Proofs
+   * Get all proofs for a project.
+   * @param projectId The project identifer of the project.
+   * This can take one of the following forms:
+   *
+   * 1. `<PROJECT_ID>` - The unique UUID4 ID for a project.
+   * 2. `<TEAM_NAME>/<PROJECT_NAME>` - The name of a project owned by the specified team.
+   * @returns ProofInfoResponse OK
+   * @throws ApiError
+   */
+  public projectProofs(
+    projectId: string,
+  ): CancelablePromise<Array<ProofInfoResponse>> {
+    return this.httpRequest.request({
+      method: "GET",
+      url: "/api/v1/project/{project_id}/proofs",
+      path: {
+        project_id: projectId,
       },
       errors: {
         404: `Not Found`,
@@ -240,85 +413,6 @@ export class InternalService {
   }
 
   /**
-   * Project List
-   * List all projects meeting filter criteria.
-   * @param requestBody
-   * @returns ProjectInfoResponse OK
-   * @throws ApiError
-   */
-  public projectList(
-    requestBody: ProjectListInput,
-  ): CancelablePromise<Array<ProjectInfoResponse>> {
-    return this.httpRequest.request({
-      method: "POST",
-      url: "/api/v1/project/list",
-      body: requestBody,
-      mediaType: "application/json",
-      errors: {
-        404: `Not Found`,
-        500: `Internal Server Error`,
-      },
-    });
-  }
-
-  /**
-   * Project List
-   * List all projects meeting filter criteria.
-   * @param requestBody
-   * @param limit The number of projects to return.
-   * @param offset The number of projects to skip.
-   * @returns PagedProjectInfoResponse OK
-   * @throws ApiError
-   */
-  public projectListPaginated(
-    requestBody: ProjectListInput,
-    limit: number = 100,
-    offset?: number,
-  ): CancelablePromise<PagedProjectInfoResponse> {
-    return this.httpRequest.request({
-      method: "POST",
-      url: "/api/v1/project/list/paginated",
-      query: {
-        limit: limit,
-        offset: offset,
-      },
-      body: requestBody,
-      mediaType: "application/json",
-      errors: {
-        404: `Not Found`,
-        500: `Internal Server Error`,
-      },
-    });
-  }
-
-  /**
-   * Project Proofs
-   * Get all proofs for a project.
-   * @param projectId The project identifer of the project.
-   * This can take one of the following forms:
-   *
-   * 1. `<PROJECT_ID>` - The unique UUID4 ID for a project.
-   * 2. `<TEAM_NAME>/<PROJECT_NAME>` - The name of a project owned by the specified team.
-   * @returns ProofInfoResponse OK
-   * @throws ApiError
-   */
-  public projectProofs(
-    projectId: string,
-  ): CancelablePromise<Array<ProofInfoResponse>> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/api/v1/project/{project_id}/proofs",
-      path: {
-        project_id: projectId,
-      },
-      errors: {
-        404: `Not Found`,
-        500: `Internal Server Error`,
-      },
-    });
-  }
-
-  /**
    * Project Proofs
    * Get all proofs for a project.
    * @param projectId The project identifer of the project.
@@ -377,87 +471,6 @@ export class InternalService {
         404: `Not Found`,
         422: `Unprocessable Entity`,
         500: `Internal Server Error`,
-      },
-    });
-  }
-
-  /**
-   * Circuit Smart Contract Verifier
-   * Get smart contract verifier for existing circuit
-   * @param circuitId The circuit identifer of the circuit.
-   * This can take one of the following forms:
-   *
-   * 1. `<CIRCUIT_ID>` - The unique UUID4 ID for an exact version of a compiled circuit.
-   * 2. `<CIRCUIT_NAME>` - The name of a circuit owned by the authenticated team. This will default to
-   * the most recent version of the circuit tagged as `latest`.
-   * 3. `<CIRCUIT_NAME>:<TAG>` - The name of a circuit owned by the authenticated team and an explicit
-   * tag. This corresponds to the most recent compilation of the circuit with the specified tag.
-   * 4. `<TEAM_NAME>/<CIRCUIT_NAME>` - The name of a circuit owned by the specified team.  This will
-   * default to the most recent version of the circuit tagged as `latest`.
-   * 5. `<TEAM_NAME>/<CIRCUIT_NAME>:<TAG>` - The name of a circuit owned by a specified team and an
-   * explicit tag. This corresponds to the most recent compilation of the team's circuit with the
-   * specified tag.
-   * @returns SmartContractVerifierResponse OK
-   * @throws ApiError
-   */
-  public circuitSmartContractVerifier(
-    circuitId: string,
-  ): CancelablePromise<SmartContractVerifierResponse> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/api/v1/circuit/{circuit_id}/smart_contract_verifier",
-      path: {
-        circuit_id: circuitId,
-      },
-      errors: {
-        404: `Not Found`,
-        409: `Conflict`,
-        500: `Internal Server Error`,
-        501: `Not Implemented`,
-      },
-    });
-  }
-
-  /**
-   * Circuit Status
-   * Get status for a specific circuit.
-   * @param circuitId The UUID4 identifier associated with this circuit.
-   * @returns CircuitStatusResponse OK
-   * @throws ApiError
-   */
-  public circuitStatus(
-    circuitId: string,
-  ): CancelablePromise<CircuitStatusResponse> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/api/v1/circuit/{circuit_id}/status",
-      path: {
-        circuit_id: circuitId,
-      },
-      errors: {
-        404: `Not Found`,
-        500: `Internal Server Error`,
-      },
-    });
-  }
-
-  /**
-   * Change Password
-   * Change user password. Requires user authentication.
-   * @param requestBody
-   * @returns ActionResponse OK
-   * @throws ApiError
-   */
-  public passwordChangeWithJwtAuth(
-    requestBody: PasswordChangeInput,
-  ): CancelablePromise<ActionResponse> {
-    return this.httpRequest.request({
-      method: "POST",
-      url: "/api/v1/password/change",
-      body: requestBody,
-      mediaType: "application/json",
-      errors: {
-        422: `Unprocessable Entity`,
       },
     });
   }
@@ -551,19 +564,6 @@ export class InternalService {
         404: `Not Found`,
         500: `Internal Server Error`,
       },
-    });
-  }
-
-  /**
-   * Sindri Manifest Schema
-   * Return Sindri manifest schema as JSON.
-   * @returns any OK
-   * @throws ApiError
-   */
-  public sindriManifestSchema(): CancelablePromise<Record<string, any>> {
-    return this.httpRequest.request({
-      method: "GET",
-      url: "/api/v1/sindri-manifest-schema.json",
     });
   }
 
@@ -795,6 +795,27 @@ export class InternalService {
     return this.httpRequest.request({
       method: "GET",
       url: "/api/v1/user/me",
+    });
+  }
+
+  /**
+   * Change Password
+   * Change user password. Requires user authentication.
+   * @param requestBody
+   * @returns ActionResponse OK
+   * @throws ApiError
+   */
+  public userPassword(
+    requestBody: PasswordChangeInput,
+  ): CancelablePromise<ActionResponse> {
+    return this.httpRequest.request({
+      method: "POST",
+      url: "/api/v1/user/password",
+      body: requestBody,
+      mediaType: "application/json",
+      errors: {
+        422: `Unprocessable Entity`,
+      },
     });
   }
 }
