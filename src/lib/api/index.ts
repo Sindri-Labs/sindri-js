@@ -18,6 +18,7 @@ export type { BoojumCircuitInfoResponse } from "./models/BoojumCircuitInfoRespon
 export type { CircomCircuitInfoResponse } from "./models/CircomCircuitInfoResponse";
 export type { CircuitCreateInput } from "./models/CircuitCreateInput";
 export type { CircuitDoesNotExistResponse } from "./models/CircuitDoesNotExistResponse";
+export type { CircuitDownloadInput } from "./models/CircuitDownloadInput";
 export type { CircuitInfoResponse } from "./models/CircuitInfoResponse";
 export type { CircuitIsNotReadyResponse } from "./models/CircuitIsNotReadyResponse";
 export type { CircuitProveInput } from "./models/CircuitProveInput";
