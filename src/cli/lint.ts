@@ -134,7 +134,7 @@ export const lintCommand = new Command()
       sindri.logger.warn(
         `Circuit type is not configured in "${sindriJsonPath}" so some linting steps will be ` +
           "skipped and the manifest linting output will be very noisy. Please correct " +
-          '"circuiType" in "sindri.json" and rerun "sindri lint" to get better linting.',
+          '"circuitType" in "sindri.json" and rerun "sindri lint" to get better linting.',
       );
       warningCount += 1;
     }
