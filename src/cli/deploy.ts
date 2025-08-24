@@ -160,7 +160,7 @@ export const deployCommand = new Command()
       tarballFilename,
     );
 
-    // Atach the metadata to the form data.
+    // Attach the metadata to the form data.
     formData.append("meta", JSON.stringify(meta));
 
     // Attach the tags to the form data.
