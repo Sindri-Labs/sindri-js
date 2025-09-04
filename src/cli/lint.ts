@@ -221,7 +221,7 @@ export const lintCommand = new Command()
           );
           const libraryPathSupported: boolean =
             libraryPathSupportedTestCode === 0;
-          // Conditionally include library paths if supported by the Ciromspect version.
+          // Conditionally include library paths if supported by the Circomspect version.
           // It's important that this path logic is kept in sync with the Sindri backend.
           const libraryPathArgs: string[] = libraryPathSupported
             ? ["--library", ".", "--library", path.join(".", "node_modules")]
