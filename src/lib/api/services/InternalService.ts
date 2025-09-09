@@ -76,7 +76,7 @@ export class InternalService {
   /**
    * Circuit File Download
    * Obtain circuit file(s).
-   * @param circuitId The circuit identifer of the circuit.
+   * @param circuitId The circuit identifier of the circuit.
    * This can take one of the following forms:
    *
    * 1. `<CIRCUIT_ID>` - The unique UUID4 ID for an exact version of a compiled circuit.
@@ -118,7 +118,7 @@ export class InternalService {
   /**
    * Circuit Proofs
    * List all proofs for a circuit.
-   * @param circuitId The circuit identifer of the circuit.
+   * @param circuitId The circuit identifier of the circuit.
    * This can take one of the following forms:
    *
    * 1. `<CIRCUIT_ID>` - The unique UUID4 ID for an exact version of a compiled circuit.
@@ -163,7 +163,7 @@ export class InternalService {
   /**
    * Circuit Smart Contract Verifier
    * Get smart contract verifier for existing circuit
-   * @param circuitId The circuit identifer of the circuit.
+   * @param circuitId The circuit identifier of the circuit.
    * This can take one of the following forms:
    *
    * 1. `<CIRCUIT_ID>` - The unique UUID4 ID for an exact version of a compiled circuit.
@@ -275,7 +275,7 @@ export class InternalService {
   /**
    * Project Proofs
    * Get all proofs for a project.
-   * @param projectId The project identifer of the project.
+   * @param projectId The project identifier of the project.
    * This can take one of the following forms:
    *
    * 1. `<PROJECT_ID>` - The unique UUID4 ID for a project.
@@ -302,7 +302,7 @@ export class InternalService {
   /**
    * Project Circuits
    * List all circuits for a project.
-   * @param projectId The project identifer of the project.
+   * @param projectId The project identifier of the project.
    * This can take one of the following forms:
    *
    * 1. `<PROJECT_ID>` - The unique UUID4 ID for a project.
@@ -329,7 +329,7 @@ export class InternalService {
   /**
    * Project Circuits
    * List all circuits for a project.
-   * @param projectId The project identifer of the project.
+   * @param projectId The project identifier of the project.
    * This can take one of the following forms:
    *
    * 1. `<PROJECT_ID>` - The unique UUID4 ID for a project.
@@ -364,7 +364,7 @@ export class InternalService {
   /**
    * Delete Project
    * Delete a project.
-   * @param projectId The project identifer of the project.
+   * @param projectId The project identifier of the project.
    * This can take one of the following forms:
    *
    * 1. `<PROJECT_ID>` - The unique UUID4 ID for a project.
@@ -389,7 +389,7 @@ export class InternalService {
   /**
    * Project Detail
    * Get info for a project.
-   * @param projectId The project identifer of the project.
+   * @param projectId The project identifier of the project.
    * This can take one of the following forms:
    *
    * 1. `<PROJECT_ID>` - The unique UUID4 ID for a project.
@@ -416,7 +416,7 @@ export class InternalService {
   /**
    * Project Proofs
    * Get all proofs for a project.
-   * @param projectId The project identifer of the project.
+   * @param projectId The project identifier of the project.
    * This can take one of the following forms:
    *
    * 1. `<PROJECT_ID>` - The unique UUID4 ID for a project.
