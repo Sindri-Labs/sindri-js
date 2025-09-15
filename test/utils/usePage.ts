@@ -179,7 +179,7 @@ export const usePage = async ({
         ),
       )
       .on("pageerror", ({ message }) =>
-        console.log(`BOWSER ERROR - ${message}`),
+        console.log(`BROWSER ERROR - ${message}`),
       )
       .on("requestfailed", (request) => {
         const requestFailure = request?.failure();
