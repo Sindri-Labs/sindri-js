@@ -52,7 +52,7 @@ export class CircuitsService {
   /**
    * Delete Circuit
    * Delete a circuit.
-   * @param circuitId The circuit identifier of the circuit.
+   * @param circuitId The circuit identifer of the circuit.
    * This can take one of the following forms:
    *
    * 1. `<CIRCUIT_ID>` - The unique UUID4 ID for an exact version of a compiled circuit.
@@ -85,7 +85,7 @@ export class CircuitsService {
   /**
    * Circuit Detail
    * Get info for an existing circuit.
-   * @param circuitId The circuit identifier of the circuit.
+   * @param circuitId The circuit identifer of the circuit.
    * This can take one of the following forms:
    *
    * 1. `<CIRCUIT_ID>` - The unique UUID4 ID for an exact version of a compiled circuit.
@@ -141,7 +141,7 @@ export class CircuitsService {
   /**
    * Circuit Proofs
    * List all proofs for a circuit.
-   * @param circuitId The circuit identifier of the circuit.
+   * @param circuitId The circuit identifer of the circuit.
    * This can take one of the following forms:
    *
    * 1. `<CIRCUIT_ID>` - The unique UUID4 ID for an exact version of a compiled circuit.
@@ -176,7 +176,7 @@ export class CircuitsService {
   /**
    * Create Proof for Circuit
    * Prove a circuit with specific inputs.
-   * @param circuitId The circuit identifier of the circuit.
+   * @param circuitId The circuit identifer of the circuit.
    * This can take one of the following forms:
    *
    * 1. `<CIRCUIT_ID>` - The unique UUID4 ID for an exact version of a compiled circuit.
