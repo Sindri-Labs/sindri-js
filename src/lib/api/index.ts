@@ -14,6 +14,7 @@ export type { ActionResponse } from "./models/ActionResponse";
 export type { APIKeyDoesNotExistResponse } from "./models/APIKeyDoesNotExistResponse";
 export type { APIKeyErrorResponse } from "./models/APIKeyErrorResponse";
 export type { APIKeyResponse } from "./models/APIKeyResponse";
+export type { APIKeyUpdateRequest } from "./models/APIKeyUpdateRequest";
 export type { BoojumCircuitInfoResponse } from "./models/BoojumCircuitInfoResponse";
 export type { CircomCircuitInfoResponse } from "./models/CircomCircuitInfoResponse";
 export type { CircuitCreateInput } from "./models/CircuitCreateInput";
