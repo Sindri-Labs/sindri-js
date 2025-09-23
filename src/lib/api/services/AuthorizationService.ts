@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { ActionResponse } from "../models/ActionResponse";
 import type { APIKeyResponse } from "../models/APIKeyResponse";
+import type { APIKeyUpdateRequest } from "../models/APIKeyUpdateRequest";
 import type { ObtainApikeyInput } from "../models/ObtainApikeyInput";
 
 import type { CancelablePromise } from "../core/CancelablePromise";
@@ -94,6 +95,34 @@ export class AuthorizationService {
       method: "GET",
       url: "/api/v1/apikey/list",
       errors: {
+        500: `Internal Server Error`,
+      },
+    });
+  }
+
+  /**
+   * API Key Update Expiration
+   * Update the expiration date of a specific API key.
+   * @param apikeyId The UUID4 identifier associated with this API Key.
+   * @param requestBody
+   * @returns APIKeyResponse OK
+   * @throws ApiError
+   */
+  public apikeyUpdateExpiration(
+    apikeyId: string,
+    requestBody: APIKeyUpdateRequest,
+  ): CancelablePromise<APIKeyResponse> {
+    return this.httpRequest.request({
+      method: "POST",
+      url: "/api/v1/apikey/{apikey_id}/update",
+      path: {
+        apikey_id: apikeyId,
+      },
+      body: requestBody,
+      mediaType: "application/json",
+      errors: {
+        400: `Bad Request`,
+        404: `Not Found`,
         500: `Internal Server Error`,
       },
     });
