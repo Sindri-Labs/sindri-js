@@ -94,7 +94,6 @@ export const cloneCommand = new Command()
             );
           },
           preserveOwner: false,
-          // @ts-expect-error - `preservePaths` is missing from the library's type definitions.
           preservePaths: false,
           strip: 1,
         }),

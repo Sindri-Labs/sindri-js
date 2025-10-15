@@ -126,6 +126,7 @@ export const getFormData = (
   if (options.formData) {
     // This is a manual edit to allow `FormData` to be passed in directly.
     if (options.formData instanceof FormData) {
+      // @ts-expect-error - formdata-node types conflict with built-in FormData types.
       return options.formData;
     }
 
@@ -149,6 +150,7 @@ export const getFormData = (
         }
       });
 
+    // @ts-expect-error - formdata-node types conflict with built-in FormData types.
     return formData;
   }
   return undefined;

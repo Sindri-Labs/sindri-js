@@ -22,13 +22,13 @@ const parseTarball = makeSynchronous(
     new Promise((resolve) => {
       const files: { [path: string]: Buffer } = {};
       import("tar").then((tar) => {
-        const parseStream = new tar.Parse({
-          // @ts-expect-error - The `ondone` callback is missing from the `ParseOptions` type.
-          ondone: () => {
+        const parseStream = new tar.Parser({
+          // @ts-expect-error - tar v7 API changed, onend callback is not yet properly typed.
+          onend: () => {
             resolve(files);
           },
-          onentry: (entry) => {
-            entry.on("data", (chunk) => {
+          onentry: (entry: any) => {
+            entry.on("data", (chunk: any) => {
               files[entry.path] = Buffer.concat([
                 files[entry.path] ?? Buffer.alloc(0),
                 chunk,

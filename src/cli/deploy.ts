@@ -47,7 +47,11 @@ export const deployCommand = new Command()
   .action(async (directory, { meta, tag: tags, untagged }) => {
     // Validate the tags and "untagged" option.
     if (untagged) {
-      if (tags.length !== 1 || tags[0] !== "latest" || tags.isNotDefault) {
+      if (
+        tags.length !== 1 ||
+        tags[0] !== "latest" ||
+        (tags as CollectedTags).isNotDefault
+      ) {
         sindri.logger.error(
           "You cannot use both the `--tag` and `--untagged` options together.",
         );
@@ -137,28 +141,23 @@ export const deployCommand = new Command()
     sindri.logger.info(
       `Creating "${tarballFilename}" package with ${files.length} files.`,
     );
-    formData.append(
-      "files",
-      new Blob([
-        tar
-          .c(
-            {
-              gzip: true,
-              onwarn: (code: string, message: string) => {
-                sindri.logger.warn(
-                  `While creating tarball: ${code} - ${message}`,
-                );
-              },
-              prefix: `${circuitName}/`,
-              sync: true,
-            },
-            files,
-          )
-          // @ts-expect-error - @types/tar doesn't handle the `sync` option correctly.
-          .read(),
-      ]),
-      tarballFilename,
-    );
+    const tarballBuffer = tar
+      .c(
+        {
+          gzip: true,
+          onwarn: (code: string, message: string) => {
+            sindri.logger.warn(
+              `While creating tarball: ${code} - ${message}`,
+            );
+          },
+          prefix: `${circuitName}/`,
+          sync: true,
+        },
+        files,
+      )
+      .read();
+    assert(tarballBuffer, "Failed to create tarball buffer.");
+    formData.append("files", new Blob([tarballBuffer]), tarballFilename);
 
     // Attach the metadata to the form data.
     formData.append("meta", JSON.stringify(meta));
@@ -176,6 +175,7 @@ export const deployCommand = new Command()
     let circuitId: string | undefined;
     try {
       sindri.logger.info("Circuit compilation initiated.");
+      // @ts-expect-error - formdata-node types conflict with built-in FormData types.
       const response = await sindri._client.circuits.circuitCreate(formData);
       circuitId = response.circuit_id;
     } catch (error) {

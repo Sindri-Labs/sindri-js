@@ -433,6 +433,7 @@ export class SindriClient {
         const tarballContent = await readFile(project);
         (formData as NodeFormData).append(
           "files",
+          // @ts-expect-error - Buffer types conflict with newer @types/node FormData types.
           new File([tarballContent], tarballFilename),
         );
 
@@ -557,6 +558,7 @@ export class SindriClient {
     }
 
     const createResponse = await this._client.circuits.circuitCreate(
+      // @ts-expect-error - formdata-node types conflict with built-in FormData types.
       formData as NodeFormData,
     );
     const circuitId = createResponse.circuit_id;
